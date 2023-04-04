@@ -25,8 +25,8 @@ export const Nav = () => {
             const style =
               router.route === path ? styles.navLinkActive : styles.navLink;
             return (
-              <Link href={path} key={path}>
-                <span className={style}>{text}</span>
+              <Link href={path} key={path} className={style}>
+                {text}
               </Link>
             );
           })}
