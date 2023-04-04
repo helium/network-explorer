@@ -205,6 +205,7 @@
 
   .description {
     font-size: 0.8rem;
+    display: none;
   }
 
   .description a {
