@@ -1,3 +1,4 @@
+import Header from "@/components/Header"
 import "focus-visible"
 import "../styles/tailwind.css"
 
@@ -48,7 +49,10 @@ export const metadata = {
 const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="flex h-full flex-col bg-zinc-50 dark:bg-black">
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }

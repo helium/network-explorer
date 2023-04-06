@@ -3,7 +3,11 @@ export const metadata = {
 }
 
 const HotspotsMap: React.FC = () => {
-  return <div className="flex w-full flex-col items-center">Hotspots Map</div>
+  return (
+    <div className="flex w-full flex-col items-center dark:text-white">
+      Hotspots Map
+    </div>
+  )
 }
 
 export default HotspotsMap
