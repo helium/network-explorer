@@ -16,7 +16,7 @@ const NAVIGATION_LINKS = [
   { title: "Network Stats", href: "/network-stats" },
 ]
 
-function MobileNavigation(props) {
+function MobileNavigation(props: { className?: string }) {
   return (
     <Popover {...props}>
       <Popover.Button className="group flex items-center px-4 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-200">
@@ -78,7 +78,13 @@ function MobileNavigation(props) {
   )
 }
 
-function NavItem({ href, children }) {
+function NavItem({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}) {
   const activeSegment = useSelectedLayoutSegment()
   const isActive = `/${activeSegment ?? ""}` === href
 
@@ -102,7 +108,7 @@ function NavItem({ href, children }) {
   )
 }
 
-function DesktopNavigation(props) {
+function DesktopNavigation(props: { className?: string }) {
   return (
     <nav {...props}>
       <ul className="flex px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">
