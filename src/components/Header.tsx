@@ -8,6 +8,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
 import { Fragment } from "react"
+import GitHubIcon from "./GithubIcon"
 import HeliumIcon from "./HeliumIcon"
 
 const NAVIGATION_LINKS = [
@@ -18,7 +19,7 @@ const NAVIGATION_LINKS = [
 function MobileNavigation(props) {
   return (
     <Popover {...props}>
-      <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
+      <Popover.Button className="group flex items-center px-4 py-2 text-sm font-medium text-zinc-800 dark:text-zinc-200">
         Menu
         <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
       </Popover.Button>
@@ -104,7 +105,7 @@ function NavItem({ href, children }) {
 function DesktopNavigation(props) {
   return (
     <nav {...props}>
-      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+      <ul className="flex px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">
         {NAVIGATION_LINKS.map(({ title, href }) => (
           <NavItem key={href} href={href}>
             {title}
@@ -141,11 +142,11 @@ function ThemeToggle() {
     <button
       type="button"
       aria-label="Toggle dark mode"
-      className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+      className="group py-2"
       onClick={toggleTheme}
     >
-      <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-blue-50 [@media(prefers-color-scheme:dark)]:stroke-blue-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-blue-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-blue-600" />
-      <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-blue-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-blue-500" />
+      <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:hidden" />
+      <MoonIcon className="hidden h-6 w-6 transition dark:block dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
     </button>
   )
 }
@@ -158,7 +159,12 @@ function Logo({ className, ...props }: { className?: string }) {
       className={clsx(className, "pointer-events-auto")}
       {...props}
     >
-      <HeliumIcon className="h-9 w-9 fill-blue-500 transition group-hover:fill-blue-600 dark:fill-zinc-200 dark:group-hover:fill-zinc-100" />
+      <div className="group flex items-center gap-2">
+        <HeliumIcon className="h-7 w-7 fill-zinc-600 transition group-hover:fill-zinc-800 dark:fill-zinc-200 dark:group-hover:fill-zinc-100" />
+        <div className="text-lg tracking-tight text-zinc-600 transition group-hover:text-zinc-700 dark:text-zinc-200 group-hover:dark:text-zinc-100 sm:text-xl">
+          Explorer
+        </div>
+      </div>
     </Link>
   )
 }
@@ -166,21 +172,29 @@ function Logo({ className, ...props }: { className?: string }) {
 export default function Header() {
   return (
     <header className="pointer-events-none relative z-50 flex flex-col">
-      <div className="sticky top-0 z-10 h-16 pt-6">
-        <Container className="fixed top-[var(--header-top,theme(spacing.6))] w-full">
-          <div className="relative flex gap-4">
-            <div className="flex flex-1">
-              <div className="group h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20">
-                <Logo />
-              </div>
+      <div className="sticky z-10 h-24 pt-6">
+        <Container className="fixed w-full">
+          <div className="relative flex gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10">
+            <div className="flex flex-1 items-center">
+              <Logo />
             </div>
             <div className="flex flex-1 justify-end md:justify-center">
               <MobileNavigation className="pointer-events-auto md:hidden" />
               <DesktopNavigation className="pointer-events-auto hidden md:block" />
             </div>
-            <div className="flex justify-end md:flex-1">
+            <div className="flex justify-end gap-4 md:flex-1">
               <div className="pointer-events-auto">
                 <ThemeToggle />
+              </div>
+              <div className="pointer-events-auto py-2">
+                <Link
+                  href="https://github.com/helium/network-explorer"
+                  className="group"
+                  target="_blank"
+                  aria-label="GitHub"
+                >
+                  <GitHubIcon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-700 dark:fill-zinc-400 group-hover:dark:fill-zinc-100" />
+                </Link>
               </div>
             </div>
           </div>
