@@ -6,7 +6,7 @@ type Props = {
 }
 
 export const metadata = {
-  manifest: "/webmanifest.json",
+  manifest: "/manifest.json",
   themeColor: "#000000",
   icons: {
     icon: [
