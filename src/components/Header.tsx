@@ -151,7 +151,7 @@ function ThemeToggle() {
       className="group py-2"
       onClick={toggleTheme}
     >
-      <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:hidden" />
+      <SunIcon className="h-6 w-6 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:hidden" />
       <MoonIcon className="hidden h-6 w-6 transition dark:block dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
     </button>
   )
@@ -177,35 +177,33 @@ function Logo({ className, ...props }: { className?: string }) {
 
 export default function Header() {
   return (
-    <header className="pointer-events-none relative z-50 flex flex-col">
-      <div className="sticky z-10 h-24 pt-6">
-        <Container className="fixed w-full">
-          <div className="relative flex gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10">
-            <div className="flex flex-1 items-center">
-              <Logo />
+    <header className="fixed z-10 h-24 pt-6">
+      <Container className="fixed w-full">
+        <div className="relative flex gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10">
+          <div className="flex flex-1 items-center">
+            <Logo />
+          </div>
+          <div className="flex flex-1 justify-end md:justify-center">
+            <MobileNavigation className="pointer-events-auto md:hidden" />
+            <DesktopNavigation className="pointer-events-auto hidden md:block" />
+          </div>
+          <div className="flex justify-end gap-4 md:flex-1">
+            <div className="pointer-events-auto">
+              <ThemeToggle />
             </div>
-            <div className="flex flex-1 justify-end md:justify-center">
-              <MobileNavigation className="pointer-events-auto md:hidden" />
-              <DesktopNavigation className="pointer-events-auto hidden md:block" />
-            </div>
-            <div className="flex justify-end gap-4 md:flex-1">
-              <div className="pointer-events-auto">
-                <ThemeToggle />
-              </div>
-              <div className="pointer-events-auto py-2">
-                <Link
-                  href="https://github.com/helium/network-explorer"
-                  className="group"
-                  target="_blank"
-                  aria-label="GitHub"
-                >
-                  <GitHubIcon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-700 dark:fill-zinc-400 group-hover:dark:fill-zinc-100" />
-                </Link>
-              </div>
+            <div className="pointer-events-auto py-2">
+              <Link
+                href="https://github.com/helium/network-explorer"
+                className="group"
+                target="_blank"
+                aria-label="GitHub"
+              >
+                <GitHubIcon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-700 dark:fill-zinc-400 group-hover:dark:fill-zinc-100" />
+              </Link>
             </div>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </header>
   )
 }

@@ -49,7 +49,7 @@ export const metadata = {
 const RootLayout: React.FC<Props> = ({ children }) => {
   return (
     <html lang="en">
-      <body className="flex h-full flex-col bg-zinc-50 dark:bg-black">
+      <body className="h-screen bg-zinc-50 dark:bg-black">
         <Header />
         {children}
       </body>
