@@ -25,7 +25,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     color: "#27EE76",
     sourceDomain: "https://hotspot-tileserver.helium.wtf",
     points: {
-      sourcePath: "public.cell_points.json",
+      sourcePath: "public.points.json",
       sourceLayer: "public.points",
     },
     hexes: {
