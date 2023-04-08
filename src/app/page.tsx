@@ -1,13 +1,15 @@
+import HotspotsMap from "@/components/HotspotsMap"
+
 export const metadata = {
   title: "Helium Hotspots Map",
 }
 
-const HotspotsMap: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div className="flex w-full flex-col items-center dark:text-white">
-      Hotspots Map
+    <div className="h-full">
+      <HotspotsMap />
     </div>
   )
 }
 
-export default HotspotsMap
+export default Home
