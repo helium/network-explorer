@@ -1,6 +1,6 @@
 import { Tab } from "@headlessui/react"
-import HeliumIotIcon from "./HeliumIotIcon"
-import HeliumMobileIcon from "./HeliumMobileIcon"
+import HeliumIotIcon from "../icons/HeliumIotIcon"
+import HeliumMobileIcon from "../icons/HeliumMobileIcon"
 import NetworkCoverageLayer from "./NetworkCoverageLayer"
 
 interface LayerConfig {
