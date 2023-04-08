@@ -1,5 +1,52 @@
-const HotspotsMap: React.FC = () => {
-  return <div className="h-full">Hotspots Map</div>
+"use client"
+
+import "mapbox-gl/dist/mapbox-gl.css"
+import { useTheme } from "next-themes"
+import { useMemo } from "react"
+import Map from "react-map-gl"
+
+type Coordinates = [number, number] // [lng, lat]
+
+const MIN_MAP_ZOOM = 2
+
+const WORLD_BOUNDS: [Coordinates, Coordinates] = [
+  [-134.827109, 57.785781],
+  [129.767893, -30.955724],
+]
+
+const INITIAL_VIEW_STATE = {
+  bounds: WORLD_BOUNDS,
 }
 
-export default HotspotsMap
+const MAP_CONTAINER_STYLE: React.CSSProperties = {
+  height: "100%",
+  width: "100%",
+  overflow: "hidden",
+  position: "relative",
+  backgroundColor: "rgb(19,24,37)",
+}
+
+export default function HotspotsMap() {
+  const { systemTheme, theme } = useTheme()
+
+  const currentTheme = theme === "system" ? systemTheme : theme
+
+  const mapStyleUrl = useMemo(() => {
+    let key =
+      currentTheme === "dark"
+        ? "ckshalgloh40l17q6aapw2lp9"
+        : "ckshap8do7p1617rzndourdz2"
+
+    return `mapbox://styles/hotspotty/${key}`
+  }, [currentTheme])
+
+  return (
+    <Map
+      initialViewState={INITIAL_VIEW_STATE}
+      minZoom={MIN_MAP_ZOOM}
+      style={MAP_CONTAINER_STYLE}
+      mapStyle={mapStyleUrl}
+      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY ?? ""}
+    />
+  )
+}
