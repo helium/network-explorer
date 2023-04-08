@@ -27,18 +27,16 @@ const MAP_CONTAINER_STYLE: React.CSSProperties = {
 }
 
 export default function HotspotsMap() {
-  const { systemTheme, theme } = useTheme()
-
-  const currentTheme = theme === "system" ? systemTheme : theme
+  const { resolvedTheme } = useTheme()
 
   const mapStyleUrl = useMemo(() => {
     let key =
-      currentTheme === "dark"
+      resolvedTheme === "dark"
         ? "ckshalgloh40l17q6aapw2lp9"
         : "ckshap8do7p1617rzndourdz2"
 
     return `mapbox://styles/hotspotty/${key}`
-  }, [currentTheme])
+  }, [resolvedTheme])
 
   return (
     <Map
