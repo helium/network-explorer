@@ -4,8 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css"
 import { useTheme } from "next-themes"
 import { useMemo } from "react"
 import Map from "react-map-gl"
-import IotHotspotLayers from "./IotHotspotLayers"
-import MobileHotspotLayers from "./MobileHotspotLayers"
+import LayerTabs from "./LayerTabs"
 import {
   INITIAL_MAP_VIEW_STATE,
   MAP_CONTAINER_STYLE,
@@ -22,7 +21,7 @@ export default function HotspotsMap() {
         ? "ckshalgloh40l17q6aapw2lp9"
         : "ckshap8do7p1617rzndourdz2"
 
-    return `mapbox://styles/hotspotty/${key}`
+    return `mapbox://styles/hotspotty/${key}?optimize=true`
   }, [resolvedTheme])
 
   if (!process.env.NEXT_PUBLIC_MAPBOX_KEY) return null
@@ -36,8 +35,9 @@ export default function HotspotsMap() {
       mapStyle={mapStyleUrl}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
     >
-      <IotHotspotLayers />
-      <MobileHotspotLayers />
+      <div className="fixed bottom-6 z-10 flex w-full justify-center">
+        <LayerTabs />
+      </div>
     </Map>
   )
 }
