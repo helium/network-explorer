@@ -1,9 +1,9 @@
 import { Container } from "@/components/Container"
 import clsx from "clsx"
 import Link from "next/link"
+import GitHubIcon from "../icons/GithubIcon"
+import HeliumIcon from "../icons/HeliumIcon"
 import DesktopNavigation from "./DesktopNavigation"
-import GitHubIcon from "./GithubIcon"
-import HeliumIcon from "./HeliumIcon"
 import MobileNavigation from "./MobileNavigation"
 import ThemeToggle from "./ThemeToggle"
 
