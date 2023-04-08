@@ -5,11 +5,7 @@ export const metadata = {
 }
 
 const Home: React.FC = () => {
-  return (
-    <div className="h-full">
-      <HotspotsMap />
-    </div>
-  )
+  return <HotspotsMap />
 }
 
 export default Home
