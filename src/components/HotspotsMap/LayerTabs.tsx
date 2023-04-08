@@ -34,20 +34,6 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     },
   },
   {
-    name: "MOBILE - Nova Labs",
-    icon: HeliumMobileIcon,
-    color: "#009FF9",
-    sourceDomain: "https://hotspot-tileserver.helium.wtf",
-    points: {
-      sourcePath: "public.cell_points.json",
-      sourceLayer: "public.cell_points",
-    },
-    hexes: {
-      sourcePath: "public.cell_h3_res8.json",
-      sourceLayer: "public.cell_h3_res8",
-    },
-  },
-  {
     name: "IOT - Hotspotty",
     icon: HeliumIotIcon,
     color: "#27EE76",
@@ -59,6 +45,20 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     hexes: {
       sourcePath: "helium_iot_hexes",
       sourceLayer: "helium_iot",
+    },
+  },
+  {
+    name: "MOBILE - Nova Labs",
+    icon: HeliumMobileIcon,
+    color: "#009FF9",
+    sourceDomain: "https://hotspot-tileserver.helium.wtf",
+    points: {
+      sourcePath: "public.cell_points.json",
+      sourceLayer: "public.cell_points",
+    },
+    hexes: {
+      sourcePath: "public.cell_h3_res8.json",
+      sourceLayer: "public.cell_h3_res8",
     },
   },
   {
