@@ -1,6 +1,7 @@
 type Coordinates = [number, number] // [lng, lat]
 
 export const MIN_MAP_ZOOM = 2
+export const MAX_MAP_ZOOM = 14
 
 const WORLD_BOUNDS: [Coordinates, Coordinates] = [
   [-134.827109, 57.785781],
@@ -18,3 +19,5 @@ export const MAP_CONTAINER_STYLE: React.CSSProperties = {
   position: "relative",
   backgroundColor: "rgb(19,24,37)",
 }
+
+export const IOT_HOTSPOT_HEXES_LAYER = "iot_hotspot_hexes"
