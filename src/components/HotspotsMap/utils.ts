@@ -20,8 +20,6 @@ export const MAP_CONTAINER_STYLE: React.CSSProperties = {
   backgroundColor: "rgb(19,24,37)",
 }
 
-export const IOT_HOTSPOT_HEXES_LAYER = "iot_hotspot_hexes_layer"
-
 export const MIN_HEXES_ZOOM = 7
 export const POINTS_AND_HEXES_OVERLAP = 2
 
