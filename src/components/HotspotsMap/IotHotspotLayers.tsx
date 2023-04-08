@@ -1,5 +1,5 @@
 import { Layer, Source } from "react-map-gl"
-import { MIN_MAP_ZOOM } from "./constants"
+import { IOT_HOTSPOT_HEXES_LAYER, MIN_MAP_ZOOM } from "./constants"
 
 export default function IotHotspotLayers() {
   return (
@@ -19,7 +19,12 @@ export default function IotHotspotLayers() {
       </Source>
 
       <Source type="vector" url="https://mt.hotspotty.org/helium_iot_hexes">
-        <Layer type="fill" source-layer="helium_iot" paint={hexFillStyle} />
+        <Layer
+          id={IOT_HOTSPOT_HEXES_LAYER}
+          type="fill"
+          source-layer="helium_iot"
+          paint={hexFillStyle}
+        />
       </Source>
     </>
   )
@@ -33,7 +38,6 @@ const CELL_COLOR = "#27ac92"
 
 const hexFillStyle = {
   "fill-color": CELL_COLOR,
-  "fill-outline-color": "#15ddb5",
   "fill-opacity": 0.4,
 }
 
