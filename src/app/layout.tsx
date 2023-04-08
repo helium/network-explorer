@@ -1,10 +1,7 @@
 import Header from "@/components/Header"
+import Providers from "@/components/Providers"
+import "@/styles/tailwind.css"
 import "focus-visible"
-import "../styles/tailwind.css"
-
-type Props = {
-  children: React.ReactNode
-}
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -46,15 +43,19 @@ export const metadata = {
   },
 }
 
-const RootLayout: React.FC<Props> = ({ children }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="h-screen bg-zinc-50 dark:bg-black">
-        <Header />
-        {children}
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   )
 }
-
-export default RootLayout
