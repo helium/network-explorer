@@ -20,34 +20,6 @@ export interface NetworkCoverageLayerOption {
 
 const layerOptions: NetworkCoverageLayerOption[] = [
   {
-    name: "IOT - Hotspotty",
-    icon: HeliumIotIcon,
-    color: "#27EE76",
-    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
-    points: {
-      sourcePath: "helium_iot_points",
-      sourceLayer: "helium_iot",
-    },
-    hexes: {
-      sourcePath: "helium_iot_hexes",
-      sourceLayer: "helium_iot",
-    },
-  },
-  {
-    name: "MOBILE - Hotspotty",
-    icon: HeliumMobileIcon,
-    color: "#009FF9",
-    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
-    points: {
-      sourcePath: "helium_mobile_points",
-      sourceLayer: "helium_mobile",
-    },
-    hexes: {
-      sourcePath: "helium_mobile_hexes",
-      sourceLayer: "helium_mobile",
-    },
-  },
-  {
     name: "IOT - Nova Labs",
     icon: HeliumIotIcon,
     color: "#27EE76",
@@ -73,6 +45,34 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     hexes: {
       sourcePath: "public.cell_h3_res8.json",
       sourceLayer: "public.cell_h3_res8",
+    },
+  },
+  {
+    name: "IOT - Hotspotty",
+    icon: HeliumIotIcon,
+    color: "#27EE76",
+    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
+    points: {
+      sourcePath: "helium_iot_points",
+      sourceLayer: "helium_iot",
+    },
+    hexes: {
+      sourcePath: "helium_iot_hexes",
+      sourceLayer: "helium_iot",
+    },
+  },
+  {
+    name: "MOBILE - Hotspotty",
+    icon: HeliumMobileIcon,
+    color: "#009FF9",
+    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
+    points: {
+      sourcePath: "helium_mobile_points",
+      sourceLayer: "helium_mobile",
+    },
+    hexes: {
+      sourcePath: "helium_mobile_hexes",
+      sourceLayer: "helium_mobile",
     },
   },
 ]
