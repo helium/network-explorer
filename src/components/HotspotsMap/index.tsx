@@ -5,12 +5,13 @@ import { useTheme } from "next-themes"
 import { useMemo } from "react"
 import Map from "react-map-gl"
 import IotHotspotLayers from "./IotHotspotLayers"
+import MobileHotspotLayers from "./MobileHotspotLayers"
 import {
   INITIAL_MAP_VIEW_STATE,
   MAP_CONTAINER_STYLE,
   MAX_MAP_ZOOM,
   MIN_MAP_ZOOM,
-} from "./constants"
+} from "./utils"
 
 export default function HotspotsMap() {
   const { resolvedTheme } = useTheme()
@@ -36,6 +37,7 @@ export default function HotspotsMap() {
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
     >
       <IotHotspotLayers />
+      <MobileHotspotLayers />
     </Map>
   )
 }
