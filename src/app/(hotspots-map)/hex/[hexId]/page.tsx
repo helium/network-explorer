@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { hexId: string } }) {
   if (!isValidCell(params.hexId)) redirect("/")
 
   return (
-    <div className="absolute inset-y-6 left-6 z-50 flex w-80 flex-col gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10">
+    <div className="absolute bottom-6 left-4 right-4 top-24 z-50 flex w-auto flex-col gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10 sm:inset-y-6 sm:left-6 sm:right-auto sm:w-80">
       <div className="flex w-full items-center p-2">
         <div className="flex-1">Hex: {params.hexId}</div>
         <Link href="/">
