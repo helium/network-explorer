@@ -2,7 +2,7 @@
 
 import clsx from "clsx"
 import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { NAVIGATION_LINKS } from "./constants"
 
 function NavItem({
@@ -12,8 +12,8 @@ function NavItem({
   href: string
   children: React.ReactNode
 }) {
-  const activeSegment = useSelectedLayoutSegment()
-  const isActive = `/${activeSegment ?? ""}` === href
+  const pathname = usePathname()
+  const isActive = pathname === href
 
   return (
     <li>
