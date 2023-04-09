@@ -18,8 +18,8 @@ export default function HotspotsMap() {
   const mapStyleUrl = useMemo(() => {
     let key =
       resolvedTheme === "dark"
-        ? "ckshalgloh40l17q6aapw2lp9"
-        : "ckshap8do7p1617rzndourdz2"
+        ? "clg9crwz3001001plb31bjk9g"
+        : "clg9cv0at001g01pegr0zscwq"
 
     return `mapbox://styles/hotspotty/${key}?optimize=true`
   }, [resolvedTheme])
