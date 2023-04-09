@@ -6,7 +6,6 @@ import {
   POINTS_AND_HEXES_OVERLAP,
   getBlurredPointStyle,
   getHexFillStyle,
-  hexOutlineStyle,
 } from "./utils"
 
 export default function NetworkCoverageLayer({
@@ -43,12 +42,6 @@ export default function NetworkCoverageLayer({
           source-layer={hexes.sourceLayer}
           paint={getHexFillStyle(color)}
           minzoom={MIN_HEXES_ZOOM}
-        />
-        <Layer
-          id="hexes_outline_layer"
-          source-layer={hexes.sourceLayer}
-          type="line"
-          paint={hexOutlineStyle}
         />
       </Source>
     </Fragment>

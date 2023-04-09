@@ -1,9 +1,9 @@
-type Coordinates = [number, number] // [lng, lat]
+import { CoordPair } from "h3-js"
 
 export const MIN_MAP_ZOOM = 2
 export const MAX_MAP_ZOOM = 14
 
-const WORLD_BOUNDS: [Coordinates, Coordinates] = [
+const WORLD_BOUNDS: [CoordPair, CoordPair] = [
   [-134.827109, 57.785781],
   [129.767893, -30.955724],
 ]
@@ -52,17 +52,20 @@ export const getBlurredPointStyle = (color: string): mapboxgl.CirclePaint => ({
 
 export const hexOutlineStyle: mapboxgl.LinePaint = {
   "line-color": "#fff",
-  "line-width": [
-    "case",
-    ["boolean", ["feature-state", "selected"], true],
-    0,
-    6,
-  ],
+  "line-width": 4,
 }
 
 export interface HexFeatureDetails {
-  hexFeatureId: number
   hexId: string
-  sourceId: string
-  sourceLayer: string
+  geojson: GeoJSON.Geometry
+}
+
+export const ZOOM_BY_HEX_RESOLUTION: { [resolution: number]: number } = {
+  10: 14,
+  9: 14,
+  8: 13,
+  7: 12,
+  6: 11,
+  5: 10,
+  4: 9,
 }
