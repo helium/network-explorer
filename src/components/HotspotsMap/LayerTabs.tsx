@@ -20,20 +20,6 @@ export interface NetworkCoverageLayerOption {
 
 const layerOptions: NetworkCoverageLayerOption[] = [
   {
-    name: "IOT - Nova Labs",
-    icon: HeliumIotIcon,
-    color: "#27EE76",
-    sourceDomain: "https://hotspot-tileserver.helium.wtf",
-    points: {
-      sourcePath: "public.points.json",
-      sourceLayer: "public.points",
-    },
-    hexes: {
-      sourcePath: "public.h3_res8.json",
-      sourceLayer: "public.h3_res8",
-    },
-  },
-  {
     name: "IOT - Hotspotty",
     icon: HeliumIotIcon,
     color: "#27EE76",
@@ -45,6 +31,20 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     hexes: {
       sourcePath: "helium_iot_hexes",
       sourceLayer: "helium_iot",
+    },
+  },
+  {
+    name: "IOT - Nova Labs",
+    icon: HeliumIotIcon,
+    color: "#27EE76",
+    sourceDomain: "https://hotspot-tileserver.helium.wtf",
+    points: {
+      sourcePath: "public.points.json",
+      sourceLayer: "public.points",
+    },
+    hexes: {
+      sourcePath: "public.h3_res8.json",
+      sourceLayer: "public.h3_res8",
     },
   },
   {

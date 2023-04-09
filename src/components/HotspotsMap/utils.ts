@@ -49,3 +49,20 @@ export const getBlurredPointStyle = (color: string): mapboxgl.CirclePaint => ({
     2,
   ],
 })
+
+export const hexOutlineStyle: mapboxgl.LinePaint = {
+  "line-color": "#fff",
+  "line-width": [
+    "case",
+    ["boolean", ["feature-state", "selected"], true],
+    0,
+    6,
+  ],
+}
+
+export interface HexFeatureDetails {
+  hexFeatureId: number
+  hexId: string
+  sourceId: string
+  sourceLayer: string
+}
