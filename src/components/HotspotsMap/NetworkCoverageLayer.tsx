@@ -3,30 +3,28 @@ import { Layer, Source } from "react-map-gl"
 import { NetworkCoverageLayerOption } from "./LayerTabs"
 import {
   MIN_HEXES_ZOOM,
-  MIN_MAP_ZOOM,
   POINTS_AND_HEXES_OVERLAP,
   getBlurredPointStyle,
   getHexFillStyle,
+  hexOutlineStyle,
 } from "./utils"
 
 export default function NetworkCoverageLayer({
-  layer: { name, color, sourceDomain, points, hexes },
+  layer: { color, sourceDomain, points, hexes },
   ...props
 }: {
   layer: NetworkCoverageLayerOption
 }) {
-  const id = name.toLowerCase().replaceAll(" ", "_")
   return (
     <Fragment {...props}>
       <Source
-        id={`${id}_points_source`}
+        id="points_source"
         type="vector"
         url={`${sourceDomain}/${points.sourcePath}`}
-        minzoom={MIN_MAP_ZOOM}
         maxzoom={MIN_HEXES_ZOOM + POINTS_AND_HEXES_OVERLAP}
       >
         <Layer
-          id={`${id}_points_layer`}
+          id="points_layer"
           type="circle"
           source-layer={points.sourceLayer}
           maxzoom={MIN_HEXES_ZOOM + POINTS_AND_HEXES_OVERLAP}
@@ -34,15 +32,23 @@ export default function NetworkCoverageLayer({
         />
       </Source>
       <Source
-        id={`${id}_hexes_source`}
+        id="hexes_source"
         type="vector"
         url={`${sourceDomain}/${hexes.sourcePath}`}
+        minzoom={MIN_HEXES_ZOOM - POINTS_AND_HEXES_OVERLAP}
       >
         <Layer
-          id={`${id}_hexes_layer`}
+          id="hexes_layer"
           type="fill"
           source-layer={hexes.sourceLayer}
           paint={getHexFillStyle(color)}
+          minzoom={MIN_HEXES_ZOOM}
+        />
+        <Layer
+          id="hexes_outline_layer"
+          source-layer={hexes.sourceLayer}
+          type="line"
+          paint={hexOutlineStyle}
         />
       </Source>
     </Fragment>
