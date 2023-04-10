@@ -2,6 +2,7 @@ import HexHotspots from "@/components/HotspotsMap/HexHotspots"
 import LoadingHexHotspots from "@/components/HotspotsMap/LoadingHexHotspots"
 import HexIcon from "@/components/icons/HexIcon"
 import { XMarkIcon } from "@heroicons/react/24/outline"
+import clsx from "clsx"
 import { isValidCell } from "h3-js"
 import Link from "next/link"
 import { redirect } from "next/navigation"
@@ -11,7 +12,13 @@ export default async function Page({ params }: { params: { hexId: string } }) {
   if (!isValidCell(params.hexId)) redirect("/")
 
   return (
-    <div className="absolute bottom-6 left-4 right-4 top-24 z-50 flex w-auto flex-col gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10 sm:bottom-auto sm:left-6 sm:right-auto sm:top-6 sm:max-h-[calc(100vh-3rem)] sm:w-80">
+    <div
+      className={clsx(
+        "absolute bottom-6 left-4 right-4 top-24 z-50 flex w-auto flex-col gap-4 rounded-xl px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur-sm sm:bottom-auto sm:left-6 sm:right-auto sm:top-6 sm:max-h-[calc(100vh-3rem)] sm:w-80",
+        "bg-white/30 text-zinc-800 ring-zinc-900/5",
+        "dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10"
+      )}
+    >
       <div className="flex w-full items-center gap-3 p-2">
         <HexIcon
           width={21}
