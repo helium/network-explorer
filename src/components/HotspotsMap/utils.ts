@@ -60,7 +60,7 @@ export const getHexLabelStyle = (
   theme: string | undefined
 ): mapboxgl.SymbolPaint => ({
   "text-opacity": ["case", ["==", ["get", "count"], 1], 0, 0.85],
-  "text-color": theme === "dark" ? "#10192d" : "gray",
+  "text-color": theme === "dark" ? "rgb(19,24,37)" : "gray",
 })
 
 export const hexLabelLayout: mapboxgl.SymbolLayout = {
