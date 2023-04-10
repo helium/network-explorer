@@ -125,20 +125,20 @@ export default function HotspotSearch() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-20 overflow-hidden rounded-xl bg-gray-900 shadow-2xl transition-all">
+              <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900 dark:bg-opacity-100">
                 <Combobox onChange={handleHotspotSelection}>
                   <div className="relative">
                     {isLoading ? (
-                      <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-gray-500" />
+                      <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-gray-900 text-opacity-40 dark:text-gray-500 dark:text-opacity-100" />
                     ) : (
                       <MagnifyingGlassIcon
-                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-500"
+                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-900 text-opacity-40 dark:text-gray-500 dark:text-opacity-100"
                         aria-hidden="true"
                       />
                     )}
 
                     <Combobox.Input
-                      className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-white focus:ring-0 sm:text-sm"
+                      className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 focus:ring-0 dark:text-white sm:text-sm"
                       placeholder="Search hotspot by name..."
                       type="search"
                       onChange={(event) => {
@@ -152,10 +152,10 @@ export default function HotspotSearch() {
                   {searchResults.length > 0 && (
                     <Combobox.Options
                       static
-                      className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-20 overflow-y-auto"
+                      className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto dark:divide-opacity-20"
                     >
                       <li className="p-2">
-                        <ul className="text-sm text-gray-400">
+                        <ul className="text-sm text-gray-700 dark:text-gray-400">
                           {searchResults
                             .slice(0, RESULTS_LIMIT)
                             .map((hotspot) => {
@@ -170,7 +170,8 @@ export default function HotspotSearch() {
                                   className={({ active }) =>
                                     clsx(
                                       "flex cursor-pointer select-none items-center rounded-md px-3 py-3",
-                                      active && "bg-gray-800 text-white"
+                                      active &&
+                                        "bg-gray-900 bg-opacity-5 text-gray-900 dark:bg-gray-800 dark:bg-opacity-100 dark:text-white"
                                     )
                                   }
                                 >
@@ -184,7 +185,7 @@ export default function HotspotSearch() {
                                         {hotspot.name.replaceAll("-", " ")}
                                       </span>
                                       {active && (
-                                        <span className="ml-3 flex-none text-gray-400">
+                                        <span className="ml-3 flex-none text-gray-500 dark:text-gray-400">
                                           Go to hotspot
                                         </span>
                                       )}
@@ -201,10 +202,10 @@ export default function HotspotSearch() {
                   {query !== "" && searchResults.length === 0 && !isLoading && (
                     <div className="px-6 py-14 text-center sm:px-14">
                       <QuestionMarkCircleIcon
-                        className="mx-auto h-12 w-12 text-gray-500"
+                        className="mx-auto h-12 w-12 text-gray-900 dark:text-gray-500"
                         aria-hidden="true"
                       />
-                      <p className="mt-4 text-sm text-gray-200">
+                      <p className="mt-4 text-sm text-gray-900 dark:text-gray-200">
                         We couldn&#39;t find matching hotspots...
                       </p>
                     </div>
