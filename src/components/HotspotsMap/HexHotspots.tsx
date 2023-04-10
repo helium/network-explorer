@@ -51,10 +51,10 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
 
 export default async function HexHotspots({ hexId }: { hexId: string }) {
   const hexData = (await fetch(
-    `${process.env.HOTSPOTTY_EXPLORER_API_URL}/hex/${hexId}`,
+    `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/hex/${hexId}`,
     {
       headers: {
-        Authorization: `bearer ${process.env.HOTSPOTTY_EXPLORER_API_TOKEN}`,
+        Authorization: `bearer ${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_TOKEN}`,
       },
     }
   ).then((res) => res.json())) as HexData
