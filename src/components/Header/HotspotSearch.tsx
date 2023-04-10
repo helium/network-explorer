@@ -47,10 +47,7 @@ export default function HotspotSearch() {
       const searchUrl = new URL(
         `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/search`
       )
-      searchUrl.searchParams.append(
-        "name",
-        query.toLowerCase().trim().replaceAll(" ", "-")
-      )
+      searchUrl.searchParams.append("name", query.trim().replaceAll(" ", "-"))
 
       const results = (await fetch(searchUrl, {
         signal,
