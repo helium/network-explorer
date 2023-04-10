@@ -4,6 +4,7 @@ import Link from "next/link"
 import GitHubIcon from "../icons/GithubIcon"
 import HeliumIcon from "../icons/HeliumIcon"
 import DesktopNavigation from "./DesktopNavigation"
+import HotspotSearch from "./HotspotSearch"
 import MobileNavigation from "./MobileNavigation"
 import ThemeToggle from "./ThemeToggle"
 
@@ -38,6 +39,9 @@ export default function Header() {
             <DesktopNavigation className="pointer-events-auto hidden md:block" />
           </div>
           <div className="flex justify-end gap-4 md:flex-1">
+            <div className="pointer-events-auto">
+              <HotspotSearch />
+            </div>
             <div className="pointer-events-auto">
               <ThemeToggle />
             </div>
