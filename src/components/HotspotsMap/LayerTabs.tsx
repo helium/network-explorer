@@ -3,6 +3,7 @@ import clsx from "clsx"
 import HeliumIotIcon from "../icons/HeliumIotIcon"
 import HeliumMobileIcon from "../icons/HeliumMobileIcon"
 import NetworkCoverageLayer from "./NetworkCoverageLayer"
+import { HELIUM_IOT_COLOR, HELIUM_MOBILE_COLOR } from "./utils"
 
 interface LayerConfig {
   sourcePath: string
@@ -22,7 +23,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
   {
     name: "IOT",
     icon: HeliumIotIcon,
-    color: "#27EE76",
+    color: HELIUM_IOT_COLOR,
     sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
     points: {
       sourcePath: "public.helium_iot_points.json",
@@ -36,7 +37,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
   {
     name: "MOBILE",
     icon: HeliumMobileIcon,
-    color: "#009FF9",
+    color: HELIUM_MOBILE_COLOR,
     sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
     points: {
       sourcePath: "public.helium_mobile_points.json",
