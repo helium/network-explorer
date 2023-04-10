@@ -2,18 +2,20 @@
 
 import clsx from "clsx"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useSelectedLayoutSegment } from "next/navigation"
 import { NAVIGATION_LINKS } from "./constants"
 
 function NavItem({
   href,
+  layoutSegment,
   children,
 }: {
   href: string
+  layoutSegment: string
   children: React.ReactNode
 }) {
-  const pathname = usePathname()
-  const isActive = pathname === href
+  const selectedLayoutSegment = useSelectedLayoutSegment()
+  const isActive = selectedLayoutSegment === layoutSegment
 
   return (
     <li>
@@ -39,8 +41,8 @@ export default function DesktopNavigation(props: { className?: string }) {
   return (
     <nav {...props}>
       <ul className="flex px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-        {NAVIGATION_LINKS.map(({ title, href }) => (
-          <NavItem key={href} href={href}>
+        {NAVIGATION_LINKS.map(({ title, href, layoutSegment }) => (
+          <NavItem key={href} href={href} layoutSegment={layoutSegment}>
             {title}
           </NavItem>
         ))}

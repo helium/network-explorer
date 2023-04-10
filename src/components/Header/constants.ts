@@ -1,4 +1,8 @@
 export const NAVIGATION_LINKS = [
-  { title: "Hotspot Map", href: "/" },
-  { title: "Network Stats", href: "/network-stats" },
+  { title: "Hotspot Map", href: "/", layoutSegment: "(hotspots-map)" },
+  {
+    title: "Network Stats",
+    href: "/network-stats",
+    layoutSegment: "network-stats",
+  },
 ]
