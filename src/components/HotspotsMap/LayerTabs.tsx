@@ -24,7 +24,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     name: "IOT",
     icon: HeliumIotIcon,
     color: HELIUM_IOT_COLOR,
-    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
+    sourceDomain: process.env.NEXT_PUBLIC_HOTSPOTTY_TILESERVER_URL!,
     points: {
       sourcePath: "public.helium_iot_points.json",
       sourceLayer: "public.helium_iot_points",
@@ -38,7 +38,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
     name: "MOBILE",
     icon: HeliumMobileIcon,
     color: HELIUM_MOBILE_COLOR,
-    sourceDomain: process.env.NEXT_PUBLIC_TILESERVER_URL!,
+    sourceDomain: process.env.NEXT_PUBLIC_HOTSPOTTY_TILESERVER_URL!,
     points: {
       sourcePath: "public.helium_mobile_points.json",
       sourceLayer: "public.helium_mobile_points",
