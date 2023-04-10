@@ -4,6 +4,7 @@ import { Combobox, Dialog, Transition } from "@headlessui/react"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid"
 import clsx from "clsx"
+import { isValidCell } from "h3-js"
 import { useRouter } from "next/navigation"
 import { Fragment, useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
@@ -65,7 +66,13 @@ export default function HotspotSearch() {
   }, [])
 
   const onChangeSearch = useDebouncedCallback((query: string) => {
-    searchItemByQuery(query)
+    if (query.length === 15 && isValidCell(query)) {
+      router.push(`/hex/${query}`)
+      setOpen(false)
+      clearSearchModal()
+    } else {
+      searchItemByQuery(query)
+    }
   }, 400)
 
   const clearSearchModal = useCallback(() => {
