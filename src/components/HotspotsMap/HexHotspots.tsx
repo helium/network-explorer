@@ -65,6 +65,14 @@ export default async function HexHotspots({ hexId }: { hexId: string }) {
 
   const groupedList = getGroupedHotspots(hotspots)
 
+  if (hotspots.length === 0) {
+    return (
+      <div className="mb-2 text-sm font-medium text-gray-900 dark:text-zinc-200">
+        This hex contains no hotspots.
+      </div>
+    )
+  }
+
   return (
     <div className="relative flex-1 overflow-y-auto">
       {Object.keys(groupedList).map((group) => {
