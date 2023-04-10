@@ -54,10 +54,12 @@ export const getBlurredPointStyle = (color: string): mapboxgl.CirclePaint => ({
   ],
 })
 
-export const hexOutlineStyle: mapboxgl.LinePaint = {
-  "line-color": "#fff",
+export const getHexOutlineStyle = (
+  theme: string | undefined
+): mapboxgl.LinePaint => ({
+  "line-color": theme === "dark" ? "#fff" : "rgb(113,113,122)",
   "line-width": 4,
-}
+})
 
 export const getHexLabelStyle = (
   theme: string | undefined
