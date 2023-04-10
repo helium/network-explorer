@@ -21,6 +21,7 @@ export const MAP_CONTAINER_STYLE: React.CSSProperties = {
 }
 
 export const MIN_HEXES_ZOOM = 7
+export const MIN_HEX_LABELS_ZOOM = 11
 export const POINTS_AND_HEXES_OVERLAP = 2
 
 export const getHexFillStyle = (color: string): mapboxgl.FillPaint => ({
@@ -53,6 +54,19 @@ export const getBlurredPointStyle = (color: string): mapboxgl.CirclePaint => ({
 export const hexOutlineStyle: mapboxgl.LinePaint = {
   "line-color": "#fff",
   "line-width": 4,
+}
+
+export const getHexLabelStyle = (
+  theme: string | undefined
+): mapboxgl.SymbolPaint => ({
+  "text-opacity": ["case", ["==", ["get", "count"], 1], 0, 0.85],
+  "text-color": theme === "dark" ? "#10192d" : "gray",
+})
+
+export const hexLabelLayout: mapboxgl.SymbolLayout = {
+  "text-field": ["get", "count"],
+  "text-allow-overlap": false,
+  "text-size": 23,
 }
 
 export interface HexFeatureDetails {
