@@ -24,6 +24,9 @@ export const MIN_HEXES_ZOOM = 7
 export const MIN_HEX_LABELS_ZOOM = 11
 export const POINTS_AND_HEXES_OVERLAP = 2
 
+export const HELIUM_IOT_COLOR = "#27EE76"
+export const HELIUM_MOBILE_COLOR = "#009FF9"
+
 export const getHexFillStyle = (color: string): mapboxgl.FillPaint => ({
   "fill-color": color,
   "fill-opacity": 0.4,
