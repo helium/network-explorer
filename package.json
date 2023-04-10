@@ -16,7 +16,7 @@
   "dependencies": {
     "@headlessui/react": "1.7.13",
     "@headlessui/tailwindcss": "0.1.2",
-    "@heroicons/react": "2.0.16",
+    "@heroicons/react": "2.0.17",
     "@tailwindcss/forms": "0.5.3",
     "@tailwindcss/typography": "0.5.9",
     "angry-purple-tiger": "1.0.5",
@@ -24,32 +24,32 @@
     "focus-visible": "5.2.0",
     "h3-js": "4.1.0",
     "mapbox-gl": "2.13.0",
-    "next": "13.2.4",
+    "next": "13.3.0",
     "next-themes": "0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-map-gl": "7.0.21",
-    "tailwindcss": "3.3.0"
+    "tailwindcss": "3.3.1"
   },
   "devDependencies": {
-    "@next/env": "13.2.4",
+    "@next/env": "13.3.0",
     "@types/mapbox-gl": "2.7.10",
-    "@types/node": "18.15.10",
-    "@types/react": "18.0.30",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.34",
     "@types/react-dom": "18.0.11",
     "autoprefixer": "10.4.14",
-    "eslint": "8.36.0",
-    "eslint-config-next": "13.2.4",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
     "eslint-config-prettier": "8.8.0",
     "husky": "8.0.3",
-    "lint-staged": "13.2.0",
+    "lint-staged": "13.2.1",
     "postcss": "8.4.21",
     "postcss-focus-visible": "8.0.2",
     "postcss-import": "15.1.0",
     "prettier": "2.8.7",
-    "prettier-plugin-tailwindcss": "0.2.5",
+    "prettier-plugin-tailwindcss": "0.2.7",
     "sharp": "0.32.0",
     "ts-node": "10.9.1",
-    "typescript": "5.0.2"
+    "typescript": "5.0.4"
   }
 }
