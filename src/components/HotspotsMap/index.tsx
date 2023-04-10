@@ -18,7 +18,7 @@ import {
   MAX_MAP_ZOOM,
   MIN_MAP_ZOOM,
   ZOOM_BY_HEX_RESOLUTION,
-  hexOutlineStyle,
+  getHexOutlineStyle,
 } from "./utils"
 
 export default function HotspotsMap({
@@ -130,7 +130,7 @@ export default function HotspotsMap({
       </div>
       {selectedHex && (
         <Source type="geojson" data={selectedHex.geojson}>
-          <Layer type="line" paint={hexOutlineStyle} />
+          <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
         </Source>
       )}
     </Map>

@@ -1,16 +1,17 @@
 import animalHash from "angry-purple-tiger"
 import clsx from "clsx"
-import Image from "next/image"
+import HeliumIotIcon from "../icons/HeliumIotIcon"
+import HeliumMobileIcon from "../icons/HeliumMobileIcon"
 
 interface SmallCell {
   cell_id: string
-  "24h_rewards_mobile": number
+  mobile_rewards_24h: number
 }
 
 interface Hotspot {
   hotspot_id: string
-  "24h_rewards_iot": number
-  avatarUrl: string
+  iot_rewards_24h: number
+  avatar_url: string
   cells: SmallCell[]
 }
 
@@ -18,6 +19,34 @@ interface HexData {
   hex: string
   resolution: number
   hotspots: Hotspot[]
+}
+
+function getHotspot24hRewards(hotspot: Hotspot) {
+  let totalRewards = hotspot.iot_rewards_24h
+  hotspot.cells.forEach((cell) => {
+    totalRewards += cell.mobile_rewards_24h
+  })
+  return totalRewards
+}
+
+function isHotspotActive(hotspot: Hotspot) {
+  return getHotspot24hRewards(hotspot) > 0
+}
+
+function getGroupedHotspots(hotspots: Hotspot[]) {
+  const groupedHotspots: {
+    [group: string]: Hotspot[]
+  } = {
+    active: [],
+    inactive: [],
+  }
+
+  hotspots.forEach((hotspot) => {
+    const group = isHotspotActive(hotspot) ? "active" : "inactive"
+    groupedHotspots[group].push(hotspot)
+  })
+
+  return groupedHotspots
 }
 
 export default async function HexHotspots({ hexId }: { hexId: string }) {
@@ -32,68 +61,73 @@ export default async function HexHotspots({ hexId }: { hexId: string }) {
 
   const hotspots = hexData.hotspots
 
-  hotspots.sort(
-    (hotspot1, hotspot2) =>
-      hotspot2["24h_rewards_iot"] - hotspot1["24h_rewards_iot"]
-  )
+  hotspots.sort((h1, h2) => getHotspot24hRewards(h2) - getHotspot24hRewards(h1))
+
+  const groupedList = getGroupedHotspots(hotspots)
 
   return (
-    <ul
-      role="list"
-      className="flex-1 divide-y divide-gray-200 overflow-y-auto dark:divide-white/10"
-    >
-      {hotspots.map((hotspot) => {
-        const hotspotName = animalHash(hotspot.hotspot_id)
-        let subtitle = "IoT hotspot"
-        if (hotspot.cells.length === 1) subtitle = "One small cell attached"
-        if (hotspot.cells.length > 1) {
-          subtitle = `${hotspot.cells.length} small cells attached`
-        }
+    <div className="relative flex-1 overflow-y-auto">
+      {Object.keys(groupedList).map((group) => {
+        if (groupedList[group].length === 0) return
         return (
-          <li key={hotspot.hotspot_id}>
-            <div className="group relative flex items-center px-5 py-6">
-              <a
-                href={`https://app.hotspotty.net/devices/${hotspot.hotspot_id}/status`}
-                target="_blank"
-                className="-m-1 block flex-1 p-1"
-              >
-                <div
-                  className="absolute inset-0 group-hover:bg-gray-50 dark:group-hover:bg-zinc-700/30"
-                  aria-hidden="true"
-                />
-                <div className="relative flex min-w-0 flex-1 items-center gap-4">
-                  <span className="relative inline-block flex-shrink-0">
-                    <Image
-                      className="h-10 w-10 rounded-full"
-                      width={40}
-                      height={40}
-                      src={hotspot.avatarUrl || "/logo192.png"}
-                      alt={hotspotName}
-                    />
-                    <span
-                      className={clsx(
-                        hotspot["24h_rewards_iot"] > 0
-                          ? "bg-green-400"
-                          : "bg-red-300",
-                        "absolute right-0 top-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <div className="truncate">
-                    <p className="truncate text-sm font-medium text-gray-900 dark:text-zinc-200">
-                      {hotspotName}
-                    </p>
-                    <p className="truncate text-sm text-gray-500 dark:text-zinc-400">
-                      {subtitle}
-                    </p>
-                  </div>
-                </div>
-              </a>
+          <div key={group}>
+            <div
+              className={clsx(
+                "sticky top-0 z-10 flex items-center justify-between rounded-lg px-6 py-1 text-sm font-medium",
+                "bg-zinc-300/80 text-gray-700",
+                "dark:bg-zinc-500/50 dark:text-white"
+              )}
+            >
+              <span className="capitalize">{group}</span>
+              <span className="ml-2 text-xs font-normal">
+                {groupedList[group].length} hotspots
+              </span>
             </div>
-          </li>
+            <ul
+              role="list"
+              className="z-0 flex-1 divide-y divide-gray-200 overflow-y-auto dark:divide-white/10"
+            >
+              {groupedList[group].map((hotspot) => {
+                const hotspotName = animalHash(hotspot.hotspot_id)
+                const hasSmallCells = hotspot.cells.length > 0
+                const Avatar = hasSmallCells ? HeliumMobileIcon : HeliumIotIcon
+                const subtitle = hasSmallCells
+                  ? `${hotspot.cells.length} small cell${
+                      hotspot.cells.length === 1 ? "" : "s"
+                    }`
+                  : "IoT hotspot"
+                return (
+                  <li key={hotspot.hotspot_id}>
+                    <div className="group relative flex items-center px-5 py-6">
+                      <a
+                        href={`https://app.hotspotty.net/devices/${hotspot.hotspot_id}/status`}
+                        target="_blank"
+                        className="-m-1 block flex-1 p-1"
+                      >
+                        <div
+                          className="absolute inset-0 group-hover:bg-zinc-300/30 dark:group-hover:bg-zinc-700/30"
+                          aria-hidden="true"
+                        />
+                        <div className="relative flex min-w-0 flex-1 items-center gap-4">
+                          <Avatar className="inline-block h-10 w-10 flex-shrink-0" />
+                          <div className="truncate">
+                            <p className="truncate text-sm font-medium text-gray-900 dark:text-zinc-200">
+                              {hotspotName}
+                            </p>
+                            <p className="truncate text-sm text-gray-500 dark:text-zinc-400">
+                              {subtitle}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         )
       })}
-    </ul>
+    </div>
   )
 }
