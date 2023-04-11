@@ -1,10 +1,10 @@
 import { useTheme } from "next-themes"
 import { Fragment } from "react"
 import { Layer, Source } from "react-map-gl"
-import { NetworkCoverageLayerOption } from "./LayerTabs"
 import {
   MIN_HEXES_ZOOM,
   MIN_HEX_LABELS_ZOOM,
+  NetworkCoverageLayerOption,
   POINTS_AND_HEXES_OVERLAP,
   getBlurredPointStyle,
   getHexFillStyle,
