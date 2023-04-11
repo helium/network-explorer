@@ -1,6 +1,6 @@
 import { HELIUM_MOBILE_COLOR } from "../HotspotsMap/utils"
 
-export default function HeliumMobileIcon(props: { className?: string }) {
+export function HeliumMobileIcon(props: { className?: string }) {
   return (
     <svg
       viewBox="0 0 41 41"

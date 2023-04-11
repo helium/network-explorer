@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-export default function LoadingHexHotspots({ count }: { count: number }) {
+export function LoadingHexHotspots({ count }: { count: number }) {
   return (
     <div>
       <div

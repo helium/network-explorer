@@ -37,7 +37,7 @@ function NavItem({
   )
 }
 
-export default function DesktopNavigation(props: { className?: string }) {
+export function DesktopNavigation(props: { className?: string }) {
   return (
     <nav {...props}>
       <ul className="flex px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">

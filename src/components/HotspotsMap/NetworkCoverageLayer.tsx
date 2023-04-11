@@ -12,7 +12,7 @@ import {
   hexLabelLayout,
 } from "./utils"
 
-export default function NetworkCoverageLayer({
+export function NetworkCoverageLayer({
   layer: { color, sourceDomain, points, hexes },
   ...props
 }: {

@@ -1,4 +1,4 @@
-import HotspotsMap from "@/components/HotspotsMap"
+import { HotspotsMap } from "@/components/HotspotsMap"
 import React from "react"
 
 export default function Layout({ children }: { children: React.ReactNode }) {

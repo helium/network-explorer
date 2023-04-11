@@ -8,9 +8,9 @@ import { isValidCell } from "h3-js"
 import { useRouter } from "next/navigation"
 import { Fragment, useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
-import HeliumIotIcon from "../icons/HeliumIotIcon"
-import HeliumMobileIcon from "../icons/HeliumMobileIcon"
-import LoadingIcon from "../icons/LoadingIcon"
+import { HeliumIotIcon } from "../icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
+import { LoadingIcon } from "../icons/LoadingIcon"
 
 let controller: AbortController | null = null
 
@@ -25,7 +25,7 @@ export interface HotspotResult {
   cell_count: number
 }
 
-export default function HotspotSearch() {
+export function HotspotSearch() {
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [open, setOpen] = useState(false)

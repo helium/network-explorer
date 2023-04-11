@@ -1,12 +1,12 @@
 import { Container } from "@/components/Container"
 import clsx from "clsx"
 import Link from "next/link"
-import GitHubIcon from "../icons/GithubIcon"
-import HeliumIcon from "../icons/HeliumIcon"
-import DesktopNavigation from "./DesktopNavigation"
-import HotspotSearch from "./HotspotSearch"
-import MobileNavigation from "./MobileNavigation"
-import ThemeToggle from "./ThemeToggle"
+import { GitHubIcon } from "../icons/GithubIcon"
+import { HeliumIcon } from "../icons/HeliumIcon"
+import { DesktopNavigation } from "./DesktopNavigation"
+import { HotspotSearch } from "./HotspotSearch"
+import { MobileNavigation } from "./MobileNavigation"
+import { ThemeToggle } from "./ThemeToggle"
 
 function Logo({ className, ...props }: { className?: string }) {
   return (
@@ -26,7 +26,7 @@ function Logo({ className, ...props }: { className?: string }) {
   )
 }
 
-export default function Header() {
+export function Header() {
   return (
     <header className="fixed z-10 h-24 pt-6">
       <Container className="fixed w-full">

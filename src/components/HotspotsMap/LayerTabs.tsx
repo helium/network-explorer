@@ -1,8 +1,8 @@
 import { Tab } from "@headlessui/react"
 import clsx from "clsx"
-import HeliumIotIcon from "../icons/HeliumIotIcon"
-import HeliumMobileIcon from "../icons/HeliumMobileIcon"
-import NetworkCoverageLayer from "./NetworkCoverageLayer"
+import { HeliumIotIcon } from "../icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
+import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
 import { HELIUM_IOT_COLOR, HELIUM_MOBILE_COLOR } from "./utils"
 
 interface LayerConfig {
@@ -50,7 +50,7 @@ const layerOptions: NetworkCoverageLayerOption[] = [
   },
 ]
 
-export default function LayerTabs() {
+export function LayerTabs() {
   return (
     <Tab.Group>
       <Tab.List className="flex gap-2 space-x-1 rounded-xl bg-white/30 p-1 text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:ring-white/10">
