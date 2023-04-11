@@ -1,4 +1,4 @@
-export default function HeliumIcon(props: { className?: string }) {
+export function HeliumIcon(props: { className?: string }) {
   return (
     <svg x="0px" y="0px" viewBox="0 0 193 193" aria-hidden="true" {...props}>
       <path

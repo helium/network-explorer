@@ -10,7 +10,7 @@ import {
 } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
-import LayerTabs from "./LayerTabs"
+import { LayerTabs } from "./LayerTabs"
 import {
   HexFeatureDetails,
   INITIAL_MAP_VIEW_STATE,
@@ -21,11 +21,7 @@ import {
   getHexOutlineStyle,
 } from "./utils"
 
-export default function HotspotsMap({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
   const router = useRouter()
   const pathname = usePathname()

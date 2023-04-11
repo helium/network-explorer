@@ -1,6 +1,6 @@
 import { HELIUM_IOT_COLOR } from "../HotspotsMap/utils"
 
-export default function HeliumIotIcon(props: { className?: string }) {
+export function HeliumIotIcon(props: { className?: string }) {
   return (
     <svg
       viewBox="0 0 512 512"

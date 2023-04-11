@@ -1,7 +1,7 @@
 import animalHash from "angry-purple-tiger"
 import clsx from "clsx"
-import HeliumIotIcon from "../icons/HeliumIotIcon"
-import HeliumMobileIcon from "../icons/HeliumMobileIcon"
+import { HeliumIotIcon } from "../icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
 
 interface SmallCell {
   cell_id: string
@@ -49,7 +49,7 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
   return groupedHotspots
 }
 
-export default async function HexHotspots({ hexId }: { hexId: string }) {
+export async function HexHotspots({ hexId }: { hexId: string }) {
   const hexData = (await fetch(
     `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/hex/${hexId}`,
     {

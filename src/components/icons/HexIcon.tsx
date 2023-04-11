@@ -1,4 +1,4 @@
-export default function HexIcon({
+export function HexIcon({
   width,
   height,
   ...props

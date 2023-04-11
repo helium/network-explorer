@@ -1,5 +1,5 @@
-import Header from "@/components/Header"
-import Providers from "@/components/Providers"
+import { Header } from "@/components/Header"
+import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
 
