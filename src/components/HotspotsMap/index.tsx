@@ -10,6 +10,7 @@ import {
 } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
+import { Attribution } from "./Attribution"
 import { LayerTabs } from "./LayerTabs"
 import {
   HexFeatureDetails,
@@ -118,12 +119,12 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       cursor={cursor}
       ref={mapRef}
       attributionControl={false}
-      logoPosition="bottom-right"
     >
       {children}
-      <div className="fixed bottom-6 z-10 flex w-full justify-center">
+      <div className="fixed bottom-10 z-10 flex w-full justify-center sm:bottom-6">
         <LayerTabs />
       </div>
+      <Attribution />
       {selectedHex && (
         <Source type="geojson" data={selectedHex.geojson}>
           <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
