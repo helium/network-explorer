@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header"
+import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
@@ -53,7 +54,7 @@ export default function RootLayout({
       <body className="h-screen bg-zinc-50 dark:bg-black">
         <Providers>
           <Header />
-          {children}
+          <HotspotsMap>{children}</HotspotsMap>
         </Providers>
       </body>
     </html>

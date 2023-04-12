@@ -2,6 +2,6 @@ export const metadata = {
   title: "Helium Hotspots Map",
 }
 
-export default function HotspotsMapPage() {
+export default function Page() {
   return null
 }
