@@ -18,6 +18,11 @@ const nextConfig = {
         destination: "/hex/:index",
         permanent: false,
       },
+      {
+        source: "/market",
+        destination: "/stats",
+        permanent: false,
+      },
     ]
   },
 }
