@@ -34,10 +34,8 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const mapStyleUrl = useMemo(() => {
     const styleUrl = new URL(
       resolvedTheme === "dark"
-        ? process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE ||
-          "mapbox://styles/hotspotty/clg9crwz3001001plb31bjk9g"
-        : process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE ||
-          "mapbox://styles/hotspotty/clg9cv0at001g01pegr0zscwq"
+        ? process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE!
+        : process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE!
     )
     styleUrl.searchParams.append("optimize", "true")
     return styleUrl.toString()
