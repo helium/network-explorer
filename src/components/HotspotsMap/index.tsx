@@ -32,12 +32,13 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const [cursor, setCursor] = useState("")
 
   const mapStyleUrl = useMemo(() => {
-    let key =
+    const styleUrl = new URL(
       resolvedTheme === "dark"
-        ? "clg9crwz3001001plb31bjk9g"
-        : "clg9cv0at001g01pegr0zscwq"
-
-    return `mapbox://styles/hotspotty/${key}?optimize=true`
+        ? process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE!
+        : process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE!
+    )
+    styleUrl.searchParams.append("optimize", "true")
+    return styleUrl.toString()
   }, [resolvedTheme])
 
   const selectHex = useCallback((hexId: string | null) => {
