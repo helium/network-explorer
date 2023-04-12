@@ -1,4 +1,6 @@
 import { CoordPair } from "h3-js"
+import { HeliumIotIcon } from "../icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
 
 export const MIN_MAP_ZOOM = 2
 export const MAX_MAP_ZOOM = 14
@@ -88,3 +90,49 @@ export const ZOOM_BY_HEX_RESOLUTION: { [resolution: number]: number } = {
   5: 10,
   4: 9,
 }
+
+interface LayerConfig {
+  sourcePath: string
+  sourceLayer: string
+}
+
+export interface NetworkCoverageLayerOption {
+  name: string
+  icon: (props: any) => JSX.Element
+  color: string
+  sourceDomain: string
+  points: LayerConfig
+  hexes: LayerConfig
+}
+
+export const networkLayers: { [network: string]: NetworkCoverageLayerOption } =
+  {
+    mobile: {
+      name: "MOBILE",
+      icon: HeliumMobileIcon,
+      color: HELIUM_MOBILE_COLOR,
+      sourceDomain: process.env.NEXT_PUBLIC_HOTSPOTTY_TILESERVER_URL!,
+      points: {
+        sourcePath: "public.helium_mobile_points.json",
+        sourceLayer: "public.helium_mobile_points",
+      },
+      hexes: {
+        sourcePath: "public.helium_mobile_hexes.json",
+        sourceLayer: "public.helium_mobile_hexes",
+      },
+    },
+    iot: {
+      name: "IOT",
+      icon: HeliumIotIcon,
+      color: HELIUM_IOT_COLOR,
+      sourceDomain: process.env.NEXT_PUBLIC_HOTSPOTTY_TILESERVER_URL!,
+      points: {
+        sourcePath: "public.helium_iot_points.json",
+        sourceLayer: "public.helium_iot_points",
+      },
+      hexes: {
+        sourcePath: "public.helium_iot_hexes.json",
+        sourceLayer: "public.helium_iot_hexes",
+      },
+    },
+  }

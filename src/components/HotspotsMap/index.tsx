@@ -6,12 +6,13 @@ import { useTheme } from "next-themes"
 import {
   usePathname,
   useRouter,
+  useSelectedLayoutSegment,
   useSelectedLayoutSegments,
 } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
 import { Attribution } from "./Attribution"
-import { LayerTabs } from "./LayerTabs"
+import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
 import {
   HexFeatureDetails,
   INITIAL_MAP_VIEW_STATE,
@@ -20,6 +21,7 @@ import {
   MIN_MAP_ZOOM,
   ZOOM_BY_HEX_RESOLUTION,
   getHexOutlineStyle,
+  networkLayers,
 } from "./utils"
 
 export function HotspotsMap({ children }: { children: React.ReactNode }) {
@@ -27,6 +29,7 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const segments = useSelectedLayoutSegments()
+  const segment = useSelectedLayoutSegment()
   const mapRef = useRef<MapRef>(null)
   const [selectedHex, setSelectedHex] = useState<HexFeatureDetails | null>(null)
   const [cursor, setCursor] = useState("")
@@ -122,10 +125,13 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       attributionControl={false}
     >
       {children}
-      <div className="fixed bottom-10 z-10 flex w-full justify-center sm:bottom-6">
-        <LayerTabs />
-      </div>
-      <Attribution />
+
+      <Attribution className="fixed bottom-6 left-1/2 z-10 -translate-x-1/2" />
+
+      {segment !== "mobile" && (
+        <NetworkCoverageLayer layer={networkLayers.iot} />
+      )}
+
       {selectedHex && (
         <Source type="geojson" data={selectedHex.geojson}>
           <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
