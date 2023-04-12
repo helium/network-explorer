@@ -16,8 +16,15 @@ Download the dependencies:
 
 ```bash
 pnpm install
+```
+
+Add environment variables:
+
+```bash
 cp .env.example .env.local
 ```
+
+Add your [Mapbox access token](https://docs.mapbox.com/help/glossary/access-token/).
 
 ### Run locally
 
