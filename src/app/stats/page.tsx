@@ -2,6 +2,10 @@ import { XMarkIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
 
+export const metadata = {
+  title: "Helium Network Stats",
+}
+
 export default async function Page() {
   return (
     <div

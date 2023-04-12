@@ -7,15 +7,15 @@ import { NAVIGATION_LINKS } from "./constants"
 
 function NavItem({
   href,
-  layoutSegment,
+  layoutSegments,
   children,
 }: {
   href: string
-  layoutSegment: string
+  layoutSegments: (string | null)[]
   children: React.ReactNode
 }) {
   const selectedLayoutSegment = useSelectedLayoutSegment()
-  const isActive = selectedLayoutSegment === layoutSegment
+  const isActive = layoutSegments.includes(selectedLayoutSegment)
 
   return (
     <li>
@@ -41,8 +41,8 @@ export function DesktopNavigation(props: { className?: string }) {
   return (
     <nav {...props}>
       <ul className="flex px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-        {NAVIGATION_LINKS.map(({ title, href, layoutSegment }) => (
-          <NavItem key={href} href={href} layoutSegment={layoutSegment}>
+        {NAVIGATION_LINKS.map(({ title, href, layoutSegments }) => (
+          <NavItem key={href} href={href} layoutSegments={layoutSegments}>
             {title}
           </NavItem>
         ))}
