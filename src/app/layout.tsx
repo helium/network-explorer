@@ -28,7 +28,7 @@ export const metadata = {
   openGraph: {
     title: "Helium Explorer",
     description:
-      "Helium Explorer is an open source block explorer providing detailed blockchain data from the Helium network",
+      "Helium Explorer is an open source network explorer for the Helium network",
     url: "https://explorer.helium.com",
     siteName: "Helium Explorer",
     images: [
