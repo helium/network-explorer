@@ -51,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="h-screen bg-zinc-50 dark:bg-black">
+      <body className="absolute inset-0 bg-zinc-50 dark:bg-black">
         <Providers>
           <Header />
           <HotspotsMap>{children}</HotspotsMap>
