@@ -25,6 +25,8 @@ import {
   MOBILE_MINT,
   amountAsNum,
   humanReadable,
+  humanReadableBigint,
+  numberWithCommas,
   toNumber,
 } from "@helium/spl-utils"
 import { treasuryManagementKey } from "@helium/treasury-management-sdk"
@@ -106,7 +108,7 @@ const SubDaoInfo = ({
       <StatItem label="Active Devices" value={activeCount.result?.count || 0} />
       <StatItem
         label="Utility Score"
-        value={humanReadable(epochInfo.info?.utilityScore, 12)}
+        value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
       />
       <StatItem
         label="veHNT staked"
@@ -114,13 +116,18 @@ const SubDaoInfo = ({
       />
       <StatItem
         label="Treasury (HNT)"
-        value={humanReadable(treasuryTokenAcct.info?.amount, 8)}
+        value={humanReadableBigint(
+          treasuryTokenAcct.info?.amount || BigInt(0),
+          8,
+          0
+        )}
       />
       <StatItem
         label="Supply"
-        value={humanReadable(
+        value={humanReadableBigint(
           mintInfo.info?.info.supply,
-          mintInfo?.info?.info || 0
+          mintInfo?.info?.info || 0,
+          0
         )}
       />
       <StatItem
@@ -128,7 +135,8 @@ const SubDaoInfo = ({
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
       />
       <StatItem
-        label={`Estimated Swap ${title}/HNT`}
+        label="Estimated Swap"
+        unit={`${title}/HNT`}
         value={Math.round(swap)}
       />
     </StatsList>
@@ -140,26 +148,38 @@ const CountdownRenderer = ({
   formatted: { hours, minutes, seconds },
 }: CountdownRenderProps) => {
   let countdown = ""
-  if (days) countdown += `${days} days - `
-  countdown += `${hours}:${minutes}:${seconds}`
-  return <span>{countdown}</span>
+  if (!!days) countdown = `${days} days`
+  else countdown = `${hours}:${minutes}:${seconds}`
+  return <span className="text-base">{countdown}</span>
 }
 
-type StatItemProps = { label: string; value: string | ReactNode }
+type StatItemProps = {
+  label: string
+  value: string | ReactNode | number
+  unit?: string
+}
 
-const StatItem = ({ label, value }: StatItemProps) => {
+const StatItem = ({ label, value, unit }: StatItemProps) => {
+  if (typeof value === "number") value = numberWithCommas(value, 0)
   const isValueString = typeof value === "string"
-  const Value = !isValueString ? value : <p className="text-base">{value}</p>
+  const Value = !isValueString ? (
+    value
+  ) : (
+    <p className="text-base">
+      {value}
+      {!!unit && <span className="text-xs text-gray-500"> {unit}</span>}
+    </p>
+  )
 
   return (
     <div
       className={clsx(
         "w-15 flex flex-1 flex-col justify-between gap-2 rounded-xl border p-4",
-        "border-zinc-900/5 bg-white/30 text-zinc-800",
+        "border-zinc-900/5 bg-white text-zinc-800 shadow",
         "dark:border-white/10 dark:bg-zinc-800/30 dark:text-zinc-200"
       )}
     >
-      <p className="text-sm">{label}</p>
+      <p className="text-sm ">{label}</p>
       {Value}
     </div>
   )
@@ -206,7 +226,7 @@ const HntInfo = () => {
         }
       />
       <StatItem
-        label="Next Halvening"
+        label="Halvening In"
         value={
           <Countdown
             date={NEXT_HALVENING * 1000}
@@ -233,7 +253,7 @@ export const Stats = () => {
     >
       <div className="overflow-y-auto">
         <HntInfo />
-        <SubDaoInfo title="Mobile" sDaoMint={MOBILE_MINT} />
+        <SubDaoInfo title="MOBILE" sDaoMint={MOBILE_MINT} />
         <SubDaoInfo title="IOT" sDaoMint={IOT_MINT} />
       </div>
     </AccountProvider>

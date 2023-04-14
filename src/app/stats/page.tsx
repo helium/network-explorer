@@ -8,8 +8,8 @@ export default async function Page() {
     <div
       className={clsx(
         "absolute inset-0 bottom-0 top-28 z-10 flex w-auto flex-col gap-4 border-t p-6 text-sm font-medium backdrop-blur-sm ",
-        "border-zinc-900/5 bg-white/30 text-zinc-800",
-        "dark:border-white/10 dark:bg-zinc-800/30 dark:text-zinc-200"
+        "border-zinc-900/5 bg-gray-100 text-zinc-800",
+        "dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-200"
       )}
     >
       <div className="flex w-full items-center gap-3">
