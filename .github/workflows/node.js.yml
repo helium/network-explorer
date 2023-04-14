@@ -19,13 +19,16 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.1.1
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: "pnpm"
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       - name: Lint
-        run: npm lint
+        run: pnpm lint
