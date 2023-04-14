@@ -105,14 +105,18 @@ const SubDaoInfo = ({
 
   return (
     <StatsList title={title}>
-      <StatItem label="Active Devices" value={activeCount.result?.count || 0} />
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
       />
+      <StatItem label="Active Devices" value={activeCount.result?.count || 0} />
       <StatItem
         label="veHNT staked"
         value={humanReadable(epochInfo.info?.vehntAtEpochStart, 0)}
+      />
+      <StatItem
+        label="DC Burned (24h)"
+        value={humanReadable(epochInfo.info?.dcBurned, 0)}
       />
       <StatItem
         label="Treasury (HNT)"
@@ -129,10 +133,6 @@ const SubDaoInfo = ({
           mintInfo?.info?.info || 0,
           0
         )}
-      />
-      <StatItem
-        label="DC Burned (24h)"
-        value={humanReadable(epochInfo.info?.dcBurned, 0)}
       />
       <StatItem
         label="Estimated Swap"
