@@ -93,7 +93,7 @@ export function HotspotSearch() {
     <>
       <button
         type="button"
-        aria-label="Open hotspot search"
+        aria-label="Open Hotspot search"
         className="group py-2"
         onClick={() => setOpen(true)}
       >
@@ -143,7 +143,7 @@ export function HotspotSearch() {
 
                     <Combobox.Input
                       className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 focus:ring-0 dark:text-white sm:text-sm"
-                      placeholder="Search hotspot by name..."
+                      placeholder="Search Hotspot by name..."
                       type="search"
                       onChange={(event) => {
                         const value = event.target.value
@@ -190,7 +190,7 @@ export function HotspotSearch() {
                                       </span>
                                       {active && (
                                         <span className="ml-3 flex-none text-gray-500 dark:text-gray-400">
-                                          Go to hotspot
+                                          Go to Hotspot
                                         </span>
                                       )}
                                     </>
@@ -210,7 +210,7 @@ export function HotspotSearch() {
                         aria-hidden="true"
                       />
                       <p className="mt-4 text-sm text-gray-900 dark:text-gray-200">
-                        We couldn&#39;t find matching hotspots...
+                        We couldn&#39;t find matching Hotspots...
                       </p>
                     </div>
                   )}

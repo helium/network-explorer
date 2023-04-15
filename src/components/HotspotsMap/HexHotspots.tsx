@@ -68,7 +68,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
   if (hotspots.length === 0) {
     return (
       <div className="mb-2 text-sm font-medium text-gray-900 dark:text-zinc-200">
-        This hex contains no hotspots.
+        This hex contains no Hotspots.
       </div>
     )
   }
@@ -88,7 +88,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
             >
               <span className="capitalize">{group}</span>
               <span className="ml-2 text-xs font-normal">
-                {groupedList[group].length} hotspots
+                {groupedList[group].length} Hotspots
               </span>
             </div>
             <ul
@@ -103,7 +103,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                   ? `${hotspot.cells.length} small cell${
                       hotspot.cells.length === 1 ? "" : "s"
                     }`
-                  : "IoT hotspot"
+                  : "IoT Hotspot"
                 return (
                   <li key={hotspot.hotspot_id}>
                     <div className="group relative flex items-center px-5 py-6">
