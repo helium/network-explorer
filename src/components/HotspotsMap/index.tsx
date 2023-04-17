@@ -127,7 +127,7 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       {children}
 
       {segment !== "stats" && (
-        <Attribution className="fixed left-1/2 top-6 z-10 -translate-x-1/2 sm:bottom-6" />
+        <Attribution className="fixed left-1/2 top-6 z-10 -translate-x-1/2 sm:bottom-6 sm:top-auto" />
       )}
 
       {segment !== "mobile" && (
