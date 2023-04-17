@@ -81,7 +81,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
           <div key={group}>
             <div
               className={clsx(
-                "sticky top-0 z-10 flex items-center justify-between rounded-lg px-6 py-1 text-sm font-medium",
+                "sticky top-0 z-10 flex items-center justify-between rounded-lg px-2.5 py-1 text-sm font-medium",
                 "bg-zinc-300/80 text-gray-700",
                 "dark:bg-zinc-500/50 dark:text-white"
               )}
@@ -106,7 +106,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                   : "IoT Hotspot"
                 return (
                   <li key={hotspot.hotspot_id}>
-                    <div className="group relative flex items-center px-5 py-6">
+                    <div className="group relative flex items-center px-2 py-3">
                       <a
                         href={`https://app.hotspotty.net/devices/${hotspot.hotspot_id}/status`}
                         target="_blank"
@@ -117,12 +117,12 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                           aria-hidden="true"
                         />
                         <div className="relative flex min-w-0 flex-1 items-center gap-4">
-                          <Avatar className="inline-block h-10 w-10 flex-shrink-0" />
+                          <Avatar className="inline-block h-8 w-8 flex-shrink-0" />
                           <div className="truncate">
-                            <p className="truncate text-sm font-medium text-gray-900 dark:text-zinc-200">
+                            <p className="truncate text-sm font-medium leading-5 text-gray-900 dark:text-zinc-100">
                               {hotspotName}
                             </p>
-                            <p className="truncate text-sm text-gray-500 dark:text-zinc-400">
+                            <p className="truncate text-xs text-gray-600 dark:text-zinc-300">
                               {subtitle}
                             </p>
                           </div>
