@@ -28,7 +28,7 @@ function Logo({ className, ...props }: { className?: string }) {
 
 export function Header() {
   return (
-    <header className="fixed z-20 h-24 pt-6">
+    <header className="fixed bottom-0 z-20 h-24 sm:bottom-auto sm:pt-6">
       <Container className="fixed w-full">
         <div className="relative flex gap-4 rounded-xl bg-white/30 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10">
           <div className="flex flex-1 items-center">

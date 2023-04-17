@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { hexId: string } }) {
   return (
     <div
       className={clsx(
-        "absolute bottom-6 left-4 right-4 top-24 z-50 flex w-auto flex-col gap-4 rounded-xl px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur-sm sm:bottom-auto sm:left-6 sm:right-auto sm:top-24 sm:max-h-[calc(100vh-8rem)] sm:w-80",
+        "absolute bottom-28 left-4 right-4 top-6 z-50 flex w-auto flex-col gap-4 rounded-xl px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 backdrop-blur-sm sm:bottom-6 sm:left-6 sm:right-auto sm:top-24 sm:max-h-[calc(100vh-8rem)] sm:w-80",
         "bg-white/30 text-zinc-800 ring-zinc-900/5",
         "dark:bg-zinc-800/30 dark:text-zinc-200 dark:ring-white/10"
       )}
