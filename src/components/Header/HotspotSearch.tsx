@@ -106,7 +106,7 @@ export function HotspotSearch() {
         appear
         afterLeave={clearSearchModal}
       >
-        <Dialog as="div" className="relative z-30" onClose={setOpen}>
+        <Dialog as="div" className="relative z-50" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -119,7 +119,7 @@ export function HotspotSearch() {
             <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed inset-0 z-30 overflow-y-auto p-4 sm:p-6 md:p-24">
+          <div className="fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-24">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
