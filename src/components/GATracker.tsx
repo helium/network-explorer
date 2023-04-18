@@ -4,16 +4,6 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { GA_ID, IS_PROD } from "./GAScript"
 
-// https://developers.google.com/analytics/devguides/collection/gtagjs/pages
-const gaPageview = (url: string) => {
-  if (!window || !GA_ID || !IS_PROD) return
-  if (!!window?.gtag) {
-    window?.gtag("config", GA_ID, {
-      page_path: url,
-    })
-  }
-}
-
 type GTEventNames = Gtag.EventNames | "map_load"
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const gaEvent = ({
@@ -25,7 +15,9 @@ export const gaEvent = ({
 }) => {
   if (!window || !IS_PROD) return
 
-  if (!!window?.gtag) window?.gtag("event", action, event)
+  if (!!window?.gtag) {
+    window?.gtag("event", action, event)
+  }
 }
 
 const useGA = () => {
@@ -33,8 +25,13 @@ const useGA = () => {
   const searchParams = useSearchParams()
 
   useEffect(() => {
+    if (!window || !GA_ID || !IS_PROD) return
     const url = pathname + searchParams.toString()
-    gaPageview(url)
+    if (!!window?.gtag) {
+      window?.gtag("config", GA_ID, {
+        page_path: url,
+      })
+    }
   }, [pathname, searchParams])
 }
 
