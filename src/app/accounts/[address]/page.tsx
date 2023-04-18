@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
-import { HotspotDetails } from "./components/HotspotDetails"
+import { AccountDetails } from "./components/AccountDetails"
 
 export default function Page() {
   return (
@@ -20,7 +20,7 @@ export default function Page() {
           <XMarkIcon className="h-6 w-6 text-zinc-500 transition hover:text-zinc-700 dark:text-zinc-400 hover:dark:text-zinc-100" />
         </Link>
       </div>
-      <HotspotDetails />
+      <AccountDetails />
     </div>
   )
 }

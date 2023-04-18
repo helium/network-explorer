@@ -17,6 +17,7 @@
     "@coral-xyz/anchor": "^0.27.0",
     "@headlessui/react": "1.7.13",
     "@headlessui/tailwindcss": "0.1.2",
+    "@helium/address": "^4.8.1",
     "@helium/helium-react-hooks": "^0.0.51",
     "@helium/helium-sub-daos-sdk": "^0.0.51",
     "@helium/idls": "^0.0.51",

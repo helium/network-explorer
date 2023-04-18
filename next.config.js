@@ -34,6 +34,21 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: "/accounts/:address/activity",
+        destination: "/accounts/:address",
+        permanent: false,
+      },
+      {
+        source: "/accounts/:address/hotspots",
+        destination: "/accounts/:address",
+        permanent: false,
+      },
+      {
+        source: "/accounts/:address/validators",
+        destination: "/accounts/:address",
+        permanent: false,
+      },
+      {
         source: "/market",
         destination: "/stats",
         permanent: false,
