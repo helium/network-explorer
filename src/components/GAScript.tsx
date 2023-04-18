@@ -11,7 +11,8 @@ export const GAScript = () => {
 
   return (
     <div>
-      <script
+      <Script
+        id="gtag"
         dangerouslySetInnerHTML={{
           __html: `
               window.dataLayer = window.dataLayer || [];
