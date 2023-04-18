@@ -176,10 +176,10 @@ const StatItem = ({ label, value, unit }: StatItemProps) => {
       className={clsx(
         "w-15 flex flex-1 flex-col justify-between gap-2 rounded-xl border p-4",
         "border-zinc-900/5 bg-white text-zinc-800 shadow",
-        "dark:border-white/10 dark:bg-zinc-800/30 dark:text-zinc-200"
+        "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
       )}
     >
-      <p className="text-sm ">{label}</p>
+      <p className="text-sm">{label}</p>
       {Value}
     </div>
   )

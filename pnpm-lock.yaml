@@ -99,6 +99,9 @@ devDependencies:
   "@next/env":
     specifier: 13.3.0
     version: 13.3.0
+  "@types/gtag.js":
+    specifier: ^0.0.12
+    version: 0.0.12
   "@types/mapbox-gl":
     specifier: 2.7.10
     version: 2.7.10
@@ -1041,6 +1044,13 @@ packages:
       {
         integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==,
       }
+
+  /@types/gtag.js@0.0.12:
+    resolution:
+      {
+        integrity: sha512-YQV9bUsemkzG81Ea295/nF/5GijnD2Af7QhEofh7xu+kvCN6RdodgNwwGWXB5GMI3NoyvQo0odNctoH/qLMIpg==,
+      }
+    dev: true
 
   /@types/json5@0.0.29:
     resolution:
