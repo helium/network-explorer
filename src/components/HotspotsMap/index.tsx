@@ -11,7 +11,7 @@ import {
 } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
-import { trackEvent } from "../GATracker"
+import { gaEvent } from "../GATracker"
 import { Attribution } from "./Attribution"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
 import {
@@ -75,7 +75,6 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
   }, [])
 
   const selectHexByPathname = useCallback(() => {
-    trackEvent("map_load")
     if (!mapRef.current) return
 
     if (segments.length === 2 && segments[0] === "hex") {
@@ -105,6 +104,10 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
     },
     [router, selectedHex?.hexId]
   )
+
+  useEffect(() => {
+    gaEvent({ action: "map_load" })
+  }, [])
 
   const onMouseEnter = useCallback(() => setCursor("pointer"), [])
   const onMouseLeave = useCallback(() => setCursor(""), [])

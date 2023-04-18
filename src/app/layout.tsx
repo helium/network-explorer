@@ -1,4 +1,5 @@
 import { GAScript } from "@/components/GAScript"
+import { GATracker } from "@/components/GATracker"
 import { Header } from "@/components/Header"
 import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body className="absolute inset-0 bg-zinc-50 dark:bg-black">
         <Providers>
           <GAScript />
+          <GATracker />
           <Header />
           <HotspotsMap>{children}</HotspotsMap>
         </Providers>
