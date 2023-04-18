@@ -14,7 +14,7 @@ export default function Page() {
     >
       <div className="flex w-full items-center gap-3">
         <div className="flex-1 text-xl text-zinc-600 dark:text-zinc-100">
-          <h1>Hotspot Info</h1>
+          <h1>Account Info</h1>
         </div>
         <Link href="/">
           <XMarkIcon className="h-6 w-6 text-zinc-500 transition hover:text-zinc-700 dark:text-zinc-400 hover:dark:text-zinc-100" />
