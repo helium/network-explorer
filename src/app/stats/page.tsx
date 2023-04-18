@@ -7,7 +7,7 @@ export default async function Page() {
   return (
     <div
       className={clsx(
-        "absolute inset-0 bottom-0 top-28 z-10 flex w-auto flex-col gap-4 border-t p-6 text-sm font-medium backdrop-blur-sm ",
+        "absolute inset-0 bottom-28 top-0 z-10 flex w-auto flex-col gap-4 border-t p-6 text-sm font-medium backdrop-blur-sm sm:bottom-0 sm:top-28",
         "border-zinc-900/5 bg-gray-100 text-zinc-800",
         "dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-200"
       )}
