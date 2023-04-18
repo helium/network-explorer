@@ -13,8 +13,8 @@ export const AccountDetails = () => {
   return (
     <div className="flex-column justify-between text-zinc-800 dark:text-slate-100 sm:items-center">
       <p>
-        The Helium explorer no longer provides account specific data. We instead
-        encourage you to try one of the following third-party providers:
+        The Helium explorer no longer provides account specific data. View
+        Account-specific data on:
       </p>
       <ul className="p-4">
         <li>
@@ -27,17 +27,6 @@ export const AccountDetails = () => {
           </Link>
         </li>
       </ul>
-      <p className={"text-xs"}>
-        Are you a third-party provider and want to be added to the list? Please
-        submit a PR to our{" "}
-        <Link
-          href="https://github.com/helium/network-explorer"
-          className="text-violet-300"
-          target="_"
-        >
-          public repo
-        </Link>
-      </p>
     </div>
   )
 }
