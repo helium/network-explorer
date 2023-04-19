@@ -92,7 +92,7 @@ const IOT_INFO = {
   title: "IOT",
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/lorawan-on-helium",
-  linkText: "Learn More About MOBILE",
+  linkText: "Learn More About IOT",
 }
 
 const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
