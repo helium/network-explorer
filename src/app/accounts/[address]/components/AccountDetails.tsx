@@ -2,6 +2,7 @@
 
 import Address from "@helium/address"
 import { PublicKey } from "@solana/web3.js"
+import clsx from "clsx"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
@@ -12,15 +13,16 @@ export const AccountDetails = () => {
 
   return (
     <div className="flex-column justify-between text-zinc-800 dark:text-slate-100 sm:items-center">
-      <p>
-        The Helium explorer no longer provides account specific data. View
-        Account-specific data on:
-      </p>
+      <p>View Account-specific data on:</p>
       <ul className="p-4">
-        <li>
+        <li className="flex">
           <Link
             href={`https://explorer.solana.com/address/${solanaAddress}`}
-            className="flex gap-2"
+            className={clsx(
+              "flex gap-2 rounded-xl p-3",
+              "border-zinc-900/5 bg-white text-zinc-800 shadow",
+              "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+            )}
             target="_"
           >
             <p> Solana Explorer</p>
