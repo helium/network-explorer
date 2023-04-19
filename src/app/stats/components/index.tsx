@@ -105,10 +105,10 @@ const SubDaoInfo = ({
 
   return (
     <StatsList title={title}>
-      <StatItem
+      {/* <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
-      />
+      /> */}
       <StatItem label="Active Devices" value={activeCount.result?.count || 0} />
       <StatItem
         label="veHNT staked"
