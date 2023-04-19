@@ -25,7 +25,7 @@ export const AccountDetails = () => {
             )}
             target="_"
           >
-            <p> Solana Explorer</p>
+            <p>Solana Explorer</p>
           </Link>
         </li>
       </ul>

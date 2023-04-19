@@ -34,7 +34,7 @@ export function Header() {
           <div className="flex flex-1 items-center">
             <Logo />
           </div>
-          <div className="flex flex-1 justify-end md:justify-center">
+          <div className="flex-2 flex justify-end md:justify-center">
             <MobileNavigation className="pointer-events-auto md:hidden" />
             <DesktopNavigation className="pointer-events-auto hidden md:block" />
           </div>
