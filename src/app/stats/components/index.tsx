@@ -109,7 +109,10 @@ const SubDaoInfo = ({
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
       /> */}
-      <StatItem label="Active Devices" value={activeCount.result?.count || 0} />
+      <StatItem
+        label="Active Hotspots"
+        value={activeCount.result?.count || 0}
+      />
       <StatItem
         label="veHNT staked"
         value={humanReadable(epochInfo.info?.vehntAtEpochStart, 0)}
