@@ -33,6 +33,7 @@ import { treasuryManagementKey } from "@helium/treasury-management-sdk"
 import { Connection, PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js"
 import clsx from "clsx"
 import { format } from "date-fns"
+import Link from "next/link"
 import { PropsWithChildren, ReactNode, useMemo } from "react"
 import { useAsync } from "react-async-hook"
 import Countdown, { CountdownRenderProps } from "react-countdown"
@@ -49,9 +50,6 @@ const fetcher = async (url: string) => {
   return fetch(url).then((response) => response.json())
 }
 
-const MOBILE_ACTIVE_URL =
-  "https://mobile-rewards.oracle.helium.io/active-devices"
-const IOT_ACTIVE_URL = "https://iot-rewards.oracle.helium.io/active-devices"
 const COINGECK_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 
@@ -83,15 +81,23 @@ const useSubDaoTreasuryInfo = (subDaoMint: PublicKey) => {
   )
 }
 
-const SubDaoInfo = ({
-  sDaoMint,
-  title,
-}: {
-  sDaoMint: PublicKey
-  title: string
-}) => {
-  const activeUrl =
-    sDaoMint === MOBILE_MINT ? MOBILE_ACTIVE_URL : IOT_ACTIVE_URL
+const MOBILE_INFO = {
+  title: "MOBILE",
+  activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
+  link: "https://docs.helium.com/5g-on-helium",
+  linkText: "Learn More About MOBILE",
+}
+
+const IOT_INFO = {
+  title: "IOT",
+  activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
+  link: "https://docs.helium.com/lorawan-on-helium",
+  linkText: "Learn More About MOBILE",
+}
+
+const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
+  const { activeUrl, link, linkText, title } =
+    sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
   const activeCount = useAsync(fetcher, [activeUrl])
   const mintInfo = useMint(sDaoMint)
   const epochInfo = useSubDaoEpochInfo(sDaoMint)
@@ -104,7 +110,7 @@ const SubDaoInfo = ({
   const swap = mintSupplyNum / treasuryHntNum
 
   return (
-    <StatsList title={title}>
+    <StatsList title={title} link={link} linkText={linkText}>
       {/* <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
@@ -190,14 +196,30 @@ const StatItem = ({ label, value, unit }: StatItemProps) => {
 
 type StatsListProps = {
   title: string
+  link: string
+  linkText: string
 }
 
-const StatsList = ({ children, title }: PropsWithChildren<StatsListProps>) => {
+const StatsList = ({
+  children,
+  title,
+  link,
+  linkText,
+}: PropsWithChildren<StatsListProps>) => {
   return (
     <div className="flex flex-col py-2 ">
-      <h2 className="mb-2 flex-1 text-lg text-zinc-600 dark:text-zinc-100">
-        {title}
-      </h2>
+      <div className="flex justify-between">
+        <h2 className="mb-2 flex-1 text-lg text-zinc-600 dark:text-zinc-100">
+          {title}
+        </h2>
+        <Link
+          href={link}
+          className="text-indigo-600 dark:text-violet-300"
+          target="_"
+        >
+          {linkText}
+        </Link>
+      </div>
       <div className="flex flex-wrap gap-3">
         <>{children}</>
       </div>
@@ -216,7 +238,11 @@ const HntInfo = () => {
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   return (
-    <StatsList title="HNT">
+    <StatsList
+      title="HNT"
+      link="https://docs.helium.com/helium-tokens/hnt"
+      linkText="Learn More About HNT"
+    >
       <StatItem label="Price (HNT)" value={`$${hntPrice.result?.helium.usd}`} />
       <StatItem label="Current Epoch" value={epoch} />
       <StatItem
@@ -256,8 +282,8 @@ export const Stats = () => {
     >
       <div className="overflow-y-auto">
         <HntInfo />
-        <SubDaoInfo title="MOBILE" sDaoMint={MOBILE_MINT} />
-        <SubDaoInfo title="IOT" sDaoMint={IOT_MINT} />
+        <SubDaoInfo sDaoMint={MOBILE_MINT} />
+        <SubDaoInfo sDaoMint={IOT_MINT} />
       </div>
     </AccountProvider>
   )
