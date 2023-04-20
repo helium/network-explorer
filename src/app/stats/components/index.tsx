@@ -17,6 +17,9 @@ import {
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
 import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { TreasuryManagement } from "@helium/idls/lib/types/treasury_management"
+import { VoterStakeRegistry } from "@helium/idls/lib/types/voter_stake_registry"
+// @ts-ignore
+import { IDL as VSRegistryIDL } from "@helium/idls/voter_stake_registry"
 // @ts-ignore
 import { IDL as treasuryMgmtIDL } from "@helium/idls/treasury_management"
 
@@ -79,6 +82,18 @@ const useSubDaoTreasuryInfo = (subDaoMint: PublicKey) => {
     treasuryMgmtKey,
     treasuryMgmtIDL as TreasuryManagement,
     "treasuryManagementV0"
+  )
+}
+
+const useRegistrar = () => {
+  const registrarKey = useMemo(
+    () => new PublicKey("BMnWRWZrWqb6JMKznaDqNxWaWAHoaTzVabM6Qwyh3WKz"),
+    []
+  )
+  return useIdlAccount<VoterStakeRegistry>(
+    registrarKey,
+    VSRegistryIDL as VoterStakeRegistry,
+    "registrar"
   )
 }
 
@@ -247,6 +262,11 @@ const HntInfo = () => {
   const epoch = currentEpoch(new BN(unixNow)).toNumber()
   const epochInfo = useSubDaoEpochInfo(MOBILE_MINT)
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
+  const registrar = useRegistrar()
+  const landrushDeadline = toNumber(
+    registrar.info?.votingMints[0].genesisVotePowerMultiplierExpirationTs || 0,
+    0
+  )
 
   return (
     <StatsList
@@ -272,6 +292,19 @@ const HntInfo = () => {
             date={NEXT_HALVENING * 1000}
             renderer={CountdownRenderer}
           />
+        }
+      />
+      <StatItem
+        label="Landrush Period End"
+        value={
+          !!landrushDeadline ? (
+            <Countdown
+              date={landrushDeadline * 1000}
+              renderer={CountdownRenderer}
+            />
+          ) : (
+            "Loading"
+          )
         }
       />
       <StatItem
