@@ -108,7 +108,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                   <li key={hotspot.hotspot_id}>
                     <div className="group relative flex items-center px-2 py-3">
                       <a
-                        href={`https://app.hotspotty.net/devices/${hotspot.hotspot_id}/status`}
+                        href={`https://app.hotspotty.net/hotspots/${hotspot.hotspot_id}/rewards`}
                         target="_blank"
                         className="-m-1 block flex-1 p-1"
                       >

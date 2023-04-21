@@ -13,7 +13,7 @@ export const HotspotDetails = () => {
       <ul className="p-4">
         <li className="flex">
           <Link
-            href={`https://app.hotspotty.net/devices/${address}/status`}
+            href={`https://app.hotspotty.net/hotspots/${address}/rewards`}
             className={clsx(
               "flex gap-2 rounded-xl p-3",
               "border-zinc-900/5 bg-white text-zinc-800 shadow",
