@@ -119,10 +119,10 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         label="Active Hotspots"
         value={activeCount.result?.count || 0}
       />
-      <StatItem
+      {/* <StatItem
         label="veHNT staked"
         value={humanReadable(epochInfo.info?.vehntAtEpochStart, 0)}
-      />
+      /> */}
       <StatItem
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
