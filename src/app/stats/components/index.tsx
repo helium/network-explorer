@@ -85,14 +85,14 @@ const useSubDaoTreasuryInfo = (subDaoMint: PublicKey) => {
 const MOBILE_INFO = {
   title: "MOBILE",
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
-  link: "https://docs.helium.com/5g-on-helium",
+  link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
 }
 
 const IOT_INFO = {
   title: "IOT",
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
-  link: "https://docs.helium.com/lorawan-on-helium",
+  link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
 }
 
@@ -129,13 +129,13 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         value={activeCount.result?.count || 0}
       />
       <StatItem
-        label="veHNT staked"
+        label="veHNT staked in last Epoch"
         value={humanReadableVeHNT(
           epochInfo.info?.vehntAtEpochStart.toString() || "0"
         )}
       />
       <StatItem
-        label="DC Burned (24h)"
+        label="DC Burned during last 24h Epoch"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
       />
       <StatItem
@@ -147,7 +147,7 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         )}
       />
       <StatItem
-        label="Supply"
+        label="Minted Supply"
         value={humanReadableBigint(
           mintInfo.info?.info.supply,
           mintInfo?.info?.info || 0,
@@ -257,7 +257,7 @@ const HntInfo = () => {
       <StatItem label="Price (HNT)" value={`$${hntPrice.result?.helium.usd}`} />
       <StatItem label="Current Epoch" value={epoch} />
       <StatItem
-        label="Epoch End"
+        label="Next Epoch Countdown"
         value={
           <Countdown
             date={epoch * ONE_DAY_MS + ONE_DAY_MS}
@@ -275,7 +275,7 @@ const HntInfo = () => {
         }
       />
       <StatItem
-        label="Last Epoch End"
+        label="Last Epoch Ended"
         value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}
       />
     </StatsList>
