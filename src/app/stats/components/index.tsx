@@ -120,10 +120,10 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
 
   return (
     <StatsList title={title} link={link} linkText={linkText}>
-      {/* <StatItem
+      <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
-      /> */}
+      />
       <StatItem
         label="Active Hotspots"
         value={activeCount.result?.count || 0}
