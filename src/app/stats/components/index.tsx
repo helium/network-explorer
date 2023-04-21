@@ -65,6 +65,7 @@ const useSubDaoEpochInfo = (subDaoMint: PublicKey) => {
     SUBDAO_KEY,
     (unixTime?.result || BigInt(today)) - BigInt(ONE_DAY_UNIX)
   )[0]
+
   return useIdlAccount<HeliumSubDaos>(
     sdeKey,
     subDaosIDL as HeliumSubDaos,
@@ -95,6 +96,14 @@ const IOT_INFO = {
   linkText: "Learn More About IOT",
 }
 
+const humanReadableVeHNT = (numberStr: string) => {
+  const numberWODecimal = numberStr
+    .split("")
+    .slice(0, numberStr.length - 8)
+    .join("")
+  return numberWithCommas(parseInt(numberWODecimal, 0), 0)
+}
+
 const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const { activeUrl, link, linkText, title } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
@@ -119,10 +128,12 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         label="Active Hotspots"
         value={activeCount.result?.count || 0}
       />
-      {/* <StatItem
+      <StatItem
         label="veHNT staked"
-        value={humanReadable(epochInfo.info?.vehntAtEpochStart, 0)}
-      /> */}
+        value={humanReadableVeHNT(
+          epochInfo.info?.vehntAtEpochStart.toString() || "0"
+        )}
+      />
       <StatItem
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
