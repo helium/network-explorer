@@ -1,0 +1,53 @@
+import { XMarkIcon } from "@heroicons/react/24/outline"
+import clsx from "clsx"
+import Link from "next/link"
+import { ProviderList } from "./components/ProviderList"
+import { ThemeToggle } from "./components/ThemeToggle"
+
+export default function Page() {
+  return (
+    <div
+      className={clsx(
+        "absolute inset-0 top-0 z-50 flex w-auto items-center justify-center gap-4 border-t p-6 text-sm font-medium backdrop-blur-sm",
+        "border-zinc-900/5 bg-gray-100/30 text-zinc-800",
+        "dark:border-white/10 dark:bg-slate-800/30 dark:text-zinc-200"
+      )}
+    >
+      <div
+        className={clsx(
+          "min-w-[80%] flex-col rounded-xl border p-2 p-4 sm:min-w-[33%]",
+          "border-zinc-900/5 bg-white text-zinc-800 shadow",
+          "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+        )}
+      >
+        <div className="flex w-full items-center gap-3">
+          <h1 className="flex-1 text-xl">Preferences</h1>
+          <Link href="/">
+            <XMarkIcon className="h-6 w-6 text-zinc-500 transition hover:text-zinc-700 dark:text-zinc-400 hover:dark:text-zinc-100" />
+          </Link>
+        </div>
+        <div className="py-4">
+          <div>
+            <h2 className="text-sm">Hotspot Analytics Provider</h2>
+            <ProviderList />
+          </div>
+          <div>
+            <h2 className="text-sm">Theme</h2>
+            <ThemeToggle />
+          </div>
+        </div>
+        <div className="flex justify-end gap-4">
+          <button
+            className={clsx(
+              "rounded-md border px-4 py-2",
+              "border-zinc-900/5 bg-green-400 text-white hover:bg-green-500",
+              "dark:border-white/10"
+            )}
+          >
+            Exit
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
