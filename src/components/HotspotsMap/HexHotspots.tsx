@@ -5,13 +5,11 @@ import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
 
 interface SmallCell {
   cell_id: string
-  mobile_rewards_24h: number
 }
 
 interface Hotspot {
   hotspot_id: string
-  iot_rewards_24h: number
-  avatar_url: string
+  active: boolean
   cells: SmallCell[]
 }
 
@@ -19,18 +17,6 @@ interface HexData {
   hex: string
   resolution: number
   hotspots: Hotspot[]
-}
-
-function getHotspot24hRewards(hotspot: Hotspot) {
-  let totalRewards = hotspot.iot_rewards_24h
-  hotspot.cells.forEach((cell) => {
-    totalRewards += cell.mobile_rewards_24h
-  })
-  return totalRewards
-}
-
-function isHotspotActive(hotspot: Hotspot) {
-  return getHotspot24hRewards(hotspot) > 0
 }
 
 function getGroupedHotspots(hotspots: Hotspot[]) {
@@ -42,7 +28,7 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
   }
 
   hotspots.forEach((hotspot) => {
-    const group = isHotspotActive(hotspot) ? "active" : "inactive"
+    const group = hotspot.active ? "active" : "inactive"
     groupedHotspots[group].push(hotspot)
   })
 
@@ -50,7 +36,7 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
 }
 
 export async function HexHotspots({ hexId }: { hexId: string }) {
-  const hexData = (await fetch(
+  const { hotspots } = (await fetch(
     `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/hex/${hexId}`,
     {
       headers: {
@@ -58,10 +44,6 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
       },
     }
   ).then((res) => res.json())) as HexData
-
-  const hotspots = hexData.hotspots
-
-  hotspots.sort((h1, h2) => getHotspot24hRewards(h2) - getHotspot24hRewards(h1))
 
   const groupedList = getGroupedHotspots(hotspots)
 
