@@ -1,5 +1,6 @@
 "use client"
 
+import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -13,6 +14,7 @@ const styles = clsx(
 export const ExitButton = () => {
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect")
+  const { provider } = usePreferences()
 
   if (!redirect)
     return (
@@ -22,11 +24,7 @@ export const ExitButton = () => {
     )
 
   return (
-    <a
-      className={styles}
-      href={`https://app.hotspotty.net/hotspots/${redirect}/rewards`}
-      target="_"
-    >
+    <a className={styles} href={provider?.getUrl(redirect)} target="_">
       View Hotspot
     </a>
   )

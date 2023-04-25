@@ -1,4 +1,5 @@
 "use client"
+import { PROVIDERS, Provider } from "@/app/preferences/components/ProviderList"
 import {
   PropsWithChildren,
   createContext,
@@ -8,24 +9,28 @@ import {
 } from "react"
 
 type PreferencesContext = {
-  provider: string
-  setProvider: (provider: string) => void
+  provider?: Provider
+  setProvider: (provider: Provider) => void
 }
 
 const PreferencesContext = createContext<PreferencesContext>({
-  provider: "",
+  provider: undefined,
   setProvider: () => undefined,
 })
 const PROVIDER_KEY = "provider"
 
+const getProvider = (providerLabel: string) => {
+  return PROVIDERS.find((provider) => provider.label === providerLabel)
+}
+
 export const PreferencesProvider = ({ children }: PropsWithChildren<{}>) => {
   const [provider, setProvider] = useState(
-    !!window ? localStorage.getItem(PROVIDER_KEY) || "" : ""
+    !!window ? getProvider(localStorage.getItem(PROVIDER_KEY) || "") : undefined
   )
 
   const setProviderCB = useCallback(
-    (provider: string) => {
-      if (!!window) localStorage?.setItem(PROVIDER_KEY, provider)
+    (provider: Provider) => {
+      if (!!window) localStorage?.setItem(PROVIDER_KEY, provider.label)
       setProvider(provider)
     },
     [setProvider]
