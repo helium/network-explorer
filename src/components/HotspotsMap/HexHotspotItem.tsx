@@ -31,7 +31,7 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
           href={
             !provider
               ? `/preferences?redirect=${hotspot.hotspot_id}`
-              : `https://app.hotspotty.net/hotspots/${hotspot.hotspot_id}/rewards`
+              : provider.getUrl(hotspot.hotspot_id)
           }
           className="-m-1 block flex-1 p-1"
           target={!!provider ? "_" : "_self"}
