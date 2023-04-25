@@ -24,7 +24,7 @@ export const ExitButton = () => {
   return (
     <a
       className={styles}
-      href={`https://app.hotspotty.net/${redirect}/rewards`}
+      href={`https://app.hotspotty.net/hotspots/${redirect}/rewards`}
       target="_"
     >
       View Hotspot

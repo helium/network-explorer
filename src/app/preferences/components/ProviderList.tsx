@@ -1,7 +1,7 @@
 "use client"
 
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
-import { usePreferencesContext } from "@/context/usePreferences"
+import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 
 const PROVIDERS = [
@@ -18,7 +18,7 @@ const PROVIDERS = [
 const PROVIDER_KEY = "provider"
 
 export const ProviderList = () => {
-  const { provider, setProvider } = usePreferencesContext()
+  const { provider, setProvider } = usePreferences()
 
   return (
     <div className="flex-col gap-2 gap-y-4 pl-2">
