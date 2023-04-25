@@ -1,6 +1,8 @@
 "use client"
 
+import { usePreferences } from "@/context/usePreferences"
 import animalHash from "angry-purple-tiger"
+import Link from "next/link"
 import { gaEvent } from "../GATracker"
 import { HeliumIotIcon } from "../icons/HeliumIotIcon"
 import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
@@ -11,6 +13,8 @@ type HexHotSpotItemProps = {
 }
 
 export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
+  const { provider } = usePreferences()
+
   const hotspotName = animalHash(hotspot.hotspot_id)
   const hasSmallCells = hotspot.cells.length > 0
   const Avatar = hasSmallCells ? HeliumMobileIcon : HeliumIotIcon
@@ -21,19 +25,25 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
     : "IoT Hotspot"
 
   return (
-    <li>
+    <li key={hotspot.hotspot_id}>
       <div className="group relative flex items-center px-2 py-3">
-        <a
-          href={`/preferences?redirect=hotspots/${hotspot.hotspot_id}`}
-          target="_blank"
+        <Link
+          href={
+            !provider
+              ? `/preferences?redirect=${hotspot.hotspot_id}`
+              : `https://app.hotspotty.net/hotspots/${hotspot.hotspot_id}/rewards`
+          }
           className="-m-1 block flex-1 p-1"
+          target={!!provider ? "_" : "_self"}
           onClick={() => {
-            gaEvent({
-              action: "outbound_click",
-              event: {
-                description: "hotspotty",
-              },
-            })
+            if (!!provider) {
+              gaEvent({
+                action: "outbound_click",
+                event: {
+                  description: provider,
+                },
+              })
+            }
           }}
         >
           <div
@@ -51,7 +61,7 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
               </p>
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </li>
   )

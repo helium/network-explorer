@@ -44,6 +44,6 @@ export const PreferencesProvider = ({ children }: PropsWithChildren<{}>) => {
   )
 }
 
-export const usePreferencesContext = () => {
+export const usePreferences = () => {
   return useContext(PreferencesContext)
 }

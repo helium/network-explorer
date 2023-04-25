@@ -1,3 +1,4 @@
+import { PreferencesProvider } from "@/context/usePreferences"
 import clsx from "clsx"
 import { HexHotSpotItem } from "./HexHotspotItem"
 
@@ -71,14 +72,16 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                 {groupedList[group].length} Hotspots
               </span>
             </div>
-            <ul
-              role="list"
-              className="z-0 flex-1 divide-y divide-gray-200 overflow-y-auto dark:divide-white/10"
-            >
-              {groupedList[group].map((hotspot) => (
-                <HexHotSpotItem key={hotspot.hotspot_id} hotspot={hotspot} />
-              ))}
-            </ul>
+            <PreferencesProvider>
+              <ul
+                role="list"
+                className="z-0 flex-1 divide-y divide-gray-200 overflow-y-auto dark:divide-white/10"
+              >
+                {groupedList[group].map((hotspot) => (
+                  <HexHotSpotItem key={hotspot.hotspot_id} hotspot={hotspot} />
+                ))}
+              </ul>
+            </PreferencesProvider>
           </div>
         )
       })}
