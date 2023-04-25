@@ -183,9 +183,10 @@ const CountdownRenderer = ({
   formatted: { hours, minutes, seconds },
 }: CountdownRenderProps) => {
   let countdown = ""
-  if (!!days) countdown = `${days} days`
-  if (!!days && days < 10) countdown += ` ${hours}:${minutes}:${seconds}`
-  else countdown = `${hours}:${minutes}:${seconds}`
+  if (!!days) {
+    countdown = `${days} days`
+    if (days < 10) countdown += ` ${hours}:${minutes}:${seconds}`
+  } else countdown = `${hours}:${minutes}:${seconds}`
   return <span className="text-base">{countdown}</span>
 }
 
