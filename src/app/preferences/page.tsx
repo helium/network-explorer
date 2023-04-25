@@ -1,6 +1,8 @@
+import { PreferencesProvider } from "@/context/usePreferences"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
+import { ExitButton } from "./components/ExitButton"
 import { ProviderList } from "./components/ProviderList"
 import { ThemeToggle } from "./components/ThemeToggle"
 
@@ -26,27 +28,21 @@ export default function Page() {
             <XMarkIcon className="h-6 w-6 text-zinc-500 transition hover:text-zinc-700 dark:text-zinc-400 hover:dark:text-zinc-100" />
           </Link>
         </div>
-        <div className="py-4">
-          <div>
-            <h2 className="text-sm">Hotspot Analytics Provider</h2>
-            <ProviderList />
+        <PreferencesProvider>
+          <div className="py-4">
+            <div>
+              <h2 className="text-sm">Hotspot Analytics Provider</h2>
+              <ProviderList />
+            </div>
+            <div>
+              <h2 className="text-sm">Theme</h2>
+              <ThemeToggle />
+            </div>
           </div>
-          <div>
-            <h2 className="text-sm">Theme</h2>
-            <ThemeToggle />
+          <div className="flex justify-end gap-4">
+            <ExitButton />
           </div>
-        </div>
-        <div className="flex justify-end gap-4">
-          <button
-            className={clsx(
-              "rounded-md border px-4 py-2",
-              "border-zinc-900/5 bg-green-400 text-white hover:bg-green-500",
-              "dark:border-white/10"
-            )}
-          >
-            Exit
-          </button>
-        </div>
+        </PreferencesProvider>
       </div>
     </div>
   )

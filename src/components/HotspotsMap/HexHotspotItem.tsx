@@ -24,7 +24,7 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
     <li>
       <div className="group relative flex items-center px-2 py-3">
         <a
-          href={`https://app.hotspotty.net/hotspots/${hotspot.hotspot_id}/rewards`}
+          href={`/preferences?redirect=hotspots/${hotspot.hotspot_id}`}
           target="_blank"
           className="-m-1 block flex-1 p-1"
           onClick={() => {

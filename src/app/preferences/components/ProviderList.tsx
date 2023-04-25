@@ -1,10 +1,8 @@
 "use client"
 
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
+import { usePreferencesContext } from "@/context/usePreferences"
 import clsx from "clsx"
-import { useState } from "react"
-
-const PROVIDER_KEY = "provider"
 
 const PROVIDERS = [
   {
@@ -17,8 +15,10 @@ const PROVIDERS = [
   },
 ]
 
+const PROVIDER_KEY = "provider"
+
 export const ProviderList = () => {
-  const [provider, setProvider] = useState(localStorage.getItem(PROVIDER_KEY))
+  const { provider, setProvider } = usePreferencesContext()
 
   return (
     <div className="flex-col gap-2 gap-y-4 pl-2">
