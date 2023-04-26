@@ -180,7 +180,8 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
         tooltip={{
-          description: "DC Burned during the most recently complete epoch",
+          description:
+            "DC burned by the subDAO during the most recently completed epoch",
           cadence: "Daily",
         }}
       />
@@ -213,8 +214,7 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         unit={`${title}/HNT`}
         value={Math.round(swap)}
         tooltip={{
-          description:
-            "Swap rate for subDNT to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs",
+          description: `Estimated swap rate for ${title} to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs`,
           cadence: "Daily",
         }}
       />

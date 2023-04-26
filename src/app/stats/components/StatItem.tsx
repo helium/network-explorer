@@ -42,6 +42,9 @@ export const StatItem = ({ label, value, unit, tooltip }: StatItemProps) => {
     </p>
   )
 
+  // unit used to differentiate for subDAO specific tooltip description
+  const tooltipId = unit || label
+
   return (
     <div
       className={clsx(
@@ -54,11 +57,10 @@ export const StatItem = ({ label, value, unit, tooltip }: StatItemProps) => {
         <p className="text-sm">{label}</p>
         {!!tooltip && (
           <div>
-            <a data-tooltip-id={label} data-tooltip-place="top">
+            <a data-tooltip-id={tooltipId} data-tooltip-place="top">
               <InformationCircleIcon className="h-5 w-5" />
             </a>
-
-            <Tooltip id={label}>
+            <Tooltip id={tooltipId}>
               <div className="max-w-xs">
                 {tooltip.description && <p>{tooltip?.description}</p>}
                 {tooltip.sourceText && <p>Source: {tooltip?.sourceText}</p>}
