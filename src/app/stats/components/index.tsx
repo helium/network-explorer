@@ -24,8 +24,8 @@ import { IDL as VSRegistryIDL } from "@helium/idls/voter_stake_registry"
 import { IDL as treasuryMgmtIDL } from "@helium/idls/treasury_management"
 
 import { HeliumIcon } from "@/components/icons/HeliumIcon"
-import { IotIcon } from "@/components/icons/IotIcon"
-import { MobileIcon } from "@/components/icons/MobileIcon"
+import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
 import {
   IOT_MINT,
   MOBILE_MINT,
@@ -106,8 +106,7 @@ const MOBILE_INFO = {
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
-  Icon: MobileIcon,
-  iconStyles: "fill-rose-600",
+  Icon: HeliumMobileIcon,
 }
 
 const IOT_INFO = {
@@ -115,8 +114,7 @@ const IOT_INFO = {
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
-  Icon: IotIcon,
-  iconStyles: "fill-emerald-400",
+  Icon: HeliumIotIcon,
 }
 
 const humanReadableVeHNT = (numberStr: string) => {
@@ -227,7 +225,7 @@ type StatsListProps = {
   link: string
   linkText: string
   Icon: (props: any) => JSX.Element
-  iconStyles: string
+  iconStyles?: string
 }
 
 const StatsList = ({
@@ -283,7 +281,7 @@ const HntInfo = () => {
       link="https://docs.helium.com/helium-tokens/hnt"
       linkText="Learn More About HNT"
       Icon={HeliumIcon}
-      iconStyles="fill-blue-400"
+      iconStyles="fill-[#474DFF]"
     >
       <StatItem
         label="Price (HNT)"
