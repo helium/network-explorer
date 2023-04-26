@@ -5,6 +5,7 @@ import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
+import "react-tooltip/dist/react-tooltip.css"
 
 export const metadata = {
   manifest: "/manifest.json",
