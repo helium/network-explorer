@@ -23,6 +23,9 @@ import { IDL as VSRegistryIDL } from "@helium/idls/voter_stake_registry"
 // @ts-ignore
 import { IDL as treasuryMgmtIDL } from "@helium/idls/treasury_management"
 
+import { HeliumIcon } from "@/components/icons/HeliumIcon"
+import { IotIcon } from "@/components/icons/IotIcon"
+import { MobileIcon } from "@/components/icons/MobileIcon"
 import {
   IOT_MINT,
   MOBILE_MINT,
@@ -102,6 +105,8 @@ const MOBILE_INFO = {
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
+  Icon: MobileIcon,
+  iconStyles: "fill-rose-600",
 }
 
 const IOT_INFO = {
@@ -109,6 +114,8 @@ const IOT_INFO = {
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
+  Icon: IotIcon,
+  iconStyles: "fill-emerald-400",
 }
 
 const humanReadableVeHNT = (numberStr: string) => {
@@ -120,7 +127,7 @@ const humanReadableVeHNT = (numberStr: string) => {
 }
 
 const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
-  const { activeUrl, link, linkText, title } =
+  const { activeUrl, link, linkText, title, Icon, iconStyles } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
   const activeCount = useAsync(fetcher, [activeUrl])
   const mintInfo = useMint(sDaoMint)
@@ -134,7 +141,13 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const swap = mintSupplyNum / treasuryHntNum
 
   return (
-    <StatsList title={title} link={link} linkText={linkText}>
+    <StatsList
+      title={title}
+      link={link}
+      linkText={linkText}
+      Icon={Icon}
+      iconStyles={iconStyles}
+    >
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
@@ -226,6 +239,8 @@ type StatsListProps = {
   title: string
   link: string
   linkText: string
+  Icon: (props: any) => JSX.Element
+  iconStyles: string
 }
 
 const StatsList = ({
@@ -233,13 +248,18 @@ const StatsList = ({
   title,
   link,
   linkText,
+  Icon,
+  iconStyles,
 }: PropsWithChildren<StatsListProps>) => {
   return (
     <div className="flex flex-col py-2 ">
       <div className="flex justify-between">
-        <h2 className="mb-2 flex-1 text-lg text-zinc-600 dark:text-zinc-100">
-          {title}
-        </h2>
+        <div className="mb-2 flex items-center gap-2">
+          <Icon className={clsx("h-6 w-6", iconStyles)} />
+          <h2 className="flex-1 text-lg text-zinc-600 dark:text-zinc-100">
+            {title}
+          </h2>
+        </div>
         <Link
           href={link}
           className="text-indigo-600 dark:text-violet-300"
@@ -275,6 +295,8 @@ const HntInfo = () => {
       title="HNT"
       link="https://docs.helium.com/helium-tokens/hnt"
       linkText="Learn More About HNT"
+      Icon={HeliumIcon}
+      iconStyles="fill-blue-400"
     >
       <StatItem label="Price (HNT)" value={`$${hntPrice.result?.helium.usd}`} />
       <StatItem label="Current Epoch" value={epoch} />
