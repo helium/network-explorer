@@ -1,6 +1,7 @@
 export function HeliumIcon(props: { className?: string }) {
   return (
-    <svg x="0px" y="0px" viewBox="0 0 193 193" aria-hidden="true" {...props}>
+    <svg x="0px" y="0px" viewBox="0 0 193 193" {...props}>
+      <title>Helium Icon</title>
       <path
         d="M122.2,50.2c5.6-5.6,14.8-5.6,20.4,0c5.6,5.6,5.6,14.8,0,20.4c-3.3,3.3-7.7,4.7-12.2,4.1c-0.2,0-0.4,0-0.7,0
   c-1.3-0.2-2.7,0-4.1,0.6c-1.9,0.9-3.2,2.4-3.9,4.2c-0.7,1.8-0.6,3.8,0.2,5.6c4.8,10.4,2.6,23-5.6,31.1c-8.2,8.2-20.7,10.4-31.1,5.6
