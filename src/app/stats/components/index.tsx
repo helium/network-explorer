@@ -40,9 +40,10 @@ import { Connection, PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js"
 import clsx from "clsx"
 import { format } from "date-fns"
 import Link from "next/link"
-import { PropsWithChildren, ReactNode, useMemo } from "react"
+import { PropsWithChildren, useMemo } from "react"
 import { useAsync } from "react-async-hook"
-import Countdown, { CountdownRenderProps } from "react-countdown"
+import Countdown from "react-countdown"
+import { CountdownRenderer, StatItem } from "./StatItem"
 
 export async function getUnixTimestamp(
   connection: Connection
@@ -56,7 +57,7 @@ const fetcher = async (url: string) => {
   return fetch(url).then((response) => response.json())
 }
 
-const COINGECK_HNT_URL =
+const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 
 const ONE_DAY_UNIX = 60 * 60 * 24
@@ -151,20 +152,37 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
+        tooltip={{
+          description: "Utility score for the most recently completed epoch",
+          cadence: "Daily",
+        }}
       />
       <StatItem
         label="Active Hotspots"
         value={activeCount.result?.count || 0}
+        tooltip={{
+          description: "Hotspots active in past 24h",
+          cadence: "Live",
+        }}
       />
       <StatItem
         label="veHNT delegated"
         value={humanReadableVeHNT(
           epochInfo.info?.vehntAtEpochStart.toString() || "0"
         )}
+        tooltip={{
+          description:
+            "veHNT delegated to the subDAO at the start of the most recently completed epoch",
+          cadence: "Daily",
+        }}
       />
       <StatItem
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
+        tooltip={{
+          description: "DC Burned during the most recently complete epoch",
+          cadence: "Daily",
+        }}
       />
       <StatItem
         label="Treasury (HNT)"
@@ -173,6 +191,10 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
           8,
           0
         )}
+        tooltip={{
+          description: "Current funding of the subDAO's treasury",
+          cadence: "Live",
+        }}
       />
       <StatItem
         label="Supply"
@@ -181,57 +203,22 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
           mintInfo?.info?.info || 0,
           0
         )}
+        tooltip={{
+          description: "Current supply of the subDAO's token",
+          cadence: "Live",
+        }}
       />
       <StatItem
         label="Estimated Swap"
         unit={`${title}/HNT`}
         value={Math.round(swap)}
+        tooltip={{
+          description:
+            "Swap rate for subDNT to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs",
+          cadence: "Daily",
+        }}
       />
     </StatsList>
-  )
-}
-
-const CountdownRenderer = ({
-  days,
-  formatted: { hours, minutes, seconds },
-}: CountdownRenderProps) => {
-  let countdown = ""
-  if (!!days) {
-    countdown = `${days} days`
-    if (days < 10) countdown += ` ${hours}:${minutes}:${seconds}`
-  } else countdown = `${hours}:${minutes}:${seconds}`
-  return <span className="text-base">{countdown}</span>
-}
-
-type StatItemProps = {
-  label: string
-  value: string | ReactNode | number
-  unit?: string
-}
-
-const StatItem = ({ label, value, unit }: StatItemProps) => {
-  if (typeof value === "number") value = numberWithCommas(value, 0)
-  const isValueString = typeof value === "string"
-  const Value = !isValueString ? (
-    value
-  ) : (
-    <p className="text-base">
-      {value}
-      {!!unit && <span className="text-xs text-gray-500"> {unit}</span>}
-    </p>
-  )
-
-  return (
-    <div
-      className={clsx(
-        "w-15 flex flex-1 flex-col justify-between gap-2 rounded-xl border p-4",
-        "border-zinc-900/5 bg-white text-zinc-800 shadow",
-        "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
-      )}
-    >
-      <p className="text-sm">{label}</p>
-      {Value}
-    </div>
   )
 }
 
@@ -277,7 +264,7 @@ const StatsList = ({
 
 const NEXT_HALVENING = 1690848000 // unix time
 const HntInfo = () => {
-  const hntPrice = useAsync(fetcher, [COINGECK_HNT_URL])
+  const hntPrice = useAsync(fetcher, [COINGECKO_HNT_URL])
   const accountCache = useAccountFetchCache()
   const unixTime = useAsync(getUnixTimestamp, [accountCache?.connection])
   const unixNow = unixTime?.result || BigInt(today)
@@ -298,7 +285,11 @@ const HntInfo = () => {
       Icon={HeliumIcon}
       iconStyles="fill-blue-400"
     >
-      <StatItem label="Price (HNT)" value={`$${hntPrice.result?.helium.usd}`} />
+      <StatItem
+        label="Price (HNT)"
+        value={`$${hntPrice.result?.helium.usd}`}
+        tooltip={{ sourceText: "Coingecko", cadence: "Live" }}
+      />
       <StatItem label="Current Epoch" value={epoch} />
       <StatItem
         label="Next Epoch In"

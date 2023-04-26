@@ -91,6 +91,9 @@ dependencies:
   react-map-gl:
     specifier: 7.0.21
     version: 7.0.21(mapbox-gl@2.13.0)(react@18.2.0)
+  react-tooltip:
+    specifier: ^5.11.1
+    version: 5.11.1(react-dom@18.2.0)(react@18.2.0)
   tailwindcss:
     specifier: 3.3.1
     version: 3.3.1(postcss@8.4.21)(ts-node@10.9.1)
@@ -313,6 +316,22 @@ packages:
       }
     engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
     dev: true
+
+  /@floating-ui/core@1.2.6:
+    resolution:
+      {
+        integrity: sha512-EvYTiXet5XqweYGClEmpu3BoxmsQ4hkj3QaYA6qEnigCWffTP3vNRwBReTdrwDwo7OoJ3wM8Uoe9Uk4n+d4hfg==,
+      }
+    dev: false
+
+  /@floating-ui/dom@1.2.7:
+    resolution:
+      {
+        integrity: sha512-DyqylONj1ZaBnzj+uBnVfzdjjCkFCL2aA9ESHLyUOGSqb03RpbLMImP1ekIQXYs4KLk9jAjJfZAU8hXfWSahEg==,
+      }
+    dependencies:
+      "@floating-ui/core": 1.2.6
+    dev: false
 
   /@headlessui/react@1.7.13(react-dom@18.2.0)(react@18.2.0):
     resolution:
@@ -1815,6 +1834,13 @@ packages:
         integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==,
       }
     dev: true
+
+  /classnames@2.3.2:
+    resolution:
+      {
+        integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==,
+      }
+    dev: false
 
   /clean-stack@2.2.0:
     resolution:
@@ -4976,6 +5002,21 @@ packages:
       "@types/mapbox-gl": 2.7.10
       mapbox-gl: 2.13.0
       react: 18.2.0
+    dev: false
+
+  /react-tooltip@5.11.1(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-+2a/DvmOlPQd5e1f3s32E/+vv4Tv4UmPxZfCyeVr4BeY3SRCEKGHiE36jH+UtqxSuRP9TKviwmhow4gNDRXCMQ==,
+      }
+    peerDependencies:
+      react: ">=16.14.0"
+      react-dom: ">=16.14.0"
+    dependencies:
+      "@floating-ui/dom": 1.2.7
+      classnames: 2.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react@18.2.0:
