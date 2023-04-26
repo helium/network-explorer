@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { GA_ID, IS_PROD } from "./GAScript"
 
-type GTEventNames = Gtag.EventNames | "map_load"
+type GTEventNames = Gtag.EventNames | "map_load" | "outbound_click"
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const gaEvent = ({
   action,
