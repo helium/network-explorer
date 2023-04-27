@@ -140,13 +140,7 @@ const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const swap = mintSupplyNum / treasuryHntNum
 
   return (
-    <StatsList
-      title={title}
-      link={link}
-      linkText={linkText}
-      Icon={Icon}
-      iconStyles={iconStyles}
-    >
+    <StatsList title={title} link={link} linkText={linkText} Icon={Icon}>
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
