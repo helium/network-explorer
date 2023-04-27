@@ -17,10 +17,10 @@ export const Stats = () => {
       connection={connection}
     >
       <div className="overflow-y-auto">
-        <DelegationHistory />
         <HntInfo />
         <SubDaoInfo sDaoMint={MOBILE_MINT} />
         <SubDaoInfo sDaoMint={IOT_MINT} />
+        <DelegationHistory />
       </div>
     </AccountProvider>
   )
