@@ -16,7 +16,7 @@ export const Stats = () => {
       commitment="confirmed"
       connection={connection}
     >
-      <div className="overflow-y-auto">
+      <div className="overflow-y-auto pr-2">
         <HntInfo />
         <SubDaoInfo sDaoMint={MOBILE_MINT} />
         <SubDaoInfo sDaoMint={IOT_MINT} />
