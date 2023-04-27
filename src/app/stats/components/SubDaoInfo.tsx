@@ -14,10 +14,11 @@ import {
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
 import { useAsync } from "react-async-hook"
-import { useSubDaoEpochInfo, useSubDaoTreasuryInfo } from "../hooks"
 import { fetcher, humanReadableVeHNT } from "../utils"
 import { StatItem } from "./StatItem"
 import { StatsList } from "./StatsList"
+import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
+import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
 
 const MOBILE_INFO = {
   title: "MOBILE",
