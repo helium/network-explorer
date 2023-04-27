@@ -66,11 +66,10 @@ const today = Math.floor(new Date().valueOf() / 1000)
 
 const useSubDaoEpochInfo = (subDaoMint: PublicKey) => {
   const SUBDAO_KEY = useMemo(() => subDaoKey(subDaoMint)[0], [subDaoMint])
-  const accountCache = useAccountFetchCache()
-  const unixTime = useAsync(getUnixTimestamp, [accountCache?.connection])
+  const unixTime = useUnixTimestamp()
   const sdeKey = subDaoEpochInfoKey(
     SUBDAO_KEY,
-    (unixTime?.result || BigInt(today)) - BigInt(ONE_DAY_UNIX)
+    unixTime - BigInt(ONE_DAY_UNIX)
   )[0]
 
   return useIdlAccount<HeliumSubDaos>(
@@ -254,13 +253,17 @@ const StatsList = ({
   )
 }
 
+const useUnixTimestamp = () => {
+  const accountCache = useAccountFetchCache()
+  const unixTime = useAsync(getUnixTimestamp, [accountCache?.connection])
+  return unixTime?.result || BigInt(today)
+}
+
 const NEXT_HALVENING = 1690848000 // unix time
 const HntInfo = () => {
   const hntPrice = useAsync(fetcher, [COINGECKO_HNT_URL])
-  const accountCache = useAccountFetchCache()
-  const unixTime = useAsync(getUnixTimestamp, [accountCache?.connection])
-  const unixNow = unixTime?.result || BigInt(today)
-  const epoch = currentEpoch(new BN(unixNow)).toNumber()
+  const unixTime = useUnixTimestamp()
+  const epoch = currentEpoch(new BN(unixTime)).toNumber()
   const epochInfo = useSubDaoEpochInfo(MOBILE_MINT)
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
   const registrar = useRegistrar()
