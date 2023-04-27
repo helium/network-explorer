@@ -1,5 +1,3 @@
-"use client"
-
 import { useIdlAccount } from "@helium/helium-react-hooks"
 import { TreasuryManagement } from "@helium/idls/lib/types/treasury_management"
 import { treasuryManagementKey } from "@helium/treasury-management-sdk"

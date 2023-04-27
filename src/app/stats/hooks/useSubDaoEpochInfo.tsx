@@ -1,5 +1,3 @@
-"use client"
-
 import { useIdlAccount } from "@helium/helium-react-hooks"
 import { subDaoEpochInfoKey, subDaoKey } from "@helium/helium-sub-daos-sdk"
 import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"

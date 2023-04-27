@@ -1,7 +1,6 @@
 "use client"
 
 import { AccountProvider } from "@helium/helium-react-hooks"
-
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { Connection } from "@solana/web3.js"
 import { HntInfo } from "./HntInfo"

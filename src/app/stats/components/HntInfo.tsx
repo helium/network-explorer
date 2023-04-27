@@ -16,8 +16,8 @@ import { StatsList } from "./StatsList"
 
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
-
 const NEXT_HALVENING = 1690848000 // unix time
+
 export const HntInfo = () => {
   const hntPrice = useAsync(fetcher, [COINGECKO_HNT_URL])
   const unixTime = useUnixTimestamp()

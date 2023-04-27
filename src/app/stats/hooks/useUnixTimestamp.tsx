@@ -1,5 +1,3 @@
-"use client"
-
 import { useAccountFetchCache } from "@helium/helium-react-hooks"
 import { Connection, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js"
 import { useAsync } from "react-async-hook"

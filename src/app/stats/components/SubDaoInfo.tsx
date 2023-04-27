@@ -1,11 +1,8 @@
 "use client"
 
-import { useMint, useTokenAccount } from "@helium/helium-react-hooks"
-// @ts-ignore
-// @ts-ignore
-
 import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
 import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
+import { useMint, useTokenAccount } from "@helium/helium-react-hooks"
 import {
   MOBILE_MINT,
   humanReadable,
@@ -14,11 +11,11 @@ import {
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
 import { useAsync } from "react-async-hook"
+import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
+import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
 import { fetcher, humanReadableVeHNT } from "../utils"
 import { StatItem } from "./StatItem"
 import { StatsList } from "./StatsList"
-import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
-import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
 
 const MOBILE_INFO = {
   title: "MOBILE",
