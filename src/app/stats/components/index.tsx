@@ -126,7 +126,7 @@ const humanReadableVeHNT = (numberStr: string) => {
 }
 
 const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
-  const { activeUrl, link, linkText, title, Icon, iconStyles } =
+  const { activeUrl, link, linkText, title, Icon } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
   const activeCount = useAsync(fetcher, [activeUrl])
   const mintInfo = useMint(sDaoMint)
