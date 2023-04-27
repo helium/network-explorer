@@ -8,12 +8,15 @@ import { ONE_DAY_UNIX } from "../utils"
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
 import { useUnixTimestamp } from "./useUnixTimestamp"
 
-export const useSubDaoEpochInfo = (subDaoMint: PublicKey) => {
+export const useSubDaoEpochInfo = (
+  subDaoMint: PublicKey,
+  offset: number = 1
+) => {
   const SUBDAO_KEY = useMemo(() => subDaoKey(subDaoMint)[0], [subDaoMint])
   const unixTime = useUnixTimestamp()
   const sdeKey = subDaoEpochInfoKey(
     SUBDAO_KEY,
-    unixTime - BigInt(ONE_DAY_UNIX)
+    unixTime - BigInt(ONE_DAY_UNIX * offset)
   )[0]
 
   return useIdlAccount<HeliumSubDaos>(
