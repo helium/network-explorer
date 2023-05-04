@@ -1,7 +1,5 @@
 "use client"
 
-import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
-import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
 import { useMint, useTokenAccount } from "@helium/helium-react-hooks"
 import {
   MOBILE_MINT,
@@ -15,26 +13,34 @@ import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
 import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
 import { fetcher, humanReadableVeHNT } from "../utils"
 import { StatItem } from "./StatItem"
-import { StatsList } from "./StatsList"
+import { Icon, StatsList } from "./StatsList"
 
-const MOBILE_INFO = {
+type SubDaoType = {
+  title: string
+  activeUrl: string
+  link: string
+  linkText: string
+  icon: Icon
+}
+
+const MOBILE_INFO: SubDaoType = {
   title: "MOBILE",
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
-  Icon: HeliumMobileIcon,
+  icon: "mobile",
 }
 
-const IOT_INFO = {
+const IOT_INFO: SubDaoType = {
   title: "IOT",
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
-  Icon: HeliumIotIcon,
+  icon: "iot",
 }
 
 export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
-  const { activeUrl, link, linkText, title, Icon } =
+  const { activeUrl, link, linkText, title, icon } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
   const activeCount = useAsync(fetcher, [activeUrl])
   const mintInfo = useMint(sDaoMint)
@@ -48,7 +54,7 @@ export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const swap = mintSupplyNum / treasuryHntNum
 
   return (
-    <StatsList title={title} link={link} linkText={linkText} Icon={Icon}>
+    <StatsList title={title} link={link} linkText={linkText} icon={icon}>
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}

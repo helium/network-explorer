@@ -1,9 +1,8 @@
 import { numberWithCommas } from "@helium/spl-utils"
-import { InformationCircleIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
-import { ReactNode } from "react"
+import { PropsWithChildren } from "react"
 import { CountdownRenderProps } from "react-countdown"
-import { Tooltip } from "react-tooltip"
+import { ToolTipProps, Tooltip } from "../../stats2/components/Tooltip"
 
 export const CountdownRenderer = ({
   days,
@@ -17,24 +16,24 @@ export const CountdownRenderer = ({
   return <span className="text-base">{countdown}</span>
 }
 
-type ToolTip = {
-  sourceText?: string
-  description?: string
-  cadence?: string
-}
-
 type StatItemProps = {
   label: string
-  value: string | ReactNode | number
+  value?: string | number
   unit?: string
-  tooltip?: ToolTip
+  tooltip?: ToolTipProps
 }
 
-export const StatItem = ({ label, value, unit, tooltip }: StatItemProps) => {
+export const StatItem = ({
+  label,
+  value,
+  children,
+  unit,
+  tooltip,
+}: PropsWithChildren<StatItemProps>) => {
   if (typeof value === "number") value = numberWithCommas(value, 0)
   const isValueString = typeof value === "string"
   const Value = !isValueString ? (
-    value
+    children
   ) : (
     <p className="text-base">
       {value}
@@ -55,20 +54,7 @@ export const StatItem = ({ label, value, unit, tooltip }: StatItemProps) => {
     >
       <div className="flex justify-between">
         <p className="text-sm">{label}</p>
-        {!!tooltip && (
-          <div>
-            <a data-tooltip-id={tooltipId} data-tooltip-place="top">
-              <InformationCircleIcon className="h-5 w-5" />
-            </a>
-            <Tooltip id={tooltipId}>
-              <div className="max-w-xs">
-                {tooltip.description && <p>{tooltip?.description}</p>}
-                {tooltip.sourceText && <p>Source: {tooltip?.sourceText}</p>}
-                {tooltip.cadence && <p>Updated: {tooltip?.cadence}</p>}
-              </div>
-            </Tooltip>
-          </div>
-        )}
+        {!!tooltip && <Tooltip id={tooltipId} {...tooltip} />}
       </div>
       {Value}
     </div>

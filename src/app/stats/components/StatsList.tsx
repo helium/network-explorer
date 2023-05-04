@@ -1,14 +1,23 @@
-"use client"
-
+import { HeliumIcon } from "@/components/icons/HeliumIcon"
+import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
 import clsx from "clsx"
 import Link from "next/link"
 import { PropsWithChildren } from "react"
+
+export type Icon = "hnt" | "mobile" | "iot"
+
+const Icons = {
+  hnt: HeliumIcon,
+  mobile: HeliumMobileIcon,
+  iot: HeliumIotIcon,
+}
 
 type StatsListProps = {
   title: string
   link: string
   linkText: string
-  Icon: (props: any) => JSX.Element
+  icon: Icon
   iconStyles?: string
 }
 
@@ -17,9 +26,11 @@ export const StatsList = ({
   title,
   link,
   linkText,
-  Icon,
+  icon,
   iconStyles,
 }: PropsWithChildren<StatsListProps>) => {
+  const Icon = Icons[icon]
+
   return (
     <div className="flex flex-col py-2 ">
       <div className="flex justify-between">

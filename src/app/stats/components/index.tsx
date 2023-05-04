@@ -3,7 +3,6 @@
 import { AccountProvider } from "@helium/helium-react-hooks"
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { Connection } from "@solana/web3.js"
-import { DelegationHistory } from "./DelegationHistory"
 import { HntInfo } from "./HntInfo"
 import { SubDaoInfo } from "./SubDaoInfo"
 
@@ -20,7 +19,7 @@ export const Stats = () => {
         <HntInfo />
         <SubDaoInfo sDaoMint={MOBILE_MINT} />
         <SubDaoInfo sDaoMint={IOT_MINT} />
-        <DelegationHistory />
+        {/* <DelegationHistory /> */}
       </div>
     </AccountProvider>
   )
