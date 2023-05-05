@@ -14,13 +14,7 @@ export const HntInfo = async () => {
   const unixTime = await fetchUnixTimestap()
   const hntPrice = await fetcher(COINGECKO_HNT_URL)
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
-  // const epochInfo = useSubDaoEpochInfo(MOBILE_MINT)
-  // const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
-  // const registrar = useRegistrar()
-  // const landrushDeadline = toNumber(
-  //   registrar.info?.votingMints[0].genesisVotePowerMultiplierExpirationTs || 0,
-  //   0
-  // )
+  // const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
 
   return (
     <StatsList
@@ -42,20 +36,10 @@ export const HntInfo = async () => {
       <StatItem label="Halvening In">
         <Countdown date={NEXT_HALVENING * 1000} />
       </StatItem>
+      <StatItem label="Landrush Period End">
+        <Countdown date={100} />
+      </StatItem>
       {/* <StatItem
-        label="Landrush Period End"
-        value={
-          !!landrushDeadline ? (
-            <Countdown
-              date={landrushDeadline * 1000}
-              renderer={CountdownRenderer}
-            />
-          ) : (
-            "Loading"
-          )
-        }
-      />
-      <StatItem
         label="Last Epoch Ended"
         value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}
       /> */}
