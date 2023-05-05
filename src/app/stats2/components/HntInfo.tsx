@@ -3,6 +3,9 @@ import { StatsList } from "@/app/stats/components/StatsList"
 import { ONE_DAY_MS, fetcher } from "@/app/stats/utils"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
+import { MOBILE_MINT, amountAsNum } from "@helium/spl-utils"
+import { format } from "date-fns"
+import { fetchSubDaoEpochInfo } from "../api/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../api/utils/fetchUnixTimestamp"
 import { Countdown } from "./Countdown"
 
@@ -14,7 +17,8 @@ export const HntInfo = async () => {
   const unixTime = await fetchUnixTimestap()
   const hntPrice = await fetcher(COINGECKO_HNT_URL)
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
-  // const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
+  const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
+  const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   return (
     <StatsList
@@ -39,10 +43,10 @@ export const HntInfo = async () => {
       <StatItem label="Landrush Period End">
         <Countdown date={100} />
       </StatItem>
-      {/* <StatItem
+      <StatItem
         label="Last Epoch Ended"
         value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}
-      /> */}
+      />
     </StatsList>
   )
 }
