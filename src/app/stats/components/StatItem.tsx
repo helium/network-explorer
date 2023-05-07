@@ -2,7 +2,7 @@ import { numberWithCommas } from "@helium/spl-utils"
 import clsx from "clsx"
 import { PropsWithChildren } from "react"
 import { CountdownRenderProps } from "react-countdown"
-import { ToolTipProps, Tooltip } from "../../stats2/components/Tooltip"
+import { ToolTipProps, Tooltip } from "./Tooltip"
 
 export const CountdownRenderer = ({
   days,

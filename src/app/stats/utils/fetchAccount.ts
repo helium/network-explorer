@@ -1,4 +1,4 @@
-import { accountCache } from "@/app/stats2/api/utils/accountCache"
+import { accountCache } from "@/app/stats/utils/accountCache"
 import { TypedAccountParser } from "@helium/spl-utils"
 import { AccountInfo, PublicKey } from "@solana/web3.js"
 

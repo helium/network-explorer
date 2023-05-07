@@ -1,26 +1,23 @@
-"use client"
-
+import { StatItem } from "@/app/stats/components/StatItem"
+import { StatsList } from "@/app/stats/components/StatsList"
+import { ONE_DAY_MS, fetcher } from "@/app/stats/utils"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import { MOBILE_MINT, amountAsNum } from "@helium/spl-utils"
 import { format } from "date-fns"
-import { useAsync } from "react-async-hook"
-import Countdown from "react-countdown"
-import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
-import { useUnixTimestamp } from "../hooks/useUnixTimestamp"
-import { ONE_DAY_MS, fetcher } from "../utils"
-import { CountdownRenderer, StatItem } from "./StatItem"
-import { StatsList } from "./StatsList"
+import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
+import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
+import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 const NEXT_HALVENING = 1690848000 // unix time
 
-export const HntInfo = () => {
-  const hntPrice = useAsync(fetcher, [COINGECKO_HNT_URL])
-  const unixTime = useUnixTimestamp()
+export const HntInfo = async () => {
+  const unixTime = await fetchUnixTimestap()
+  const hntPrice = await fetcher(COINGECKO_HNT_URL)
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
-  const epochInfo = useSubDaoEpochInfo(MOBILE_MINT)
+  const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   return (
@@ -33,23 +30,19 @@ export const HntInfo = () => {
     >
       <StatItem
         label="Price (HNT)"
-        value={`$${hntPrice.result?.helium.usd}`}
+        value={`$${hntPrice.helium.usd}`}
         tooltip={{ sourceText: "Coingecko", cadence: "Live" }}
       />
       <StatItem label="Current Epoch" value={epoch} />
       <StatItem label="Next Epoch In">
-        <Countdown
-          date={epoch * ONE_DAY_MS + ONE_DAY_MS}
-          renderer={CountdownRenderer}
-        />
+        <Countdown date={epoch * ONE_DAY_MS + ONE_DAY_MS} />
       </StatItem>
       <StatItem label="Halvening In">
-        <Countdown date={NEXT_HALVENING * 1000} renderer={CountdownRenderer} />
+        <Countdown date={NEXT_HALVENING * 1000} />
       </StatItem>
       <StatItem label="Landrush Period End">
-        <Countdown date={100} renderer={CountdownRenderer} />
+        <Countdown date={100} />
       </StatItem>
-
       <StatItem
         label="Last Epoch Ended"
         value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}

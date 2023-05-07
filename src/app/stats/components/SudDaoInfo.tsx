@@ -1,6 +1,6 @@
-"use client"
-
-import { useMint, useTokenAccount } from "@helium/helium-react-hooks"
+import { StatItem } from "@/app/stats/components/StatItem"
+import { Icon, StatsList } from "@/app/stats/components/StatsList"
+import { fetcher, humanReadableVeHNT } from "@/app/stats/utils"
 import {
   MOBILE_MINT,
   humanReadable,
@@ -8,12 +8,10 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
-import { useAsync } from "react-async-hook"
-import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
-import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
-import { fetcher, humanReadableVeHNT } from "../utils"
-import { StatItem } from "./StatItem"
-import { Icon, StatsList } from "./StatsList"
+import { fetchMint } from "../../stats/utils/fetchMint"
+import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
+import { fetchSubDaoTreasuryInfo } from "../../stats/utils/fetchSubDaoTreasuryInfo"
+import { fetchTokenAccount } from "../../stats/utils/fetchTokenAccount"
 
 type SubDaoType = {
   title: string
@@ -39,14 +37,16 @@ const IOT_INFO: SubDaoType = {
   icon: "iot",
 }
 
-export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
+export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const { activeUrl, link, linkText, title, icon } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
-  const activeCount = useAsync(fetcher, [activeUrl])
-  const mintInfo = useMint(sDaoMint)
-  const epochInfo = useSubDaoEpochInfo(sDaoMint)
-  const treasuryInfo = useSubDaoTreasuryInfo(sDaoMint)
-  const treasuryTokenAcct = useTokenAccount(treasuryInfo.info?.treasury)
+  const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
+    fetcher(activeUrl),
+    fetchMint(sDaoMint),
+    fetchSubDaoEpochInfo(sDaoMint),
+    fetchSubDaoTreasuryInfo(sDaoMint),
+  ])
+  const treasuryTokenAcct = await fetchTokenAccount(treasuryInfo.info?.treasury)
 
   const mintSupplyNum =
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
@@ -65,7 +65,7 @@ export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
       />
       <StatItem
         label="Active Hotspots"
-        value={activeCount.result?.count || 0}
+        value={activeCount.count || 0}
         tooltip={{
           description: "Hotspots active in past 24h",
           cadence: "Live",

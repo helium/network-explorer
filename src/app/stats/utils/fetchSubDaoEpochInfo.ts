@@ -1,7 +1,7 @@
 import { subDaoEpochInfoKey, subDaoKey } from "@helium/helium-sub-daos-sdk"
 import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { PublicKey } from "@solana/web3.js"
-import { ONE_DAY_UNIX } from "../../../stats/utils"
+import { ONE_DAY_UNIX } from "../utils"
 // @ts-ignore
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
 import { fetchIdlAccount } from "./fetchIdlAccount"
