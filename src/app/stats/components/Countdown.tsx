@@ -11,12 +11,26 @@ import { useEffect, useRef, useState } from "react"
 
 import { CountdownProps } from "react-countdown"
 
+const zeroPrepended = (num: number = 0) => {
+  return num.toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  })
+}
+
 const CountdownRenderer = ({ days, hours, minutes, seconds }: Duration) => {
+  const [formattedHours, formattedMinutes, formattedSeconds] = [
+    zeroPrepended(hours),
+    zeroPrepended(minutes),
+    zeroPrepended(seconds),
+  ]
+
   let countdown = ""
   if (!!days) {
     countdown = `${days} days`
-    if (days < 10) countdown += ` ${hours}:${minutes}:${seconds}`
-  } else countdown = `${hours}:${minutes}:${seconds}`
+    if (days < 10)
+      countdown += ` ${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+  } else countdown = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
   return <span className="text-base">{countdown}</span>
 }
 
