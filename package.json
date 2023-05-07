@@ -26,6 +26,7 @@
     "@heroicons/react": "2.0.17",
     "@metaplex-foundation/mpl-token-metadata": "^2.9.1",
     "@solana/spl-account-compression": "^0.1.7",
+    "@solana/spl-token": "^0.3.7",
     "@solana/web3.js": "^1.75.0",
     "@tailwindcss/forms": "0.5.3",
     "@tailwindcss/typography": "0.5.9",

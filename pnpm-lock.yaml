@@ -37,6 +37,9 @@ dependencies:
   "@solana/spl-account-compression":
     specifier: ^0.1.7
     version: 0.1.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+  "@solana/spl-token":
+    specifier: ^0.3.7
+    version: 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
   "@solana/web3.js":
     specifier: ^1.75.0
     version: 1.75.0(encoding@0.1.13)
