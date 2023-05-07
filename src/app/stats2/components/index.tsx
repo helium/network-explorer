@@ -1,4 +1,5 @@
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
+import { DelegationHistory } from "./DelegationHistory"
 import { HntInfo } from "./HntInfo"
 import { SubDaoInfo } from "./SudDaoInfo"
 
@@ -11,7 +12,8 @@ export const Stats = () => {
       <SubDaoInfo sDaoMint={MOBILE_MINT} />
       {/* @ts-expect-error Async Server Component */}
       <SubDaoInfo sDaoMint={IOT_MINT} />
-      {/* <DelegationHistory /> */}
+      {/* @ts-expect-error Async Server Component */}
+      <DelegationHistory />
     </div>
   )
 }
