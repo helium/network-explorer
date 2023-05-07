@@ -65,12 +65,8 @@ export async function fetchAccount<T>(
       return reject("No pubkey or cache")
     }
     return cache
-      .searchAndWatch(
-        id,
-        parser ? parsedAccountBaseParser : undefined,
-        isStatic
-      )
-      .then(([acc]) => {
+      .search(id, parser ? parsedAccountBaseParser : undefined, isStatic)
+      .then((acc) => {
         if (acc) {
           try {
             const nextInfo = parser && parser(acc.pubkey, acc?.account)
