@@ -1,4 +1,4 @@
-import { ONE_DAY_MS, veHNTWoDecimal } from "@/app/stats/utils"
+import { ONE_DAY_MS, veHntWoDecimal } from "@/app/stats/utils"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import { IOT_MINT, MOBILE_MINT, amountAsNum } from "@helium/spl-utils"
@@ -33,10 +33,10 @@ export const DelegationHistory = async () => {
         // need to pass date as a number to client side
         const date = amountAsNum(mobileInfo.epoch, 0) * ONE_DAY_MS
 
-        const mobileDelegated = veHNTWoDecimal(
+        const mobileDelegated = veHntWoDecimal(
           mobileInfo.vehntAtEpochStart.toString()
         )
-        const iotDelegated = veHNTWoDecimal(
+        const iotDelegated = veHntWoDecimal(
           iotInfo.vehntAtEpochStart.toString()
         )
         const percentIot =

@@ -4,7 +4,7 @@ export const fetcher = async (url: string) => {
   return fetch(url).then((response) => response.json())
 }
 
-export const veHNTWoDecimal = (numberStr: string) => {
+export const veHntWoDecimal = (numberStr: string) => {
   return parseInt(
     numberStr
       .split("")
@@ -15,7 +15,7 @@ export const veHNTWoDecimal = (numberStr: string) => {
 }
 
 export const humanReadableVeHNT = (numberStr: string) => {
-  const numberWODecimal = veHNTWoDecimal(numberStr)
+  const numberWODecimal = veHntWoDecimal(numberStr)
   return numberWithCommas(numberWODecimal, 0)
 }
 

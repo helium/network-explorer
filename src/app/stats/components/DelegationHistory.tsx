@@ -27,7 +27,7 @@ import {
 } from "recharts/types/component/DefaultTooltipContent"
 import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
 import { useUnixTimestamp } from "../hooks/useUnixTimestamp"
-import { ONE_DAY_MS, veHNTWoDecimal } from "../utils"
+import { ONE_DAY_MS, veHntWoDecimal } from "../utils"
 
 const DATE_FORMAT = "M/dd"
 
@@ -102,10 +102,10 @@ export const DelegationHistory = () => {
         const mobileInfo = mEpoch.info
         const date = new Date(amountAsNum(mobileInfo.epoch, 0) * ONE_DAY_MS)
 
-        const mobileDelegated = veHNTWoDecimal(
+        const mobileDelegated = veHntWoDecimal(
           mobileInfo.vehntAtEpochStart.toString()
         )
-        const iotDelegated = veHNTWoDecimal(
+        const iotDelegated = veHntWoDecimal(
           iotInfo.vehntAtEpochStart.toString()
         )
         const percentIot =
