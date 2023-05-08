@@ -1,8 +1,6 @@
-"use client"
-
-import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
-import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
-import { useMint, useTokenAccount } from "@helium/helium-react-hooks"
+import { StatItem } from "@/app/stats/components/StatItem"
+import { Icon, StatsList } from "@/app/stats/components/StatsList"
+import { fetcher, humanReadableVeHNT } from "@/app/stats/utils"
 import {
   MOBILE_MINT,
   humanReadable,
@@ -10,37 +8,45 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
-import { useAsync } from "react-async-hook"
-import { useSubDaoEpochInfo } from "../hooks/useSubDaoEpochInfo"
-import { useSubDaoTreasuryInfo } from "../hooks/useSubDaoTreasuryInfo"
-import { fetcher, humanReadableVeHNT } from "../utils"
-import { StatItem } from "./StatItem"
-import { StatsList } from "./StatsList"
+import { fetchMint } from "../../stats/utils/fetchMint"
+import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
+import { fetchSubDaoTreasuryInfo } from "../../stats/utils/fetchSubDaoTreasuryInfo"
+import { fetchTokenAccount } from "../../stats/utils/fetchTokenAccount"
 
-const MOBILE_INFO = {
+type SubDaoType = {
+  title: string
+  activeUrl: string
+  link: string
+  linkText: string
+  icon: Icon
+}
+
+const MOBILE_INFO: SubDaoType = {
   title: "MOBILE",
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
-  Icon: HeliumMobileIcon,
+  icon: "mobile",
 }
 
-const IOT_INFO = {
+const IOT_INFO: SubDaoType = {
   title: "IOT",
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
   link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
-  Icon: HeliumIotIcon,
+  icon: "iot",
 }
 
-export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
-  const { activeUrl, link, linkText, title, Icon } =
+export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
+  const { activeUrl, link, linkText, title, icon } =
     sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
-  const activeCount = useAsync(fetcher, [activeUrl])
-  const mintInfo = useMint(sDaoMint)
-  const epochInfo = useSubDaoEpochInfo(sDaoMint)
-  const treasuryInfo = useSubDaoTreasuryInfo(sDaoMint)
-  const treasuryTokenAcct = useTokenAccount(treasuryInfo.info?.treasury)
+  const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
+    fetcher(activeUrl),
+    fetchMint(sDaoMint),
+    fetchSubDaoEpochInfo(sDaoMint),
+    fetchSubDaoTreasuryInfo(sDaoMint),
+  ])
+  const treasuryTokenAcct = await fetchTokenAccount(treasuryInfo.info?.treasury)
 
   const mintSupplyNum =
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
@@ -48,7 +54,7 @@ export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
   const swap = mintSupplyNum / treasuryHntNum
 
   return (
-    <StatsList title={title} link={link} linkText={linkText} Icon={Icon}>
+    <StatsList title={title} link={link} linkText={linkText} icon={icon}>
       <StatItem
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
@@ -59,7 +65,7 @@ export const SubDaoInfo = ({ sDaoMint }: { sDaoMint: PublicKey }) => {
       />
       <StatItem
         label="Active Hotspots"
-        value={activeCount.result?.count || 0}
+        value={activeCount.count || 0}
         tooltip={{
           description: "Hotspots active in past 24h",
           cadence: "Live",

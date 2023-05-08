@@ -1,22 +1,23 @@
-import { useIdlAccount } from "@helium/helium-react-hooks"
 import { subDaoEpochInfoKey, subDaoKey } from "@helium/helium-sub-daos-sdk"
 import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { PublicKey } from "@solana/web3.js"
-import { useMemo } from "react"
 import { ONE_DAY_UNIX } from "../utils"
 // @ts-ignore
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
-import { useUnixTimestamp } from "./useUnixTimestamp"
+import { fetchIdlAccount } from "./fetchIdlAccount"
 
-export const useSubDaoEpochInfo = (subDaoMint: PublicKey) => {
-  const SUBDAO_KEY = useMemo(() => subDaoKey(subDaoMint)[0], [subDaoMint])
-  const unixTime = useUnixTimestamp()
+const today = Math.floor(new Date().valueOf() / 1000)
+export const fetchSubDaoEpochInfo = (
+  subDaoMint: PublicKey,
+  offset: number = 1
+) => {
+  const SUBDAO_KEY = subDaoKey(subDaoMint)[0]
   const sdeKey = subDaoEpochInfoKey(
     SUBDAO_KEY,
-    unixTime - BigInt(ONE_DAY_UNIX)
+    BigInt(today) - BigInt(ONE_DAY_UNIX * offset)
   )[0]
 
-  return useIdlAccount<HeliumSubDaos>(
+  return fetchIdlAccount<HeliumSubDaos>(
     sdeKey,
     subDaosIDL as HeliumSubDaos,
     "subDaoEpochInfoV0"
