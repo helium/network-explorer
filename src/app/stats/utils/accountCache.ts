@@ -2,7 +2,9 @@ import { AccountFetchCache } from "@helium/spl-utils"
 import { Connection } from "@solana/web3.js"
 
 const createAccountCache = () => {
-  const connection = new Connection(process.env.NEXT_PUBLIC_SOLANA_RPC!)
+  const connection = new Connection(
+    process.env.SOLANA_RPC! || process.env.NEXT_PUBLIC_SOLANA_RPC!
+  )
 
   return new AccountFetchCache({
     connection,
