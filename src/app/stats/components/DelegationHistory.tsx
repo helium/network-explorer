@@ -13,7 +13,7 @@ export const DelegationHistory = async () => {
   const iotEpochsQueries: any[] = []
 
   const epochsSinceMigration = epoch - 19467
-  for (let offset = 1; offset <= Math.min(epochsSinceMigration, 30); offset++) {
+  for (let offset = 0; offset <= Math.min(epochsSinceMigration, 30); offset++) {
     if (epoch - offset >= 19467) {
       mobileEpochQueries.push(fetchSubDaoEpochInfo(MOBILE_MINT, offset))
       iotEpochsQueries.push(fetchSubDaoEpochInfo(IOT_MINT, offset))
