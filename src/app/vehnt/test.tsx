@@ -7,27 +7,45 @@ import { useEffect } from "react"
 import { accountCache } from "../stats/utils/accountCache"
 import { getIdlParser } from "../stats/utils/getIdlParser"
 
+import { PROGRAM_ID as HELIUM_DAO_ID } from "@helium/helium-sub-daos-sdk"
+import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 // @ts-ignore
-import { IDL } from "@helium/idls/voter_stake_registry"
+import { IDL as vsrRegistryIDL } from "@helium/idls/voter_stake_registry"
+// @ts-ignore
+import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+
+const IOT_SUBDAO = "39Lw1RH6zt8AJvKn3BTxmUDofzduCM2J3kSaGDZ8L7Sk"
+const MOBILE_SUBDAO = "Gm9xDCJawDEKDrrQW6haw94gABaYzQwCq4ZQU8h8bd22"
+
 const HELIUM_VSR_ID = "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8"
-const HNT_POSITION_V0_DESCRIMINATAOR = [
+const HNT_POSITION_V0_DESCRIMINATOR = [
   152, 131, 154, 46, 158, 42, 31, 233, 153, 231, 240, 209, 136, 172, 103, 141,
   133, 237, 188, 234, 25, 98, 24, 31, 110, 4, 118, 170, 97, 47, 254, 176, 204,
   205, 221, 23, 230, 245, 155, 49,
 ]
+const HNT_POSITION_V0_DESCRIMINATOR_B58 = bs58.encode(
+  Buffer.from(HNT_POSITION_V0_DESCRIMINATOR)
+)
 
-const buff = Buffer.from(HNT_POSITION_V0_DESCRIMINATAOR)
-const B58 = bs58.encode(buff)
+const DELEGATE_POSITION_V0_DESCRIMINATOR = [251, 212, 32, 100, 102, 1, 247, 81]
+const DELEGATE_POSITION_V0_DESCRIMINATOR_B58 = bs58.encode(
+  Buffer.from(DELEGATE_POSITION_V0_DESCRIMINATOR)
+)
 
 const positionParser = getIdlParser<VoterStakeRegistry>(
-  IDL as VoterStakeRegistry,
+  vsrRegistryIDL as VoterStakeRegistry,
   "positionV0"
+)
+
+const delegatedPositionParser = getIdlParser<HeliumSubDaos>(
+  subDaosIDL as HeliumSubDaos,
+  "delegatedPositionV0"
 )
 
 export const VeHnt = () => {
   useEffect(() => {
-    const fetchAccounts = async () => {
-      console.log("fetchAccounts triggered")
+    const fetchPositions = async () => {
+      console.log("fetchPositions triggered")
       const connection = accountCache.connection
 
       const accounts = await connection.getProgramAccounts(
@@ -40,7 +58,7 @@ export const VeHnt = () => {
             {
               memcmp: {
                 offset: 0, // number of bytes
-                bytes: B58, // base58 encoded string
+                bytes: HNT_POSITION_V0_DESCRIMINATOR_B58, // base58 encoded string
               },
             },
           ],
@@ -50,17 +68,60 @@ export const VeHnt = () => {
       console.log(
         `Found ${accounts.length} token account(s) for HNT positions: `
       )
-      accounts.forEach((account, i) => {
-        if (i == 0) {
-          console.log(
-            `-- Account Address ${i + 1}: ${account.pubkey.toString()} --`
-          )
-          console.log("parsed", positionParser(account.pubkey, account.account))
+      const accountsParsed = accounts.map((account, i) => {
+        return {
+          ...account,
+          info: positionParser(account.pubkey, account.account),
         }
+      })
+      console.log("first position account", accountsParsed[0])
+
+      const registrars: string[] = []
+      const mints: string[] = []
+      accountsParsed.forEach((acc) => {
+        const registrar = acc.info.registrar.toString()
+        const mint = acc.info.mint.toString()
+        if (!registrars.includes(registrar)) registrars.push(registrar)
+        if (!mints.includes(registrar)) mints.push(mint)
       })
     }
 
-    fetchAccounts()
+    const fetchDelegatedPositions = async () => {
+      console.log("fetchDelegatedPositions triggered")
+      const connection = accountCache.connection
+
+      const accounts = await connection.getProgramAccounts(HELIUM_DAO_ID, {
+        filters: [
+          {
+            dataSize: 196, // number of bytes
+          },
+          {
+            memcmp: {
+              offset: 0, // number of bytes
+              bytes: DELEGATE_POSITION_V0_DESCRIMINATOR_B58, // base58 encoded string
+            },
+          },
+        ],
+      })
+      console.log(
+        `Found ${accounts.length} token account(s) for HNT positions: `
+      )
+
+      const accountsParsed = accounts.map((account, i) => {
+        return {
+          ...account,
+          info: delegatedPositionParser(account.pubkey, account.account),
+        }
+      })
+      for (var i = 0; i < 3; i++) {
+        const account = accountsParsed[i]
+        console.log(`account ${i}`, account)
+        console.log(account.info.subDao.toString())
+      }
+    }
+
+    fetchDelegatedPositions()
+    fetchPositions()
   }, [])
 
   return null
