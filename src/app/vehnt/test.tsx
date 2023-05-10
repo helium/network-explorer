@@ -1,10 +1,14 @@
 "use client"
 
 import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes"
+import { VoterStakeRegistry } from "@helium/idls/lib/types/voter_stake_registry"
 import { PublicKey } from "@solana/web3.js"
 import { useEffect } from "react"
 import { accountCache } from "../stats/utils/accountCache"
+import { getIdlParser } from "../stats/utils/getIdlParser"
 
+// @ts-ignore
+import { IDL } from "@helium/idls/voter_stake_registry"
 const HELIUM_VSR_ID = "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8"
 const HNT_POSITION_V0_DESCRIMINATAOR = [
   152, 131, 154, 46, 158, 42, 31, 233, 153, 231, 240, 209, 136, 172, 103, 141,
@@ -15,15 +19,18 @@ const HNT_POSITION_V0_DESCRIMINATAOR = [
 const buff = Buffer.from(HNT_POSITION_V0_DESCRIMINATAOR)
 const B58 = bs58.encode(buff)
 
+const positionParser = getIdlParser<VoterStakeRegistry>(
+  IDL as VoterStakeRegistry,
+  "positionV0"
+)
+
 export const VeHnt = () => {
   useEffect(() => {
     const fetchAccounts = async () => {
       console.log("fetchAccounts triggered")
-      // console.log("position_descriminator", MY_WALLET_ADDRESS.toBase58())
-      // console.log("position_descriminator bytes", MY_WALLET_ADDRESS.toBytes())
       const connection = accountCache.connection
 
-      const accounts = await connection.getParsedProgramAccounts(
+      const accounts = await connection.getProgramAccounts(
         new PublicKey(HELIUM_VSR_ID),
         {
           filters: [
@@ -44,21 +51,15 @@ export const VeHnt = () => {
         `Found ${accounts.length} token account(s) for HNT positions: `
       )
       accounts.forEach((account, i) => {
-        if (i <= 2) {
+        if (i == 0) {
           console.log(
-            `-- Token Account Address ${i + 1}: ${account.pubkey.toString()} --`
+            `-- Account Address ${i + 1}: ${account.pubkey.toString()} --`
           )
-
-          console.log(account.pubkey.toString())
+          console.log("parsed", positionParser(account.pubkey, account.account))
         }
-        // console.log(`Mint: ${account.account.data["parsed"]["info"]["mint"]}`)
-        // console.log(
-        //   `Amount: ${account.account.data["parsed"]["info"]["tokenAmount"]["uiAmount"]}`
-        // )
       })
     }
 
-    console.log("triggering fetchAccounts")
     fetchAccounts()
   }, [])
 
