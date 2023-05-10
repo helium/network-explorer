@@ -16,10 +16,6 @@ export const calcPositionVotingPower = ({
   const mintCfgs = registrar?.votingMints || []
   const mintCfg = position ? mintCfgs[position.votingMintConfigIdx] : undefined
 
-  console.log("registrar", registrar)
-  console.log("mintCfgs", mintCfgs)
-  console.log("mintCfg", mintCfg)
-
   if (position && mintCfg) {
     const {
       lockupSaturationSecs,
@@ -27,21 +23,10 @@ export const calcPositionVotingPower = ({
       maxExtraLockupVoteWeightScaledFactor,
       genesisVotePowerMultiplier = 1,
     } = mintCfg as VotingMintConfig
-    console.log("mintcfg info")
-    console.log({
-      lockupSaturationSecs,
-      baselineVoteWeightScaledFactor,
-      maxExtraLockupVoteWeightScaledFactor,
-      genesisVotePowerMultiplier,
-    })
     const hasGenesisMultiplier = position.genesisEnd.gt(unixNow)
     const lockup = position!.lockup
     const lockupKind = Object.keys(lockup.kind as LockupKind)[0]
     const currTs = lockupKind === "constant" ? lockup.startTs : unixNow
-    console.log("lockup", lockup)
-    console.log("lockupKind", lockupKind)
-    console.log("endTs", lockup.endTs.toNumber())
-    console.log("endTs", lockup.endTs.toNumber())
 
     const lockupSecs = lockup.endTs.sub(currTs).toNumber()
     const amountLockedNative = position!.amountDepositedNative

@@ -5,6 +5,7 @@ import { accountCache } from "./accountCache"
 import { getIdlParser } from "./getIdlParser"
 // @ts-ignore
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+import { DelegatedPosition } from "./types"
 
 const IOT_SUBDAO = "39Lw1RH6zt8AJvKn3BTxmUDofzduCM2J3kSaGDZ8L7Sk"
 const MOBILE_SUBDAO = "Gm9xDCJawDEKDrrQW6haw94gABaYzQwCq4ZQU8h8bd22"
@@ -39,7 +40,10 @@ export const fetchDelegatedPositions = async () => {
   return accounts.map((account, i) => {
     return {
       ...account,
-      info: delegatedPositionParser(account.pubkey, account.account),
+      info: delegatedPositionParser(
+        account.pubkey,
+        account.account
+      ) as DelegatedPosition,
     }
   })
 }

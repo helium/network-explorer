@@ -1,13 +1,9 @@
-import { BN } from "@coral-xyz/anchor"
 import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes"
 import { VoterStakeRegistry } from "@helium/idls/lib/types/voter_stake_registry"
 import { PublicKey } from "@solana/web3.js"
 import { accountCache } from "./accountCache"
-import { calcPositionVotingPower } from "./calcPositionVotingPower"
-import { fetchRegistrar } from "./fetchRegistrar"
-import { fetchUnixTimestap } from "./fetchUnixTimestamp"
 import { getIdlParser } from "./getIdlParser"
-import { Position, Registrar } from "./types"
+import { Position } from "./types"
 
 // @ts-ignore
 import { IDL as vsrRegistryIDL } from "@helium/idls/voter_stake_registry"
@@ -28,7 +24,6 @@ const positionParser = getIdlParser<VoterStakeRegistry>(
 )
 
 export const fetchPositions = async () => {
-  console.log("fetchPositions triggered")
   const connection = accountCache.connection
 
   const accounts = await connection.getProgramAccounts(
@@ -48,37 +43,10 @@ export const fetchPositions = async () => {
     }
   )
 
-  const accountsParsed = accounts.map((account, i) => {
+  return accounts.map((account, i) => {
     return {
       ...account,
       info: positionParser(account.pubkey, account.account) as Position,
     }
-  })
-
-  const [registrar, now] = await Promise.all([
-    fetchRegistrar(accountsParsed[0].info.registrar),
-    fetchUnixTimestap(),
-  ])
-  const nowBN = new BN(now)
-  const mintCfg = (registrar.info as Registrar).votingMints[0]
-  console.log({
-    lockupSaturationSecs: mintCfg.lockupSaturationSecs,
-    baselineVoteWeightScaledFactor: mintCfg.baselineVoteWeightScaledFactor,
-    maxExtraLockupVoteWeightScaledFactor:
-      mintCfg.maxExtraLockupVoteWeightScaledFactor,
-    genesisVotePowerMultiplier: mintCfg.genesisVotePowerMultiplier,
-  })
-
-  return accountsParsed.map((pos, index) => {
-    let posVotingPower = 0
-    if (index === 0) {
-      posVotingPower = calcPositionVotingPower({
-        position: pos.info,
-        registrar: registrar.info as Registrar,
-        unixNow: nowBN,
-      })
-    }
-
-    return { ...pos, veHnt: posVotingPower }
   })
 }

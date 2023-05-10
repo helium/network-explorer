@@ -2,9 +2,13 @@
 
 import { useEffect } from "react"
 
+import { BN } from "@coral-xyz/anchor"
+import { calcPositionVotingPower } from "../stats/utils/calcPositionVotingPower"
 import { fetchDelegatedPositions } from "../stats/utils/fetchDelegatedPositions"
 import { fetchPositions } from "../stats/utils/fetchPositions"
-import { DelegatedPostionV0, Position } from "../stats/utils/types"
+import { fetchRegistrar } from "../stats/utils/fetchRegistrar"
+import { fetchUnixTimestap } from "../stats/utils/fetchUnixTimestamp"
+import { DelegatedPosition, Position, Registrar } from "../stats/utils/types"
 
 const IOT_SUBDAO = "39Lw1RH6zt8AJvKn3BTxmUDofzduCM2J3kSaGDZ8L7Sk"
 const MOBILE_SUBDAO = "Gm9xDCJawDEKDrrQW6haw94gABaYzQwCq4ZQU8h8bd22"
@@ -19,10 +23,52 @@ export const VeHnt = () => {
       console.log("positions 0", positions[0])
       console.log("delegatedPositions 0", delegatedPositions[0])
 
-      const getPositionsWithMeta = ({}: {
+      const getPositionsWithMeta = async ({
+        positions,
+        delegatedPositions,
+      }: {
         positions: Position[]
-        delegatedPositions: DelegatedPostionV0[]
-      }) => {}
+        delegatedPositions: DelegatedPosition[]
+      }) => {
+        const [registrar, now] = await Promise.all([
+          fetchRegistrar(positions[0].registrar),
+          fetchUnixTimestap(),
+        ])
+        const nowBN = new BN(now)
+
+        const posKeyToDelegatedPos: { [key: string]: DelegatedPosition } = {}
+        delegatedPositions.forEach((delegatedPos) => {
+          const posKey = delegatedPos.position.toString()
+          posKeyToDelegatedPos[posKey] = delegatedPos
+        })
+
+        return positions.map((position) => {
+          const posKey = position.pubkey.toString()
+          const delegatedPos = posKeyToDelegatedPos[posKey]
+          const delegatedMeta = !delegatedPos
+            ? {}
+            : {
+                subDao:
+                  delegatedPos.subDao.toString() === IOT_SUBDAO ? "iot" : "mob",
+                delegatedPositionKey: delegatedPos.pubkey.toString(),
+              }
+
+          return {
+            ...delegatedMeta,
+            ...position,
+            veHnt: calcPositionVotingPower({
+              position: position,
+              registrar: registrar.info as Registrar,
+              unixNow: nowBN,
+            }),
+          }
+        })
+      }
+      const meta = await getPositionsWithMeta({
+        positions: positions.map(({ info }) => info),
+        delegatedPositions: delegatedPositions.map(({ info }) => info),
+      })
+      console.log(meta)
     }
     doAsync()
   }, [])
