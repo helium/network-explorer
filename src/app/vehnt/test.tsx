@@ -1,9 +1,33 @@
 import { humanReadable } from "@helium/spl-utils"
-import { humanReadableLockup, humanReadableVeHNT } from "../stats/utils"
+import clsx from "clsx"
+import { PropsWithChildren } from "react"
+import {
+  humanReadableHnt,
+  humanReadableLockup,
+  humanReadableVeHNT,
+} from "../stats/utils"
 import { addPositionsMeta } from "../stats/utils/addPositionsMeta"
 import { fetchDelegatedPositions } from "../stats/utils/fetchDelegatedPositions"
 import { fetchPositions } from "../stats/utils/fetchPositions"
 import { getPositionMetrics } from "../stats/utils/positionsMetrics"
+
+const Cell = ({
+  children,
+  isHeader = false,
+}: PropsWithChildren<{ isHeader?: boolean }>) => {
+  return (
+    <td
+      className={clsx(
+        "border  px-2 py-1",
+        "border-zinc-900/5",
+        "dark:border-white/10",
+        !isHeader && "font-normal"
+      )}
+    >
+      {children}
+    </td>
+  )
+}
 
 export const VeHnt = async () => {
   const [positions, delegatedPositions] = await Promise.all([
@@ -19,115 +43,137 @@ export const VeHnt = async () => {
   console.log(positionMetrics)
 
   return (
-    <div>
+    <div className="flex justify-center">
       <table className="table-auto">
         <thead>
           <tr>
-            <th></th>
-            <th>Network</th>
-            <th>IOT</th>
-            <th>Mobile</th>
-            <th>Undelegated</th>
+            <Cell isHeader></Cell>
+            <Cell isHeader>Network</Cell>
+            <Cell isHeader>IOT</Cell>
+            <Cell isHeader>Mobile</Cell>
+            <Cell isHeader>Undelegated</Cell>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Positions #</td>
-            <td>{humanReadable(positionMetrics.network.total.count, 0)}</td>
-            <td>{humanReadable(positionMetrics.iot.total.count, 0)}</td>
-            <td>{humanReadable(positionMetrics.mobile.total.count, 0)}</td>
-            <td>{humanReadable(positionMetrics.undelegated.total.count, 0)}</td>
+            <Cell isHeader>Positions #</Cell>
+            <Cell>{humanReadable(positionMetrics.network.total.count, 0)}</Cell>
+            <Cell>{humanReadable(positionMetrics.iot.total.count, 0)}</Cell>
+            <Cell>{humanReadable(positionMetrics.mobile.total.count, 0)}</Cell>
+            <Cell>
+              {humanReadable(positionMetrics.undelegated.total.count, 0)}
+            </Cell>
           </tr>
           <tr>
-            <td>Total HNT</td>
-            <td>{humanReadable(positionMetrics.network.total.hnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.iot.total.hnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.mobile.total.hnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.undelegated.total.hnt, 8)}</td>
+            <Cell isHeader>Total HNT</Cell>
+            <Cell>{humanReadableHnt(positionMetrics.network.total.hnt)}</Cell>
+            <Cell>{humanReadableHnt(positionMetrics.iot.total.hnt)}</Cell>
+            <Cell>{humanReadableHnt(positionMetrics.mobile.total.hnt)}</Cell>
+            <Cell>
+              {humanReadableHnt(positionMetrics.undelegated.total.hnt)}
+            </Cell>
           </tr>
           <tr>
-            <td>Mean HNT</td>
-            <td>{humanReadable(positionMetrics.network.stats.avgHnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.iot.stats.avgHnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.mobile.stats.avgHnt, 8)}</td>
-            <td>
-              {humanReadable(positionMetrics.undelegated.stats.avgHnt, 8)}
-            </td>
+            <Cell isHeader>Mean HNT</Cell>
+            <Cell>
+              {humanReadableHnt(positionMetrics.network.stats.avgHnt)}
+            </Cell>
+            <Cell>{humanReadableHnt(positionMetrics.iot.stats.avgHnt)}</Cell>
+            <Cell>{humanReadableHnt(positionMetrics.mobile.stats.avgHnt)}</Cell>
+            <Cell>
+              {humanReadableHnt(positionMetrics.undelegated.stats.avgHnt)}
+            </Cell>
           </tr>
           <tr>
-            <td>Median HNT</td>
-            <td>{humanReadable(positionMetrics.network.stats.medianHnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.iot.stats.medianHnt, 8)}</td>
-            <td>{humanReadable(positionMetrics.mobile.stats.medianHnt, 8)}</td>
-            <td>
+            <Cell isHeader>Median HNT</Cell>
+            <Cell>
+              {humanReadable(positionMetrics.network.stats.medianHnt, 8)}
+            </Cell>
+            <Cell>{humanReadable(positionMetrics.iot.stats.medianHnt, 8)}</Cell>
+            <Cell>
+              {humanReadable(positionMetrics.mobile.stats.medianHnt, 8)}
+            </Cell>
+            <Cell>
               {humanReadable(positionMetrics.undelegated.stats.medianHnt, 8)}
-            </td>
+            </Cell>
           </tr>
           <tr>
-            <td>Total veHNT</td>
-            <td>{humanReadableVeHNT(positionMetrics.network.total.vehnt)}</td>
-            <td>{humanReadableVeHNT(positionMetrics.iot.total.vehnt)}</td>
-            <td>{humanReadableVeHNT(positionMetrics.mobile.total.vehnt)}</td>
-            <td>
+            <Cell isHeader>Total veHNT</Cell>
+            <Cell>
+              {humanReadableVeHNT(positionMetrics.network.total.vehnt)}
+            </Cell>
+            <Cell>{humanReadableVeHNT(positionMetrics.iot.total.vehnt)}</Cell>
+            <Cell>
+              {humanReadableVeHNT(positionMetrics.mobile.total.vehnt)}
+            </Cell>
+            <Cell>
               {humanReadableVeHNT(positionMetrics.undelegated.total.vehnt)}
-            </td>
+            </Cell>
           </tr>
           <tr>
-            <td>Mean VeHNT</td>
-            <td>
+            <Cell isHeader>Mean VeHNT</Cell>
+            <Cell>
               {humanReadableVeHNT(positionMetrics.network.stats.avgVehnt)}
-            </td>
-            <td>{humanReadableVeHNT(positionMetrics.iot.stats.avgVehnt)}</td>
-            <td>{humanReadableVeHNT(positionMetrics.mobile.stats.avgVehnt)}</td>
-            <td>
+            </Cell>
+            <Cell>
+              {humanReadableVeHNT(positionMetrics.iot.stats.avgVehnt)}
+            </Cell>
+            <Cell>
+              {humanReadableVeHNT(positionMetrics.mobile.stats.avgVehnt)}
+            </Cell>
+            <Cell>
               {humanReadableVeHNT(positionMetrics.undelegated.stats.avgVehnt)}
-            </td>
+            </Cell>
           </tr>
           <tr>
-            <td>Median VeHNT</td>
-            <td>
+            <Cell isHeader>Median VeHNT</Cell>
+            <Cell>
               {humanReadableVeHNT(positionMetrics.network.stats.medianVehnt)}
-            </td>
-            <td>{humanReadableVeHNT(positionMetrics.iot.stats.medianVehnt)}</td>
-            <td>
+            </Cell>
+            <Cell>
+              {humanReadableVeHNT(positionMetrics.iot.stats.medianVehnt)}
+            </Cell>
+            <Cell>
               {humanReadableVeHNT(positionMetrics.mobile.stats.medianVehnt)}
-            </td>
-            <td>
+            </Cell>
+            <Cell>
               {humanReadableVeHNT(
                 positionMetrics.undelegated.stats.medianVehnt
               )}
-            </td>
+            </Cell>
           </tr>
 
           <tr>
-            <td>Mean Lockup</td>
-            <td>
+            <Cell isHeader>Mean Lockup</Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.network.stats.avgLockup)}
-            </td>
-            <td>{humanReadableLockup(positionMetrics.iot.stats.avgLockup)}</td>
-            <td>
+            </Cell>
+            <Cell>
+              {humanReadableLockup(positionMetrics.iot.stats.avgLockup)}
+            </Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.mobile.stats.avgLockup)}
-            </td>
-            <td>
+            </Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.undelegated.stats.avgLockup)}
-            </td>
+            </Cell>
           </tr>
           <tr>
-            <td>Median Lockup</td>
-            <td>
+            <Cell isHeader>Median Lockup</Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.network.stats.medianLockup)}
-            </td>
-            <td>
+            </Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.iot.stats.medianLockup)}
-            </td>
-            <td>
+            </Cell>
+            <Cell>
               {humanReadableLockup(positionMetrics.mobile.stats.medianLockup)}
-            </td>
-            <td>
+            </Cell>
+            <Cell>
               {humanReadableLockup(
                 positionMetrics.undelegated.stats.medianLockup
               )}
-            </td>
+            </Cell>
           </tr>
         </tbody>
       </table>
