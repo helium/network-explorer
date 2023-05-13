@@ -52,15 +52,15 @@ const getMetrics = async (positions: PositionWithMeta[]) => {
   return {
     stats: {
       avgVehnt: getMean(vehnt).toString(),
-      avgHnt: getMean(hnt).toString(),
-      avgLockup: getMean(lockups).toString(),
+      avgHnt: getMean(hnt),
+      avgLockup: getMean(lockups),
       medianVehnt: getMedian(vehnt).toString(),
-      medianHnt: getMedian(hnt).toString(),
-      medianLockup: getMedian(lockups).toString(),
+      medianHnt: getMedian(hnt),
+      medianLockup: getMedian(lockups),
     },
     total: {
-      count: positions.length,
-      hnt: getSum(hnt).toString(),
+      count: new BN(positions.length),
+      hnt: getSum(hnt),
       vehnt: getSum(vehnt).toString(),
     },
   }

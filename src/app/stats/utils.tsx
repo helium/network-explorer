@@ -1,3 +1,4 @@
+import { BN } from "@coral-xyz/anchor"
 import { numberWithCommas } from "@helium/spl-utils"
 
 export const fetcher = async (url: string) => {
@@ -21,3 +22,9 @@ export const humanReadableVeHNT = (numberStr: string) => {
 
 export const ONE_DAY_UNIX = 60 * 60 * 24
 export const ONE_DAY_MS = ONE_DAY_UNIX * 1000
+
+export const humanReadableLockup = (bn: BN) => {
+  const num = bn.toNumber()
+  const days = Math.round(num / ONE_DAY_UNIX)
+  return `${days} days`
+}
