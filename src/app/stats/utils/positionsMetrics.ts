@@ -1,5 +1,5 @@
-import { PositionWithMeta, SubDaos } from "@/app/vehnt/test"
 import { BN } from "@coral-xyz/anchor"
+import { PositionWithMeta, SubDaos } from "./addPositionsMeta"
 import { fetchUnixTimestap } from "./fetchUnixTimestamp"
 import { LockupKind } from "./types"
 
