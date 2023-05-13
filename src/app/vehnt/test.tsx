@@ -8,10 +8,22 @@ import { fetchDelegatedPositions } from "../stats/utils/fetchDelegatedPositions"
 import { fetchPositions } from "../stats/utils/fetchPositions"
 import { fetchRegistrar } from "../stats/utils/fetchRegistrar"
 import { fetchUnixTimestap } from "../stats/utils/fetchUnixTimestamp"
+import { getPositionMetrics } from "../stats/utils/positionsMetrics"
 import { DelegatedPosition, Position, Registrar } from "../stats/utils/types"
 
 const IOT_SUBDAO = "39Lw1RH6zt8AJvKn3BTxmUDofzduCM2J3kSaGDZ8L7Sk"
 const MOBILE_SUBDAO = "Gm9xDCJawDEKDrrQW6haw94gABaYzQwCq4ZQU8h8bd22"
+
+export enum SubDaos {
+  MOBILE = "mob",
+  IOT = "iot",
+}
+
+export interface PositionWithMeta extends Position {
+  subDao?: SubDaos
+  delegatedPositionKey?: string
+  veHnt: BN
+}
 
 export const VeHnt = () => {
   useEffect(() => {
@@ -42,14 +54,16 @@ export const VeHnt = () => {
           posKeyToDelegatedPos[posKey] = delegatedPos
         })
 
-        return positions.map((position) => {
+        return positions.map((position): PositionWithMeta => {
           const posKey = position.pubkey.toString()
           const delegatedPos = posKeyToDelegatedPos[posKey]
           const delegatedMeta = !delegatedPos
             ? {}
             : {
                 subDao:
-                  delegatedPos.subDao.toString() === IOT_SUBDAO ? "iot" : "mob",
+                  delegatedPos.subDao.toString() === IOT_SUBDAO
+                    ? SubDaos.IOT
+                    : SubDaos.MOBILE,
                 delegatedPositionKey: delegatedPos.pubkey.toString(),
               }
 
@@ -64,11 +78,12 @@ export const VeHnt = () => {
           }
         })
       }
-      const meta = await getPositionsWithMeta({
+      const positionsWithMeta = await getPositionsWithMeta({
         positions: positions.map(({ info }) => info),
         delegatedPositions: delegatedPositions.map(({ info }) => info),
       })
-      console.log(meta)
+      console.log(positionsWithMeta)
+      console.log(await getPositionMetrics(positionsWithMeta))
     }
     doAsync()
   }, [])

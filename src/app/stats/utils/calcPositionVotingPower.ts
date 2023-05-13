@@ -27,7 +27,6 @@ export const calcPositionVotingPower = ({
     const lockup = position!.lockup
     const lockupKind = Object.keys(lockup.kind as LockupKind)[0]
     const currTs = lockupKind === "constant" ? lockup.startTs : unixNow
-
     const lockupSecs = lockup.endTs.sub(currTs).toNumber()
     const amountLockedNative = position!.amountDepositedNative
     const baselineScaledFactorNum = baselineVoteWeightScaledFactor.toNumber()
