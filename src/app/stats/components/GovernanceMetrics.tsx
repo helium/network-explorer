@@ -5,11 +5,11 @@ import {
   humanReadableHnt,
   humanReadableLockup,
   humanReadableVeHNT,
-} from "../stats/utils"
-import { addPositionsMeta } from "../stats/utils/addPositionsMeta"
-import { fetchDelegatedPositions } from "../stats/utils/fetchDelegatedPositions"
-import { fetchPositions } from "../stats/utils/fetchPositions"
-import { getPositionMetrics } from "../stats/utils/positionsMetrics"
+} from "../utils"
+import { addPositionsMeta } from "../utils/addPositionsMeta"
+import { fetchDelegatedPositions } from "../utils/fetchDelegatedPositions"
+import { fetchPositions } from "../utils/fetchPositions"
+import { getPositionMetrics } from "../utils/positionsMetrics"
 
 const Cell = ({
   children,
@@ -29,7 +29,7 @@ const Cell = ({
   )
 }
 
-export const VeHnt = async () => {
+export const GovernanceMetrics = async () => {
   const [positions, delegatedPositions] = await Promise.all([
     fetchPositions(),
     fetchDelegatedPositions(),
