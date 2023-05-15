@@ -5,7 +5,6 @@ import { IOT_MINT, MOBILE_MINT, amountAsNum } from "@helium/spl-utils"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
 import { DelegationHistoryGraph } from "./DelegationHistoryGraph"
-import { GovernanceMetrics } from "./GovernanceMetrics"
 
 export const DelegationHistory = async () => {
   const unixTime = await fetchUnixTimestap()
@@ -52,16 +51,5 @@ export const DelegationHistory = async () => {
       .reverse()
   }
 
-  return (
-    <div>
-      <h2 className="flex-1 text-lg text-zinc-600 dark:text-zinc-100">
-        Delegated HNT
-      </h2>
-      <div className="w-50 h-64 pt-2">
-        <DelegationHistoryGraph data={getCleanedData()} />
-        {/* @ts-expect-error Async Server Component */}
-        <GovernanceMetrics />
-      </div>
-    </div>
-  )
+  return <DelegationHistoryGraph data={getCleanedData()} />
 }

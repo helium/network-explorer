@@ -15,7 +15,7 @@ const Cell = ({
   return (
     <td
       className={clsx(
-        "border  px-2 py-1",
+        "border-2  px-2 py-1",
         "border-zinc-900/5",
         "dark:border-white/10",
         !isHeader && "font-normal"

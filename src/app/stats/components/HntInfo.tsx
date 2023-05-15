@@ -14,8 +14,10 @@ const COINGECKO_HNT_URL =
 const NEXT_HALVENING = 1690848000 // unix time
 
 export const HntInfo = async () => {
-  const unixTime = await fetchUnixTimestap()
-  const hntPrice = await fetcher(COINGECKO_HNT_URL)
+  const [unixTime, hntPrice] = await Promise.all([
+    fetchUnixTimestap(),
+    fetcher(COINGECKO_HNT_URL),
+  ])
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
   const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
