@@ -2,8 +2,8 @@ import { ONE_DAY_MS, veHntWoDecimal } from "@/app/stats/utils"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import { IOT_MINT, MOBILE_MINT, amountAsNum } from "@helium/spl-utils"
-import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
-import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
+import { fetchSubDaoEpochInfo } from "../../utils/fetchSubDaoEpochInfo"
+import { fetchUnixTimestap } from "../../utils/fetchUnixTimestamp"
 import { DelegationHistoryGraph } from "./DelegationHistoryGraph"
 
 export const DelegationHistory = async () => {
