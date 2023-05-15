@@ -82,8 +82,7 @@ const getGovernanceMetrics = async () => {
     positions: positions.map(({ info }) => info),
     delegatedPositions: delegatedPositions.map(({ info }) => info),
   })
-  const positionMetrics = await getPositionMetrics(positionsWithMeta)
-  return positionMetrics
+  return await getPositionMetrics(positionsWithMeta)
 }
 
 export const fetchGovernanceStats = cache(getGovernanceMetrics)
