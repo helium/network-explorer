@@ -15,7 +15,7 @@ const GovernanceItem = ({
         "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
       )}
     >
-      <p className="text-sm">{label}</p>
+      <p className="pb-2 text-sm">{label}</p>
       {children}
     </div>
   )
