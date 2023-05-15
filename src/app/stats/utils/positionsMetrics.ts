@@ -11,11 +11,11 @@ const getIotPositions = (positions: PositionWithMeta[]) => {
   return positions.filter((position) => position.subDao == SubDaos.IOT)
 }
 
-const getMean = (nums: BN[]) => {
+const getMean = (nums: BN[]): BN => {
   return getSum(nums).div(new BN(nums.length))
 }
 
-const getMedian = (nums: BN[]) => {
+const getMedian = (nums: BN[]): BN => {
   nums.sort((a, b) => a.cmp(b))
   const count = nums.length
   return nums.length % 2 === 1
@@ -51,17 +51,17 @@ const getMetrics = async (positions: PositionWithMeta[]) => {
   const lockups = await getPositionLockups(positions)
   return {
     stats: {
-      avgVehnt: getMean(vehnt).toString(),
+      avgVehnt: getMean(vehnt),
       avgHnt: getMean(hnt),
       avgLockup: getMean(lockups),
-      medianVehnt: getMedian(vehnt).toString(),
+      medianVehnt: getMedian(vehnt),
       medianHnt: getMedian(hnt),
       medianLockup: getMedian(lockups),
     },
     total: {
       count: new BN(positions.length),
       hnt: getSum(hnt),
-      vehnt: getSum(vehnt).toString(),
+      vehnt: getSum(vehnt),
     },
   }
 }
