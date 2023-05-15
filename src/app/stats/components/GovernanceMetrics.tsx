@@ -8,8 +8,8 @@ import {
 } from "../utils"
 import { addPositionsMeta } from "../utils/addPositionsMeta"
 import { fetchDelegatedPositions } from "../utils/fetchDelegatedPositions"
+import { fetchGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchPositions } from "../utils/fetchPositions"
-import { getPositionMetrics } from "../utils/positionsMetrics"
 
 const Cell = ({
   children,
@@ -39,8 +39,7 @@ export const GovernanceMetrics = async () => {
     positions: positions.map(({ info }) => info),
     delegatedPositions: delegatedPositions.map(({ info }) => info),
   })
-  const positionMetrics = await getPositionMetrics(positionsWithMeta)
-  console.log(positionMetrics)
+  const positionMetrics = await fetchGovernanceStats()
 
   return (
     <div className="flex justify-center">
