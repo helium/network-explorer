@@ -41,9 +41,6 @@ export const StatItem = ({
     </p>
   )
 
-  // unit used to differentiate for subDAO specific tooltip description
-  const tooltipId = unit || label
-
   return (
     <div
       className={clsx(
@@ -54,7 +51,7 @@ export const StatItem = ({
     >
       <div className="flex justify-between">
         <p className="text-sm">{label}</p>
-        {!!tooltip && <Tooltip id={tooltipId} {...tooltip} />}
+        {!!tooltip && <Tooltip {...tooltip} />}
       </div>
       {Value}
     </div>
