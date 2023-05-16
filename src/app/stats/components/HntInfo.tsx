@@ -8,6 +8,7 @@ import {
   MOBILE_MINT,
   amountAsNum,
   humanReadable,
+  humanReadableBigint,
 } from "@helium/spl-utils"
 import { format } from "date-fns"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
@@ -50,6 +51,10 @@ export const HntInfo = async () => {
         value={`$${hntPrice.helium.usd}`}
         tooltip={{ sourceText: "Coingecko", cadence: "Live" }}
       />
+      <StatItem
+        label="Last Epoch Ended"
+        value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}
+      />
       <StatItem label="Current Epoch" value={epoch} />
       <StatItem label="Next Epoch In">
         <Countdown date={epoch * ONE_DAY_MS + ONE_DAY_MS} />
@@ -57,12 +62,17 @@ export const HntInfo = async () => {
       <StatItem label="Halvening In">
         <Countdown date={NEXT_HALVENING * 1000} />
       </StatItem>
-      <StatItem label="Landrush Period End">
-        <Countdown date={100} />
-      </StatItem>
       <StatItem
-        label="Last Epoch Ended"
-        value={format(new Date(lastEpochEnd * 1000), "Y/MM/dd HH:mm:ss")}
+        label="Supply"
+        value={humanReadableBigint(
+          hntMint.info?.info.supply,
+          hntMint?.info?.info || 8,
+          0
+        )}
+        tooltip={{
+          description: "Current supply of HNT",
+          cadence: "Live",
+        }}
       />
       <StatItem
         label="Supply Staked"
