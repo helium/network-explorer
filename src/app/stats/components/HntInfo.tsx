@@ -49,7 +49,7 @@ export const HntInfo = async () => {
       <StatItem
         label="Price (HNT)"
         value={`$${hntPrice.helium.usd}`}
-        tooltip={{ sourceText: "Coingecko", cadence: "Live" }}
+        tooltip={{ sourceText: "Coingecko", cadence: "Live", id: "HNT Price" }}
       />
       <StatItem
         label="Last Epoch Ended"
@@ -72,6 +72,7 @@ export const HntInfo = async () => {
         tooltip={{
           description: "Current supply of HNT",
           cadence: "Live",
+          id: "HNT Supply",
         }}
       />
       <StatItem
@@ -80,6 +81,7 @@ export const HntInfo = async () => {
         tooltip={{
           description:
             "Percent of current HNT which is staked as veHNT on Realms",
+          id: "HNT Supply Staked",
         }}
       />
     </StatsList>

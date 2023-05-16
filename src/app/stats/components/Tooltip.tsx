@@ -8,13 +8,15 @@ export type ToolTipProps = {
   sourceText?: string
   description?: string
   cadence?: string
-}
-
-type Props = ToolTipProps & {
   id: string
 }
 
-export const Tooltip = ({ id, sourceText, description, cadence }: Props) => {
+export const Tooltip = ({
+  id,
+  sourceText,
+  description,
+  cadence,
+}: ToolTipProps) => {
   return (
     <div>
       <a data-tooltip-id={id} data-tooltip-place="top">

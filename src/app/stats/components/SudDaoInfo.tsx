@@ -60,6 +60,7 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         tooltip={{
           description: "Utility score for the most recently completed epoch",
           cadence: "Daily",
+          id: "Utility Score",
         }}
       />
       <StatItem
@@ -68,6 +69,7 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         tooltip={{
           description: "Hotspots active in past 24h",
           cadence: "Live",
+          id: "Active Hotspots",
         }}
       />
       <StatItem
@@ -76,18 +78,18 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
           epochInfo.info?.vehntAtEpochStart.toString() || "0"
         )}
         tooltip={{
-          description:
-            "veHNT delegated to the subDAO at the start of the most recently completed epoch",
+          description: `veHNT delegated to the ${title} subDAO at the start of the most recently completed epoch`,
           cadence: "Daily",
+          id: `${title} veHNT delegated`,
         }}
       />
       <StatItem
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
         tooltip={{
-          description:
-            "DC burned by the subDAO during the most recently completed epoch",
+          description: `DC burned for data transfer by the ${title} subDAO during the most recently completed epoch`,
           cadence: "Daily",
+          id: `${title} DC Burned (24h)`,
         }}
       />
       <StatItem
@@ -98,8 +100,9 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
           0
         )}
         tooltip={{
-          description: "Current funding of the subDAO's treasury",
+          description: `Current funding of ${title}'s treasury`,
           cadence: "Live",
+          id: `${title} Treasury (HNT)`,
         }}
       />
       <StatItem
@@ -110,8 +113,9 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
           0
         )}
         tooltip={{
-          description: "Current supply of the subDAO's token",
+          description: `Current supply of ${title}`,
           cadence: "Live",
+          id: `${title} Supply`,
         }}
       />
       <StatItem
@@ -121,6 +125,7 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
         tooltip={{
           description: `Estimated swap rate for ${title} to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs`,
           cadence: "Daily",
+          id: `${title} Estimated Swap`,
         }}
       />
     </StatsList>
