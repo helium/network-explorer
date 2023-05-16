@@ -1,6 +1,6 @@
 import { MapCover } from "@/components/MapCover"
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
-import { DelegationHistory } from "./components/DelegationHistory"
+import { Governance } from "./components/Governance"
 import { HntInfo } from "./components/HntInfo"
 import { SubDaoInfo } from "./components/SudDaoInfo"
 
@@ -17,7 +17,7 @@ export default async function Page() {
         {/* @ts-expect-error Async Server Component */}
         <SubDaoInfo sDaoMint={IOT_MINT} />
         {/* @ts-expect-error Async Server Component */}
-        <DelegationHistory />
+        <Governance />
       </div>
     </MapCover>
   )

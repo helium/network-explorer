@@ -47,7 +47,6 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
     fetchSubDaoTreasuryInfo(sDaoMint),
   ])
   const treasuryTokenAcct = await fetchTokenAccount(treasuryInfo.info?.treasury)
-
   const mintSupplyNum =
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
   const treasuryHntNum = toNumber(treasuryTokenAcct.info?.amount, 8) || 1
