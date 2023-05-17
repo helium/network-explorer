@@ -44,7 +44,6 @@ export const HntInfo = async () => {
       link="https://docs.helium.com/helium-tokens/hnt"
       linkText="Learn More About HNT"
       icon="hnt"
-      iconStyles="fill-[#474DFF]"
     >
       <StatItem
         label="Price (HNT)"

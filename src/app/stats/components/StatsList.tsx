@@ -5,12 +5,13 @@ import clsx from "clsx"
 import Link from "next/link"
 import { PropsWithChildren } from "react"
 
-export type Icon = "hnt" | "mobile" | "iot"
+export type Icon = "hnt" | "mobile" | "iot" | "undelegated"
 
-const Icons = {
-  hnt: HeliumIcon,
-  mobile: HeliumMobileIcon,
-  iot: HeliumIotIcon,
+const IconInfo = {
+  hnt: { Icon: HeliumIcon, styles: "fill-[#474DFF]" },
+  mobile: { Icon: HeliumMobileIcon, styles: "" },
+  iot: { Icon: HeliumIotIcon, styles: "" },
+  undelegated: { Icon: HeliumIotIcon, styles: "fill-[#474DFF]" },
 }
 
 type StatsListProps = {
@@ -18,7 +19,6 @@ type StatsListProps = {
   link?: string
   linkText?: string
   icon: Icon
-  iconStyles?: string
 }
 
 export const StatsList = ({
@@ -27,15 +27,14 @@ export const StatsList = ({
   link,
   linkText,
   icon,
-  iconStyles,
 }: PropsWithChildren<StatsListProps>) => {
-  const Icon = Icons[icon]
+  const { Icon, styles } = IconInfo[icon]
 
   return (
-    <div className="flex flex-col py-2 ">
+    <div className="flex flex-col pt-2">
       <div className="flex justify-between">
         <div className="mb-2 flex items-center gap-2">
-          <Icon className={clsx("h-6 w-6", iconStyles)} />
+          <Icon className={clsx("h-6 w-6", styles)} />
           <h2 className="flex-1 text-lg text-zinc-600 dark:text-zinc-100">
             {title}
           </h2>
