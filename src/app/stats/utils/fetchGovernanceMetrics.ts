@@ -3,10 +3,10 @@ import { cache } from "react"
 import { addPositionsMeta } from "./addPositionsMeta"
 import { fetchDelegatedPositions } from "./fetchDelegatedPositions"
 import { fetchPositions } from "./fetchPositions"
-import { getPositionMetrics } from "./positionsMetrics"
+import { PositionMetricsByGroup, getPositionMetrics } from "./positionsMetrics"
 
 // Constant dev stats to avoid lengthy query
-const DEV_STATS = {
+const DEV_STATS: PositionMetricsByGroup = {
   iot: {
     stats: {
       avgVehnt: new BN("16504989572469"),
