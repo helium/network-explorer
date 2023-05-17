@@ -6,7 +6,6 @@ import {
 } from "../../utils"
 import { fetchGovernanceStats } from "../../utils/fetchGovernanceMetrics"
 import { PositionMetrics } from "../../utils/positionsMetrics"
-import { StatItem } from "../StatItem"
 import { Icon, StatsList } from "../StatsList"
 import { GovernanceStatItem } from "./GovernanceStatItem"
 
@@ -24,9 +23,14 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
     <StatsList title={title} icon={icon}>
       <div className="grow flex-wrap gap-3 md:flex">
         <div className="flex grow gap-3 pb-3 md:pb-0">
-          <StatItem
-            label="# of Positions"
-            value={humanReadable(groupStats.total.count, 0)}
+          <GovernanceStatItem
+            header="Positions"
+            values={[
+              {
+                label: "Total",
+                value: humanReadable(groupStats.total.count, 0),
+              },
+            ]}
           />
           <GovernanceStatItem
             header="HNT"

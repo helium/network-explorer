@@ -24,14 +24,14 @@ export const GovernanceStatItem = ({
       )}
     >
       <div className="flex justify-between">
-        <p className="text-sm">{header}</p>
+        <p className="text-base">{header}</p>
         {!!tooltip && <Tooltip {...tooltip} />}
       </div>
       {values.map(({ label, value }) => {
         return (
           <div key={label} className={"flex items-center justify-between"}>
-            <p className="text-small">{label}</p>
-            <p className="text-small">{value}</p>
+            <p className="text-sm">{label}</p>
+            <p className="text-sm">{value}</p>
           </div>
         )
       })}
