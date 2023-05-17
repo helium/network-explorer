@@ -3,6 +3,29 @@ import { PositionWithMeta, SubDaos } from "./addPositionsMeta"
 import { fetchUnixTimestap } from "./fetchUnixTimestamp"
 import { LockupKind } from "./types"
 
+type PositionMetrics = {
+  stats: {
+    avgVehnt: BN
+    avgHnt: BN
+    avgLockup: BN
+    medianVehnt: BN
+    medianHnt: BN
+    medianLockup: BN
+  }
+  total: {
+    count: BN
+    hnt: BN
+    vehnt: BN
+  }
+}
+
+export type PositionMetricsByGroup = {
+  iot: PositionMetrics
+  mobile: PositionMetrics
+  network: PositionMetrics
+  undelegated: PositionMetrics
+}
+
 const getMobilePositions = (positions: PositionWithMeta[]) => {
   return positions.filter((position) => position.subDao == SubDaos.MOBILE)
 }
@@ -49,7 +72,7 @@ const getMetrics = async (positions: PositionWithMeta[]) => {
   const vehnt = positions.map(({ veHnt }) => veHnt)
   const hnt = positions.map((position) => position.amountDepositedNative)
   const lockups = await getPositionLockups(positions)
-  return {
+  const positonMetrics: PositionMetrics = {
     stats: {
       avgVehnt: getMean(vehnt),
       avgHnt: getMean(hnt),
@@ -59,11 +82,13 @@ const getMetrics = async (positions: PositionWithMeta[]) => {
       medianLockup: getMedian(lockups),
     },
     total: {
-      count: new BN(positions.length),
+      count: new BN(positions.length) as BN,
       hnt: getSum(hnt),
       vehnt: getSum(vehnt),
     },
   }
+
+  return positonMetrics
 }
 
 export const getPositionMetrics = async (positions: PositionWithMeta[]) => {
