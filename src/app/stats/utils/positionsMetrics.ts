@@ -3,7 +3,7 @@ import { PositionWithMeta, SubDaos } from "./addPositionsMeta"
 import { fetchUnixTimestap } from "./fetchUnixTimestamp"
 import { LockupKind } from "./types"
 
-type PositionMetrics = {
+export type PositionMetrics = {
   stats: {
     avgVehnt: BN
     avgHnt: BN

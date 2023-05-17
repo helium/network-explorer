@@ -15,8 +15,8 @@ const Icons = {
 
 type StatsListProps = {
   title: string
-  link: string
-  linkText: string
+  link?: string
+  linkText?: string
   icon: Icon
   iconStyles?: string
 }
@@ -40,13 +40,15 @@ export const StatsList = ({
             {title}
           </h2>
         </div>
-        <Link
-          href={link}
-          className="text-indigo-600 dark:text-violet-300"
-          target="_"
-        >
-          {linkText}
-        </Link>
+        {!!link && !!linkText && (
+          <Link
+            href={link}
+            className="text-indigo-600 dark:text-violet-300"
+            target="_"
+          >
+            {linkText}
+          </Link>
+        )}
       </div>
       <div className="flex flex-wrap gap-3">
         <>{children}</>

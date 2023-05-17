@@ -24,7 +24,9 @@ const GovernanceItem = ({
 export const Governance = async () => {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-lg text-zinc-600 dark:text-zinc-100">Governance</h2>
+      <h2 className="text-lg text-zinc-600 dark:text-zinc-100">
+        HNT Governance
+      </h2>
       <GovernanceItem label="Delegation History (30 days)">
         {/* @ts-expect-error Async Server Component */}
         <DelegationHistory />

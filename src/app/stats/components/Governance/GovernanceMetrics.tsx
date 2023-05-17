@@ -7,6 +7,10 @@ import {
   humanReadableVeHNT,
 } from "../../utils"
 import { fetchGovernanceStats } from "../../utils/fetchGovernanceMetrics"
+import { PositionMetrics } from "../../utils/positionsMetrics"
+import { StatItem } from "../StatItem"
+import { StatsList } from "../StatsList"
+import { GovernanceStatItem } from "./GovernanceStatItem"
 
 interface CellProps {
   isHeader?: boolean
@@ -107,6 +111,72 @@ const GovernanceMetricsMobile = ({ statsRows }: { statsRows: StatsRow[] }) => {
   )
 }
 
+const MetricsRows = ({ groupStats }: { groupStats: PositionMetrics }) => {
+  return (
+    <StatsList title={"Test"} icon={"iot"}>
+      <StatItem
+        label="# of Positions"
+        value={humanReadable(groupStats.total.count, 0)}
+      />
+      <GovernanceStatItem
+        header="HNT"
+        values={[
+          { label: "Total", value: humanReadableHnt(groupStats.total.hnt) },
+          { label: "Mean", value: humanReadableHnt(groupStats.stats.avgHnt) },
+          {
+            label: "Median",
+            value: humanReadableHnt(groupStats.stats.medianHnt),
+          },
+        ]}
+        tooltip={{
+          id: "IOT positions HNT",
+          description: "Total, mean, and median of HNT delegated to IOT.",
+        }}
+      />
+
+      <GovernanceStatItem
+        header="veHNT"
+        values={[
+          {
+            label: "Total",
+            value: humanReadableVeHNT(groupStats.total.vehnt.toString()),
+          },
+          {
+            label: "Mean",
+            value: humanReadableVeHNT(groupStats.stats.avgVehnt.toString()),
+          },
+          {
+            label: "Median",
+            value: humanReadableVeHNT(groupStats.stats.medianVehnt.toString()),
+          },
+        ]}
+        tooltip={{
+          id: "IOT positions veHNT",
+          description: "Total, mean, and median of veHNT delegated to IOT.",
+        }}
+      />
+      <GovernanceStatItem
+        header="Lockup"
+        values={[
+          {
+            label: "Mean",
+            value: humanReadableLockup(groupStats.stats.avgLockup),
+          },
+          {
+            label: "Median",
+            value: humanReadableLockup(groupStats.stats.medianLockup),
+          },
+        ]}
+        tooltip={{
+          id: "IOT positions lockup",
+          description:
+            "Mean and median length of time delegated HNT is locked up for.",
+        }}
+      />
+    </StatsList>
+  )
+}
+
 type StatsRow = {
   label: string
   network: string
@@ -187,8 +257,11 @@ export const GovernanceMetrics = async () => {
     },
   ]
 
+  const networkStats = {}
+
   return (
     <>
+      <MetricsRows groupStats={stats.network} />
       <GovernanceMetricsDesktop statsRows={statsRows} />
       <GovernanceMetricsMobile statsRows={statsRows} />
     </>
