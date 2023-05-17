@@ -17,6 +17,9 @@ type MetricsRowProps = {
 }
 
 const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
+  const descriptionSuffix =
+    icon === "hnt" || icon === "undelegated" ? "" : ` to ${title}`
+
   return (
     <StatsList title={title} icon={icon}>
       <div className="grow flex-wrap gap-3 md:flex">
@@ -39,8 +42,8 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
               },
             ]}
             tooltip={{
-              id: "IOT positions HNT",
-              description: "Total, mean, and median of HNT delegated to IOT.",
+              id: `${title} positions HNT`,
+              description: `Total, mean, and median of HNT delegated${descriptionSuffix}.`,
             }}
           />
         </div>
@@ -64,8 +67,8 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
               },
             ]}
             tooltip={{
-              id: "IOT positions veHNT",
-              description: "Total, mean, and median of veHNT delegated to IOT.",
+              id: `${title} positions veHNT`,
+              description: `Total, mean, and median of delegated HNT positions' veHNT voting power.`,
             }}
           />
           <GovernanceStatItem
@@ -81,9 +84,8 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
               },
             ]}
             tooltip={{
-              id: "IOT positions lockup",
-              description:
-                "Mean and median length of time delegated HNT is locked up for.",
+              id: `${title} positions lockup`,
+              description: `Mean and median length of time delegated HNT is locked up for.`,
             }}
           />
         </div>
@@ -92,20 +94,12 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
   )
 }
 
-type StatsRow = {
-  label: string
-  network: string
-  iot: string
-  mobile: string
-  undelegated: string
-}
-
 export const GovernanceMetrics = async () => {
   const stats = await fetchGovernanceStats()
 
   return (
     <>
-      <MetricsRow title="HNT" icon="hnt" groupStats={stats.network} />
+      <MetricsRow title="Network" icon="hnt" groupStats={stats.network} />
       <MetricsRow title="IOT" icon="iot" groupStats={stats.iot} />
       <MetricsRow title="MOBILE" icon="mobile" groupStats={stats.mobile} />
       <MetricsRow
