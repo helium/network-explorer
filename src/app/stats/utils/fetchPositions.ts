@@ -7,15 +7,60 @@ import { Position } from "./types"
 
 // @ts-ignore
 import { IDL as vsrRegistryIDL } from "@helium/idls/voter_stake_registry"
+import { HNT_MINT, IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
+import { registrarKey } from "@helium/voter-stake-registry-sdk"
+
+const getRegistrarFromRealm = ({
+  realmName,
+  mint,
+}: {
+  realmName: string
+  mint: PublicKey
+}) => {
+  const realm = PublicKey.findProgramAddressSync(
+    [Buffer.from("governance", "utf-8"), Buffer.from(realmName, "utf-8")],
+    new PublicKey("hgovkRU6Ghe1Qoyb54HdSLdqN7VtxaifBzRmh9jtd3S")
+  )[0]
+  return registrarKey(realm, mint)[0]
+}
 
 const HELIUM_VSR_ID = "hvsrNC3NKbcryqDs2DocYHZ9yPKEVzdSjQG6RVtK1s8"
+const POSTION_VO_DESCRIMINATOR = [152, 131, 154, 46, 158, 42, 31, 233]
+
+const HNT_REGISTRAR = getRegistrarFromRealm({
+  realmName: "Helium",
+  mint: HNT_MINT,
+}).toBytes()
 const HNT_POSITION_V0_DESCRIMINATOR = [
-  152, 131, 154, 46, 158, 42, 31, 233, 153, 231, 240, 209, 136, 172, 103, 141,
-  133, 237, 188, 234, 25, 98, 24, 31, 110, 4, 118, 170, 97, 47, 254, 176, 204,
-  205, 221, 23, 230, 245, 155, 49,
+  ...POSTION_VO_DESCRIMINATOR,
+  ...HNT_REGISTRAR,
 ]
 const HNT_POSITION_V0_DESCRIMINATOR_B58 = bs58.encode(
   Buffer.from(HNT_POSITION_V0_DESCRIMINATOR)
+)
+
+const IOT_REGISTRAR = getRegistrarFromRealm({
+  realmName: "Helium IOT",
+  mint: IOT_MINT,
+}).toBytes()
+const IOT_POSITION_V0_DESCRIMINATOR = [
+  ...POSTION_VO_DESCRIMINATOR,
+  ...IOT_REGISTRAR,
+]
+const IOT_POSITION_V0_DESCRIMINATOR_B58 = bs58.encode(
+  Buffer.from(IOT_POSITION_V0_DESCRIMINATOR)
+)
+
+const MOBILE_REGISTRAR = getRegistrarFromRealm({
+  realmName: "Helium MOBILE",
+  mint: MOBILE_MINT,
+}).toBytes()
+const MOBILE_POSITION_V0_DESCRIMINATOR = [
+  ...POSTION_VO_DESCRIMINATOR,
+  ...MOBILE_REGISTRAR,
+]
+const MOBILE_POSITION_V0_DESCRIMINATOR_B58 = bs58.encode(
+  Buffer.from(MOBILE_POSITION_V0_DESCRIMINATOR)
 )
 
 const positionParser = getIdlParser<VoterStakeRegistry>(
@@ -23,7 +68,16 @@ const positionParser = getIdlParser<VoterStakeRegistry>(
   "positionV0"
 )
 
-export const fetchPositions = async () => {
+const positionTypeToDescriminiator = {
+  hnt: HNT_POSITION_V0_DESCRIMINATOR_B58,
+  iot: IOT_POSITION_V0_DESCRIMINATOR_B58,
+  mobile: MOBILE_POSITION_V0_DESCRIMINATOR_B58,
+}
+
+type PositionType = "hnt" | "mobile" | "iot"
+
+export const fetchPositions = async (positionType: PositionType) => {
+  const descriminator = positionTypeToDescriminiator[positionType]
   const connection = accountCache.connection
 
   const accounts = await connection.getProgramAccounts(
@@ -36,7 +90,7 @@ export const fetchPositions = async () => {
         {
           memcmp: {
             offset: 0, // number of bytes
-            bytes: HNT_POSITION_V0_DESCRIMINATOR_B58, // base58 encoded string
+            bytes: descriminator, // base58 encoded string
           },
         },
       ],

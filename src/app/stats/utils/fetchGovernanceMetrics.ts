@@ -74,7 +74,7 @@ const getGovernanceMetrics = async () => {
   }
 
   const [positions, delegatedPositions] = await Promise.all([
-    fetchPositions(),
+    fetchPositions("hnt"),
     fetchDelegatedPositions(),
   ])
 
