@@ -13,7 +13,7 @@ import {
 import { format } from "date-fns"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
-import { fetchGovernanceStats } from "../utils/fetchGovernanceMetrics"
+import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { Countdown } from "./Countdown"
 
@@ -26,7 +26,7 @@ export const HntInfo = async () => {
     fetchUnixTimestap(),
     fetcher(COINGECKO_HNT_URL),
     fetchMint(HNT_MINT),
-    fetchGovernanceStats(),
+    fetchHntGovernanceStats(),
   ])
 
   const hntStakedTotal = governanceStats.network.total.hnt

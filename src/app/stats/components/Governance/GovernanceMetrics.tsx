@@ -4,7 +4,7 @@ import {
   humanReadableLockup,
   humanReadableVeHNT,
 } from "../../utils"
-import { fetchGovernanceStats } from "../../utils/fetchGovernanceMetrics"
+import { fetchHntGovernanceStats } from "../../utils/fetchGovernanceMetrics"
 import { PositionMetrics } from "../../utils/positionsMetrics"
 import { Icon, StatsList } from "../StatsList"
 import { GovernanceStatItem } from "./GovernanceStatItem"
@@ -99,7 +99,7 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
 }
 
 export const GovernanceMetrics = async () => {
-  const stats = await fetchGovernanceStats()
+  const stats = await fetchHntGovernanceStats()
 
   return (
     <>

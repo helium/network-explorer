@@ -68,7 +68,7 @@ const getSum = (nums: BN[]) => {
   }, nums[0].clone())
 }
 
-const getMetrics = async (positions: PositionWithMeta[]) => {
+export const getPositionMetrics = async (positions: PositionWithMeta[]) => {
   const vehnt = positions.map(({ veHnt }) => veHnt)
   const hnt = positions.map((position) => position.amountDepositedNative)
   const lockups = await getPositionLockups(positions)
@@ -91,15 +91,17 @@ const getMetrics = async (positions: PositionWithMeta[]) => {
   return positonMetrics
 }
 
-export const getPositionMetrics = async (positions: PositionWithMeta[]) => {
+export const getGroupedPositionMetrics = async (
+  positions: PositionWithMeta[]
+) => {
   const iotPositions = getIotPositions(positions)
   const mobilePositions = getMobilePositions(positions)
   const undelegatedPositions = positions.filter((position) => !position.subDao)
   const [iot, mobile, network, undelegated] = await Promise.all([
-    getMetrics(iotPositions),
-    getMetrics(mobilePositions),
-    getMetrics(positions),
-    getMetrics(undelegatedPositions),
+    getPositionMetrics(iotPositions),
+    getPositionMetrics(mobilePositions),
+    getPositionMetrics(positions),
+    getPositionMetrics(undelegatedPositions),
   ])
   return {
     iot,
