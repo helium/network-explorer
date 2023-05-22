@@ -1,6 +1,6 @@
 import { StatItem } from "@/app/stats/components/StatItem"
 import { Icon, StatsList } from "@/app/stats/components/StatsList"
-import { fetcher, humanReadableVeHNT } from "@/app/stats/utils"
+import { fetcher, humanReadableVeToken } from "@/app/stats/utils"
 import {
   MOBILE_MINT,
   humanReadable,
@@ -74,8 +74,9 @@ export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
       />
       <StatItem
         label="veHNT delegated"
-        value={humanReadableVeHNT(
-          epochInfo.info?.vehntAtEpochStart.toString() || "0"
+        value={humanReadableVeToken(
+          epochInfo.info?.vehntAtEpochStart.toString() || "0",
+          8
         )}
         tooltip={{
           description: `veHNT delegated to the ${title} subDAO at the start of the most recently completed epoch`,
