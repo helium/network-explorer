@@ -93,7 +93,7 @@ export const fetchHntGovernanceStats = cache(getHntGovernanceMetrics)
 
 type SubDaos = "iot" | "mobile"
 const getSubDaoGovernanceMetrics = async (subDao: SubDaos) => {
-  if (process.env.NODE_ENV === "development" && false) {
+  if (process.env.NODE_ENV === "development") {
     return DEV_STATS[subDao]
   }
 
