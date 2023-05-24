@@ -2,6 +2,7 @@ import { MapCover } from "@/components/MapCover"
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { Governance } from "./components/Governance"
 import { HntInfo } from "./components/HntInfo"
+import { NetworkUsage } from "./components/NetworkUsage"
 import { SubDaoInfo } from "./components/SudDaoInfo"
 
 export const revalidate = 60 * 5 // revalidate 5 minutes
@@ -16,6 +17,8 @@ export default async function Page() {
         <SubDaoInfo sDaoMint={MOBILE_MINT} />
         {/* @ts-expect-error Async Server Component */}
         <SubDaoInfo sDaoMint={IOT_MINT} />
+        {/* @ts-expect-error Async Server Component */}
+        <NetworkUsage />
         {/* @ts-expect-error Async Server Component */}
         <Governance />
       </div>

@@ -4,10 +4,11 @@ import { PublicKey } from "@solana/web3.js"
 import { ONE_DAY_UNIX } from "../utils"
 // @ts-ignore
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+import { cache } from "react"
 import { fetchIdlAccount } from "./fetchIdlAccount"
 
 const today = Math.floor(new Date().valueOf() / 1000)
-export const fetchSubDaoEpochInfo = (
+export const getSubDaoEpochInfo = (
   subDaoMint: PublicKey,
   offset: number = 1
 ) => {
@@ -23,3 +24,9 @@ export const fetchSubDaoEpochInfo = (
     "subDaoEpochInfoV0"
   )
 }
+
+export const fetchSubDaoEpochInfo = cache(
+  (subDaoMint: PublicKey, offset: number = 1) => {
+    return getSubDaoEpochInfo(subDaoMint, offset)
+  }
+)
