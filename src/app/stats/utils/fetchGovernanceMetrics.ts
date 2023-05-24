@@ -3,7 +3,11 @@ import { cache } from "react"
 import { addPositionsMeta } from "./addPositionsMeta"
 import { fetchDelegatedPositions } from "./fetchDelegatedPositions"
 import { fetchPositions } from "./fetchPositions"
-import { PositionMetricsByGroup, getPositionMetrics } from "./positionsMetrics"
+import {
+  PositionMetricsByGroup,
+  getGroupedPositionMetrics,
+  getPositionMetrics,
+} from "./positionsMetrics"
 
 // Constant dev stats to avoid lengthy query
 const DEV_STATS: PositionMetricsByGroup = {
@@ -68,13 +72,13 @@ const DEV_STATS: PositionMetricsByGroup = {
     },
   },
 }
-const getGovernanceMetrics = async () => {
+const getHntGovernanceMetrics = async () => {
   if (process.env.NODE_ENV === "development") {
     return DEV_STATS
   }
 
   const [positions, delegatedPositions] = await Promise.all([
-    fetchPositions(),
+    fetchPositions("hnt"),
     fetchDelegatedPositions(),
   ])
 
@@ -82,7 +86,27 @@ const getGovernanceMetrics = async () => {
     positions: positions.map(({ info }) => info),
     delegatedPositions: delegatedPositions.map(({ info }) => info),
   })
-  return await getPositionMetrics(positionsWithMeta)
+  return await getGroupedPositionMetrics(positionsWithMeta)
 }
 
-export const fetchGovernanceStats = cache(getGovernanceMetrics)
+export const fetchHntGovernanceStats = cache(getHntGovernanceMetrics)
+
+type SubDaos = "iot" | "mobile"
+const getSubDaoGovernanceMetrics = async (subDao: SubDaos) => {
+  if (process.env.NODE_ENV === "development") {
+    return DEV_STATS[subDao]
+  }
+
+  const positions = await fetchPositions(subDao)
+  const positionsWithMeta = await addPositionsMeta({
+    positions: positions.map(({ info }) => info),
+    delegatedPositions: [],
+  })
+  const metrics = await getPositionMetrics(positionsWithMeta)
+
+  return metrics
+}
+
+export const fetchSubDaoGovernanceStats = cache(async (subDao: SubDaos) => {
+  return await getSubDaoGovernanceMetrics(subDao)
+})

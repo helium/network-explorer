@@ -5,18 +5,18 @@ export const fetcher = async (url: string) => {
   return fetch(url).then((response) => response.json())
 }
 
-export const veHntWoDecimal = (numberStr: string) => {
+export const veTokenWoDecimal = (numberStr: string, decimals: number) => {
   return parseInt(
     numberStr
       .split("")
-      .slice(0, numberStr.length - 8)
+      .slice(0, numberStr.length - decimals)
       .join(""),
     0
   )
 }
 
-export const humanReadableVeHNT = (numberStr: string) => {
-  const numberWODecimal = veHntWoDecimal(numberStr)
+export const humanReadableVeToken = (numberStr: string, decimals: number) => {
+  const numberWODecimal = veTokenWoDecimal(numberStr, decimals)
   return numberWithCommas(numberWODecimal, 0)
 }
 
@@ -29,6 +29,6 @@ export const humanReadableLockup = (bn: BN) => {
   return `${days} days`
 }
 
-export const humanReadableHnt = (bn: BN) => {
-  return humanReadable(bn, 8).split(".")[0]
+export const humanReadableToken = (bn: BN, decimals: number) => {
+  return humanReadable(bn, decimals).split(".")[0]
 }

@@ -1,10 +1,9 @@
 import { humanReadable } from "@helium/spl-utils"
 import {
-  humanReadableHnt,
   humanReadableLockup,
-  humanReadableVeHNT,
+  humanReadableToken,
+  humanReadableVeToken,
 } from "../../utils"
-import { fetchGovernanceStats } from "../../utils/fetchGovernanceMetrics"
 import { PositionMetrics } from "../../utils/positionsMetrics"
 import { Icon, StatsList } from "../StatsList"
 import { GovernanceStatItem } from "./GovernanceStatItem"
@@ -13,11 +12,18 @@ type MetricsRowProps = {
   groupStats: PositionMetrics
   icon: Icon
   title: string
+  token: string
 }
 
-const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
+export const MetricsRow = ({
+  groupStats,
+  icon,
+  title,
+  token,
+}: MetricsRowProps) => {
   const descriptionSuffix =
     icon === "hnt" || icon === "undelegated" ? "" : ` to ${title}`
+  const decimals = token === "HNT" ? 8 : 6
 
   return (
     <StatsList title={title} icon={icon}>
@@ -33,46 +39,56 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
             ]}
           />
           <GovernanceStatItem
-            header="HNT"
+            header={token}
             values={[
-              { label: "Total", value: humanReadableHnt(groupStats.total.hnt) },
+              {
+                label: "Total",
+                value: humanReadableToken(groupStats.total.hnt, decimals),
+              },
               {
                 label: "Mean",
-                value: humanReadableHnt(groupStats.stats.avgHnt),
+                value: humanReadableToken(groupStats.stats.avgHnt, decimals),
               },
               {
                 label: "Median",
-                value: humanReadableHnt(groupStats.stats.medianHnt),
+                value: humanReadableToken(groupStats.stats.medianHnt, decimals),
               },
             ]}
             tooltip={{
-              id: `${title} positions HNT`,
-              description: `Total, mean, and median of HNT delegated${descriptionSuffix}.`,
+              id: `${title} positions ${token}`,
+              description: `Total, mean, and median of ${token} delegated${descriptionSuffix}.`,
             }}
           />
         </div>
         <div className="flex grow gap-3">
           <GovernanceStatItem
-            header="veHNT"
+            header={`ve${token}`}
             values={[
               {
                 label: "Total",
-                value: humanReadableVeHNT(groupStats.total.vehnt.toString()),
+                value: humanReadableVeToken(
+                  groupStats.total.vehnt.toString(),
+                  decimals
+                ),
               },
               {
                 label: "Mean",
-                value: humanReadableVeHNT(groupStats.stats.avgVehnt.toString()),
+                value: humanReadableVeToken(
+                  groupStats.stats.avgVehnt.toString(),
+                  decimals
+                ),
               },
               {
                 label: "Median",
-                value: humanReadableVeHNT(
-                  groupStats.stats.medianVehnt.toString()
+                value: humanReadableVeToken(
+                  groupStats.stats.medianVehnt.toString(),
+                  decimals
                 ),
               },
             ]}
             tooltip={{
               id: `${title} positions veHNT`,
-              description: `Total, mean, and median of delegated HNT positions' veHNT voting power.`,
+              description: `Total, mean, and median of delegated ${token} positions' ve${token} voting power.`,
             }}
           />
           <GovernanceStatItem
@@ -89,28 +105,11 @@ const MetricsRow = ({ groupStats, icon, title }: MetricsRowProps) => {
             ]}
             tooltip={{
               id: `${title} positions lockup`,
-              description: `Mean and median length of time delegated HNT is locked up for.`,
+              description: `Mean and median length of time delegated ${token} is locked up for.`,
             }}
           />
         </div>
       </div>
     </StatsList>
-  )
-}
-
-export const GovernanceMetrics = async () => {
-  const stats = await fetchGovernanceStats()
-
-  return (
-    <>
-      <MetricsRow title="Network" icon="hnt" groupStats={stats.network} />
-      <MetricsRow title="IOT" icon="iot" groupStats={stats.iot} />
-      <MetricsRow title="MOBILE" icon="mobile" groupStats={stats.mobile} />
-      <MetricsRow
-        title="Undelegated"
-        icon="hnt"
-        groupStats={stats.undelegated}
-      />
-    </>
   )
 }

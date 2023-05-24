@@ -28,6 +28,9 @@ dependencies:
   "@helium/treasury-management-sdk":
     specifier: ^0.0.51
     version: 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
+  "@helium/voter-stake-registry-sdk":
+    specifier: ^0.1.4
+    version: 0.1.4(@solana/web3.js@1.75.0)(encoding@0.1.13)
   "@heroicons/react":
     specifier: 2.0.17
     version: 2.0.17(react@18.2.0)
@@ -463,6 +466,24 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@helium/idls@0.1.1(encoding@0.1.13):
+    resolution:
+      {
+        integrity: sha512-1uHs1Jv1/bjbe2SATDUukicy7iz7OWA79sSxNuSzZeL8eXJEAAe5yaP0ZXEb1x2jRhRCzhjFkZDKLz9snnfE2g==,
+      }
+    dependencies:
+      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      bs58: 4.0.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /@helium/spl-utils@0.0.51(encoding@0.1.13):
     resolution:
       {
@@ -471,6 +492,27 @@ packages:
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
       "@helium/address": 4.8.1
+      "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      bs58: 5.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/spl-utils@0.1.4(encoding@0.1.13):
+    resolution:
+      {
+        integrity: sha512-QhEhJuOd9P8GbUKx5f9zI1m2zjN9si/IrAlDQk4gkFBDFsi4szzY03rj4CwyhmwIYJk/qi1b4JiMoRIinFutJg==,
+      }
+    dependencies:
+      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
+      "@helium/address": 4.8.1
+      "@solana/spl-account-compression": 0.1.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       "@solana/web3.js": 1.75.0(encoding@0.1.13)
       bn.js: 5.2.1
@@ -513,6 +555,27 @@ packages:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
       "@helium/idls": 0.0.51(encoding@0.1.13)
       "@helium/spl-utils": 0.0.51(encoding@0.1.13)
+      "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
+      "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      bn.js: 5.2.1
+      bs58: 4.0.1
+    transitivePeerDependencies:
+      - "@solana/web3.js"
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/voter-stake-registry-sdk@0.1.4(@solana/web3.js@1.75.0)(encoding@0.1.13):
+    resolution:
+      {
+        integrity: sha512-8f+dWaS1IbSuybrvyvchuOd/NP9fCx8jCVyl02pKkURFZC0WdPckiaw+5kh2/y29nwwZJlVqdu7I7C2TR/6uyQ==,
+      }
+    dependencies:
+      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
+      "@helium/idls": 0.1.1(encoding@0.1.13)
+      "@helium/spl-utils": 0.1.4(encoding@0.1.13)
       "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       bn.js: 5.2.1
