@@ -47,7 +47,7 @@ export const HntInfo = async () => {
     >
       <StatItem
         label="Price (HNT)"
-        value={`$${hntPrice.helium.usd}`}
+        value={`$${hntPrice.helium.usd.toFixed(2)}`}
         tooltip={{ sourceText: "Coingecko", cadence: "Live", id: "HNT Price" }}
       />
       <StatItem
