@@ -22,12 +22,14 @@ const COINGECKO_HNT_URL =
 const NEXT_HALVENING = 1690848000 // unix time
 
 export const HntInfo = async () => {
-  const [unixTime, hntPrice, hntMint, governanceStats] = await Promise.all([
-    fetchUnixTimestap(),
-    fetcher(COINGECKO_HNT_URL),
-    fetchMint(HNT_MINT),
-    fetchHntGovernanceStats(),
-  ])
+  const [unixTime, hntPrice, hntMint, governanceStats, epochInfo] =
+    await Promise.all([
+      fetchUnixTimestap(),
+      fetcher(COINGECKO_HNT_URL),
+      fetchMint(HNT_MINT),
+      fetchHntGovernanceStats(),
+      fetchSubDaoEpochInfo(MOBILE_MINT),
+    ])
 
   const hntStakedTotal = governanceStats.network.total.hnt
   const hntStakedPercent = hntStakedTotal
@@ -35,7 +37,6 @@ export const HntInfo = async () => {
     .div(new BN(hntMint.info?.info.supply))
 
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
-  const epochInfo = await fetchSubDaoEpochInfo(MOBILE_MINT)
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   return (
