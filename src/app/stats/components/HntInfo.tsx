@@ -5,7 +5,6 @@ import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import {
   HNT_MINT,
-  MOBILE_MINT,
   amountAsNum,
   humanReadable,
   humanReadableBigint,
@@ -28,7 +27,7 @@ export const HntInfo = async () => {
       fetcher(COINGECKO_HNT_URL),
       fetchMint(HNT_MINT),
       fetchHntGovernanceStats(),
-      fetchSubDaoEpochInfo(MOBILE_MINT),
+      fetchSubDaoEpochInfo("mobile"),
     ])
 
   const hntStakedTotal = governanceStats.network.total.hnt

@@ -4,15 +4,22 @@ import { PublicKey } from "@solana/web3.js"
 import { ONE_DAY_UNIX } from "../utils"
 // @ts-ignore
 import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { cache } from "react"
 import { fetchIdlAccount } from "./fetchIdlAccount"
+import { SubDao } from "./types"
+
+const SUBDAO_TO_MINT: { [key in SubDao]: PublicKey } = {
+  iot: IOT_MINT,
+  mobile: MOBILE_MINT,
+}
 
 export const getSubDaoEpochInfo = async (
-  subDaoMint: PublicKey,
+  subDao: SubDao,
   offset: number = 1
 ) => {
   const now = Math.floor(new Date().valueOf() / 1000)
-  const SUBDAO_KEY = subDaoKey(subDaoMint)[0]
+  const SUBDAO_KEY = subDaoKey(SUBDAO_TO_MINT[subDao])[0]
   const sdeKey = subDaoEpochInfoKey(
     SUBDAO_KEY,
     BigInt(now) - BigInt(ONE_DAY_UNIX * offset)
@@ -26,7 +33,7 @@ export const getSubDaoEpochInfo = async (
 }
 
 export const fetchSubDaoEpochInfo = cache(
-  (subDaoMint: PublicKey, offset: number = 1) => {
-    return getSubDaoEpochInfo(subDaoMint, offset)
+  (subDao: SubDao, offset: number = 1) => {
+    return getSubDaoEpochInfo(subDao, offset)
   }
 )

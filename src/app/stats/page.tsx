@@ -1,5 +1,4 @@
 import { MapCover } from "@/components/MapCover"
-import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { Governance } from "./components/Governance"
 import { HntInfo } from "./components/HntInfo"
 import { NetworkUsage } from "./components/NetworkUsage"
@@ -14,9 +13,9 @@ export default async function Page() {
         {/* @ts-expect-error Async Server Component */}
         <HntInfo />
         {/* @ts-expect-error Async Server Component */}
-        <SubDaoInfo sDaoMint={MOBILE_MINT} />
+        <SubDaoInfo subDao={"iot"} />
         {/* @ts-expect-error Async Server Component */}
-        <SubDaoInfo sDaoMint={IOT_MINT} />
+        <SubDaoInfo subDao={"mobile"} />
         {/* @ts-expect-error Async Server Component */}
         <NetworkUsage />
         {/* @ts-expect-error Async Server Component */}
