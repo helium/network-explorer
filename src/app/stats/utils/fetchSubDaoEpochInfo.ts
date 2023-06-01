@@ -32,8 +32,4 @@ export const getSubDaoEpochInfo = async (
   )
 }
 
-export const fetchSubDaoEpochInfo = cache(
-  (subDao: SubDao, offset: number = 1) => {
-    return getSubDaoEpochInfo(subDao, offset)
-  }
-)
+export const fetchSubDaoEpochInfo = cache(getSubDaoEpochInfo)

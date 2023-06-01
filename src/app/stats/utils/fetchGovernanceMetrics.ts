@@ -107,6 +107,4 @@ const getSubDaoGovernanceMetrics = async (subDao: SubDao) => {
   return metrics
 }
 
-export const fetchSubDaoGovernanceStats = cache(async (subDao: SubDao) => {
-  return await getSubDaoGovernanceMetrics(subDao)
-})
+export const fetchSubDaoGovernanceStats = cache(getSubDaoGovernanceMetrics)
