@@ -5,6 +5,7 @@ import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
+import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
 
 export const metadata = {
@@ -57,7 +58,13 @@ export default function RootLayout({
       <body className="absolute inset-0 bg-zinc-50 dark:bg-black">
         <Providers>
           <GAScript />
-          <GATracker />
+          {/* 
+            Wrapping in supsense to avoid pages getting deopted into client-side rendering
+            https://nextjs.org/docs/messages/deopted-into-client-rendering
+          */}
+          <Suspense>
+            <GATracker />
+          </Suspense>
           <Header />
           <HotspotsMap>{children}</HotspotsMap>
         </Providers>

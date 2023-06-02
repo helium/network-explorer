@@ -3,6 +3,7 @@ import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { VoterStakeRegistry as HeliumVoterStakeRegistry } from "@helium/idls/lib/types/voter_stake_registry"
 import { PublicKey } from "@solana/web3.js"
 
+export type SubDao = "iot" | "mobile"
 // ripped from governance-ui - should eventually get moved into helium-program-library
 export type VotingMintConfig =
   IdlTypes<HeliumVoterStakeRegistry>["VotingMintConfigV0"]

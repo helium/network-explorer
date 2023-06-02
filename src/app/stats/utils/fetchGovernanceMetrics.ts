@@ -8,6 +8,7 @@ import {
   getGroupedPositionMetrics,
   getPositionMetrics,
 } from "./positionsMetrics"
+import { SubDao } from "./types"
 
 // Constant dev stats to avoid lengthy query
 const DEV_STATS: PositionMetricsByGroup = {
@@ -91,8 +92,7 @@ const getHntGovernanceMetrics = async () => {
 
 export const fetchHntGovernanceStats = cache(getHntGovernanceMetrics)
 
-type SubDaos = "iot" | "mobile"
-const getSubDaoGovernanceMetrics = async (subDao: SubDaos) => {
+const getSubDaoGovernanceMetrics = async (subDao: SubDao) => {
   if (process.env.NODE_ENV === "development") {
     return DEV_STATS[subDao]
   }
@@ -107,6 +107,4 @@ const getSubDaoGovernanceMetrics = async (subDao: SubDaos) => {
   return metrics
 }
 
-export const fetchSubDaoGovernanceStats = cache(async (subDao: SubDaos) => {
-  return await getSubDaoGovernanceMetrics(subDao)
-})
+export const fetchSubDaoGovernanceStats = cache(getSubDaoGovernanceMetrics)

@@ -2,6 +2,7 @@ import { StatItem } from "@/app/stats/components/StatItem"
 import { Icon, StatsList } from "@/app/stats/components/StatsList"
 import { fetcher, humanReadableVeToken } from "@/app/stats/utils"
 import {
+  IOT_MINT,
   MOBILE_MINT,
   humanReadable,
   humanReadableBigint,
@@ -12,6 +13,7 @@ import { fetchMint } from "../../stats/utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchSubDaoTreasuryInfo } from "../../stats/utils/fetchSubDaoTreasuryInfo"
 import { fetchTokenAccount } from "../../stats/utils/fetchTokenAccount"
+import { SubDao } from "../utils/types"
 
 type SubDaoType = {
   title: string
@@ -19,6 +21,7 @@ type SubDaoType = {
   link: string
   linkText: string
   icon: Icon
+  subDaoMint: PublicKey
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -27,6 +30,7 @@ const MOBILE_INFO: SubDaoType = {
   link: "https://docs.helium.com/helium-tokens/mobile",
   linkText: "Learn More About MOBILE",
   icon: "mobile",
+  subDaoMint: MOBILE_MINT,
 }
 
 const IOT_INFO: SubDaoType = {
@@ -35,16 +39,17 @@ const IOT_INFO: SubDaoType = {
   link: "https://docs.helium.com/helium-tokens/iot",
   linkText: "Learn More About IOT",
   icon: "iot",
+  subDaoMint: IOT_MINT,
 }
 
-export const SubDaoInfo = async ({ sDaoMint }: { sDaoMint: PublicKey }) => {
-  const { activeUrl, link, linkText, title, icon } =
-    sDaoMint === MOBILE_MINT ? MOBILE_INFO : IOT_INFO
+export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
+  const { activeUrl, link, linkText, title, icon, subDaoMint } =
+    subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
     fetcher(activeUrl),
-    fetchMint(sDaoMint),
-    fetchSubDaoEpochInfo(sDaoMint),
-    fetchSubDaoTreasuryInfo(sDaoMint),
+    fetchMint(subDaoMint),
+    fetchSubDaoEpochInfo(subDao),
+    fetchSubDaoTreasuryInfo(subDaoMint),
   ])
   const treasuryTokenAcct = await fetchTokenAccount(treasuryInfo.info?.treasury)
   const mintSupplyNum =

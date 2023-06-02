@@ -60,7 +60,7 @@ export async function fetchAccount<T>(
 
   const id = typeof key === "string" ? key : key?.toBase58()
 
-  return new Promise<AccountState<T>>((resolve, reject) => {
+  return await new Promise<AccountState<T>>((resolve, reject) => {
     if (!id || !cache) {
       return reject("No pubkey or cache")
     }
@@ -81,5 +81,8 @@ export async function fetchAccount<T>(
           return reject("No account")
         }
       })
+  }).then((result) => {
+    if (!result.info) throw new Error("No info")
+    return result
   })
 }
