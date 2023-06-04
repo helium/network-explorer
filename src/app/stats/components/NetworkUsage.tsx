@@ -44,7 +44,6 @@ export const NetworkUsage = async () => {
         projectedRemaining,
       }
     })
-    .slice() // removing most recent day since incomplete data
     .reverse()
 
   return (
