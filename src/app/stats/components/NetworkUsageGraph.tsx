@@ -42,7 +42,7 @@ const CustomTooltip = ({
           if (name === "projectedRemaining" && value === 0) return null
 
           let labelFormatted = ""
-          if (name === "iotUsage") labelFormatted === "IOT usage"
+          if (name === "iotUsage") labelFormatted = "IOT usage"
           else if (name === "mobileUsage") labelFormatted = "MOBILE usage"
           else if (name === "rate") labelFormatted = "USD/hour"
           else if (name === "projectedRemaining") {
@@ -61,6 +61,7 @@ const CustomTooltip = ({
             }, 0)
             value = total
           }
+          console.log(labelFormatted)
           let valueFormatted = "$" + (value as number).toFixed(2)
 
           return (
