@@ -1,5 +1,6 @@
+import { BN } from "@coral-xyz/anchor"
 import { amountAsNum } from "@helium/spl-utils"
-import { ONE_DAY_MS } from "../utils"
+import { ONE_DAY_MS, ONE_DAY_UNIX } from "../utils"
 import { fetchRecentEpochs } from "../utils/fetchRecentEpochs"
 import { GraphWrapper } from "./GraphWrapper"
 import { NetworkUsageGraph, NetworkUsageGraphRow } from "./NetworkUsageGraph"
@@ -7,6 +8,7 @@ import { NetworkUsageGraph, NetworkUsageGraphRow } from "./NetworkUsageGraph"
 export const NetworkUsage = async () => {
   const { mobileEpochs, iotEpochs } = await fetchRecentEpochs()
 
+  const now = new Date().valueOf() / 1000
   const cleanedData: NetworkUsageGraphRow[] = mobileEpochs
     .map((mEpoch, index) => {
       const iotInfo = iotEpochs[index].info
@@ -17,13 +19,32 @@ export const NetworkUsage = async () => {
 
       const mobileUsage = amountAsNum(mobileInfo.dcBurned, 5)
       const iotUsage = amountAsNum(iotInfo.dcBurned, 5)
+
+      const totalUsage: BN = (mobileInfo.dcBurned as BN)
+        .clone()
+        .add(iotInfo.dcBurned)
+
+      const timeElapsed = index === 0 ? now % ONE_DAY_UNIX : ONE_DAY_UNIX
+      const percent = timeElapsed / ONE_DAY_UNIX
+      const projectedTotal = totalUsage
+        .mul(new BN(10000))
+        .div(new BN(percent * 100)) // 7 digits
+      const rate = amountAsNum(projectedTotal.clone().div(new BN(24)), 7)
+
+      const projectedRemaining =
+        index === 0
+          ? amountAsNum(projectedTotal.div(new BN(100)).sub(totalUsage), 5)
+          : 0
+
       return {
         iotUsage,
         mobileUsage,
         date,
+        rate,
+        projectedRemaining,
       }
     })
-    .slice(1) // removing most recent day since incomplete data
+    .slice() // removing most recent day since incomplete data
     .reverse()
 
   return (
