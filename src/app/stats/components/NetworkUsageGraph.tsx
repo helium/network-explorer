@@ -54,14 +54,13 @@ const CustomTooltip = ({
               "projectedRemaining",
             ]
             const total = payload.reduce((acc, current) => {
-              if (targetNames.includes(name)) {
+              if (targetNames.includes(current.name as string)) {
                 return acc + (current.value as number)
               }
               return acc
             }, 0)
             value = total
           }
-          console.log(labelFormatted)
           let valueFormatted = "$" + (value as number).toFixed(2)
 
           return (
