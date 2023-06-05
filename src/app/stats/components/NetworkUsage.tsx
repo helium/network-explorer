@@ -8,7 +8,6 @@ import { NetworkUsageGraph, NetworkUsageGraphRow } from "./NetworkUsageGraph"
 export const NetworkUsage = async () => {
   const { mobileEpochs, iotEpochs } = await fetchRecentEpochs()
 
-  const now = new Date().valueOf() / 1000
   const cleanedData: NetworkUsageGraphRow[] = mobileEpochs
     .map((mEpoch, index) => {
       const iotInfo = iotEpochs[index].info
@@ -24,17 +23,22 @@ export const NetworkUsage = async () => {
         .clone()
         .add(iotInfo.dcBurned)
 
-      const timeElapsed = index === 0 ? now % ONE_DAY_UNIX : ONE_DAY_UNIX
-      const percent = timeElapsed / ONE_DAY_UNIX
-      const projectedTotal = totalUsage
-        .mul(new BN(10000))
-        .div(new BN(percent * 100)) // 7 digits
-      const rate = amountAsNum(projectedTotal.clone().div(new BN(24)), 7)
+      let projectedRemaining = 0
+      let total = totalUsage
 
-      const projectedRemaining =
-        index === 0
-          ? amountAsNum(projectedTotal.div(new BN(100)).sub(totalUsage), 5)
-          : 0
+      if (index === 0) {
+        const now = new Date().valueOf() / 1000
+        const timeElapsed = now % ONE_DAY_UNIX
+        const percent = Math.max(timeElapsed / ONE_DAY_UNIX, 0.0001)
+        const projectedTotal: BN = totalUsage
+          .mul(new BN(10000))
+          .div(new BN(percent * 10000))
+
+        total = projectedTotal
+        projectedRemaining = amountAsNum(projectedTotal.sub(totalUsage), 5)
+      }
+
+      const rate = amountAsNum(total.clone().div(new BN(24)), 5)
 
       return {
         iotUsage,
