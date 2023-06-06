@@ -1,6 +1,7 @@
 "use client"
 
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
+import { MokenIcon } from "@/components/icons/MokenIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 
@@ -18,10 +19,10 @@ export const PROVIDERS: Provider[] = [
       `https://app.hotspotty.net/hotspots/${hotspotId}/rewards`,
   },
   {
-    Icon: <HotspottyIcon className="h-6 w-6 text-[#9546ea]" />,
-    label: "Relay",
+    Icon: <MokenIcon className="h-6 w-6 text-[#9546ea]" />,
+    label: "Moken",
     getUrl: (hotspotId: string) =>
-      `https://app.hotspotty.net/hotspots/${hotspotId}/rewards`,
+      `https://explorer.moken.io/hotspots/${hotspotId}`,
   },
 ]
 
