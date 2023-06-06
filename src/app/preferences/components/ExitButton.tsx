@@ -1,5 +1,6 @@
 "use client"
 
+import { gaEvent } from "@/components/GATracker"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import Link from "next/link"
@@ -24,7 +25,21 @@ export const ExitButton = () => {
     )
 
   return (
-    <a className={styles} href={provider?.getUrl(redirect)} target="_">
+    <a
+      className={styles}
+      href={provider?.getUrl(redirect)}
+      target="_"
+      onClick={() => {
+        if (!!provider) {
+          gaEvent({
+            action: "outbound_click",
+            event: {
+              description: provider?.label,
+            },
+          })
+        }
+      }}
+    >
       View Hotspot
     </a>
   )

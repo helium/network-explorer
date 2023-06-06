@@ -40,7 +40,7 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
               gaEvent({
                 action: "outbound_click",
                 event: {
-                  description: provider,
+                  description: provider.label,
                 },
               })
             }

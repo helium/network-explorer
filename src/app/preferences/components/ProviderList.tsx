@@ -42,7 +42,7 @@ export const ProviderList = () => {
             aria-label="Select Hotspotty"
             className={clsx(
               "group my-2 flex w-full gap-2 rounded border p-2",
-              active ? "border-green-500" : "border"
+              active ? "border-blue-500 dark:border-blue-400" : "border"
             )}
             onClick={() => {
               localStorage.setItem(PROVIDER_KEY, label)
