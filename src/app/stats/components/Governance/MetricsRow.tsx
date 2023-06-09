@@ -21,9 +21,23 @@ export const MetricsRow = ({
   title,
   token,
 }: MetricsRowProps) => {
-  const descriptionSuffix =
-    icon === "hnt" || icon === "undelegated" ? "" : ` to ${title}`
+  const isSubDao = icon === "mobile" || icon === "iot"
   const decimals = token === "HNT" ? 8 : 6
+
+  let hntDescription = `Total, mean, and median of locked up ${token}`
+  let veDescription = `Total, mean, and median of ${token} positions' ve${token} voting power`
+  if (isSubDao) {
+    if (token === "HNT") {
+      hntDescription += ` delegated to ${icon.toUpperCase()}`
+      veDescription += ` delegated to ${icon.toUpperCase()}`
+    }
+  } else if (title === "Undelegated") {
+    hntDescription += ` that is undelegated`
+    veDescription += " that is undelegated"
+  } else {
+    hntDescription += ` that is delegated network wide`
+    veDescription += " for the network"
+  }
 
   return (
     <StatsList title={title} icon={icon}>
@@ -56,13 +70,13 @@ export const MetricsRow = ({
             ]}
             tooltip={{
               id: `${title} positions ${token}`,
-              description: `Total, mean, and median of ${token} delegated${descriptionSuffix}.`,
+              description: `${hntDescription}.`,
             }}
           />
         </div>
         <div className="flex grow gap-3">
           <GovernanceStatItem
-            header={`ve${token}`}
+            header={`ve${token} voting power`}
             values={[
               {
                 label: "Total",
@@ -88,11 +102,11 @@ export const MetricsRow = ({
             ]}
             tooltip={{
               id: `${title} positions veHNT`,
-              description: `Total, mean, and median of delegated ${token} positions' ve${token} voting power.`,
+              description: `${veDescription}.`,
             }}
           />
           <GovernanceStatItem
-            header="Lockup"
+            header="Lockup Duration"
             values={[
               {
                 label: "Mean",
@@ -105,7 +119,7 @@ export const MetricsRow = ({
             ]}
             tooltip={{
               id: `${title} positions lockup`,
-              description: `Mean and median length of time delegated ${token} is locked up for.`,
+              description: `Mean and median duration of time the ${token} positions are locked up for.`,
             }}
           />
         </div>

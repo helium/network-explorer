@@ -18,7 +18,7 @@ export const Tooltip = ({
   cadence,
 }: ToolTipProps) => {
   return (
-    <div>
+    <div className="flex items-center">
       <a data-tooltip-id={id} data-tooltip-place="top">
         <InformationCircleIcon className="h-5 w-5" />
       </a>
