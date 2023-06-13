@@ -63,7 +63,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Utility Score"
         value={humanReadableBigint(epochInfo.info?.utilityScore, 12, 0)}
         tooltip={{
-          description: "Utility score for the most recently completed epoch",
+          description: "Utility score for the most recently completed epoch.",
           cadence: "Daily",
           id: "Utility Score",
         }}
@@ -72,7 +72,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Active Hotspots"
         value={activeCount.count || 0}
         tooltip={{
-          description: "Hotspots active in past 24h",
+          description: "Hotspots active in past 24h.",
           cadence: "Live",
           id: "Active Hotspots",
         }}
@@ -84,7 +84,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           8
         )}
         tooltip={{
-          description: `veHNT delegated to the ${title} subDAO at the start of the most recently completed epoch`,
+          description: `veHNT delegated to the ${title} subDAO at the start of the most recently completed epoch.`,
           cadence: "Daily",
           id: `${title} veHNT delegated`,
         }}
@@ -93,7 +93,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="DC Burned (24h)"
         value={humanReadable(epochInfo.info?.dcBurned, 0)}
         tooltip={{
-          description: `DC burned for data transfer by the ${title} subDAO during the most recently completed epoch`,
+          description: `DC burned for data transfer by the ${title} subDAO during the most recently completed epoch.`,
           cadence: "Daily",
           id: `${title} DC Burned (24h)`,
         }}
@@ -106,7 +106,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           0
         )}
         tooltip={{
-          description: `Current funding of ${title}'s treasury`,
+          description: `Current funding of ${title}'s treasury.`,
           cadence: "Live",
           id: `${title} Treasury (HNT)`,
         }}
@@ -119,7 +119,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           0
         )}
         tooltip={{
-          description: `Current supply of ${title}`,
+          description: `Current supply of ${title}.`,
           cadence: "Live",
           id: `${title} Supply`,
         }}
@@ -129,7 +129,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         unit={`${title}/HNT`}
         value={Math.round(swap)}
         tooltip={{
-          description: `Estimated swap rate for ${title} to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs`,
+          description: `Estimated swap rate for ${title} to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs.`,
           cadence: "Daily",
           id: `${title} Estimated Swap`,
         }}
