@@ -23,7 +23,7 @@ export const GovernanceStatItem = ({
         "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
       )}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between pb-2">
         <p className="text-base">{header}</p>
         {!!tooltip && <Tooltip {...tooltip} />}
       </div>

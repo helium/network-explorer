@@ -18,7 +18,7 @@ export const Governance = async () => {
       <hr className="mx-4 my-8" />
       <div className="flex flex-col gap-2">
         <h2 className="text-xl text-zinc-600 dark:text-zinc-100">
-          HNT Governance
+          veHNT Governance
         </h2>
         <GraphWrapper label="Delegation History (30 days)">
           {/* @ts-expect-error Async Server Component */}
@@ -31,13 +31,13 @@ export const Governance = async () => {
           token="HNT"
         />
         <MetricsRow
-          title="IOT"
+          title="Delegated to IOT"
           icon="iot"
           groupStats={veHntStats.iot}
           token="HNT"
         />
         <MetricsRow
-          title="MOBILE"
+          title="Delegated to MOBILE"
           icon="mobile"
           groupStats={veHntStats.mobile}
           token="HNT"

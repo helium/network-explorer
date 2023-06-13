@@ -69,7 +69,7 @@ export const HntInfo = async () => {
           0
         )}
         tooltip={{
-          description: "Current supply of HNT",
+          description: "Current supply of HNT.",
           cadence: "Live",
           id: "HNT Supply",
         }}
@@ -79,7 +79,7 @@ export const HntInfo = async () => {
         value={`${humanReadable(hntStakedPercent, 2)}%`}
         tooltip={{
           description:
-            "Percent of current HNT which is staked as veHNT on Realms",
+            "Percent of current HNT which is staked as veHNT on Realms.",
           id: "HNT Supply Staked",
         }}
       />
