@@ -8,7 +8,8 @@ import clsx from "clsx"
 import { format } from "date-fns"
 import {
   Bar,
-  BarChart,
+  ComposedChart,
+  Line,
   ResponsiveContainer,
   Tooltip,
   TooltipProps,
@@ -38,9 +39,29 @@ const CustomTooltip = ({
       >
         <p className="label">Date: {format(label, DATE_FORMAT)}</p>
         {payload.map(({ dataKey, name, value }) => {
+          if (name === "projectedRemaining" && value === 0) return null
+
+          let labelFormatted = ""
+          if (name === "iotUsage") labelFormatted = "IOT usage"
+          else if (name === "mobileUsage") labelFormatted = "MOBILE usage"
+          else if (name === "rate") labelFormatted = "USD/hour"
+          else if (name === "projectedRemaining") {
+            labelFormatted = "Est Daily Total"
+
+            const targetNames = [
+              "iotUsage",
+              "mobileUsage",
+              "projectedRemaining",
+            ]
+            const total = payload.reduce((acc, current) => {
+              if (targetNames.includes(current.name as string)) {
+                return acc + (current.value as number)
+              }
+              return acc
+            }, 0)
+            value = total
+          }
           let valueFormatted = "$" + (value as number).toFixed(2)
-          let labelFormatted =
-            dataKey === "iotUsage" ? "IOT usage" : "MOBILE usage"
 
           return (
             <div className="w-100 flex justify-between gap-2" key={dataKey}>
@@ -70,10 +91,16 @@ export const NetworkUsageGraph = ({ data }: NetworkUsageGraphProps) => {
   return (
     <div className="w-50 h-64">
       <ResponsiveContainer width="100%" height={256}>
-        <BarChart width={300} height={100} data={data}>
+        <ComposedChart width={300} height={100} data={data}>
           <Tooltip content={<CustomTooltip />} />
           <YAxis
             tickFormatter={(value) => "$" + (value as number).toFixed(0)}
+            yAxisId="USD"
+          />
+          <YAxis
+            tickFormatter={(value) => "$" + (value as number).toFixed(0)}
+            yAxisId="USD/h"
+            orientation="right"
           />
           <XAxis
             dataKey="date"
@@ -84,14 +111,29 @@ export const NetworkUsageGraph = ({ data }: NetworkUsageGraphProps) => {
             dataKey="iotUsage"
             fill={HELIUM_IOT_COLOR}
             stackId="a"
+            yAxisId="USD"
           />
           <Bar
             type="monotone"
             dataKey="mobileUsage"
             fill={HELIUM_MOBILE_COLOR}
             stackId="a"
+            yAxisId="USD"
           />
-        </BarChart>
+          <Bar
+            type="monotone"
+            dataKey="projectedRemaining"
+            fill="#B6F8CC"
+            stackId="a"
+            yAxisId="USD"
+          />
+          <Line
+            type="monotone"
+            dataKey="rate"
+            stroke="#ff7300"
+            yAxisId="USD/h"
+          />
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   )
