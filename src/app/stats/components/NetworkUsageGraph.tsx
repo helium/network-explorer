@@ -39,14 +39,13 @@ const CustomTooltip = ({
       >
         <p className="label">Date: {format(label, DATE_FORMAT)}</p>
         {payload.map(({ dataKey, name, value }) => {
-          if (name === "projectedRemaining" && value === 0) return null
-
           let labelFormatted = ""
+
           if (name === "iotUsage") labelFormatted = "IOT usage"
           else if (name === "mobileUsage") labelFormatted = "MOBILE usage"
           else if (name === "rate") labelFormatted = "USD/hour"
           else if (name === "projectedRemaining") {
-            labelFormatted = "Est Daily Total"
+            labelFormatted = value === 0 ? "Daily Total" : "Est Daily Total"
 
             const targetNames = [
               "iotUsage",
