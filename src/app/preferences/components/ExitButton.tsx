@@ -26,7 +26,10 @@ export const ExitButton = () => {
 
   return (
     <a
-      className={styles}
+      className={clsx(
+        !provider && "cursor-not-allowed hover:bg-green-400",
+        styles
+      )}
       href={provider?.getUrl(redirect)}
       target="_"
       onClick={() => {
