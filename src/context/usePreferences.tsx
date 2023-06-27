@@ -23,7 +23,7 @@ const getProvider = (providerLabel: string) => {
   return PROVIDERS.find((provider) => provider.label === providerLabel)
 }
 
-export const PreferencesProvider = ({ children }: PropsWithChildren<{}>) => {
+export const PreferencesProvider = ({ children }: PropsWithChildren) => {
   const [provider, setProvider] = useState(
     !!window ? getProvider(localStorage.getItem(PROVIDER_KEY) || "") : undefined
   )

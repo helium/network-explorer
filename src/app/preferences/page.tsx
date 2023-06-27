@@ -4,7 +4,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import { ExitButton } from "./components/ExitButton"
 import { ProviderList } from "./components/ProviderList"
-import { ThemeToggle } from "./components/ThemeToggle"
+import { ConditionalThemeToggle, ThemeToggle } from "./components/ThemeToggle"
 
 export default function Page() {
   return (
@@ -34,10 +34,12 @@ export default function Page() {
               <h2 className="text-sm">Hotspot Analytics Provider</h2>
               <ProviderList />
             </div>
-            <div>
-              <h2 className="text-sm">Theme</h2>
-              <ThemeToggle />
-            </div>
+            <ConditionalThemeToggle>
+              <div>
+                <h2 className="text-sm">Theme</h2>
+                <ThemeToggle />
+              </div>
+            </ConditionalThemeToggle>
           </div>
           <div className="flex justify-end gap-4">
             <ExitButton />

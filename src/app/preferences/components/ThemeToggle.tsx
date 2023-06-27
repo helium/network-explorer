@@ -3,6 +3,8 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import { useTheme } from "next-themes"
+import { useSearchParams } from "next/navigation"
+import { PropsWithChildren } from "react"
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
@@ -54,4 +56,13 @@ export const ThemeToggle = () => {
       </button>
     </div>
   )
+}
+
+// do not want to show theme toggle when selecting hotspot for the first time
+export const ConditionalThemeToggle = ({ children }: PropsWithChildren) => {
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get("redirect")
+
+  if (redirect) return null
+  return <>{children}</>
 }
