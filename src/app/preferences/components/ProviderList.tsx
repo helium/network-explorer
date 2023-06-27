@@ -1,9 +1,11 @@
 "use client"
 
+import { gaEvent } from "@/components/GATracker"
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
 import { MokenIcon } from "@/components/icons/MokenIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
+import { useSearchParams } from "next/navigation"
 
 export type Provider = {
   Icon: JSX.Element
@@ -27,9 +29,13 @@ export const PROVIDERS: Provider[] = [
 ]
 
 const PROVIDER_KEY = "provider"
+const DEFAULT_HOTSPOT_KEY =
+  "112Y5Vn5wzsreeyCijSEiBWHJekJPJCELvvm9615GvVGWKfu99Ta"
 
 export const ProviderList = () => {
   const { provider, setProvider } = usePreferences()
+  const searchParams = useSearchParams()
+  const hotspotKey = searchParams.get("redirect") || DEFAULT_HOTSPOT_KEY
 
   return (
     <div className="flex-col gap-2 gap-y-4 pl-2">
@@ -37,28 +43,46 @@ export const ProviderList = () => {
         const { label, Icon } = providerItem
         const active = provider?.label === label
         return (
-          <button
-            key={label}
-            type="button"
-            aria-label="Select Hotspotty"
-            className={clsx(
-              "group my-2 flex w-full gap-2 rounded border p-2",
-              active ? "border-blue-500 dark:border-blue-400" : "border"
-            )}
-            onClick={() => {
-              localStorage.setItem(PROVIDER_KEY, label)
-              setProvider(providerItem)
-            }}
-          >
-            {Icon}
-            <p
+          <div key={label} className="flex items-center gap-4">
+            <button
+              type="button"
+              aria-label="Select Hotspotty"
               className={clsx(
-                "transition group-hover:text-blue-500 dark:group-hover:text-blue-400"
+                "group my-2 flex w-full gap-2 rounded border p-2",
+                active ? "border-blue-500 dark:border-blue-400" : "border"
               )}
+              onClick={() => {
+                localStorage.setItem(PROVIDER_KEY, label)
+                setProvider(providerItem)
+              }}
             >
-              {label}
-            </p>
-          </button>
+              {Icon}
+              <p
+                className={clsx(
+                  "transition group-hover:text-blue-500 dark:group-hover:text-blue-400"
+                )}
+              >
+                {label}
+              </p>
+            </button>
+            <a
+              className={""}
+              href={providerItem?.getUrl(hotspotKey)}
+              target="_"
+              onClick={() => {
+                if (!!provider) {
+                  gaEvent({
+                    action: "outbound_click",
+                    event: {
+                      description: provider?.label,
+                    },
+                  })
+                }
+              }}
+            >
+              Preview
+            </a>
+          </div>
         )
       })}
     </div>
