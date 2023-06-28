@@ -27,7 +27,7 @@ export const ExitButton = () => {
   return (
     <a
       className={clsx(
-        !provider && "cursor-not-allowed hover:bg-green-400",
+        !provider && "cursor-not-allowed opacity-25 hover:bg-green-400",
         styles
       )}
       href={provider?.getUrl(redirect)}
