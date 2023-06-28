@@ -1,4 +1,5 @@
 import { Container } from "@/components/Container"
+import { Cog6ToothIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
 import { GitHubIcon } from "../icons/GithubIcon"
@@ -6,7 +7,6 @@ import { HeliumIcon } from "../icons/HeliumIcon"
 import { DesktopNavigation } from "./DesktopNavigation"
 import { HotspotSearch } from "./HotspotSearch"
 import { MobileNavigation } from "./MobileNavigation"
-import { ThemeToggle } from "./ThemeToggle"
 
 function Logo({ className, ...props }: { className?: string }) {
   return (
@@ -42,8 +42,14 @@ export function Header() {
             <div className="pointer-events-auto">
               <HotspotSearch />
             </div>
-            <div className="pointer-events-auto">
-              <ThemeToggle />
+            <div className="pointer-events-auto py-2 sm:block">
+              <Link
+                href="/preferences"
+                className="group"
+                aria-label="Preferences"
+              >
+                <Cog6ToothIcon className="h-6 w-6 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+              </Link>
             </div>
             <div className="pointer-events-auto hidden py-2 sm:block">
               <Link
