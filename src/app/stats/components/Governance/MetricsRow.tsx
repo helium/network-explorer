@@ -35,7 +35,6 @@ export const MetricsRow = ({
     hntDescription += ` that is undelegated`
     veDescription += " that is undelegated"
   } else {
-    hntDescription += ` that is delegated network wide`
     veDescription += " for the network"
   }
 
