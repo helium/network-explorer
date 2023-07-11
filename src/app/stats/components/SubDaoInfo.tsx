@@ -9,10 +9,10 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
-import { fetchMint } from "../../stats/utils/fetchMint"
-import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
-import { fetchSubDaoTreasuryInfo } from "../../stats/utils/fetchSubDaoTreasuryInfo"
-import { fetchTokenAccount } from "../../stats/utils/fetchTokenAccount"
+import { fetchMint } from "../utils/fetchMint"
+import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
+import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
+import { fetchTokenAccount } from "../utils/fetchTokenAccount"
 import { SubDao } from "../utils/types"
 
 type SubDaoType = {
