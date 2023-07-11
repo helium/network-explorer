@@ -74,7 +74,7 @@ describe("getRemaingEmissions", () => {
 
   describe("mobile", () => {
     it("has the same behavior for mobile", () => {
-      const MOBILE_YEARLY = 30225000000
+      const MOBILE_YEARLY = 19800000000
       const MOBILE_EMISSIONS_REMAINING = MOBILE_YEARLY * 4
       const dayOf = add(AUG_1_2023, { hours: 1 })
       expect(getRemainingEmissions(dayOf, "mobile")).toEqual(
@@ -130,7 +130,7 @@ describe("getRemaingEmissions", () => {
 
   describe("iot", () => {
     it("has the same behavior for iot", () => {
-      const IOT_YEARLY = 19800000000
+      const IOT_YEARLY = 30225000000
       const IOT_EMISSIONS_REMAINING = IOT_YEARLY * 4
       const dayOf = add(AUG_1_2023, { hours: 1 })
       expect(getRemainingEmissions(dayOf, "iot")).toEqual(
