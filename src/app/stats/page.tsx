@@ -2,7 +2,7 @@ import { MapCover } from "@/components/MapCover"
 import { Governance } from "./components/Governance"
 import { HntInfo } from "./components/HntInfo"
 import { NetworkUsage } from "./components/NetworkUsage"
-import { SubDaoInfo } from "./components/SudDaoInfo"
+import { SubDaoInfo } from "./components/SubDaoInfo"
 
 export const revalidate = 60 * 5 // revalidate 5 minutes
 

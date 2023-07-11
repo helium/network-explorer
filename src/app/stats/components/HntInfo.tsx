@@ -14,6 +14,7 @@ import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
+import { getRemainingEmissions } from "../utils/remainingEmission"
 import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =
@@ -37,6 +38,13 @@ export const HntInfo = async () => {
 
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
+
+  const remainingHntEmissions = Math.round(
+    getRemainingEmissions(new Date(), "hnt")
+  )
+  const maxSupply =
+    hntMint.info?.info.supply +
+    BigInt(remainingHntEmissions) * BigInt(100000000)
 
   return (
     <StatsList
@@ -72,6 +80,16 @@ export const HntInfo = async () => {
           description: "Current supply of HNT.",
           cadence: "Live",
           id: "HNT Supply",
+        }}
+      />
+      <StatItem
+        label="Max Supply"
+        value={humanReadableBigint(maxSupply, hntMint?.info?.info || 8, 0)}
+        tooltip={{
+          description:
+            "Maximum supply of HNT derived by current supply plus remaining emissions",
+          cadence: "Live",
+          id: "HNT Max Supply",
         }}
       />
       <StatItem
