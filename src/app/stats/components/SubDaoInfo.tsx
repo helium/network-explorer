@@ -13,6 +13,7 @@ import { fetchMint } from "../utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
 import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
 import { fetchTokenAccount } from "../utils/fetchTokenAccount"
+import { getRemainingEmissions } from "../utils/remainingEmission"
 import { SubDao } from "../utils/types"
 
 type SubDaoType = {
@@ -56,6 +57,12 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
   const treasuryHntNum = toNumber(treasuryTokenAcct.info?.amount, 8) || 1
   const swap = mintSupplyNum / treasuryHntNum
+
+  const remainingEmissions = Math.round(
+    getRemainingEmissions(new Date(), subDao)
+  )
+  const maxSupply =
+    mintInfo.info?.info.supply + BigInt(remainingEmissions) * BigInt(1000000)
 
   return (
     <StatsList title={title} link={link} linkText={linkText} icon={icon}>
@@ -122,6 +129,16 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           description: `Current supply of ${title}.`,
           cadence: "Live",
           id: `${title} Supply`,
+        }}
+      />
+
+      <StatItem
+        label="Max Supply"
+        value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
+        tooltip={{
+          description: `Maximum supply of ${title} derived by current supply plus remaining emissions`,
+          cadence: "Live",
+          id: `${title} Max Supply`,
         }}
       />
       <StatItem
