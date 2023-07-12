@@ -84,10 +84,14 @@ export const HntInfo = async () => {
       />
       <StatItem
         label="Max Supply"
-        value={humanReadableBigint(maxSupply, hntMint?.info?.info || 8, 0)}
+        value={`~${humanReadableBigint(
+          maxSupply,
+          hntMint?.info?.info || 8,
+          0
+        )}`}
         tooltip={{
           description:
-            "Maximum supply of HNT derived by current supply plus remaining emissions",
+            "Maximum supply of HNT derived by current supply plus remaining emissions. This is an approximate number as it does not include net emissions",
           cadence: "Live",
           id: "HNT Max Supply",
         }}
