@@ -139,7 +139,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Max Supply"
         value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
         tooltip={{
-          description: `Maximum supply of ${title} derived by current supply plus remaining emissions`,
+          description: `Maximum supply of ${title} derived by current supply plus remaining emissions.`,
           cadence: "Live",
           id: `${title} Max Supply`,
         }}
@@ -148,7 +148,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Daily Emissions"
         value={numberWithCommas(dailyEmissions)}
         tooltip={{
-          description: `Amount of ${title} emitted each day`,
+          description: `Amount of ${title} emitted each day.`,
           cadence: "Constant",
           id: `${title} Daily Emissions`,
         }}

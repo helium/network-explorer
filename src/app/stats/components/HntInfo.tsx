@@ -129,7 +129,7 @@ export const HntInfo = async () => {
           0
         )}
         tooltip={{
-          description: `Amount of HNT emitted last epoch`,
+          description: `Amount of HNT emitted last epoch.`,
           cadence: "Daily",
           id: `HNT Daily Emissions`,
         }}
