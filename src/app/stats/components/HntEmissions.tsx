@@ -1,0 +1,43 @@
+import { fetchHntEmissions } from "../utils/dune/fetchHntEmissions"
+import { GraphWrapper } from "./GraphWrapper"
+import { HntEmissionRow, HntEmissionsGraph } from "./HntEmissionsGraph"
+
+export const HntEmissions = async () => {
+  const { totalEmissions, subDaoEmissions } = await fetchHntEmissions()
+
+  const hntEmissionsData: { [date: string]: HntEmissionRow } = {}
+  totalEmissions.result.rows.forEach(({ block_date, hnt_minted }) => {
+    hntEmissionsData[block_date] = {
+      date: block_date,
+      total: parseInt(hnt_minted, 10),
+      iot: 0,
+      mobile: 0,
+    }
+  })
+
+  subDaoEmissions.result.rows.forEach(({ entity, block_date, hnt_minted }) => {
+    // required if both queries have yet to execute in latest epoch
+    if (!hntEmissionsData[block_date]) {
+      hntEmissionsData[block_date] = {
+        date: block_date,
+        total: 0,
+        iot: 0,
+        mobile: 0,
+      }
+    }
+    const subDao = entity === "IOT Treasury" ? "iot" : "mobile"
+    hntEmissionsData[block_date][subDao] = parseInt(hnt_minted, 10)
+  })
+
+  const hntEmissionsRows = Object.keys(hntEmissionsData)
+    .map((date) => hntEmissionsData[date])
+    .reverse()
+
+  return (
+    <div className="mt-2">
+      <GraphWrapper label="HNT Emissions History (30 days)">
+        <HntEmissionsGraph data={hntEmissionsRows} />
+      </GraphWrapper>
+    </div>
+  )
+}

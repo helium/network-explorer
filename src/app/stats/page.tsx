@@ -1,10 +1,11 @@
 import { MapCover } from "@/components/MapCover"
 import { Governance } from "./components/Governance"
+import { HntEmissions } from "./components/HntEmissions"
 import { HntInfo } from "./components/HntInfo"
 import { NetworkUsage } from "./components/NetworkUsage"
 import { SubDaoInfo } from "./components/SubDaoInfo"
 
-export const revalidate = 60 * 5 // revalidate 5 minutes
+export const revalidate = 300 // revalidate 5 minutes
 
 export default async function Page() {
   return (
@@ -18,6 +19,8 @@ export default async function Page() {
         <SubDaoInfo subDao={"mobile"} />
         {/* @ts-expect-error Async Server Component */}
         <NetworkUsage />
+        {/* @ts-expect-error Async Server Component */}
+        <HntEmissions />
         {/* @ts-expect-error Async Server Component */}
         <Governance />
       </div>
