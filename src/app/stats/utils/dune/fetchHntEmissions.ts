@@ -1,6 +1,6 @@
-// Add the API key to an header object
-const DUNE_KEY =
-  process.env.DUNE_KEY || process.env.NEXT_PUBLIC_DUNE_KEY || "bad-api-key"
+import { cache } from "react"
+
+const DUNE_KEY = process.env.DUNE_KEY || "bad-api-key"
 const meta = {
   "x-dune-api-key": DUNE_KEY,
 }
@@ -32,11 +32,11 @@ type TreasuryHntEmission = {
   hnt_minted: string
 }
 
-export const fetchHntEmissions = async () => {
+export const fetchHntEmissions = cache(async () => {
   const [totalEmissions, subDaoEmissions] = await Promise.all([
     duneQuery<TotalHntEmission[]>(2727450),
     duneQuery<TreasuryHntEmission[]>(2727529),
   ])
 
   return { totalEmissions, subDaoEmissions }
-}
+})

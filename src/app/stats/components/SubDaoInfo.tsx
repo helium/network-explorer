@@ -6,6 +6,7 @@ import {
   MOBILE_MINT,
   humanReadable,
   humanReadableBigint,
+  numberWithCommas,
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
@@ -23,6 +24,7 @@ type SubDaoType = {
   linkText: string
   icon: Icon
   subDaoMint: PublicKey
+  dailyEmissions: number
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -32,6 +34,7 @@ const MOBILE_INFO: SubDaoType = {
   linkText: "Learn More About MOBILE",
   icon: "mobile",
   subDaoMint: MOBILE_MINT,
+  dailyEmissions: 108493150,
 }
 
 const IOT_INFO: SubDaoType = {
@@ -41,10 +44,11 @@ const IOT_INFO: SubDaoType = {
   linkText: "Learn More About IOT",
   icon: "iot",
   subDaoMint: IOT_MINT,
+  dailyEmissions: 165616438,
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
-  const { activeUrl, link, linkText, title, icon, subDaoMint } =
+  const { activeUrl, link, linkText, title, icon, subDaoMint, dailyEmissions } =
     subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
     fetcher(activeUrl),
@@ -131,7 +135,6 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           id: `${title} Supply`,
         }}
       />
-
       <StatItem
         label="Max Supply"
         value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
@@ -139,6 +142,15 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           description: `Maximum supply of ${title} derived by current supply plus remaining emissions`,
           cadence: "Live",
           id: `${title} Max Supply`,
+        }}
+      />
+      <StatItem
+        label="Daily Emissions"
+        value={numberWithCommas(dailyEmissions)}
+        tooltip={{
+          description: `Amount of ${title} emitted each day`,
+          cadence: "Constant",
+          id: `${title} Daily Emissions`,
         }}
       />
       <StatItem

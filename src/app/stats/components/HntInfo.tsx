@@ -8,10 +8,12 @@ import {
   amountAsNum,
   humanReadable,
   humanReadableBigint,
+  numberWithCommas,
 } from "@helium/spl-utils"
 import { format } from "date-fns"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
+import { fetchHntEmissions } from "../utils/dune/fetchHntEmissions"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getRemainingEmissions } from "../utils/remainingEmission"
@@ -22,14 +24,21 @@ const COINGECKO_HNT_URL =
 const NEXT_HALVENING = 1690848000 // unix time
 
 export const HntInfo = async () => {
-  const [unixTime, hntPrice, hntMint, governanceStats, epochInfo] =
-    await Promise.all([
-      fetchUnixTimestap(),
-      fetcher(COINGECKO_HNT_URL),
-      fetchMint(HNT_MINT),
-      fetchHntGovernanceStats(),
-      fetchSubDaoEpochInfo("mobile"),
-    ])
+  const [
+    unixTime,
+    hntPrice,
+    hntMint,
+    governanceStats,
+    epochInfo,
+    hntEmissions,
+  ] = await Promise.all([
+    fetchUnixTimestap(),
+    fetcher(COINGECKO_HNT_URL),
+    fetchMint(HNT_MINT),
+    fetchHntGovernanceStats(),
+    fetchSubDaoEpochInfo("mobile"),
+    fetchHntEmissions(),
+  ])
 
   const hntStakedTotal = governanceStats.network.total.hnt
   const hntStakedPercent = hntStakedTotal
@@ -94,6 +103,18 @@ export const HntInfo = async () => {
             "Maximum supply of HNT derived by current supply plus remaining emissions. This is an approximate number as it does not include net emissions",
           cadence: "Live",
           id: "HNT Max Supply",
+        }}
+      />
+      <StatItem
+        label="Latest Emission"
+        value={numberWithCommas(
+          parseInt(hntEmissions.totalEmissions.result.rows[0].hnt_minted, 10),
+          0
+        )}
+        tooltip={{
+          description: `Amount of HNT emitted last epoch`,
+          cadence: "Daily",
+          id: `HNT Daily Emissions`,
         }}
       />
       <StatItem
