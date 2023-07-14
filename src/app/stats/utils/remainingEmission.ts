@@ -9,17 +9,17 @@ const YEARLY_EMISSIONS = {
 type Token = "hnt" | "mobile" | "iot"
 export const getRemainingEmissions = (date: Date, token: Token) => {
   const yearlyEmissions = YEARLY_EMISSIONS[token]
-  const REMAINING_AUG_1_2024 = yearlyEmissions * 4
+  const REMAINING_AUG_1_2023 = yearlyEmissions * 4
   let daysDelta = Math.abs(differenceInDays(AUG_1_2023, date))
   if (isBefore(date, AUG_1_2023)) {
     const dailyEmissionsRemaining = daysDelta + 1
     return (
-      REMAINING_AUG_1_2024 +
+      REMAINING_AUG_1_2023 +
       ((yearlyEmissions * 2) / 365) * dailyEmissionsRemaining
     )
   }
 
-  let remainingEmissions = REMAINING_AUG_1_2024
+  let remainingEmissions = REMAINING_AUG_1_2023
   const yearsDeltaAug24 = differenceInYears(date, AUG_1_2023)
   if (yearsDeltaAug24 >= 1) {
     let yearsDelta = yearsDeltaAug24

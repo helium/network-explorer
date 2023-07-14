@@ -1,6 +1,6 @@
 import { cache } from "react"
 
-const DUNE_KEY = process.env.DUNE_KEY || "bad-api-key"
+const DUNE_KEY = process.env.DUNE_KEY || ""
 const meta = {
   "x-dune-api-key": DUNE_KEY,
 }

@@ -57,7 +57,6 @@ export const HntInfo = async () => {
   const todayHntBurn = hntBurned.result.rows
     .reverse()[0]
     .hnt_burned.substring(1)
-  console.log(todayHntBurn)
 
   const remainingHntEmissions = Math.round(
     getRemainingEmissions(new Date(), "hnt")
