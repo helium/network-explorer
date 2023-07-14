@@ -40,3 +40,14 @@ export const fetchHntEmissions = cache(async () => {
 
   return { totalEmissions, subDaoEmissions }
 })
+
+type HntBurned = {
+  block_date: string
+  dc_minted: string
+  hnt_burned: string
+  hnt_avg_price: string
+}
+
+export const fetchHntBurn = () => {
+  return duneQuery<HntBurned[]>(2627250)
+}

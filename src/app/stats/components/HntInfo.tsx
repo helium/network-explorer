@@ -13,7 +13,10 @@ import {
 import { format } from "date-fns"
 import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
 import { fetchUnixTimestap } from "../../stats/utils/fetchUnixTimestamp"
-import { fetchHntEmissions } from "../utils/dune/fetchHntEmissions"
+import {
+  fetchHntBurn,
+  fetchHntEmissions,
+} from "../utils/dune/fetchHntEmissions"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getRemainingEmissions } from "../utils/remainingEmission"
@@ -22,6 +25,7 @@ import { Countdown } from "./Countdown"
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 const NEXT_HALVENING = 1690848000 // unix time
+const MAX_DAILY_NET_EMISSIONS = 1643.835616
 
 export const HntInfo = async () => {
   const [
@@ -31,6 +35,7 @@ export const HntInfo = async () => {
     governanceStats,
     epochInfo,
     hntEmissions,
+    hntBurned,
   ] = await Promise.all([
     fetchUnixTimestap(),
     fetcher(COINGECKO_HNT_URL),
@@ -38,6 +43,7 @@ export const HntInfo = async () => {
     fetchHntGovernanceStats(),
     fetchSubDaoEpochInfo("mobile"),
     fetchHntEmissions(),
+    fetchHntBurn(),
   ])
 
   const hntStakedTotal = governanceStats.network.total.hnt
@@ -48,12 +54,23 @@ export const HntInfo = async () => {
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
+  const todayHntBurn = hntBurned.result.rows
+    .reverse()[0]
+    .hnt_burned.substring(1)
+  console.log(todayHntBurn)
+
   const remainingHntEmissions = Math.round(
     getRemainingEmissions(new Date(), "hnt")
   )
   const maxSupply =
     hntMint.info?.info.supply +
-    BigInt(remainingHntEmissions) * BigInt(100000000)
+    BigInt(remainingHntEmissions) * BigInt(100000000) +
+    BigInt(
+      Math.ceil(
+        Math.min(parseFloat(todayHntBurn), MAX_DAILY_NET_EMISSIONS) * 10000
+      )
+    ) *
+      BigInt(10000)
 
   return (
     <StatsList
@@ -100,8 +117,8 @@ export const HntInfo = async () => {
         )}`}
         tooltip={{
           description:
-            "Maximum supply of HNT derived by current supply plus remaining emissions. This is an approximate number as it does not include net emissions",
-          cadence: "Live",
+            "Maximum supply of HNT derived by summing current supply, remaining emissions and today's burned HNT burned (which are re-emitted via net emissions).",
+          cadence: "Supply: Live -- HNT burned: 4h",
           id: "HNT Max Supply",
         }}
       />
