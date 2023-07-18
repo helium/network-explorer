@@ -3,8 +3,8 @@ import { add, differenceInDays, differenceInYears, isBefore } from "date-fns"
 export const AUG_1_2023 = new Date(1690848000 * 1000)
 const YEARLY_EMISSIONS = {
   hnt: 15000000,
-  iot: 30225000000,
-  mobile: 19800000000,
+  iot: 32500000000, // 30225000000 emitted with 7% to oracles not allocated
+  mobile: 30000000000, // 19800000000 emitted with 34% to mappers, service providers, oracles not allocated
 }
 type Token = "hnt" | "mobile" | "iot"
 export const getRemainingEmissions = (date: Date, token: Token) => {

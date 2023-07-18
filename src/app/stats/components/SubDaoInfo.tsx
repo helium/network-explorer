@@ -25,6 +25,7 @@ type SubDaoType = {
   icon: Icon
   subDaoMint: PublicKey
   dailyEmissions: number
+  maxDescription: string
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -35,6 +36,8 @@ const MOBILE_INFO: SubDaoType = {
   icon: "mobile",
   subDaoMint: MOBILE_MINT,
   dailyEmissions: 108493150,
+  maxDescription:
+    "Uses theoretical max emissions. In reality only 66% of max are emitted as mappers, service providers, and oracles have yet to be implemented.",
 }
 
 const IOT_INFO: SubDaoType = {
@@ -45,11 +48,21 @@ const IOT_INFO: SubDaoType = {
   icon: "iot",
   subDaoMint: IOT_MINT,
   dailyEmissions: 165616438,
+  maxDescription:
+    "Uses theoretical max emissions. In reality only 93% of max are emitted as oracles do not currently receive rewards.",
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
-  const { activeUrl, link, linkText, title, icon, subDaoMint, dailyEmissions } =
-    subDao === "mobile" ? MOBILE_INFO : IOT_INFO
+  const {
+    activeUrl,
+    link,
+    linkText,
+    title,
+    icon,
+    subDaoMint,
+    dailyEmissions,
+    maxDescription,
+  } = subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
     fetcher(activeUrl),
     fetchMint(subDaoMint),
@@ -139,7 +152,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Max Supply"
         value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
         tooltip={{
-          description: `Maximum supply of ${title} derived by current supply plus remaining emissions.`,
+          description: `Maximum supply of ${title} derived by current supply plus remaining emissions. ${maxDescription}`,
           cadence: "Live",
           id: `${title} Max Supply`,
         }}
