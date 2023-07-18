@@ -95,11 +95,11 @@ export const NetworkUsageGraph = ({ data }: NetworkUsageGraphProps) => {
           <YAxis
             tickFormatter={(value) => "$" + (value as number).toFixed(0)}
             yAxisId="USD"
+            orientation="right"
           />
           <YAxis
-            tickFormatter={(value) => "$" + (value as number).toFixed(0)}
+            tickFormatter={(value) => `$${(value as number).toFixed(0)}/h`}
             yAxisId="USD/h"
-            orientation="right"
           />
           <XAxis
             dataKey="date"
