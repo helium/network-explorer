@@ -43,7 +43,7 @@ const CustomTooltip = ({
           if (String(name) === "total") {
             labelFormatted = "Total"
           } else {
-            labelFormatted = String(name).toUpperCase()
+            labelFormatted = String(name).toUpperCase() + " Treasury"
           }
 
           return (

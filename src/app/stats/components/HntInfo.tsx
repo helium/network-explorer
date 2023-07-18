@@ -17,6 +17,7 @@ import {
   fetchHntBurn,
   fetchHntEmissions,
 } from "../utils/dune/fetchHntEmissions"
+import { formatDuneDate } from "../utils/dune/formatDuneDate"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getRemainingEmissions } from "../utils/remainingEmission"
@@ -117,7 +118,9 @@ export const HntInfo = async () => {
         tooltip={{
           description:
             "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions).",
-          cadence: "Supply: Live -- HNT burned: 4h",
+          cadence: `Supply: Live -- HNT burned: 8h (last run ${formatDuneDate(
+            hntBurned.execution_started_at
+          )})`,
           id: "HNT Max Supply",
         }}
       />

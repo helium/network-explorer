@@ -1,10 +1,10 @@
 import clsx from "clsx"
-import { PropsWithChildren } from "react"
+import { PropsWithChildren, ReactNode } from "react"
 
 export const GraphWrapper = ({
   children,
   label,
-}: PropsWithChildren<{ label: string }>) => {
+}: PropsWithChildren<{ label: string | ReactNode }>) => {
   return (
     <div
       className={clsx(

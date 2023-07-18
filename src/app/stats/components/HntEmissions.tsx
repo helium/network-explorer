@@ -1,6 +1,8 @@
 import { fetchHntEmissions } from "../utils/dune/fetchHntEmissions"
+import { formatDuneDate } from "../utils/dune/formatDuneDate"
 import { GraphWrapper } from "./GraphWrapper"
 import { HntEmissionRow, HntEmissionsGraph } from "./HntEmissionsGraph"
+import { Tooltip } from "./Tooltip"
 
 export const HntEmissions = async () => {
   const { totalEmissions, subDaoEmissions } = await fetchHntEmissions()
@@ -35,7 +37,23 @@ export const HntEmissions = async () => {
 
   return (
     <div className="mt-2">
-      <GraphWrapper label="HNT Emissions History (30 days)">
+      <GraphWrapper
+        label={
+          <span className="flex items-center gap-1">
+            HNT Emissions History (30 days)
+            <Tooltip
+              id="hnt-emissions"
+              description={`Last fetched: Total: ${formatDuneDate(
+                totalEmissions.execution_started_at
+              )} --- Treasury: ${formatDuneDate(
+                subDaoEmissions.execution_started_at
+              )}`}
+              cadence="Daily"
+              sourceText="Dune queries 2727450 and 2727529"
+            />
+          </span>
+        }
+      >
         <HntEmissionsGraph data={hntEmissionsRows} />
       </GraphWrapper>
     </div>
