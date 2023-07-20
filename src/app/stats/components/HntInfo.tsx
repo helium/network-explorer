@@ -21,7 +21,7 @@ import { formatDuneDate } from "../utils/dune/formatDuneDate"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getNextHalvening } from "../utils/getNextHalvening"
-import { getRemainingEmissions } from "../utils/remainingEmission"
+import { getRemainingEmissions } from "../utils/remainingEmissions"
 import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =

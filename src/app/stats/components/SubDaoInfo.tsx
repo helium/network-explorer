@@ -10,11 +10,16 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
+import { isBefore } from "date-fns"
 import { fetchMint } from "../utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
 import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
 import { fetchTokenAccount } from "../utils/fetchTokenAccount"
-import { getRemainingEmissions } from "../utils/remainingEmission"
+import {
+  AUG_1_2023,
+  getDailyEmisisons,
+  getRemainingEmissions,
+} from "../utils/remainingEmissions"
 import { SubDao } from "../utils/types"
 
 type SubDaoType = {
@@ -159,7 +164,11 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
       />
       <StatItem
         label="Daily Emissions"
-        value={numberWithCommas(dailyEmissions)}
+        value={numberWithCommas(
+          isBefore(new Date(), AUG_1_2023)
+            ? dailyEmissions
+            : Math.round(getDailyEmisisons(new Date(), subDao, "current"))
+        )}
         tooltip={{
           description: `Amount of ${title} emitted each day.`,
           cadence: "Constant",

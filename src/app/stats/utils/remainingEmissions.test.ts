@@ -1,5 +1,9 @@
 import { add, sub } from "date-fns"
-import { AUG_1_2023, getRemainingEmissions } from "./remainingEmission"
+import {
+  AUG_1_2023,
+  getDailyEmisisons,
+  getRemainingEmissions,
+} from "./remainingEmissions"
 
 describe("getRemaingEmissions", () => {
   describe("hnt", () => {
@@ -181,6 +185,92 @@ describe("getRemaingEmissions", () => {
           (IOT_YEARLY / 2) * 2 - // 2025 + 2026
           IOT_YEARLY / 4 / 366 // one day into next leap year
       )
+    })
+  })
+
+  describe("getDailyEmissions helper", () => {
+    const after2023 = add(AUG_1_2023, { days: 1 }) // leap year
+    const after2024 = add(AUG_1_2023, { days: 1, years: 1 }) // non-leap
+    const after2025 = add(AUG_1_2023, { days: 1, years: 2 })
+
+    describe("for max emissions", () => {
+      it("returns the correct values for HNT", () => {
+        const yearlyEmissions = 15000000
+
+        expect(getDailyEmisisons(after2023, "hnt")).toBe(yearlyEmissions / 366)
+        expect(getDailyEmisisons(after2024, "hnt")).toBe(yearlyEmissions / 365)
+        expect(getDailyEmisisons(after2025, "hnt")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
+
+      it("returns the correct values for IOT", () => {
+        const yearlyEmissions = 32500000000
+
+        expect(getDailyEmisisons(after2023, "iot")).toBe(yearlyEmissions / 366)
+        expect(getDailyEmisisons(after2024, "iot")).toBe(yearlyEmissions / 365)
+        expect(getDailyEmisisons(after2025, "iot")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
+
+      it("returns the correct values for MOBILE", () => {
+        const yearlyEmissions = 30000000000
+
+        expect(getDailyEmisisons(after2023, "mobile")).toBe(
+          yearlyEmissions / 366
+        )
+        expect(getDailyEmisisons(after2024, "mobile")).toBe(
+          yearlyEmissions / 365
+        )
+        expect(getDailyEmisisons(after2025, "mobile")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
+    })
+
+    describe("for current emissions", () => {
+      it("returns the correct values for HNT", () => {
+        const yearlyEmissions = 15000000
+
+        expect(getDailyEmisisons(after2023, "hnt", "current")).toBe(
+          yearlyEmissions / 366
+        )
+        expect(getDailyEmisisons(after2024, "hnt", "current")).toBe(
+          yearlyEmissions / 365
+        )
+        expect(getDailyEmisisons(after2025, "hnt", "current")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
+
+      it("returns the correct values for IOT", () => {
+        const yearlyEmissions = 30225000000
+
+        expect(getDailyEmisisons(after2023, "iot", "current")).toBe(
+          yearlyEmissions / 366
+        )
+        expect(getDailyEmisisons(after2024, "iot", "current")).toBe(
+          yearlyEmissions / 365
+        )
+        expect(getDailyEmisisons(after2025, "iot", "current")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
+
+      it("returns the correct values for MOBILE", () => {
+        const yearlyEmissions = 19800000000
+
+        expect(getDailyEmisisons(after2023, "mobile", "current")).toBe(
+          yearlyEmissions / 366
+        )
+        expect(getDailyEmisisons(after2024, "mobile", "current")).toBe(
+          yearlyEmissions / 365
+        )
+        expect(getDailyEmisisons(after2025, "mobile", "current")).toBe(
+          yearlyEmissions / 365 / 2
+        )
+      })
     })
   })
 })
