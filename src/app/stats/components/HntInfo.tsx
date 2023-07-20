@@ -20,12 +20,12 @@ import {
 import { formatDuneDate } from "../utils/dune/formatDuneDate"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
+import { getNextHalvening } from "../utils/getNextHalvening"
 import { getRemainingEmissions } from "../utils/remainingEmission"
 import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
-const NEXT_HALVENING = 1690848000 // unix time
 const MAX_DAILY_NET_EMISSIONS = 1643.835616
 
 export const HntInfo = async () => {
@@ -96,7 +96,7 @@ export const HntInfo = async () => {
         <Countdown date={epoch * ONE_DAY_MS + ONE_DAY_MS} />
       </StatItem>
       <StatItem label="Halvening In">
-        <Countdown date={NEXT_HALVENING * 1000} />
+        <Countdown date={getNextHalvening()} />
       </StatItem>
       <StatItem
         label="Supply"
