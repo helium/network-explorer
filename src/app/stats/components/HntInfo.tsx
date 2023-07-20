@@ -55,9 +55,12 @@ export const HntInfo = async () => {
   const epoch = currentEpoch(new BN(unixTime)).toNumber()
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
-  const todayHntBurn = hntBurned.result.rows
-    .reverse()[0]
-    .hnt_burned.substring(1)
+  const isSameDay =
+    new Date(hntBurned.execution_started_at).valueOf() / ONE_DAY_MS ===
+    new Date().valueOf() / ONE_DAY_MS
+  const todayHntBurn = isSameDay
+    ? hntBurned.result.rows.reverse()[0].hnt_burned.substring(1)
+    : "0"
 
   const remainingHntEmissions = Math.round(
     getRemainingEmissions(new Date(), "hnt")
@@ -117,7 +120,7 @@ export const HntInfo = async () => {
         )}`}
         tooltip={{
           description:
-            "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions).",
+            "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). Accurate within 1643 HNT",
           cadence: `Supply: Live -- HNT burned: 8h (last run ${formatDuneDate(
             hntBurned.execution_started_at
           )})`,
