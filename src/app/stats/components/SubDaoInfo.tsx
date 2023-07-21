@@ -42,7 +42,7 @@ const MOBILE_INFO: SubDaoType = {
   subDaoMint: MOBILE_MINT,
   dailyEmissions: 108493150,
   maxDescription:
-    "Uses theoretical max emissions. In reality only 66% of max are emitted as mappers, service providers, and oracles have yet to be implemented.",
+    "This is an upper limit that will not be reached. Reason: Daily emissions are currently only 66% of scheduled emissions, as not all rewardable entities (mappers, service providers, and oracles) exist or currently receive rewards.",
 }
 
 const IOT_INFO: SubDaoType = {
@@ -54,7 +54,7 @@ const IOT_INFO: SubDaoType = {
   subDaoMint: IOT_MINT,
   dailyEmissions: 165616438,
   maxDescription:
-    "Uses theoretical max emissions. In reality only 93% of max are emitted as oracles do not currently receive rewards.",
+    "This is an upper limit that will not be reached. Reason: Daily emissions are currently only 93% of scheduled emissions, as oracles do not currently receive rewards.",
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
