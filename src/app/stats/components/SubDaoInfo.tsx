@@ -6,13 +6,20 @@ import {
   MOBILE_MINT,
   humanReadable,
   humanReadableBigint,
+  numberWithCommas,
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
-import { fetchMint } from "../../stats/utils/fetchMint"
-import { fetchSubDaoEpochInfo } from "../../stats/utils/fetchSubDaoEpochInfo"
-import { fetchSubDaoTreasuryInfo } from "../../stats/utils/fetchSubDaoTreasuryInfo"
-import { fetchTokenAccount } from "../../stats/utils/fetchTokenAccount"
+import { isBefore } from "date-fns"
+import { fetchMint } from "../utils/fetchMint"
+import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
+import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
+import { fetchTokenAccount } from "../utils/fetchTokenAccount"
+import {
+  AUG_1_2023,
+  getDailyEmisisons,
+  getRemainingEmissions,
+} from "../utils/remainingEmissions"
 import { SubDao } from "../utils/types"
 
 type SubDaoType = {
@@ -22,6 +29,8 @@ type SubDaoType = {
   linkText: string
   icon: Icon
   subDaoMint: PublicKey
+  dailyEmissions: number
+  maxDescription: string
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -31,6 +40,9 @@ const MOBILE_INFO: SubDaoType = {
   linkText: "Learn More About MOBILE",
   icon: "mobile",
   subDaoMint: MOBILE_MINT,
+  dailyEmissions: 108493150,
+  maxDescription:
+    "Uses theoretical max emissions. In reality only 66% of max are emitted as mappers, service providers, and oracles have yet to be implemented.",
 }
 
 const IOT_INFO: SubDaoType = {
@@ -40,11 +52,22 @@ const IOT_INFO: SubDaoType = {
   linkText: "Learn More About IOT",
   icon: "iot",
   subDaoMint: IOT_MINT,
+  dailyEmissions: 165616438,
+  maxDescription:
+    "Uses theoretical max emissions. In reality only 93% of max are emitted as oracles do not currently receive rewards.",
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
-  const { activeUrl, link, linkText, title, icon, subDaoMint } =
-    subDao === "mobile" ? MOBILE_INFO : IOT_INFO
+  const {
+    activeUrl,
+    link,
+    linkText,
+    title,
+    icon,
+    subDaoMint,
+    dailyEmissions,
+    maxDescription,
+  } = subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
     fetcher(activeUrl),
     fetchMint(subDaoMint),
@@ -56,6 +79,12 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
   const treasuryHntNum = toNumber(treasuryTokenAcct.info?.amount, 8) || 1
   const swap = mintSupplyNum / treasuryHntNum
+
+  const remainingEmissions = Math.round(
+    getRemainingEmissions(new Date(), subDao)
+  )
+  const maxSupply =
+    mintInfo.info?.info.supply + BigInt(remainingEmissions) * BigInt(1000000)
 
   return (
     <StatsList title={title} link={link} linkText={linkText} icon={icon}>
@@ -122,6 +151,28 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           description: `Current supply of ${title}.`,
           cadence: "Live",
           id: `${title} Supply`,
+        }}
+      />
+      <StatItem
+        label="Max Supply"
+        value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
+        tooltip={{
+          description: `Maximum supply of ${title} derived by current supply plus remaining emissions. ${maxDescription}`,
+          cadence: "Live",
+          id: `${title} Max Supply`,
+        }}
+      />
+      <StatItem
+        label="Daily Emissions"
+        value={numberWithCommas(
+          isBefore(new Date(), AUG_1_2023)
+            ? dailyEmissions
+            : Math.round(getDailyEmisisons(new Date(), subDao, "current"))
+        )}
+        tooltip={{
+          description: `Amount of ${title} emitted each day.`,
+          cadence: "Constant",
+          id: `${title} Daily Emissions`,
         }}
       />
       <StatItem

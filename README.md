@@ -25,6 +25,7 @@ cp .env.example .env.local
 ```
 
 Add your [Mapbox access token](https://docs.mapbox.com/help/glossary/access-token/).
+Add your [Dune API key](https://dune.com/docs/api/#obtaining-an-api-key)
 
 ### Run locally
 
