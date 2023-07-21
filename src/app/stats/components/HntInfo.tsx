@@ -120,7 +120,7 @@ export const HntInfo = async () => {
         )}`}
         tooltip={{
           description:
-            "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). Accurate within 1643 HNT",
+            "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). This is an upper limit that will not be reached and does not consider future HNT burn. Accurate within 1643 HNT.",
           cadence: `Supply: Live -- HNT burned: 8h (last run ${formatDuneDate(
             hntBurned.execution_started_at
           )})`,

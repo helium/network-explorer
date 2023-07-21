@@ -19,7 +19,7 @@ export const Tooltip = ({
 }: ToolTipProps) => {
   return (
     <div className="flex items-center">
-      <a data-tooltip-id={id} data-tooltip-place="top">
+      <a data-tooltip-id={id} data-tooltip-place="bottom">
         <InformationCircleIcon className="h-5 w-5" />
       </a>
       <ReactTooltip id={id}>
