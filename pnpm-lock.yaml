@@ -14,24 +14,27 @@ dependencies:
   "@headlessui/tailwindcss":
     specifier: 0.1.2
     version: 0.1.2(tailwindcss@3.3.1)
+  "@helium/account-fetch-cache":
+    specifier: ^0.2.5
+    version: 0.2.5(encoding@0.1.13)
   "@helium/address":
     specifier: ^4.8.1
     version: 4.8.1
   "@helium/helium-react-hooks":
-    specifier: ^0.0.51
-    version: 0.0.51(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.2.11
+    version: 0.2.11(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0)
   "@helium/helium-sub-daos-sdk":
-    specifier: ^0.0.51
-    version: 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
+    specifier: ^0.2.5
+    version: 0.2.5(@solana/web3.js@1.75.0)(encoding@0.1.13)
   "@helium/idls":
-    specifier: ^0.0.51
-    version: 0.0.51(encoding@0.1.13)
+    specifier: ^0.2.5
+    version: 0.2.5(encoding@0.1.13)
   "@helium/spl-utils":
-    specifier: ^0.0.51
-    version: 0.0.51(encoding@0.1.13)
+    specifier: ^0.2.13
+    version: 0.2.13(encoding@0.1.13)
   "@helium/treasury-management-sdk":
-    specifier: ^0.0.51
-    version: 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
+    specifier: ^0.2.5
+    version: 0.2.5(encoding@0.1.13)
   "@helium/voter-stake-registry-sdk":
     specifier: ^0.1.4
     version: 0.1.4(@solana/web3.js@1.75.0)(encoding@0.1.13)
@@ -42,7 +45,7 @@ dependencies:
     specifier: ^2.9.1
     version: 2.9.1(encoding@0.1.13)
   "@solana/spl-account-compression":
-    specifier: ^0.1.7
+    specifier: 0.1.7
     version: 0.1.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
   "@solana/spl-token":
     specifier: ^0.3.7
@@ -841,6 +844,52 @@ packages:
       tailwindcss: 3.3.1(postcss@8.4.21)(ts-node@10.9.1)
     dev: false
 
+  /@helium/account-fetch-cache-hooks@0.2.11(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-pHHbsQlZQjS/P2y96oWC1Mne+U+W1axmuHixzI6GpRK+MZSaffegqtGbuANS8dR1HMU/lpef2Izz6n0MwhFNIg==,
+      }
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18
+      react-dom: ^16.8 || ^17 || ^18
+    dependencies:
+      "@helium/account-fetch-cache": 0.2.5(encoding@0.1.13)
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
+      react: 18.2.0
+      react-async-hook: 4.0.0(react@18.2.0)
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/account-fetch-cache@0.2.5(encoding@0.1.13):
+    resolution:
+      {
+        integrity: sha512-Cv8ST15awWpaHJGkY3SGeb+BuZ0wzbS3AMtQ8ZAeUr+XuJ5mbaGZUE9QPI9dNPKV1txzgn4JkEs+BQywt8LwRg==,
+      }
+    dependencies:
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/address@4.10.2:
+    resolution:
+      {
+        integrity: sha512-qCswC7Z3GXuJyHv36RcOSnffeghjqJQx0fdu2Lxpf9fgOnIi1JZO2tjjk1mBaqOwCyp+0YzrTPUoEukL/WCtsA==,
+      }
+    dependencies:
+      bs58: 5.0.0
+      js-sha256: 0.9.0
+      multiformats: 9.9.0
+    dev: false
+
   /@helium/address@4.8.1:
     resolution:
       {
@@ -852,40 +901,58 @@ packages:
       multiformats: 9.9.0
     dev: false
 
-  /@helium/circuit-breaker-sdk@0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13):
+  /@helium/anchor-resolvers@0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-xl6C23Wqu93CPnQQEk1AgCmlRv5NHh+rIezEEPg+SNJGvtTL5hCHpEjUWmOM24hMwXn5sJq0vwOASrbGwoNMCA==,
+        integrity: sha512-AOVa93cbFEUSDHR6OWHk5SlwwrnyStAZbjM1AGGUJdZEVzR1YnkYCl8aFZtVBCkCPmFz5iZDBjEx32chhRsEJA==,
       }
+    peerDependencies:
+      "@coral-xyz/anchor": ^0.26.0
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/idls": 0.0.51(encoding@0.1.13)
-      "@helium/spl-utils": 0.0.51(encoding@0.1.13)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
-      bn.js: 5.2.1
-      bs58: 4.0.1
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
     transitivePeerDependencies:
-      - "@solana/web3.js"
       - bufferutil
       - encoding
       - supports-color
       - utf-8-validate
     dev: false
 
-  /@helium/helium-react-hooks@0.0.51(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0):
+  /@helium/circuit-breaker-sdk@0.2.5(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-vENlWxL1YCBjT39Aw6IKJzuNRY0TJPXTO66KwqQfLFs51pTWinVPjuMCxUHvt1vXuejH5eAA+rNaHv2STB4bsA==,
+        integrity: sha512-IG/f0ffY+lWPVOAYTH/yyloXRfCShUydwsyAjdYz4tI1tGVlysf88rR9kYWY/cJpep3ftemxZdvOwOSdhVt72A==,
+      }
+    dependencies:
+      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
+      "@helium/anchor-resolvers": 0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13)
+      "@helium/idls": 0.2.5(encoding@0.1.13)
+      bn.js: 5.2.1
+      bs58: 4.0.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/helium-react-hooks@0.2.11(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-smfZR0iOr41HFW4xUoIb0vd9vrGGWYrCmak5eMmLB8btNRQxtQ/Df2qSjQkT/DpUsnJFlNL9OCt6AJWyiM55UQ==,
       }
     peerDependencies:
       react: ^16.8 || ^17 || ^18
       react-dom: ^16.8 || ^17 || ^18
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/spl-utils": 0.0.51(encoding@0.1.13)
+      "@helium/account-fetch-cache": 0.2.5(encoding@0.1.13)
+      "@helium/account-fetch-cache-hooks": 0.2.11(encoding@0.1.13)(react-dom@18.2.0)(react@18.2.0)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       "@solana/web3.js": 1.75.0(encoding@0.1.13)
       bs58: 5.0.0
+      pako: 2.1.0
       react: 18.2.0
       react-async-hook: 4.0.0(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
@@ -896,39 +963,21 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@helium/helium-sub-daos-sdk@0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13):
+  /@helium/helium-sub-daos-sdk@0.2.5(@solana/web3.js@1.75.0)(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-tTj6L+ttshoAPvKsnZKYLYpoxgisVPLu4lCeMHvfotX7BtxrfmsY8mcshKZGz18+rM4R3vXmvBtKB/tQIdzVVQ==,
+        integrity: sha512-U+AT8t3wJhZTambCtSHnvXBl+5fVw2NhQ49AgbzKm3Yo3JBnyXJ31mdTGyeT67QrviOW2nOmU8adozp7AXsiOw==,
       }
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/circuit-breaker-sdk": 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
-      "@helium/spl-utils": 0.0.51(encoding@0.1.13)
-      "@helium/treasury-management-sdk": 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
-      "@helium/voter-stake-registry-sdk": 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      "@helium/anchor-resolvers": 0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13)
+      "@helium/circuit-breaker-sdk": 0.2.5(encoding@0.1.13)
+      "@helium/treasury-management-sdk": 0.2.5(encoding@0.1.13)
+      "@helium/voter-stake-registry-sdk": 0.2.5(@solana/web3.js@1.75.0)(encoding@0.1.13)
       bn.js: 5.2.1
       bs58: 4.0.1
     transitivePeerDependencies:
       - "@solana/web3.js"
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-    dev: false
-
-  /@helium/idls@0.0.51(encoding@0.1.13):
-    resolution:
-      {
-        integrity: sha512-qaR/CmgWqhUPuksJxnMNOrF9IkXduQrQ3B8xKAQ4fJ/qO/bItiBe/iZCzp4KbqMrrfvvbusQwcY0i9EtDEnINg==,
-      }
-    dependencies:
-      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@solana/web3.js": 1.75.0(encoding@0.1.13)
-      bn.js: 5.2.1
-      borsh: 0.7.0
-      bs58: 4.0.1
-    transitivePeerDependencies:
       - bufferutil
       - encoding
       - supports-color
@@ -953,19 +1002,17 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@helium/spl-utils@0.0.51(encoding@0.1.13):
+  /@helium/idls@0.2.5(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-ng+VibSs3F7G62qhxzyvNAQJtz4f8GMb0qGNu1evpnaE0TrfiP42kCXM9ntWkDslJUN0EHLoGReyPSoFq6/MSg==,
+        integrity: sha512-KzoKeWnfvQJiRDi6eiDADbUTvVyOLre8ht46LeSq02Nx/UQO2SmgymI/YjwlO0o8Zm7L/r8dxym0+MYG++lLHw==,
       }
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/address": 4.8.1
-      "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       "@solana/web3.js": 1.75.0(encoding@0.1.13)
       bn.js: 5.2.1
       borsh: 0.7.0
-      bs58: 5.0.0
+      bs58: 4.0.1
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -994,42 +1041,43 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@helium/treasury-management-sdk@0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13):
+  /@helium/spl-utils@0.2.13(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-oCqGpP4IPZ1LrpM+DgLpsduGmvwaTk8jVTcuL/vQFmKdeq2/Gcssj8mQWFcwPe6bm0zVStJ9UmszlrAVIKl7Aw==,
+        integrity: sha512-N68djQJI3HiX6MFLfjAteYzpxhd6pAee0rzy92OdoK0vT6iIL4F0Q9kx385n+Wtda8xbItWtqsNHKkdra8rSCg==,
       }
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/circuit-breaker-sdk": 0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13)
-      "@helium/idls": 0.0.51(encoding@0.1.13)
-      "@helium/spl-utils": 0.0.51(encoding@0.1.13)
+      "@helium/account-fetch-cache": 0.2.5(encoding@0.1.13)
+      "@helium/address": 4.10.2
+      "@helium/anchor-resolvers": 0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13)
+      "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
+      "@solana/spl-account-compression": 0.1.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      "@solana/web3.js": 1.75.0(encoding@0.1.13)
       bn.js: 5.2.1
-      bs58: 4.0.1
+      borsh: 0.7.0
+      bs58: 5.0.0
     transitivePeerDependencies:
-      - "@solana/web3.js"
       - bufferutil
       - encoding
       - supports-color
       - utf-8-validate
     dev: false
 
-  /@helium/voter-stake-registry-sdk@0.0.51(@solana/web3.js@1.75.0)(encoding@0.1.13):
+  /@helium/treasury-management-sdk@0.2.5(encoding@0.1.13):
     resolution:
       {
-        integrity: sha512-1a0aK9oHUb6IjtCEc7ATws4wk9EYuYIpA4FXULaDDd+HmZ5ZnfX8yeeWeRVRt8pBzoGE9EzPEbkH+pLV55zs1A==,
+        integrity: sha512-j1faBZ52KLAaCz5GHmK5Xugg7PvOi5kpP4PmB0DmTRdhF8f7mfTIPWvD/SVI1vIQ4p1ng8ucURKTpCWRGRzIqA==,
       }
     dependencies:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
-      "@helium/idls": 0.0.51(encoding@0.1.13)
-      "@helium/spl-utils": 0.0.51(encoding@0.1.13)
-      "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
-      "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      "@helium/anchor-resolvers": 0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13)
+      "@helium/circuit-breaker-sdk": 0.2.5(encoding@0.1.13)
+      "@helium/idls": 0.2.5(encoding@0.1.13)
       bn.js: 5.2.1
       bs58: 4.0.1
     transitivePeerDependencies:
-      - "@solana/web3.js"
       - bufferutil
       - encoding
       - supports-color
@@ -1045,6 +1093,27 @@ packages:
       "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
       "@helium/idls": 0.1.1(encoding@0.1.13)
       "@helium/spl-utils": 0.1.4(encoding@0.1.13)
+      "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
+      "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
+      bn.js: 5.2.1
+      bs58: 4.0.1
+    transitivePeerDependencies:
+      - "@solana/web3.js"
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@helium/voter-stake-registry-sdk@0.2.5(@solana/web3.js@1.75.0)(encoding@0.1.13):
+    resolution:
+      {
+        integrity: sha512-+u87bpAHDZRosMEjqa3xTGSGEvFjrC6Mq6b0AqzMOAc0z3rYxNCRaSXRZ9fpOoGwm+hJfVTdP9JEHt82dqs6wQ==,
+      }
+    dependencies:
+      "@coral-xyz/anchor": 0.26.0(encoding@0.1.13)
+      "@helium/anchor-resolvers": 0.2.5(@coral-xyz/anchor@0.26.0)(encoding@0.1.13)
+      "@helium/idls": 0.2.5(encoding@0.1.13)
       "@metaplex-foundation/mpl-token-metadata": 2.9.1(encoding@0.1.13)
       "@solana/spl-token": 0.3.7(@solana/web3.js@1.75.0)(encoding@0.1.13)
       bn.js: 5.2.1

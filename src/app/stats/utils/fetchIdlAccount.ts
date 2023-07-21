@@ -1,5 +1,5 @@
 import { BorshAccountsCoder, Idl, IdlAccounts } from "@coral-xyz/anchor"
-import { TypedAccountParser } from "@helium/spl-utils"
+import { TypedAccountParser } from "@helium/account-fetch-cache"
 import { PublicKey } from "@solana/web3.js"
 import { AccountState, fetchAccount } from "./fetchAccount"
 

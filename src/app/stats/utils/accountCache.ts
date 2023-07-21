@@ -1,4 +1,4 @@
-import { AccountFetchCache } from "@helium/spl-utils"
+import { AccountFetchCache } from "@helium/account-fetch-cache"
 import { Connection } from "@solana/web3.js"
 
 const createAccountCache = () => {

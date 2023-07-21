@@ -6,7 +6,7 @@ import { getIdlParser } from "./getIdlParser"
 import { Position } from "./types"
 
 // @ts-ignore
-import { IDL as vsrRegistryIDL } from "@helium/idls/voter_stake_registry"
+import { IDL as vsrRegistryIDL } from "@helium/idls/lib/cjs/voter_stake_registry"
 import { HNT_MINT, IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { registrarKey } from "@helium/voter-stake-registry-sdk"
 

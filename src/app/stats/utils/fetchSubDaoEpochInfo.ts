@@ -3,7 +3,7 @@ import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { PublicKey } from "@solana/web3.js"
 import { ONE_DAY_UNIX } from "../utils"
 // @ts-ignore
-import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+import { IDL as subDaosIDL } from "@helium/idls/lib/cjs/helium_sub_daos"
 import { IOT_MINT, MOBILE_MINT } from "@helium/spl-utils"
 import { cache } from "react"
 import { fetchIdlAccount } from "./fetchIdlAccount"

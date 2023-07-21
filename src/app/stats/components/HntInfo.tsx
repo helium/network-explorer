@@ -66,7 +66,7 @@ export const HntInfo = async () => {
     getRemainingEmissions(new Date(), "hnt")
   )
   const maxSupply =
-    hntMint.info?.info.supply +
+    hntMint.info?.info.supply! +
     BigInt(remainingHntEmissions) * BigInt(100000000) +
     BigInt(
       Math.ceil(
@@ -101,8 +101,8 @@ export const HntInfo = async () => {
       <StatItem
         label="Supply"
         value={humanReadableBigint(
-          hntMint.info?.info.supply,
-          hntMint?.info?.info || 8,
+          hntMint.info?.info.supply!,
+          hntMint?.info?.info.decimals || 8,
           0
         )}
         tooltip={{
@@ -115,7 +115,7 @@ export const HntInfo = async () => {
         label="Max Supply"
         value={`~${humanReadableBigint(
           maxSupply,
-          hntMint?.info?.info || 8,
+          hntMint?.info?.info.decimals || 8,
           0
         )}`}
         tooltip={{
