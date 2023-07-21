@@ -1,10 +1,5 @@
 import { BorshAccountsCoder, Idl, IdlAccounts } from "@coral-xyz/anchor"
-import { AccountInfo, PublicKey } from "@solana/web3.js"
-
-export type TypedAccountParser<T> = (
-  pubkey: PublicKey,
-  data: AccountInfo<Buffer>
-) => T
+import { TypedAccountParser } from "@helium/account-fetch-cache"
 
 export function getIdlParser<IDL extends Idl, A extends string = string>(
   idl: IDL,

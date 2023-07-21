@@ -1,4 +1,4 @@
-import { unpackMint } from "@solana/spl-token"
+import { Mint, unpackMint } from "@solana/spl-token"
 import { AccountInfo, PublicKey } from "@solana/web3.js"
 import { ParsedAccountBase, fetchAccount } from "./fetchAccount"
 
@@ -11,11 +11,11 @@ export const MintParser = (pubKey: PublicKey, info: AccountInfo<Buffer>) => {
       ...info,
     },
     info: data,
-  } as ParsedAccountBase
+  } as ParsedAccountBase<Mint>
 
   return details
 }
 
 export function fetchMint(key: PublicKey | undefined | null) {
-  return fetchAccount(key, MintParser)
+  return fetchAccount<ParsedAccountBase<Mint>>(key, MintParser)
 }

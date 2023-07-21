@@ -4,7 +4,7 @@ import { HeliumSubDaos } from "@helium/idls/lib/types/helium_sub_daos"
 import { accountCache } from "./accountCache"
 import { getIdlParser } from "./getIdlParser"
 // @ts-ignore
-import { IDL as subDaosIDL } from "@helium/idls/helium_sub_daos"
+import { IDL as subDaosIDL } from "@helium/idls/lib/cjs/helium_sub_daos"
 import { DelegatedPosition } from "./types"
 
 const IOT_SUBDAO = "39Lw1RH6zt8AJvKn3BTxmUDofzduCM2J3kSaGDZ8L7Sk"

@@ -1,11 +1,11 @@
 import { accountCache } from "@/app/stats/utils/accountCache"
-import { TypedAccountParser } from "@helium/spl-utils"
+import { TypedAccountParser } from "@helium/account-fetch-cache"
 import { AccountInfo, PublicKey } from "@solana/web3.js"
 
-export interface ParsedAccountBase {
+export interface ParsedAccountBase<T> {
   pubkey: PublicKey
   account: AccountInfo<Buffer>
-  info: any // TODO: change to unkown
+  info: T
 }
 
 export interface AccountState<T> {
@@ -24,7 +24,7 @@ export interface AccountState<T> {
  */
 export async function fetchAccount<T>(
   key: null | undefined | PublicKey,
-  parser?: TypedAccountParser<T>,
+  parser: TypedAccountParser<T>,
   isStatic = false // Set if the accounts data will never change, optimisation to lower websocket usage.
 ): Promise<AccountState<T>> {
   const cache = accountCache
@@ -32,29 +32,17 @@ export async function fetchAccount<T>(
   const parsedAccountBaseParser = (
     pubkey: PublicKey,
     data: AccountInfo<Buffer>
-  ): ParsedAccountBase => {
+  ): ParsedAccountBase<T> => {
     try {
-      if (parser) {
-        const info = parser(pubkey, data)
-        return {
-          pubkey,
-          account: data,
-          info,
-        }
-      }
-
+      const info = parser(pubkey, data)
       return {
         pubkey,
         account: data,
-        info: undefined,
+        info,
       }
     } catch (e) {
       console.error(`Error while parsing: ${(e as Error).message}`)
-      return {
-        pubkey,
-        account: data,
-        info: undefined,
-      }
+      throw e
     }
   }
 
@@ -64,23 +52,21 @@ export async function fetchAccount<T>(
     if (!id || !cache) {
       return reject("No pubkey or cache")
     }
-    return cache
-      .search(id, parser ? parsedAccountBaseParser : undefined, isStatic)
-      .then((acc) => {
-        if (acc) {
-          try {
-            const nextInfo = parser && parser(acc.pubkey, acc?.account)
-            resolve({
-              info: nextInfo,
-              account: acc.account,
-            })
-          } catch (e) {
-            return reject(`Error while parsing: ${(e as Error).message}`)
-          }
-        } else {
-          return reject("No account")
+    return cache.search(id, parsedAccountBaseParser, isStatic).then((acc) => {
+      if (acc) {
+        try {
+          const nextInfo = parser && parser(acc.pubkey, acc?.account)
+          resolve({
+            info: nextInfo,
+            account: acc.account,
+          })
+        } catch (e) {
+          return reject(`Error while parsing: ${(e as Error).message}`)
         }
-      })
+      } else {
+        return reject("No account")
+      }
+    })
   }).then((result) => {
     if (!result.info) throw new Error("No info")
     return result

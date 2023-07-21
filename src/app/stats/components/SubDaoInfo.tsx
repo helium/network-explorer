@@ -84,7 +84,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
     getRemainingEmissions(new Date(), subDao)
   )
   const maxSupply =
-    mintInfo.info?.info.supply + BigInt(remainingEmissions) * BigInt(1000000)
+    mintInfo.info?.info.supply! + BigInt(remainingEmissions) * BigInt(1000000)
 
   return (
     <StatsList title={title} link={link} linkText={linkText} icon={icon}>
@@ -143,8 +143,8 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
       <StatItem
         label="Supply"
         value={humanReadableBigint(
-          mintInfo.info?.info.supply,
-          mintInfo?.info?.info || 0,
+          mintInfo.info?.info.supply!,
+          mintInfo?.info?.info.decimals || 0,
           0
         )}
         tooltip={{
@@ -155,7 +155,11 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
       />
       <StatItem
         label="Max Supply"
-        value={humanReadableBigint(maxSupply, mintInfo?.info?.info || 0, 0)}
+        value={humanReadableBigint(
+          maxSupply,
+          mintInfo?.info?.info.decimals || 0,
+          0
+        )}
         tooltip={{
           description: `Maximum supply of ${title} derived by current supply plus remaining emissions. ${maxDescription}`,
           cadence: "Live",
