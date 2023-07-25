@@ -44,7 +44,7 @@ export const StatItem = ({
   return (
     <div
       className={clsx(
-        "w-15 flex-1 flex-col justify-between gap-2 rounded-xl border p-4",
+        "min-w-[150px] flex-1 flex-col justify-between gap-2 rounded-xl border p-4",
         "border-zinc-900/5 bg-white text-zinc-800 shadow",
         "dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
       )}

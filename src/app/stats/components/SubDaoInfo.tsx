@@ -1,6 +1,7 @@
 import { StatItem } from "@/app/stats/components/StatItem"
 import { Icon, StatsList } from "@/app/stats/components/StatsList"
 import { fetcher, humanReadableVeToken } from "@/app/stats/utils"
+import { BN } from "@coral-xyz/anchor"
 import {
   IOT_MINT,
   MOBILE_MINT,
@@ -11,6 +12,7 @@ import {
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
 import { isBefore } from "date-fns"
+import { fetchSubDaoGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
 import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
@@ -68,12 +70,15 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
     dailyEmissions,
     maxDescription,
   } = subDao === "mobile" ? MOBILE_INFO : IOT_INFO
-  const [activeCount, mintInfo, epochInfo, treasuryInfo] = await Promise.all([
-    fetcher(activeUrl),
-    fetchMint(subDaoMint),
-    fetchSubDaoEpochInfo(subDao),
-    fetchSubDaoTreasuryInfo(subDaoMint),
-  ])
+  const [activeCount, mintInfo, epochInfo, treasuryInfo, governanceMetrics] =
+    await Promise.all([
+      fetcher(activeUrl),
+      fetchMint(subDaoMint),
+      fetchSubDaoEpochInfo(subDao),
+      fetchSubDaoTreasuryInfo(subDaoMint),
+      fetchSubDaoGovernanceStats(subDao),
+    ])
+
   const treasuryTokenAcct = await fetchTokenAccount(treasuryInfo.info?.treasury)
   const mintSupplyNum =
     toNumber(mintInfo.info?.info.supply, mintInfo?.info?.info || 6) || 0
@@ -85,6 +90,10 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
   )
   const maxSupply =
     mintInfo.info?.info.supply! + BigInt(remainingEmissions) * BigInt(1000000)
+
+  const supplyStaked = governanceMetrics.total.hnt
+    .mul(new BN(10000))
+    .div(new BN(mintInfo.info?.info.supply!))
 
   return (
     <StatsList title={title} link={link} linkText={linkText} icon={icon}>
@@ -187,6 +196,14 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           description: `Estimated swap rate for ${title} to HNT. This is a floor that is guaranteed by the treasury. You may find better swap rates on DEXs.`,
           cadence: "Daily",
           id: `${title} Estimated Swap`,
+        }}
+      />
+      <StatItem
+        label="Supply Staked"
+        value={`${supplyStaked.toNumber() / 100}%`}
+        tooltip={{
+          description: `Percent of current ${title} which is staked as ve${title} on Realms.`,
+          id: `${title} Supply Staked`,
         }}
       />
     </StatsList>

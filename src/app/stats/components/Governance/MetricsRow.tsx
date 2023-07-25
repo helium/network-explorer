@@ -73,7 +73,7 @@ export const MetricsRow = ({
             }}
           />
         </div>
-        <div className="flex grow gap-3">
+        <div className="flex grow gap-2">
           <GovernanceStatItem
             header={`ve${token} voting power`}
             values={[

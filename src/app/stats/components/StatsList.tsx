@@ -49,7 +49,7 @@ export const StatsList = ({
           </Link>
         )}
       </div>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2">
         <>{children}</>
       </div>
     </div>
