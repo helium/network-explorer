@@ -5,9 +5,4 @@ export const NAVIGATION_LINKS = [
     href: "/stats",
     layoutSegments: ["stats"],
   },
-  {
-    title: "Old Explorer",
-    href: "/old-explorer",
-    layoutSegments: ["old-explorer"],
-  },
 ]
