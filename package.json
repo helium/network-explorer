@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm db:migrate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "db:migrate": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:latest",
+    "db:migrate:undo": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:down",
+    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -38,12 +42,15 @@
     "bn.js": "^5.2.1",
     "clsx": "1.2.1",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.3.1",
     "encoding": "^0.1.13",
     "focus-visible": "5.2.0",
     "h3-js": "4.1.0",
+    "knex": "^2.5.1",
     "mapbox-gl": "2.13.0",
     "next": "13.4.4",
     "next-themes": "0.2.1",
+    "pg": "^8.11.1",
     "react": "18.2.0",
     "react-async-hook": "^4.0.0",
     "react-countdown": "^2.3.5",
