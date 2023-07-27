@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pnpm db:migrate",
+    "prebuild": "npm run db:migrate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
