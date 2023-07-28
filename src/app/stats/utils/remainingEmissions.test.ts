@@ -1,8 +1,8 @@
 import { add, sub } from "date-fns"
 import {
   AUG_1_2023,
-  getCurrentSubNetworkEmissions,
   getDailyEmisisons,
+  getLatestSubNetworkEmissions,
   getRemainingEmissions,
 } from "./remainingEmissions"
 import subNetworkEmissions from "./subNetworkEmissions.json"
@@ -226,41 +226,42 @@ describe("getRemaingEmissions", () => {
     })
   })
 
-  describe("getCurrentSubNetworkEmissions", () => {
-    const before2023 = sub(AUG_1_2023, { days: 1 })
-    const after2023 = add(AUG_1_2023, { days: 1 }) // leap year
-    const after2024 = add(AUG_1_2023, { days: 1, years: 1 }) // non-leap
-
+  describe("getLatestSubNetworkEmissions", () => {
     it("returns the correct values for IOT", () => {
-      expect(getCurrentSubNetworkEmissions(before2023, "iot")).toBe(
+      const before2023 = sub(AUG_1_2023, { days: 1 })
+      const after2023 = add(AUG_1_2023, { days: 1, hours: 1 }) // leap year
+      const after2024 = add(AUG_1_2023, { days: 1, years: 1, hours: 1 }) // non-leap
+      expect(getLatestSubNetworkEmissions(before2023, "iot")).toBe(
         subNetworkEmissions.iot[0].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(after2023, "iot")).toBe(
+      expect(getLatestSubNetworkEmissions(after2023, "iot")).toBe(
         subNetworkEmissions.iot[1].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(after2024, "iot")).toBe(
+      expect(getLatestSubNetworkEmissions(after2024, "iot")).toBe(
         subNetworkEmissions.iot[2].emissionsPerEpoch
       )
     })
 
     it("returns the correct values for MOBILE", () => {
       const weekBefore2023 = sub(AUG_1_2023, { days: 7 })
-      const catchupDay = sub(AUG_1_2023, { days: 3, hours: 23 })
-      console.log(catchupDay)
+      const catchupDay = sub(AUG_1_2023, { days: 2, hours: 23 })
+      const before2023 = sub(AUG_1_2023, { days: 1 })
+      const after2023 = add(AUG_1_2023, { days: 1, hours: 1 }) // leap year
+      const after2024 = add(AUG_1_2023, { days: 1, years: 1, hours: 1 }) // non-leap
 
-      expect(getCurrentSubNetworkEmissions(weekBefore2023, "mobile")).toBe(
+      expect(getLatestSubNetworkEmissions(weekBefore2023, "mobile")).toBe(
         subNetworkEmissions.mobile[0].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(catchupDay, "mobile")).toBe(
+      expect(getLatestSubNetworkEmissions(catchupDay, "mobile")).toBe(
         subNetworkEmissions.mobile[1].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(before2023, "mobile")).toBe(
+      expect(getLatestSubNetworkEmissions(before2023, "mobile")).toBe(
         subNetworkEmissions.mobile[2].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(after2023, "mobile")).toBe(
+      expect(getLatestSubNetworkEmissions(after2023, "mobile")).toBe(
         subNetworkEmissions.mobile[3].emissionsPerEpoch
       )
-      expect(getCurrentSubNetworkEmissions(after2024, "mobile")).toBe(
+      expect(getLatestSubNetworkEmissions(after2024, "mobile")).toBe(
         subNetworkEmissions.mobile[4].emissionsPerEpoch
       )
     })

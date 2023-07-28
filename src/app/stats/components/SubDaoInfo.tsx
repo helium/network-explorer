@@ -17,7 +17,7 @@ import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
 import { fetchSubDaoTreasuryInfo } from "../utils/fetchSubDaoTreasuryInfo"
 import { fetchTokenAccount } from "../utils/fetchTokenAccount"
 import {
-  getCurrentSubNetworkEmissions,
+  getLatestSubNetworkEmissions,
   getRemainingEmissions,
 } from "../utils/remainingEmissions"
 import { SubDao } from "../utils/types"
@@ -165,7 +165,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
       <StatItem
         label="Daily Emissions"
         value={numberWithCommas(
-          getCurrentSubNetworkEmissions(new Date(), subDao)
+          getLatestSubNetworkEmissions(new Date(), subDao)
         )}
         tooltip={{
           description: `Amount of ${title} emitted each day.`,
