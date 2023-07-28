@@ -26,7 +26,6 @@ cp .env.example .env.local
 
 Add your [Mapbox access token](https://docs.mapbox.com/help/glossary/access-token/).
 Add your [Dune API key](https://dune.com/docs/api/#obtaining-an-api-key)
-Setup a PostgreSQL database and add your DATABASE_URL. (It will default to using an in memory database if you don't set one up).
 
 ### Run locally
 
