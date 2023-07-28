@@ -28,7 +28,7 @@ import { Countdown } from "./Countdown"
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 const MAX_DAILY_NET_EMISSIONS = 1643.835616
-const DATE_FORMAT = "M/dd HH:mm"
+const DATE_FORMAT = "M/dd HH:mm OOOO"
 
 export const HntInfo = async () => {
   const [
