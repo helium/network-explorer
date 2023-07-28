@@ -1,22 +1,24 @@
-import { add, differenceInDays, differenceInYears, isBefore } from "date-fns"
+import {
+  add,
+  differenceInDays,
+  differenceInYears,
+  isAfter,
+  isBefore,
+  sub,
+} from "date-fns"
+import subNetworkEmissions from "./subNetworkEmissions.json"
+import { SubDao } from "./types"
 
 export const AUG_1_2023 = new Date(1690848000 * 1000)
 const YEARLY_EMISSIONS = {
-  max: {
-    hnt: 15000000,
-    iot: 32500000000,
-    mobile: 30000000000,
-  },
-  current: {
-    hnt: 15000000, // full emissions
-    iot: 30225000000, // 7% to oracles not allocated
-    mobile: 19800000000, // 34% to mappers, service providers, and oracles not allocated
-  },
+  hnt: 15000000,
+  iot: 32500000000,
+  mobile: 30000000000,
 }
 
 type Token = "hnt" | "mobile" | "iot"
 export const getRemainingEmissions = (date: Date, token: Token) => {
-  const yearlyEmissions = YEARLY_EMISSIONS.max[token]
+  const yearlyEmissions = YEARLY_EMISSIONS[token]
   const REMAINING_AUG_1_2023 = yearlyEmissions * 4
   let daysDelta = Math.abs(differenceInDays(AUG_1_2023, date))
   if (isBefore(date, AUG_1_2023)) {
@@ -46,13 +48,8 @@ export const getRemainingEmissions = (date: Date, token: Token) => {
   return remainingEmissions - daysDelta * getDailyEmisisons(date, token)
 }
 
-type EmissionType = "max" | "current"
-export const getDailyEmisisons = (
-  date: Date,
-  token: Token,
-  type: EmissionType = "max"
-) => {
-  const yearlyEmissions = YEARLY_EMISSIONS[type][token]
+export const getDailyEmisisons = (date: Date, token: Token) => {
+  const yearlyEmissions = YEARLY_EMISSIONS[token]
   const yearsDeltaAug23 = differenceInYears(date, AUG_1_2023)
   const isLeapYear = yearsDeltaAug23 % 4 === 0
   const numDays = isLeapYear ? 366 : 365
@@ -60,4 +57,20 @@ export const getDailyEmisisons = (
   const adjustedYearlyEmissions = yearlyEmissions / Math.pow(2, halvenings)
 
   return adjustedYearlyEmissions / numDays
+}
+
+// emissions schedule taken from https://github.com/helium/helium-program-library/tree/master/packages/helium-admin-cli/emissions
+export const getLatestSubNetworkEmissions = (date: Date, token: SubDao) => {
+  const adjustedDate = sub(date, { days: 1 })
+  const emissions = subNetworkEmissions[token]
+  let currentEmissions = emissions[0].emissionsPerEpoch
+  let index = 1
+  while (
+    index < emissions.length &&
+    isAfter(adjustedDate, new Date(emissions[index].startTime))
+  ) {
+    currentEmissions = emissions[index].emissionsPerEpoch
+    index++
+  }
+  return currentEmissions
 }

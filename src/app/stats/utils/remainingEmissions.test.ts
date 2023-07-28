@@ -2,8 +2,10 @@ import { add, sub } from "date-fns"
 import {
   AUG_1_2023,
   getDailyEmisisons,
+  getLatestSubNetworkEmissions,
   getRemainingEmissions,
 } from "./remainingEmissions"
+import subNetworkEmissions from "./subNetworkEmissions.json"
 
 describe("getRemaingEmissions", () => {
   describe("hnt", () => {
@@ -193,84 +195,75 @@ describe("getRemaingEmissions", () => {
     const after2024 = add(AUG_1_2023, { days: 1, years: 1 }) // non-leap
     const after2025 = add(AUG_1_2023, { days: 1, years: 2 })
 
-    describe("for max emissions", () => {
-      it("returns the correct values for HNT", () => {
-        const yearlyEmissions = 15000000
+    it("returns the correct values for HNT", () => {
+      const yearlyEmissions = 15000000
 
-        expect(getDailyEmisisons(after2023, "hnt")).toBe(yearlyEmissions / 366)
-        expect(getDailyEmisisons(after2024, "hnt")).toBe(yearlyEmissions / 365)
-        expect(getDailyEmisisons(after2025, "hnt")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
-
-      it("returns the correct values for IOT", () => {
-        const yearlyEmissions = 32500000000
-
-        expect(getDailyEmisisons(after2023, "iot")).toBe(yearlyEmissions / 366)
-        expect(getDailyEmisisons(after2024, "iot")).toBe(yearlyEmissions / 365)
-        expect(getDailyEmisisons(after2025, "iot")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
-
-      it("returns the correct values for MOBILE", () => {
-        const yearlyEmissions = 30000000000
-
-        expect(getDailyEmisisons(after2023, "mobile")).toBe(
-          yearlyEmissions / 366
-        )
-        expect(getDailyEmisisons(after2024, "mobile")).toBe(
-          yearlyEmissions / 365
-        )
-        expect(getDailyEmisisons(after2025, "mobile")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
+      expect(getDailyEmisisons(after2023, "hnt")).toBe(yearlyEmissions / 366)
+      expect(getDailyEmisisons(after2024, "hnt")).toBe(yearlyEmissions / 365)
+      expect(getDailyEmisisons(after2025, "hnt")).toBe(
+        yearlyEmissions / 365 / 2
+      )
     })
 
-    describe("for current emissions", () => {
-      it("returns the correct values for HNT", () => {
-        const yearlyEmissions = 15000000
+    it("returns the correct values for IOT", () => {
+      const yearlyEmissions = 32500000000
 
-        expect(getDailyEmisisons(after2023, "hnt", "current")).toBe(
-          yearlyEmissions / 366
-        )
-        expect(getDailyEmisisons(after2024, "hnt", "current")).toBe(
-          yearlyEmissions / 365
-        )
-        expect(getDailyEmisisons(after2025, "hnt", "current")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
+      expect(getDailyEmisisons(after2023, "iot")).toBe(yearlyEmissions / 366)
+      expect(getDailyEmisisons(after2024, "iot")).toBe(yearlyEmissions / 365)
+      expect(getDailyEmisisons(after2025, "iot")).toBe(
+        yearlyEmissions / 365 / 2
+      )
+    })
 
-      it("returns the correct values for IOT", () => {
-        const yearlyEmissions = 30225000000
+    it("returns the correct values for MOBILE", () => {
+      const yearlyEmissions = 30000000000
 
-        expect(getDailyEmisisons(after2023, "iot", "current")).toBe(
-          yearlyEmissions / 366
-        )
-        expect(getDailyEmisisons(after2024, "iot", "current")).toBe(
-          yearlyEmissions / 365
-        )
-        expect(getDailyEmisisons(after2025, "iot", "current")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
+      expect(getDailyEmisisons(after2023, "mobile")).toBe(yearlyEmissions / 366)
+      expect(getDailyEmisisons(after2024, "mobile")).toBe(yearlyEmissions / 365)
+      expect(getDailyEmisisons(after2025, "mobile")).toBe(
+        yearlyEmissions / 365 / 2
+      )
+    })
+  })
 
-      it("returns the correct values for MOBILE", () => {
-        const yearlyEmissions = 19800000000
+  describe("getLatestSubNetworkEmissions", () => {
+    it("returns the correct values for IOT", () => {
+      const before2023 = sub(AUG_1_2023, { days: 1 })
+      const after2023 = add(AUG_1_2023, { days: 1, hours: 1 }) // leap year
+      const after2024 = add(AUG_1_2023, { days: 1, years: 1, hours: 1 }) // non-leap
+      expect(getLatestSubNetworkEmissions(before2023, "iot")).toBe(
+        subNetworkEmissions.iot[0].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(after2023, "iot")).toBe(
+        subNetworkEmissions.iot[1].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(after2024, "iot")).toBe(
+        subNetworkEmissions.iot[2].emissionsPerEpoch
+      )
+    })
 
-        expect(getDailyEmisisons(after2023, "mobile", "current")).toBe(
-          yearlyEmissions / 366
-        )
-        expect(getDailyEmisisons(after2024, "mobile", "current")).toBe(
-          yearlyEmissions / 365
-        )
-        expect(getDailyEmisisons(after2025, "mobile", "current")).toBe(
-          yearlyEmissions / 365 / 2
-        )
-      })
+    it("returns the correct values for MOBILE", () => {
+      const weekBefore2023 = sub(AUG_1_2023, { days: 7 })
+      const catchupDay = sub(AUG_1_2023, { days: 2, hours: 23 })
+      const before2023 = sub(AUG_1_2023, { days: 1 })
+      const after2023 = add(AUG_1_2023, { days: 1, hours: 1 }) // leap year
+      const after2024 = add(AUG_1_2023, { days: 1, years: 1, hours: 1 }) // non-leap
+
+      expect(getLatestSubNetworkEmissions(weekBefore2023, "mobile")).toBe(
+        subNetworkEmissions.mobile[0].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(catchupDay, "mobile")).toBe(
+        subNetworkEmissions.mobile[1].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(before2023, "mobile")).toBe(
+        subNetworkEmissions.mobile[2].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(after2023, "mobile")).toBe(
+        subNetworkEmissions.mobile[3].emissionsPerEpoch
+      )
+      expect(getLatestSubNetworkEmissions(after2024, "mobile")).toBe(
+        subNetworkEmissions.mobile[4].emissionsPerEpoch
+      )
     })
   })
 })
