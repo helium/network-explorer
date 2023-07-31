@@ -27,7 +27,7 @@ export class MaxSupply {
       recorded_at: latest.recorded_at,
       hnt_burned: BigInt(latest.hnt_burned),
       supply: BigInt(latest.supply),
-      max_supply: BigInt(latest.supply),
+      max_supply: BigInt(latest.max_supply),
     }
   }
 
