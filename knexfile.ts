@@ -9,14 +9,35 @@ const SQLITE_CONFIG: Knex.Config = {
   },
 }
 
-const PG_CONFIG = {
+const PG_CONFIG_PROD: Knex.Config = {
   client: "postgresql",
-  connection: process.env.DATABASE_URL,
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   migrations: {
     extension: "ts",
   },
 }
 
-const config: Knex.Config = process.env.DATABASE_URL ? PG_CONFIG : SQLITE_CONFIG
+const PG_CONFIG_LOCAL: Knex.Config = {
+  client: "postgresql",
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+  },
+  migrations: {
+    extension: "ts",
+  },
+}
+
+const getConfig = () => {
+  if (!process.env.DATABASE_URL) return SQLITE_CONFIG
+  if (process.env.LOCAL) return PG_CONFIG_LOCAL
+  return PG_CONFIG_PROD
+}
+
+const config: Knex.Config = getConfig()
 
 export default config
