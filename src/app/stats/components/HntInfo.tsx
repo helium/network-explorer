@@ -1,6 +1,8 @@
 import { StatItem } from "@/app/stats/components/StatItem"
 import { StatsList } from "@/app/stats/components/StatsList"
 import { ONE_DAY_MS, fetcher } from "@/app/stats/utils"
+import { db } from "@/knex/db"
+import { MaxSupply } from "@/knex/maxSupply"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import {
@@ -17,7 +19,6 @@ import {
   fetchHntBurn,
   fetchHntEmissions,
 } from "../utils/dune/fetchHntEmissions"
-import { formatDuneDate } from "../utils/dune/formatDuneDate"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getNextHalvening } from "../utils/getNextHalvening"
@@ -27,6 +28,7 @@ import { Countdown } from "./Countdown"
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
 const MAX_DAILY_NET_EMISSIONS = 1643.835616
+const DATE_FORMAT = "M/dd HH:mm OOOO"
 
 export const HntInfo = async () => {
   const [
@@ -56,8 +58,9 @@ export const HntInfo = async () => {
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   const isSameDay =
-    new Date(hntBurned.execution_started_at).valueOf() / ONE_DAY_MS ===
-    new Date().valueOf() / ONE_DAY_MS
+    Math.floor(
+      new Date(hntBurned.execution_started_at).valueOf() / ONE_DAY_MS
+    ) === Math.floor(new Date().valueOf() / ONE_DAY_MS)
   const todayHntBurn = isSameDay
     ? hntBurned.result.rows.reverse()[0].hnt_burned.substring(1)
     : "0"
@@ -74,6 +77,17 @@ export const HntInfo = async () => {
       )
     ) *
       BigInt(10000)
+
+  const maxSupplyDb = new MaxSupply(db)
+  const maxSupplyRecord = await maxSupplyDb.latestOrInsert({
+    recorded_at: isSameDay
+      ? new Date(hntBurned.execution_started_at)
+      : new Date(),
+    hnt_burned:
+      BigInt(Math.round(parseFloat(todayHntBurn) * 10000)) * BigInt(10000),
+    supply: hntMint.info?.info.supply!,
+    max_supply: maxSupply,
+  })
 
   return (
     <StatsList
@@ -114,15 +128,16 @@ export const HntInfo = async () => {
       <StatItem
         label="Max Supply"
         value={`~${humanReadableBigint(
-          maxSupply,
+          maxSupplyRecord.max_supply,
           hntMint?.info?.info.decimals || 8,
           0
         )}`}
         tooltip={{
           description:
             "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). This is an upper limit that will not be reached and does not consider future HNT burn. Accurate within 1643 HNT.",
-          cadence: `Supply: Live -- HNT burned: 8h (last run ${formatDuneDate(
-            hntBurned.execution_started_at
+          cadence: `Every 8h (last run ${format(
+            maxSupplyRecord.recorded_at,
+            DATE_FORMAT
           )})`,
           id: "HNT Max Supply",
         }}
