@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     scrollRestoration: true,
+    serverComponentsExternalPackages: ["knex"],
   },
   async redirects() {
     return [
