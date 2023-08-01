@@ -32,3 +32,7 @@ export const humanReadableLockup = (bn: BN) => {
 export const humanReadableToken = (bn: BN, decimals: number) => {
   return humanReadable(bn, decimals).split(".")[0]
 }
+
+export const epochFromDate = (date: Date) => {
+  return Math.floor(date.valueOf() / ONE_DAY_MS)
+}

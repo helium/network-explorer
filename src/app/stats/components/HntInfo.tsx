@@ -1,6 +1,6 @@
 import { StatItem } from "@/app/stats/components/StatItem"
 import { StatsList } from "@/app/stats/components/StatsList"
-import { ONE_DAY_MS, fetcher } from "@/app/stats/utils"
+import { ONE_DAY_MS, epochFromDate, fetcher } from "@/app/stats/utils"
 import { db } from "@/knex/db"
 import { MaxSupply } from "@/knex/maxSupply"
 import { BN } from "@coral-xyz/anchor"
@@ -58,9 +58,8 @@ export const HntInfo = async () => {
   const lastEpochEnd = amountAsNum(epochInfo.info?.rewardsIssuedAt || 0, 0)
 
   const isSameDay =
-    Math.floor(
-      new Date(hntBurned.execution_started_at).valueOf() / ONE_DAY_MS
-    ) === Math.floor(new Date().valueOf() / ONE_DAY_MS)
+    epochFromDate(new Date(hntBurned.execution_started_at)) ===
+    epochFromDate(new Date())
   const todayHntBurn = isSameDay
     ? hntBurned.result.rows.reverse()[0].hnt_burned.substring(1)
     : "0"
