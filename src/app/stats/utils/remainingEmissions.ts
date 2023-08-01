@@ -4,7 +4,6 @@ import {
   differenceInYears,
   isAfter,
   isBefore,
-  sub,
 } from "date-fns"
 import subNetworkEmissions from "./subNetworkEmissions.json"
 import { SubDao } from "./types"
@@ -61,13 +60,12 @@ export const getDailyEmisisons = (date: Date, token: Token) => {
 
 // emissions schedule taken from https://github.com/helium/helium-program-library/tree/master/packages/helium-admin-cli/emissions
 export const getLatestSubNetworkEmissions = (date: Date, token: SubDao) => {
-  const adjustedDate = sub(date, { days: 1 })
   const emissions = subNetworkEmissions[token]
   let currentEmissions = emissions[0].emissionsPerEpoch
   let index = 1
   while (
     index < emissions.length &&
-    isAfter(adjustedDate, new Date(emissions[index].startTime))
+    isAfter(date, new Date(emissions[index].startTime))
   ) {
     currentEmissions = emissions[index].emissionsPerEpoch
     index++
