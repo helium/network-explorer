@@ -30,6 +30,7 @@ type SubDaoType = {
   icon: Icon
   subDaoMint: PublicKey
   maxDescription: string
+  activeDetails: string
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -41,6 +42,7 @@ const MOBILE_INFO: SubDaoType = {
   subDaoMint: MOBILE_MINT,
   maxDescription:
     "This is an upper limit that will not be reached and does not consider future MOBILE burn. Reason: Daily emissions are currently only 86% of scheduled emissions, as not all rewardable entities (service providers, and oracles) exist or currently receive rewards.",
+  activeDetails: " This exclusively includes active gateways (not radios).",
 }
 
 const IOT_INFO: SubDaoType = {
@@ -52,11 +54,20 @@ const IOT_INFO: SubDaoType = {
   subDaoMint: IOT_MINT,
   maxDescription:
     "This is an upper limit that will not be reached and does not consider future IOT burn. Reason: Daily emissions are currently only 93% of scheduled emissions, as oracles do not currently receive rewards.",
+  activeDetails: "",
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
-  const { activeUrl, link, linkText, title, icon, subDaoMint, maxDescription } =
-    subDao === "mobile" ? MOBILE_INFO : IOT_INFO
+  const {
+    activeUrl,
+    activeDetails,
+    link,
+    linkText,
+    title,
+    icon,
+    subDaoMint,
+    maxDescription,
+  } = subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo, governanceMetrics] =
     await Promise.all([
       fetcher(activeUrl),
@@ -97,9 +108,9 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Active Hotspots"
         value={activeCount.count || 0}
         tooltip={{
-          description: "Hotspots active in past 24h.",
+          description: `Hotspots active in past 24h.${activeDetails}`,
           cadence: "Live",
-          id: "Active Hotspots",
+          id: `Active Hotspots ${title}`,
         }}
       />
       <StatItem
