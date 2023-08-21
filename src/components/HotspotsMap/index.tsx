@@ -131,9 +131,7 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
     >
       {children}
 
-      {segment !== "stats" && (
-        <Attribution className="fixed left-1/2 top-6 -translate-x-1/2 sm:bottom-6 sm:top-auto" />
-      )}
+      {segment !== "stats" && <Attribution />}
 
       {segment !== "mobile" && (
         <NetworkCoverageLayer layer={networkLayers.iot} />
