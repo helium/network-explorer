@@ -36,7 +36,7 @@ type SubDaoType = {
 const MOBILE_INFO: SubDaoType = {
   title: "MOBILE",
   activeUrl: "https://mobile-rewards.oracle.helium.io/active-devices",
-  link: "https://docs.helium.com/helium-tokens/mobile",
+  link: "https://docs.helium.com/tokens/mobile-token/",
   linkText: "Learn More About MOBILE",
   icon: "mobile",
   subDaoMint: MOBILE_MINT,
@@ -48,7 +48,7 @@ const MOBILE_INFO: SubDaoType = {
 const IOT_INFO: SubDaoType = {
   title: "IOT",
   activeUrl: "https://iot-rewards.oracle.helium.io/active-devices",
-  link: "https://docs.helium.com/helium-tokens/iot",
+  link: "https://docs.helium.com/tokens/iot-token/",
   linkText: "Learn More About IOT",
   icon: "iot",
   subDaoMint: IOT_MINT,
