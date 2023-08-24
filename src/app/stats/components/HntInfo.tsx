@@ -91,7 +91,7 @@ export const HntInfo = async () => {
   return (
     <StatsList
       title="HNT"
-      link="https://docs.helium.com/helium-tokens/hnt"
+      link="https://docs.helium.com/tokens/hnt-token/"
       linkText="Learn More About HNT"
       icon="hnt"
     >
