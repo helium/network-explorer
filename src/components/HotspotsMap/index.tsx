@@ -13,7 +13,13 @@ import {
   useSelectedLayoutSegments,
 } from "next/navigation"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
+import Map, {
+  Layer,
+  MapLayerMouseEvent,
+  MapRef,
+  MapStyle,
+  Source,
+} from "react-map-gl"
 import { gaEvent } from "../GATracker"
 import { Attribution } from "./Attribution"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
@@ -48,8 +54,8 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const mapStyle = useMemo(
-    () => ({
+  const mapStyle = useMemo(() => {
+    const style: MapStyle = {
       version: 8,
       sources: {
         protomaps: {
@@ -59,9 +65,9 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       },
       glyphs: "https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf",
       layers: resolvedTheme === "dark" ? mapLayersDark : mapLayersLight,
-    }),
-    [resolvedTheme]
-  )
+    }
+    return style
+  }, [resolvedTheme])
 
   const selectHex = useCallback((hexId: string | null) => {
     if (!hexId) {
@@ -136,7 +142,6 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       minZoom={MIN_MAP_ZOOM}
       maxZoom={MAX_MAP_ZOOM}
       style={MAP_CONTAINER_STYLE}
-      // @ts-ignore
       mapStyle={mapStyle}
       localFontFamily="NotoSans-Regular"
       // @ts-ignore
