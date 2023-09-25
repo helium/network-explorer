@@ -66,8 +66,7 @@ export const getHexOutlineStyle = (
 export const getHexLabelStyle = (
   theme: string | undefined
 ): mapboxgl.SymbolPaint => ({
-  "text-opacity": ["case", ["==", ["get", "count"], 1], 0, 0.85],
-  "text-color": theme === "dark" ? "rgb(19,24,37)" : "gray",
+  "text-color": theme === "dark" ? "white" : "#6D6D6D",
 })
 
 export const hexLabelLayout: mapboxgl.SymbolLayout = {
