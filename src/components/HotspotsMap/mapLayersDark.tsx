@@ -1,4 +1,6 @@
-export const mapLayersDark = [
+import { AnyLayer } from "react-map-gl"
+
+export const mapLayersDark: AnyLayer[] = [
   {
     id: "background",
     type: "background",
