@@ -136,8 +136,10 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       minZoom={MIN_MAP_ZOOM}
       maxZoom={MAX_MAP_ZOOM}
       style={MAP_CONTAINER_STYLE}
+      // @ts-ignore
       mapStyle={mapStyle}
       localFontFamily="NotoSans-Regular"
+      // @ts-ignore
       mapLib={maplibregl}
       interactiveLayerIds={["hexes_layer"]}
       onLoad={selectHexByPathname}
