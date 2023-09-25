@@ -71,6 +71,7 @@ export const getHexLabelStyle = (
 })
 
 export const hexLabelLayout: mapboxgl.SymbolLayout = {
+  "text-font": ["NotoSans-Regular"],
   "text-field": ["get", "count"],
   "text-allow-overlap": false,
   "text-size": 23,

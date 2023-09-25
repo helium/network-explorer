@@ -1,7 +1,10 @@
 "use client"
 
+import maplibregl from "maplibre-gl"
+import "maplibre-gl/dist/maplibre-gl.css"
+import { Protocol } from "pmtiles"
+
 import { cellToLatLng, cellsToMultiPolygon, getResolution } from "h3-js"
-import "mapbox-gl/dist/mapbox-gl.css"
 import { useTheme } from "next-themes"
 import {
   usePathname,
@@ -14,6 +17,8 @@ import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from "react-map-gl"
 import { gaEvent } from "../GATracker"
 import { Attribution } from "./Attribution"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
+import { mapLayersDark } from "./mapLayersDark"
+import { mapLayersLight } from "./mapLayersLight"
 import {
   HexFeatureDetails,
   INITIAL_MAP_VIEW_STATE,
@@ -35,15 +40,28 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const [selectedHex, setSelectedHex] = useState<HexFeatureDetails | null>(null)
   const [cursor, setCursor] = useState("")
 
-  const mapStyleUrl = useMemo(() => {
-    const styleUrl = new URL(
-      resolvedTheme === "dark"
-        ? process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE!
-        : process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE!
-    )
-    styleUrl.searchParams.append("optimize", "true")
-    return styleUrl.toString()
-  }, [resolvedTheme])
+  useEffect(() => {
+    let protocol = new Protocol()
+    maplibregl.addProtocol("pmtiles", protocol.tile)
+    return () => {
+      maplibregl.removeProtocol("pmtiles")
+    }
+  }, [])
+
+  const mapStyle = useMemo(
+    () => ({
+      version: 8,
+      sources: {
+        protomaps: {
+          type: "vector",
+          tiles: [`${process.env.NEXT_PUBLIC_PMTILES_URL}/{z}/{x}/{y}.mvt`],
+        },
+      },
+      glyphs: "https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf",
+      layers: resolvedTheme === "dark" ? mapLayersDark : mapLayersLight,
+    }),
+    [resolvedTheme]
+  )
 
   const selectHex = useCallback((hexId: string | null) => {
     if (!hexId) {
@@ -118,8 +136,9 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       minZoom={MIN_MAP_ZOOM}
       maxZoom={MAX_MAP_ZOOM}
       style={MAP_CONTAINER_STYLE}
-      mapStyle={mapStyleUrl}
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
+      mapStyle={mapStyle}
+      localFontFamily="NotoSans-Regular"
+      mapLib={maplibregl}
       interactiveLayerIds={["hexes_layer"]}
       onLoad={selectHexByPathname}
       onClick={onClick}
