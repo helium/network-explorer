@@ -57,7 +57,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Head>
+        <link
+          rel="preconnect"
+          href="https://pmtiles.heliumfoundation.wtf/"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://pmtiles.heliumfoundation.wtf/" />
+        <link
+          rel="preconnect"
+          href="https://mt.hotspotty.org/"
+          crossOrigin=""
+        />
         <link rel="dns-prefetch" href="https://mt.hotspotty.org/" />
       </Head>
       <body className="absolute inset-0 bg-zinc-50 dark:bg-black">
