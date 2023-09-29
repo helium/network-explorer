@@ -5,7 +5,6 @@ import { BN } from "@coral-xyz/anchor"
 import {
   IOT_MINT,
   MOBILE_MINT,
-  amountAsNum,
   humanReadable,
   humanReadableBigint,
   numberWithCommas,
@@ -116,8 +115,9 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
       />
       <StatItem
         label="Onboarding Fees"
-        value={`$${amountAsNum(epochInfo.info?.dcOnboardingFeesPaid, 5).toFixed(
-          2
+        value={`$${humanReadableBigint(
+          epochInfo.info?.dcOnboardingFeesPaid,
+          5
         )}`}
         tooltip={{
           description: `Sum of DC burned in USD for hotspots that were active during the most recently completed epoch.`,
