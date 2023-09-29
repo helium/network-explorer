@@ -114,6 +114,18 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         }}
       />
       <StatItem
+        label="Onboarding Fees"
+        value={`$${humanReadableBigint(
+          epochInfo.info?.dcOnboardingFeesPaid,
+          5
+        )}`}
+        tooltip={{
+          description: `Sum of DC burned in USD for hotspots that were active during the most recently completed epoch.`,
+          cadence: "Daily",
+          id: `Onboarding Fees ${title}`,
+        }}
+      />
+      <StatItem
         label="veHNT delegated"
         value={humanReadableVeToken(
           epochInfo.info?.vehntAtEpochStart.toString() || "0",
