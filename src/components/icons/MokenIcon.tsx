@@ -1,4 +1,4 @@
-export function MokenIcon(props: { className?: string }) {
+export const MokenIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
