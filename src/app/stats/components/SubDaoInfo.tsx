@@ -108,7 +108,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Active Hotspots"
         value={activeCount.count || 0}
         tooltip={{
-          description: `Hotspots active in past 24h.${activeDetails}`,
+          description: `Hotspots are considered active if they have received rewards in the past 30 days.${activeDetails}`,
           cadence: "Live",
           id: `Active Hotspots ${title}`,
         }}
@@ -120,7 +120,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           5
         )}`}
         tooltip={{
-          description: `Sum of DC burned in USD for hotspots that were active during the most recently completed epoch.`,
+          description: `Sum of onboarding fees paid by active hotspots.`,
           cadence: "Daily",
           id: `Onboarding Fees ${title}`,
         }}
