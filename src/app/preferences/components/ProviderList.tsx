@@ -7,6 +7,7 @@ import { RelayIcon } from "@/components/icons/RelayIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import { useSearchParams } from "next/navigation"
+import { useMemo } from "react"
 
 export type Provider = {
   Icon: JSX.Element
@@ -35,6 +36,19 @@ export const PROVIDERS: Provider[] = [
   },
 ]
 
+const shuffle = <T,>(arr: T[]) => {
+  let i = arr.length,
+    j,
+    temp
+  while (--i > 0) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+  }
+  return arr
+}
+
 const PROVIDER_KEY = "provider"
 const DEFAULT_HOTSPOT_KEY =
   "112Y5Vn5wzsreeyCijSEiBWHJekJPJCELvvm9615GvVGWKfu99Ta"
@@ -44,9 +58,11 @@ export const ProviderList = () => {
   const searchParams = useSearchParams()
   const hotspotKey = searchParams.get("redirect") || DEFAULT_HOTSPOT_KEY
 
+  const providers = useMemo(() => shuffle(PROVIDERS), [])
+
   return (
     <div className="flex-col gap-2 gap-y-4 pl-2">
-      {PROVIDERS.map((providerItem) => {
+      {providers.map((providerItem) => {
         const { label, Icon } = providerItem
         const active = provider?.label === label
         return (
