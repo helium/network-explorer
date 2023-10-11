@@ -3,6 +3,7 @@ import { fetchMint } from "@/app/stats/utils/fetchMint"
 import { HNT_MINT, MOBILE_MINT, IOT_MINT, toNumber } from "@helium/spl-utils"
 import {
   getRemainingEmissions,
+  getDailyEmisisons,
   MAX_DAILY_NET_EMISSIONS,
 } from "@/app/stats/utils/remainingEmissions"
 
@@ -46,6 +47,11 @@ export async function GET(
       // Due to Net Emissions, assume the max amount will be re-emitted
       remainingEmissions += Math.ceil(MAX_DAILY_NET_EMISSIONS)
     }
+
+    // Add the daily emissions for today to be conservative
+    // bc they may or may not have been emitted yet
+    const dailyEmissions = getDailyEmisisons(new Date(), token)
+    remainingEmissions += Math.ceil(dailyEmissions)
 
     const totalSupply =
       mintInfo.info?.info.supply! +
