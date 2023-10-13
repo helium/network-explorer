@@ -22,12 +22,14 @@ import {
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getNextHalvening } from "../utils/getNextHalvening"
-import { getRemainingEmissions } from "../utils/remainingEmissions"
+import {
+  getRemainingEmissions,
+  MAX_DAILY_NET_EMISSIONS,
+} from "../utils/remainingEmissions"
 import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=helium&vs_currencies=usd"
-const MAX_DAILY_NET_EMISSIONS = 1643.835616
 const DATE_FORMAT = "M/dd HH:mm OOOO"
 
 export const HntInfo = async () => {

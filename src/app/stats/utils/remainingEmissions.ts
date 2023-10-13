@@ -15,6 +15,8 @@ const YEARLY_EMISSIONS = {
   mobile: 30000000000,
 }
 
+export const MAX_DAILY_NET_EMISSIONS = 1643.835616
+
 type Token = "hnt" | "mobile" | "iot"
 export const getRemainingEmissions = (date: Date, token: Token) => {
   const yearlyEmissions = YEARLY_EMISSIONS[token]
