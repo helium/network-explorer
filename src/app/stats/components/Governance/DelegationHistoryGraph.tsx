@@ -22,6 +22,7 @@ import {
 } from "recharts/types/component/DefaultTooltipContent"
 
 const DATE_FORMAT = "M/dd"
+const PERCENT_IOT_COLOR = "#AAA"
 
 const CustomTooltip = ({
   active,
@@ -39,21 +40,30 @@ const CustomTooltip = ({
       >
         <p className="label">Date: {format(label, DATE_FORMAT)}</p>
         {payload.map(({ dataKey, name, value }) => {
+          let dotColor = ""
           let valueFormatted = ""
           let labelFormatted = ""
           if (String(name).includes("Delegated")) {
             valueFormatted = numberWithCommas(value as number, 0)
-            labelFormatted = (name as string).includes("iot")
-              ? "veHNT to IOT"
-              : "veHNT to MOBILE"
+            const isIot = (name as string).includes("iot")
+            labelFormatted = isIot ? "veHNT to IOT" : "veHNT to MOBILE"
+            dotColor = isIot ? HELIUM_IOT_COLOR : HELIUM_MOBILE_COLOR
           } else {
-            valueFormatted = (value as number).toFixed(2)
+            valueFormatted = (value as number).toFixed(2) + "%"
             labelFormatted = "veHNT % to IOT"
+            dotColor = PERCENT_IOT_COLOR
           }
 
           return (
-            <div className="w-100 flex justify-between gap-2" key={dataKey}>
-              <p>{labelFormatted}:</p>
+            <div className="w-100 flex justify-between gap-6" key={dataKey}>
+              <p>
+                {" "}
+                <div
+                  className="mr-1 inline-flex h-2 w-2 rounded-full"
+                  style={{ backgroundColor: dotColor }}
+                />{" "}
+                {labelFormatted}
+              </p>
               <p>{valueFormatted}</p>
             </div>
           )
@@ -96,6 +106,7 @@ export const DelegationHistoryGraph = ({
             yAxisId="percentIot"
             unit="%"
             domain={[0, 100]}
+            range={[0, 1]}
           />
           <XAxis
             dataKey="date"
@@ -104,10 +115,11 @@ export const DelegationHistoryGraph = ({
           <Line
             type="monotone"
             dataKey="percentIot"
-            stroke="#474DFF"
+            stroke={PERCENT_IOT_COLOR}
             strokeWidth={2}
             dot={false}
             yAxisId="percentIot"
+            strokeDasharray="5 5"
           />
           <Line
             type="monotone"
