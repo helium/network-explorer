@@ -50,20 +50,21 @@ const CustomTooltip = ({
             dotColor = isIot ? HELIUM_IOT_COLOR : HELIUM_MOBILE_COLOR
           } else {
             valueFormatted = (value as number).toFixed(2) + "%"
-            labelFormatted = "veHNT % to IOT"
+            labelFormatted = "% veHNT to IOT"
             dotColor = PERCENT_IOT_COLOR
           }
 
           return (
             <div className="w-100 flex justify-between gap-6" key={dataKey}>
-              <p>
-                {" "}
+              <div className="flex items-center">
                 <div
-                  className="mr-1 inline-flex h-2 w-2 rounded-full"
-                  style={{ backgroundColor: dotColor }}
-                />{" "}
-                {labelFormatted}
-              </p>
+                  className="mr-1  h-2 w-2 rounded-full"
+                  style={{
+                    backgroundColor: dotColor,
+                  }}
+                />
+                <p>{labelFormatted}:</p>
+              </div>
               <p>{valueFormatted}</p>
             </div>
           )

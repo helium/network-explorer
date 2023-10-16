@@ -21,6 +21,11 @@ import {
 } from "recharts/types/component/DefaultTooltipContent"
 
 const DATE_FORMAT = "M/dd"
+const NAME_TO_COLOR = {
+  iot: HELIUM_IOT_COLOR,
+  mobile: HELIUM_MOBILE_COLOR,
+  total: "#474DFF",
+}
 
 const CustomTooltip = ({
   active,
@@ -40,15 +45,25 @@ const CustomTooltip = ({
         {payload.map(({ dataKey, name, value }) => {
           let valueFormatted = value
           let labelFormatted = ""
-          if (String(name) === "total") {
+          const labelName = String(name)
+          if (labelName === "total") {
             labelFormatted = "Total"
           } else {
-            labelFormatted = String(name).toUpperCase() + " Treasury"
+            labelFormatted = labelName.toUpperCase() + " Treasury"
           }
 
           return (
             <div className="w-100 flex justify-between gap-2" key={dataKey}>
-              <p>{labelFormatted}:</p>
+              <div className="flex items-center">
+                <div
+                  className="mr-1  h-2 w-2 rounded-full"
+                  style={{
+                    // @ts-ignore
+                    backgroundColor: NAME_TO_COLOR[labelName],
+                  }}
+                />
+                <p> {labelFormatted}:</p>
+              </div>
               <p>{valueFormatted}</p>
             </div>
           )
