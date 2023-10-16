@@ -22,6 +22,7 @@ import {
 } from "recharts/types/component/DefaultTooltipContent"
 
 const DATE_FORMAT = "M/dd"
+const RATE_COLOR = "#ff7300"
 
 const CustomTooltip = ({
   active,
@@ -38,37 +39,61 @@ const CustomTooltip = ({
         )}
       >
         <p className="label">Date: {format(label, DATE_FORMAT)}</p>
-        {payload.map(({ dataKey, name, value }) => {
-          let labelFormatted = ""
+        {payload
+          .sort((a) => {
+            // want total / projected remaining first
+            if (a.name === "projectedRemaining") {
+              return -1
+            }
+            return 1
+          })
+          .map(({ dataKey, name, value }) => {
+            let labelFormatted = ""
+            let dotColor = "#474DFF"
 
-          if (name === "iotUsage") labelFormatted = "IOT usage"
-          else if (name === "mobileUsage") labelFormatted = "MOBILE usage"
-          else if (name === "rate") labelFormatted = "USD/hour"
-          else if (name === "projectedRemaining") {
-            labelFormatted = value === 0 ? "Daily Total" : "Est Daily Total"
+            if (name === "iotUsage") {
+              labelFormatted = "IOT usage"
+              dotColor = HELIUM_IOT_COLOR
+            } else if (name === "mobileUsage") {
+              labelFormatted = "MOBILE usage"
+              dotColor = HELIUM_MOBILE_COLOR
+            } else if (name === "rate") {
+              labelFormatted = "USD/hour"
+              dotColor = RATE_COLOR
+            } else if (name === "projectedRemaining") {
+              labelFormatted = value === 0 ? "Daily Total" : "Est Daily Total"
+              dotColor = "none"
 
-            const targetNames = [
-              "iotUsage",
-              "mobileUsage",
-              "projectedRemaining",
-            ]
-            const total = payload.reduce((acc, current) => {
-              if (targetNames.includes(current.name as string)) {
-                return acc + (current.value as number)
-              }
-              return acc
-            }, 0)
-            value = total
-          }
-          let valueFormatted = "$" + (value as number).toFixed(2)
+              const targetNames = [
+                "iotUsage",
+                "mobileUsage",
+                "projectedRemaining",
+              ]
+              const total = payload.reduce((acc, current) => {
+                if (targetNames.includes(current.name as string)) {
+                  return acc + (current.value as number)
+                }
+                return acc
+              }, 0)
+              value = total
+            }
+            let valueFormatted = "$" + (value as number).toFixed(2)
 
-          return (
-            <div className="w-100 flex justify-between gap-2" key={dataKey}>
-              <p>{labelFormatted}:</p>
-              <p>{valueFormatted}</p>
-            </div>
-          )
-        })}
+            return (
+              <div className="w-100 flex justify-between gap-2" key={dataKey}>
+                <div className="flex items-center">
+                  <div
+                    className="mr-1  h-2 w-2 rounded-full"
+                    style={{
+                      backgroundColor: dotColor,
+                    }}
+                  />
+                  <p> {labelFormatted}:</p>
+                </div>
+                <p>{valueFormatted}</p>
+              </div>
+            )
+          })}
       </div>
     )
   }
@@ -129,7 +154,7 @@ export const NetworkUsageGraph = ({ data }: NetworkUsageGraphProps) => {
           <Line
             type="monotone"
             dataKey="rate"
-            stroke="#ff7300"
+            stroke={RATE_COLOR}
             yAxisId="USD/h"
           />
         </ComposedChart>
