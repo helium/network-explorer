@@ -5,6 +5,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react"
 
@@ -17,15 +18,32 @@ const PreferencesContext = createContext<PreferencesContext>({
   provider: undefined,
   setProvider: () => undefined,
 })
-const PROVIDER_KEY = "provider"
 
-const getProvider = (providerLabel: string) => {
+const PROVIDER_KEY = "provider"
+const VERSION_KEY = "version"
+// change version to reset provider preference
+const VERSION = "3"
+
+const getProvider = (providerLabel?: string) => {
   return PROVIDERS.find((provider) => provider.label === providerLabel)
 }
 
+const getLocalValue = (key: string) => {
+  if (!window) return undefined
+  return localStorage.getItem(key)
+}
+
 export const PreferencesProvider = ({ children }: PropsWithChildren) => {
+  const localVersion = getLocalValue(VERSION_KEY)
+
+  useEffect(() => {
+    if (!!window) localStorage?.setItem(VERSION_KEY, VERSION)
+  }, [])
+
   const [provider, setProvider] = useState(
-    !!window ? getProvider(localStorage.getItem(PROVIDER_KEY) || "") : undefined
+    localVersion === VERSION
+      ? getProvider(getLocalValue(PROVIDER_KEY) || "")
+      : undefined
   )
 
   const setProviderCB = useCallback(
