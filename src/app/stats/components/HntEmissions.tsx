@@ -34,6 +34,12 @@ export const HntEmissions = async () => {
   const hntEmissionsRows = Object.keys(hntEmissionsData)
     .map((date) => hntEmissionsData[date])
     .reverse()
+    /*
+     Sometimes one query will run before emissions are actually emitted causing 
+     non-complete rows. Filtering these rows out. When this happens we'll have 28 
+     instead of 30. 
+    */
+    .filter((row) => !!row.iot && !!row.mobile && !!row.total)
 
   return (
     <div className="mt-2">
