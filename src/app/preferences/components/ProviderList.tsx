@@ -3,9 +3,11 @@
 import { gaEvent } from "@/components/GATracker"
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
 import { MokenIcon } from "@/components/icons/MokenIcon"
+import { RelayIcon } from "@/components/icons/RelayIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import { useSearchParams } from "next/navigation"
+import { useMemo } from "react"
 
 export type Provider = {
   Icon: JSX.Element
@@ -21,12 +23,31 @@ export const PROVIDERS: Provider[] = [
       `https://app.hotspotty.net/hotspots/${hotspotId}/rewards`,
   },
   {
-    Icon: <MokenIcon className="h-6 w-6 text-[#9546ea]" />,
+    Icon: <MokenIcon />,
     label: "Moken",
     getUrl: (hotspotId: string) =>
       `https://explorer.moken.io/hotspots/${hotspotId}`,
   },
+  {
+    Icon: <RelayIcon />,
+    label: "Relay",
+    getUrl: (hotspotId: string) =>
+      `https://explorer.relaywireless.com/hotspots/${hotspotId}`,
+  },
 ]
+
+const shuffle = <T,>(arr: T[]) => {
+  let i = arr.length,
+    j,
+    temp
+  while (--i > 0) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+  }
+  return arr
+}
 
 const PROVIDER_KEY = "provider"
 const DEFAULT_HOTSPOT_KEY =
@@ -37,9 +58,11 @@ export const ProviderList = () => {
   const searchParams = useSearchParams()
   const hotspotKey = searchParams.get("redirect") || DEFAULT_HOTSPOT_KEY
 
+  const providers = useMemo(() => shuffle(PROVIDERS), [])
+
   return (
     <div className="flex-col gap-2 gap-y-4 pl-2">
-      {PROVIDERS.map((providerItem) => {
+      {providers.map((providerItem) => {
         const { label, Icon } = providerItem
         const active = provider?.label === label
         return (
