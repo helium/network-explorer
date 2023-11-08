@@ -69,9 +69,21 @@ const getSum = (nums: BN[]) => {
 }
 
 export const getPositionMetrics = async (positions: PositionWithMeta[]) => {
-  const vehnt = positions.map(({ veHnt }) => veHnt)
-  const hnt = positions.map((position) => position.amountDepositedNative)
-  const lockups = await getPositionLockups(positions)
+  const now = await fetchUnixTimestap()
+  const nowBN = new BN(now)
+
+  const activePositions = positions.filter((position) => {
+    const expiredCliff =
+      Object.keys(position.lockup.kind as LockupKind)[0] === "cliff" &&
+      position.lockup.endTs.lt(nowBN)
+
+    // constant positions and non expired cliffs are still active
+    return !expiredCliff
+  })
+
+  const vehnt = activePositions.map(({ veHnt }) => veHnt)
+  const hnt = activePositions.map((position) => position.amountDepositedNative)
+  const lockups = await getPositionLockups(activePositions)
   const positonMetrics: PositionMetrics = {
     stats: {
       avgVehnt: getMean(vehnt),
@@ -82,7 +94,7 @@ export const getPositionMetrics = async (positions: PositionWithMeta[]) => {
       medianLockup: getMedian(lockups),
     },
     total: {
-      count: new BN(positions.length) as BN,
+      count: new BN(activePositions.length) as BN,
       hnt: getSum(hnt),
       vehnt: getSum(vehnt),
     },
