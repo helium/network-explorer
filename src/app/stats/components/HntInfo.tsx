@@ -23,8 +23,8 @@ import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getNextHalvening } from "../utils/getNextHalvening"
 import {
-  getRemainingEmissions,
   MAX_DAILY_NET_EMISSIONS,
+  getRemainingEmissions,
 } from "../utils/remainingEmissions"
 import { Countdown } from "./Countdown"
 
