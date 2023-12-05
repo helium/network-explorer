@@ -56,9 +56,14 @@ export class MaxSupply {
       record.hnt_burned > (latestBurn?.hnt_burned || BigInt(0))
 
     if (
-      (!latest && !latestBurn) || // first time app is run
-      (!isSameDay && (latestBurn?.supply || 0) < record.supply) || // when new UTC day + supply has been disbursed
-      (isSameDay && hasBurnIncrease) // true when different hnt burn result and guards against dune query failure
+      // first time app is run
+      (!latest && !latestBurn) ||
+      // when new UTC day + supply has been disbursed
+      (!isSameDay && (latestBurn?.supply || 0) < record.supply) ||
+      // true when different hnt burn result and guards against dune query failure
+      (isSameDay && hasBurnIncrease) ||
+      // true when first recording of the day happens between treasury and HST emissions
+      (isSameDay && (latest?.supply || 0) < record.supply)
     ) {
       await this.addRecord(record)
       if (record.hnt_burned === BigInt(0)) return record
