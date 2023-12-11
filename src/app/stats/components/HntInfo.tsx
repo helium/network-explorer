@@ -26,6 +26,7 @@ import {
   MAX_DAILY_NET_EMISSIONS,
   getRemainingEmissions,
 } from "../utils/remainingEmissions"
+import { HNT_MAX_SUPPLY } from "../utils/emissions"
 import { Countdown } from "./Countdown"
 
 const COINGECKO_HNT_URL =
@@ -127,7 +128,7 @@ export const HntInfo = async () => {
         }}
       />
       <StatItem
-        label="Max Supply"
+        label="Supply Limit"
         value={`~${humanReadableBigint(
           maxSupplyRecord.max_supply,
           hntMint?.info?.info.decimals || 8,
@@ -140,6 +141,16 @@ export const HntInfo = async () => {
             maxSupplyRecord.recorded_at,
             DATE_FORMAT
           )})`,
+          id: "HNT Supply Limit",
+        }}
+      />
+      <StatItem
+        label="Max Supply"
+        value={HNT_MAX_SUPPLY.toLocaleString()}
+        tooltip={{
+          description:
+            "Maximum supply of HNT that can ever exist as defined in HIPs. This is an upper limit that will not be reached and does not consider future HNT burn.",
+          cadence: "Fixed",
           id: "HNT Max Supply",
         }}
       />

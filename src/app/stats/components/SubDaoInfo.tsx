@@ -86,7 +86,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
   const remainingEmissions = Math.round(
     getRemainingEmissions(new Date(), subDao)
   )
-  const maxSupply =
+  const supplyLimit =
     mintInfo.info?.info.supply! + BigInt(remainingEmissions) * BigInt(1000000)
 
   const supplyStaked = governanceMetrics.total.hnt
@@ -173,16 +173,16 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         }}
       />
       <StatItem
-        label="Max Supply"
+        label="Supply Limit"
         value={humanReadableBigint(
-          maxSupply,
+          supplyLimit,
           mintInfo?.info?.info.decimals || 0,
           0
         )}
         tooltip={{
           description: `Maximum supply of ${title} derived by current supply plus remaining emissions. ${maxDescription}`,
           cadence: "Live",
-          id: `${title} Max Supply`,
+          id: `${title} Supply Limit`,
         }}
       />
       <StatItem
