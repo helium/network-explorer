@@ -1,16 +1,18 @@
-import { NextRequest, NextResponse } from "next/server"
-import { fetchMint } from "@/app/stats/utils/fetchMint"
-import { HNT_MINT, MOBILE_MINT, IOT_MINT, toNumber } from "@helium/spl-utils"
-import {
-  getRemainingEmissions,
-  getDailyEmisisons,
-  MAX_DAILY_NET_EMISSIONS,
-} from "@/app/stats/utils/remainingEmissions"
 import {
   HNT_MAX_SUPPLY,
   IOT_MAX_SUPPLY,
   MOBILE_MAX_SUPPLY,
 } from "@/app/stats/utils/emissions"
+import { fetchMint } from "@/app/stats/utils/fetchMint"
+import {
+  MAX_DAILY_NET_EMISSIONS,
+  getDailyEmisisons,
+  getRemainingEmissions,
+} from "@/app/stats/utils/remainingEmissions"
+import { db } from "@/knex/db"
+import { MaxSupply } from "@/knex/maxSupply"
+import { HNT_MINT, IOT_MINT, MOBILE_MINT, toNumber } from "@helium/spl-utils"
+import { NextRequest, NextResponse } from "next/server"
 
 enum SupplyToken {
   HNT = "hnt",
@@ -55,11 +57,20 @@ export async function GET(
       toNumber(circulatingSupply, mintInfo?.info?.info.decimals || 0)
     )
   } else if (type === SupplyType.LIMIT) {
-    let remainingEmissions = Math.ceil(getRemainingEmissions(new Date(), token))
+    let remainingEmissions = 0
+    let supply = mintInfo.info?.info.supply!
 
     if (token === SupplyToken.HNT) {
       // Due to Net Emissions, assume the max amount will be re-emitted
-      remainingEmissions += Math.ceil(MAX_DAILY_NET_EMISSIONS)
+      remainingEmissions = Math.ceil(MAX_DAILY_NET_EMISSIONS)
+
+      // using existing supply limit logic to avoid repeating edge case logic
+      const maxSupplyDb = new MaxSupply(db)
+      const supplyLimit = (await maxSupplyDb.getLatest({ withBurn: false }))
+        ?.max_supply!
+      supply = supplyLimit
+    } else {
+      remainingEmissions += Math.ceil(getRemainingEmissions(new Date(), token))
     }
 
     // Add the daily emissions for today to be conservative
@@ -68,7 +79,7 @@ export async function GET(
     remainingEmissions += Math.ceil(dailyEmissions)
 
     const totalSupply =
-      mintInfo.info?.info.supply! +
+      supply +
       BigInt(remainingEmissions) *
         BigInt(Math.pow(10, mintInfo?.info?.info.decimals || 0))
 

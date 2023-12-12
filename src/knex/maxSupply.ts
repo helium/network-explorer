@@ -15,7 +15,7 @@ export class MaxSupply {
     this.knex = knex
   }
 
-  private async getLatest({
+  async getLatest({
     withBurn,
   }: {
     withBurn: boolean

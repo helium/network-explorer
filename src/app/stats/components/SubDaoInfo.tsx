@@ -11,6 +11,7 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
+import { IOT_MAX_SUPPLY, MOBILE_MAX_SUPPLY } from "../utils/emissions"
 import { fetchSubDaoGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
@@ -20,7 +21,6 @@ import {
   getLatestSubNetworkEmissions,
   getRemainingEmissions,
 } from "../utils/remainingEmissions"
-import { IOT_MAX_SUPPLY, MOBILE_MAX_SUPPLY } from "../utils/emissions"
 import { SubDao } from "../utils/types"
 
 type SubDaoType = {
@@ -194,7 +194,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         label="Max Supply"
         value={maxSupply.toLocaleString()}
         tooltip={{
-          description: `Maximum supply of ${title} that can ever exist as defined in HIPs. This is an upper limit that will not be reached and does not ${title} future burn.`,
+          description: `Maximum supply of ${title} that can ever exist as defined in HIPs. This is an upper limit that will not be reached and does not consider ${title} past or future burn.`,
           cadence: "Fixed",
           id: `${title} Max Supply`,
         }}
