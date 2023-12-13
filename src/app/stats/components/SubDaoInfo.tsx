@@ -11,6 +11,7 @@ import {
   toNumber,
 } from "@helium/spl-utils"
 import { PublicKey } from "@solana/web3.js"
+import { IOT_MAX_SUPPLY, MOBILE_MAX_SUPPLY } from "../utils/emissions"
 import { fetchSubDaoGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { fetchSubDaoEpochInfo } from "../utils/fetchSubDaoEpochInfo"
@@ -31,6 +32,7 @@ type SubDaoType = {
   subDaoMint: PublicKey
   maxDescription: string
   activeDetails: string
+  maxSupply: number
 }
 
 const MOBILE_INFO: SubDaoType = {
@@ -43,6 +45,7 @@ const MOBILE_INFO: SubDaoType = {
   maxDescription:
     "This is an upper limit that will not be reached and does not consider future MOBILE burn. Reason: Daily emissions are currently only 86% of scheduled emissions, as not all rewardable entities (service providers, and oracles) exist or currently receive rewards.",
   activeDetails: " This exclusively includes active gateways (not radios).",
+  maxSupply: MOBILE_MAX_SUPPLY,
 }
 
 const IOT_INFO: SubDaoType = {
@@ -55,6 +58,7 @@ const IOT_INFO: SubDaoType = {
   maxDescription:
     "This is an upper limit that will not be reached and does not consider future IOT burn. Reason: Daily emissions are currently only 93% of scheduled emissions, as oracles do not currently receive rewards.",
   activeDetails: "",
+  maxSupply: IOT_MAX_SUPPLY,
 }
 
 export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
@@ -67,6 +71,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
     icon,
     subDaoMint,
     maxDescription,
+    maxSupply,
   } = subDao === "mobile" ? MOBILE_INFO : IOT_INFO
   const [activeCount, mintInfo, epochInfo, treasuryInfo, governanceMetrics] =
     await Promise.all([
@@ -86,7 +91,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
   const remainingEmissions = Math.round(
     getRemainingEmissions(new Date(), subDao)
   )
-  const maxSupply =
+  const supplyLimit =
     mintInfo.info?.info.supply! + BigInt(remainingEmissions) * BigInt(1000000)
 
   const supplyStaked = governanceMetrics.total.hnt
@@ -173,15 +178,24 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
         }}
       />
       <StatItem
-        label="Max Supply"
+        label="Supply Limit"
         value={humanReadableBigint(
-          maxSupply,
+          supplyLimit,
           mintInfo?.info?.info.decimals || 0,
           0
         )}
         tooltip={{
           description: `Maximum supply of ${title} derived by current supply plus remaining emissions. ${maxDescription}`,
           cadence: "Live",
+          id: `${title} Supply Limit`,
+        }}
+      />
+      <StatItem
+        label="Max Supply"
+        value={maxSupply.toLocaleString()}
+        tooltip={{
+          description: `Maximum supply of ${title} that can ever exist as defined in HIPs. This is an upper limit that will not be reached and does not consider ${title} past or future burn.`,
+          cadence: "Fixed",
           id: `${title} Max Supply`,
         }}
       />

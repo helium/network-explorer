@@ -19,6 +19,7 @@ import {
   fetchHntBurn,
   fetchHntEmissions,
 } from "../utils/dune/fetchHntEmissions"
+import { HNT_MAX_SUPPLY } from "../utils/emissions"
 import { fetchHntGovernanceStats } from "../utils/fetchGovernanceMetrics"
 import { fetchMint } from "../utils/fetchMint"
 import { getNextHalvening } from "../utils/getNextHalvening"
@@ -127,7 +128,7 @@ export const HntInfo = async () => {
         }}
       />
       <StatItem
-        label="Max Supply"
+        label="Supply Limit"
         value={`~${humanReadableBigint(
           maxSupplyRecord.max_supply,
           hntMint?.info?.info.decimals || 8,
@@ -136,10 +137,20 @@ export const HntInfo = async () => {
         tooltip={{
           description:
             "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). This is an upper limit that will not be reached and does not consider future HNT burn. Accurate within 1643 HNT.",
-          cadence: `Every 8h (last run ${format(
+          cadence: `Daily (last run ${format(
             maxSupplyRecord.recorded_at,
             DATE_FORMAT
           )})`,
+          id: "HNT Supply Limit",
+        }}
+      />
+      <StatItem
+        label="Max Supply"
+        value={HNT_MAX_SUPPLY.toLocaleString()}
+        tooltip={{
+          description:
+            "Maximum supply of HNT that can ever exist as defined in HIPs. This is an upper limit that will not be reached and does not consider past or future HNT burn.",
+          cadence: "Fixed",
           id: "HNT Max Supply",
         }}
       />

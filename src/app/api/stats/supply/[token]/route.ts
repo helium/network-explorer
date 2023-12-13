@@ -1,14 +1,31 @@
-import { NextRequest, NextResponse } from "next/server"
-import { fetchMint } from "@/app/stats/utils/fetchMint"
-import { HNT_MINT, MOBILE_MINT, IOT_MINT, toNumber } from "@helium/spl-utils"
 import {
-  getRemainingEmissions,
-  getDailyEmisisons,
+  HNT_MAX_SUPPLY,
+  IOT_MAX_SUPPLY,
+  MOBILE_MAX_SUPPLY,
+} from "@/app/stats/utils/emissions"
+import { fetchMint } from "@/app/stats/utils/fetchMint"
+import {
   MAX_DAILY_NET_EMISSIONS,
+  getDailyEmisisons,
+  getRemainingEmissions,
 } from "@/app/stats/utils/remainingEmissions"
+import { db } from "@/knex/db"
+import { MaxSupply } from "@/knex/maxSupply"
+import { HNT_MINT, IOT_MINT, MOBILE_MINT, toNumber } from "@helium/spl-utils"
+import { NextRequest, NextResponse } from "next/server"
 
-type SupplyToken = "hnt" | "mobile" | "iot"
-type SupplyType = "circulating" | "total" | "max"
+enum SupplyToken {
+  HNT = "hnt",
+  MOBILE = "mobile",
+  IOT = "iot",
+}
+
+enum SupplyType {
+  CIRCULATING = "circulating",
+  TOTAL = "total",
+  LIMIT = "limit",
+  MAX = "max",
+}
 
 export async function GET(
   request: NextRequest,
@@ -19,33 +36,41 @@ export async function GET(
   const type = searchParams.get("type") as SupplyType
 
   if (
-    !["hnt", "mobile", "iot"].includes(token) ||
-    !["circulating", "total", "max"].includes(type)
+    !Object.values(SupplyToken).includes(token) ||
+    !Object.values(SupplyType).includes(type)
   ) {
     return new NextResponse(null, { status: 400 })
   }
 
   const mintInfo = await fetchMint(
     {
-      hnt: HNT_MINT,
-      mobile: MOBILE_MINT,
-      iot: IOT_MINT,
+      [SupplyToken.HNT]: HNT_MINT,
+      [SupplyToken.MOBILE]: MOBILE_MINT,
+      [SupplyToken.IOT]: IOT_MINT,
     }[token]
   )
 
-  if (type === "circulating") {
+  if (type === SupplyType.CIRCULATING || type === SupplyType.TOTAL) {
     const circulatingSupply = mintInfo.info?.info.supply!
 
     return NextResponse.json(
       toNumber(circulatingSupply, mintInfo?.info?.info.decimals || 0)
     )
-  } else if (type === "total" || type === "max") {
-    // Return the same thing for total and max as they are functionally the same for us
-    let remainingEmissions = Math.ceil(getRemainingEmissions(new Date(), token))
+  } else if (type === SupplyType.LIMIT) {
+    let remainingEmissions = 0
+    let supply = mintInfo.info?.info.supply!
 
-    if (token === "hnt") {
+    if (token === SupplyToken.HNT) {
       // Due to Net Emissions, assume the max amount will be re-emitted
-      remainingEmissions += Math.ceil(MAX_DAILY_NET_EMISSIONS)
+      remainingEmissions = Math.ceil(MAX_DAILY_NET_EMISSIONS)
+
+      // using existing supply limit logic to avoid repeating edge case logic
+      const maxSupplyDb = new MaxSupply(db)
+      const supplyLimit = (await maxSupplyDb.getLatest({ withBurn: false }))
+        ?.max_supply!
+      supply = supplyLimit
+    } else {
+      remainingEmissions += Math.ceil(getRemainingEmissions(new Date(), token))
     }
 
     // Add the daily emissions for today to be conservative
@@ -54,12 +79,23 @@ export async function GET(
     remainingEmissions += Math.ceil(dailyEmissions)
 
     const totalSupply =
-      mintInfo.info?.info.supply! +
+      supply +
       BigInt(remainingEmissions) *
         BigInt(Math.pow(10, mintInfo?.info?.info.decimals || 0))
 
     return NextResponse.json(
       toNumber(totalSupply, mintInfo?.info?.info.decimals || 0)
     )
+  } else if (type === SupplyType.MAX) {
+    switch (token) {
+      case SupplyToken.HNT:
+        return NextResponse.json(HNT_MAX_SUPPLY)
+      case SupplyToken.MOBILE:
+        return NextResponse.json(MOBILE_MAX_SUPPLY)
+      case SupplyToken.IOT:
+        return NextResponse.json(IOT_MAX_SUPPLY)
+      default:
+        return new NextResponse(null, { status: 400 })
+    }
   }
 }
