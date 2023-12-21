@@ -25,9 +25,16 @@ cp .env.example .env.local
 ```
 
 Add your [Dune API key](https://dune.com/docs/api/#obtaining-an-api-key)
-Setup a PostgreSQL database and add your DATABASE_URL. (It will default to using an in memory database if you don't set one up).
+
+Setup a PostgreSQL database and add your DATABASE_URL. It will default to using an in memory database if you don't set one up.
 
 ### Run locally
+
+Setup the database:
+
+```bash
+pnpm db:migrate
+```
 
 Then, run the development server:
 
