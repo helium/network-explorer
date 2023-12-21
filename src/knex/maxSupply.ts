@@ -1,4 +1,5 @@
 import { epochFromDate } from "@/app/stats/utils"
+import { isEqual } from "date-fns"
 import { Knex } from "knex"
 
 type MaxSupplyRecord = {
@@ -65,7 +66,13 @@ export class MaxSupply {
       // true when first recording of the day happens between treasury and HST emissions
       (isSameDay && (latest?.supply || 0) < record.supply)
     ) {
-      await this.addRecord(record)
+      // guard to avoid duplicate entry for primary key
+      if (
+        !isEqual(record.recorded_at, latest?.recorded_at || 0) &&
+        !isEqual(record.recorded_at, latestBurn?.recorded_at || 0)
+      ) {
+        await this.addRecord(record)
+      }
       if (record.hnt_burned === BigInt(0)) return record
       if (!latest && !latestBurn) return record
     }
