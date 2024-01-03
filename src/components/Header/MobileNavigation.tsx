@@ -37,7 +37,7 @@ export function MobileNavigation(props: { className?: string }) {
         >
           <Popover.Panel
             focus
-            className="fixed inset-x-4 bottom-8 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800 sm:bottom-auto sm:top-8 "
+            className="fixed inset-x-4 bottom-auto top-8 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800 "
           >
             <div className="flex flex-row-reverse items-center justify-between">
               <Popover.Button aria-label="Close menu" className="-m-1 p-1">

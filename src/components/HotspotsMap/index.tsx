@@ -18,6 +18,7 @@ import Map, {
   MapLayerMouseEvent,
   MapRef,
   MapStyle,
+  NavigationControl,
   Source,
 } from "react-map-gl"
 import { gaEvent } from "../GATracker"
@@ -155,6 +156,7 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
       ref={mapRef}
       attributionControl={false}
     >
+      <NavigationControl position="bottom-left" showCompass={false} />
       {children}
 
       {segment !== "stats" && <Attribution />}
