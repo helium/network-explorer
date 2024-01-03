@@ -2,7 +2,7 @@ import { StatItem } from "@/app/stats/components/StatItem"
 import { StatsList } from "@/app/stats/components/StatsList"
 import { ONE_DAY_MS, epochFromDate, fetcher } from "@/app/stats/utils"
 import { db } from "@/knex/db"
-import { MaxSupply } from "@/knex/maxSupply"
+import { SupplyLimit } from "@/knex/supplyLimit"
 import { BN } from "@coral-xyz/anchor"
 import { currentEpoch } from "@helium/helium-sub-daos-sdk"
 import {
@@ -70,7 +70,7 @@ export const HntInfo = async () => {
   const remainingHntEmissions = Math.round(
     getRemainingEmissions(new Date(), "hnt")
   )
-  const maxSupply =
+  const supplyLimit =
     hntMint.info?.info.supply! +
     BigInt(remainingHntEmissions) * BigInt(100000000) +
     BigInt(
@@ -80,15 +80,15 @@ export const HntInfo = async () => {
     ) *
       BigInt(10000)
 
-  const maxSupplyDb = new MaxSupply(db)
-  const maxSupplyRecord = await maxSupplyDb.latestOrInsert({
+  const supplyLimitDb = new SupplyLimit(db)
+  const supplyLimitRecord = await supplyLimitDb.latestOrInsert({
     recorded_at: isSameDay
       ? new Date(hntBurned.execution_started_at)
       : new Date(),
     hnt_burned:
       BigInt(Math.round(parseFloat(todayHntBurn) * 10000)) * BigInt(10000),
     supply: hntMint.info?.info.supply!,
-    max_supply: maxSupply,
+    supply_limit: supplyLimit,
   })
 
   return (
@@ -130,7 +130,7 @@ export const HntInfo = async () => {
       <StatItem
         label="Supply Limit"
         value={`~${humanReadableBigint(
-          maxSupplyRecord.max_supply,
+          supplyLimitRecord.supply_limit,
           hntMint?.info?.info.decimals || 8,
           0
         )}`}
@@ -138,7 +138,7 @@ export const HntInfo = async () => {
           description:
             "Maximum supply of HNT derived by summing current supply, remaining emissions, and today's burned HNT (which are re-emitted via net emissions). This is an upper limit that will not be reached and does not consider future HNT burn. Accurate within 1643 HNT.",
           cadence: `Daily (last run ${format(
-            maxSupplyRecord.recorded_at,
+            supplyLimitRecord.recorded_at,
             DATE_FORMAT
           )})`,
           id: "HNT Supply Limit",

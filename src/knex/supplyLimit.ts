@@ -2,14 +2,14 @@ import { epochFromDate } from "@/app/stats/utils"
 import { isEqual } from "date-fns"
 import { Knex } from "knex"
 
-type MaxSupplyRecord = {
+type SupplyLimitRecord = {
   recorded_at: Date
   hnt_burned: bigint
   supply: bigint
-  max_supply: bigint
+  supply_limit: bigint
 }
 
-export class MaxSupply {
+export class SupplyLimit {
   knex: Knex
 
   constructor(knex: Knex) {
@@ -20,8 +20,8 @@ export class MaxSupply {
     withBurn,
   }: {
     withBurn: boolean
-  }): Promise<MaxSupplyRecord | undefined> {
-    const query = this.knex("max_supply_records")
+  }): Promise<SupplyLimitRecord | undefined> {
+    const query = this.knex("supply_limit_records")
       .select("*")
       .orderBy("recorded_at", "desc")
       .first()
@@ -35,15 +35,15 @@ export class MaxSupply {
       recorded_at: latest.recorded_at,
       hnt_burned: BigInt(latest.hnt_burned),
       supply: BigInt(latest.supply),
-      max_supply: BigInt(latest.max_supply),
+      supply_limit: BigInt(latest.supply_limit),
     }
   }
 
-  private async addRecord(record: MaxSupplyRecord) {
-    return this.knex("max_supply_records").insert(record)
+  private async addRecord(record: SupplyLimitRecord) {
+    return this.knex("supply_limit_records").insert(record)
   }
 
-  async latestOrInsert(record: MaxSupplyRecord) {
+  async latestOrInsert(record: SupplyLimitRecord) {
     // only want to display latest without burn but want to track both. The with burn value helps as heuristic for when HNT was disbursed.
     const [latest, latestBurn] = await Promise.all([
       this.getLatest({ withBurn: false }),

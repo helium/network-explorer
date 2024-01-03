@@ -10,7 +10,7 @@ import {
   getRemainingEmissions,
 } from "@/app/stats/utils/remainingEmissions"
 import { db } from "@/knex/db"
-import { MaxSupply } from "@/knex/maxSupply"
+import { SupplyLimit } from "@/knex/supplyLimit"
 import { HNT_MINT, IOT_MINT, MOBILE_MINT, toNumber } from "@helium/spl-utils"
 import { NextRequest, NextResponse } from "next/server"
 
@@ -65,9 +65,9 @@ export async function GET(
       remainingEmissions = Math.ceil(MAX_DAILY_NET_EMISSIONS)
 
       // using existing supply limit logic to avoid repeating edge case logic
-      const maxSupplyDb = new MaxSupply(db)
-      const supplyLimit = (await maxSupplyDb.getLatest({ withBurn: false }))
-        ?.max_supply!
+      const supplyLimitDb = new SupplyLimit(db)
+      const supplyLimit = (await supplyLimitDb.getLatest({ withBurn: false }))
+        ?.supply_limit!
       supply = supplyLimit
     } else {
       remainingEmissions += Math.ceil(getRemainingEmissions(new Date(), token))
