@@ -55,7 +55,7 @@ export const HntEmissions = async () => {
                 subDaoEmissions.execution_started_at
               )}`}
               cadence="Daily"
-              sourceText="Dune queries 2727450 and 2727529"
+              sourceText="Dune queries 3321568 and 3321569"
             />
           </span>
         }
