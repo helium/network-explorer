@@ -43,7 +43,7 @@ const MOBILE_INFO: SubDaoType = {
   icon: "mobile",
   subDaoMint: MOBILE_MINT,
   maxDescription:
-    "This is an upper limit that will not be reached and does not consider future MOBILE burn. Reason: Daily emissions are currently only 86% of scheduled emissions, as not all rewardable entities (service providers, and oracles) exist or currently receive rewards.",
+    "This is an upper limit that will not be reached and does not consider future MOBILE burn. Reason: Daily emissions are currently only 96% of scheduled emissions, as oracles do not currently receive rewards.",
   activeDetails: " This exclusively includes active gateways (not radios).",
   maxSupply: MOBILE_MAX_SUPPLY,
 }
