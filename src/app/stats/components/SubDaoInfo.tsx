@@ -205,7 +205,7 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           getLatestSubNetworkEmissions(new Date(), subDao)
         )}
         tooltip={{
-          description: `Amount of ${title} emitted each day.`,
+          description: `Max amount of ${title} emitted each day.`,
           cadence: "Constant",
           id: `${title} Daily Emissions`,
         }}
