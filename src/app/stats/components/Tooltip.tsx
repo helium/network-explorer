@@ -8,6 +8,7 @@ export type ToolTipProps = {
   sourceText?: string
   description?: string
   cadence?: string
+  width?: "xs" | "tiny"
   id: string
 }
 
@@ -16,6 +17,7 @@ export const Tooltip = ({
   sourceText,
   description,
   cadence,
+  width = "xs",
 }: ToolTipProps) => {
   return (
     <div className="flex items-center">
@@ -23,7 +25,7 @@ export const Tooltip = ({
         <InformationCircleIcon className="h-5 w-5" />
       </a>
       <ReactTooltip id={id}>
-        <div className="max-w-xs">
+        <div className={width === "xs" ? "max-w-xs" : "max-w-[220px]"}>
           {!!description && <p>{description}</p>}
           {!!sourceText && <p>Source: {sourceText}</p>}
           {!!cadence && <p>Updated: {cadence}</p>}
