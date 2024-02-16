@@ -156,10 +156,7 @@ export const HntInfo = async () => {
       />
       <StatItem
         label="Latest Emission"
-        value={numberWithCommas(
-          parseInt(hntEmissions.totalEmissions.result.rows[0].hnt_minted, 10),
-          0
-        )}
+        value={numberWithCommas(hntEmissions.totalEmissions[0].hnt_minted, 0)}
         tooltip={{
           description: `Amount of HNT emitted last epoch.`,
           cadence: "Daily",

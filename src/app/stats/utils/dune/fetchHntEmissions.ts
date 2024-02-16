@@ -21,7 +21,7 @@ const duneQuery = async <ResponseT>(
     .catch(() => [])
 }
 
-type TotalHntEmission = {
+type HstEmission = {
   block_date: string
   hnt_minted: string
 }
@@ -32,13 +32,42 @@ type TreasuryHntEmission = {
   hnt_minted: string
 }
 
+type TotalHntEmission = {
+  block_date: string
+  hnt_minted: number
+}
+
 export const fetchHntEmissions = cache(async () => {
-  const [totalEmissions, subDaoEmissions] = await Promise.all([
-    duneQuery<TotalHntEmission[]>(3321569),
+  const [subDaoEmissions, hstEmissions] = await Promise.all([
     duneQuery<TreasuryHntEmission[]>(3321568),
+    duneQuery<HstEmission[]>(3439959),
   ])
 
-  return { totalEmissions, subDaoEmissions }
+  const totalEmissionsCombined: { [date: string]: TotalHntEmission } = {}
+  hstEmissions.result.rows.forEach(({ block_date, hnt_minted }) => {
+    totalEmissionsCombined[block_date] = {
+      block_date,
+      hnt_minted: parseFloat(hnt_minted),
+    }
+  })
+  subDaoEmissions.result.rows.forEach(({ block_date, hnt_minted }) => {
+    if (totalEmissionsCombined[block_date]) {
+      totalEmissionsCombined[block_date].hnt_minted += parseFloat(hnt_minted)
+    }
+  })
+
+  const totalEmissions = Object.keys(totalEmissionsCombined).map((date) => {
+    const { block_date, hnt_minted } = totalEmissionsCombined[date]
+    return {
+      block_date,
+      hnt_minted: Math.floor(hnt_minted),
+    }
+  })
+
+  return {
+    totalEmissions,
+    subDaoEmissions,
+  }
 })
 
 type HntBurned = {

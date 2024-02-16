@@ -8,10 +8,10 @@ export const HntEmissions = async () => {
   const { totalEmissions, subDaoEmissions } = await fetchHntEmissions()
 
   const hntEmissionsData: { [date: string]: HntEmissionRow } = {}
-  totalEmissions.result.rows.forEach(({ block_date, hnt_minted }) => {
+  totalEmissions.forEach(({ block_date, hnt_minted }) => {
     hntEmissionsData[block_date] = {
       date: block_date,
-      total: parseInt(hnt_minted, 10),
+      total: hnt_minted,
       iot: 0,
       mobile: 0,
     }
@@ -49,9 +49,7 @@ export const HntEmissions = async () => {
             HNT Emissions History (30 days)
             <Tooltip
               id="hnt-emissions"
-              description={`Last fetched: Total: ${formatDuneDate(
-                totalEmissions.execution_started_at
-              )} --- Treasury: ${formatDuneDate(
+              description={`Last fetched: ${formatDuneDate(
                 subDaoEmissions.execution_started_at
               )}`}
               cadence="Daily"
