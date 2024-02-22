@@ -4,7 +4,6 @@ import {
 } from "../../utils/fetchGovernanceMetrics"
 import { GraphWrapper } from "../GraphWrapper"
 import { DelegationHistory } from "./DelegationHistory"
-import { MetricsRow } from "./MetricsRow"
 
 export const Governance = async () => {
   const [veHntStats, veIotMetrics, veMobileMetrics] = await Promise.all([
@@ -24,7 +23,7 @@ export const Governance = async () => {
           {/* @ts-expect-error Async Server Component */}
           <DelegationHistory />
         </GraphWrapper>
-        <MetricsRow
+        {/* <MetricsRow
           title="Network"
           icon="hnt"
           groupStats={veHntStats.network}
@@ -47,10 +46,10 @@ export const Governance = async () => {
           icon="hnt"
           groupStats={veHntStats.undelegated}
           token="HNT"
-        />
+        /> */}
       </div>
 
-      <hr className="mx-4 my-8" />
+      {/* <hr className="mx-4 my-8" />
       <MetricsRow
         title="veIOT Governance"
         icon="iot"
@@ -63,7 +62,7 @@ export const Governance = async () => {
         icon="mobile"
         groupStats={veMobileMetrics}
         token="MOBILE"
-      />
+      /> */}
     </div>
   )
 }
