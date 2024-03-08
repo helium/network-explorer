@@ -4,6 +4,7 @@ import { gaEvent } from "@/components/GATracker"
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
 import { MokenIcon } from "@/components/icons/MokenIcon"
 import { RelayIcon } from "@/components/icons/RelayIcon"
+import { HeliumGeekIcon } from "@/components/icons/HeliumGeekIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import { useSearchParams } from "next/navigation"
@@ -33,6 +34,12 @@ export const PROVIDERS: Provider[] = [
     label: "Relay",
     getUrl: (hotspotId: string) =>
       `https://explorer.relaywireless.com/hotspots/${hotspotId}`,
+  },
+  {
+    Icon: <HeliumGeekIcon />,
+    label: "HeliumGeek",
+    getUrl: (hotspotId: string) =>
+      `https://heliumgeek.com/hotspots/${hotspotId}`,
   },
 ]
 
