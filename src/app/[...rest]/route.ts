@@ -1,8 +1,7 @@
-import { redirect } from "next/navigation"
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  return redirect("/")
+  return new NextResponse(null, { status: 404 })
 }
 export async function POST() {
   return new NextResponse(null, { status: 404 })
