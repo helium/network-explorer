@@ -73,7 +73,7 @@ export const fetchHntEmissions = cache(async () => {
 type HntBurned = {
   block_date: string
   dc_minted: string
-  hnt_burned: string
+  hnt_burned: number
   hnt_avg_price: string
 }
 

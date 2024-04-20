@@ -63,9 +63,10 @@ export const HntInfo = async () => {
   const isSameDay =
     epochFromDate(new Date(hntBurned.execution_started_at)) ===
     epochFromDate(new Date())
+
   const todayHntBurn = isSameDay
-    ? hntBurned.result.rows.reverse()[0].hnt_burned.substring(1)
-    : "0"
+    ? hntBurned.result.rows.reverse()[0].hnt_burned
+    : 0
 
   const remainingHntEmissions = Math.round(
     getRemainingEmissions(new Date(), "hnt")
@@ -74,9 +75,7 @@ export const HntInfo = async () => {
     hntMint.info?.info.supply! +
     BigInt(remainingHntEmissions) * BigInt(100000000) +
     BigInt(
-      Math.ceil(
-        Math.min(parseFloat(todayHntBurn), MAX_DAILY_NET_EMISSIONS) * 10000
-      )
+      Math.ceil(Math.min(todayHntBurn * -1, MAX_DAILY_NET_EMISSIONS) * 10000)
     ) *
       BigInt(10000)
 
@@ -85,8 +84,7 @@ export const HntInfo = async () => {
     recorded_at: isSameDay
       ? new Date(hntBurned.execution_started_at)
       : new Date(),
-    hnt_burned:
-      BigInt(Math.round(parseFloat(todayHntBurn) * 10000)) * BigInt(10000),
+    hnt_burned: BigInt(Math.round(todayHntBurn * 10000)) * BigInt(10000),
     supply: hntMint.info?.info.supply!,
     supply_limit: supplyLimit,
   })
