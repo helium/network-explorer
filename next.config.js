@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   experimental: {
-    appDir: true,
     scrollRestoration: true,
     serverComponentsExternalPackages: ["knex"],
   },

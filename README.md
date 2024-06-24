@@ -4,7 +4,7 @@
 
 ### Installation
 
-Requirements: [Node.js 16.8](https://nodejs.org/) or later
+Requirements: [Node.js 18](https://nodejs.org/) or later
 
 [Install pnpm](https://pnpm.io/installation) if you haven't already, for example using [brew](https://brew.sh/):
 
