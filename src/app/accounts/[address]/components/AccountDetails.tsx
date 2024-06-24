@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 
 export const AccountDetails = () => {
-  const { address } = useParams()
+  const { address } = useParams<{ address: string }>()
   const walletAddress = Address.fromB58(address)
   const solanaAddress = new PublicKey(walletAddress.publicKey).toBase58()
 

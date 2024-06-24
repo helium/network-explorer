@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 
 export const HotspotDetails = () => {
-  const { address } = useParams()
+  const { address } = useParams<{ address: string }>()
 
   return (
     <div className="flex-column justify-between text-zinc-800 dark:text-slate-100 sm:items-center">
