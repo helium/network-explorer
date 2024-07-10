@@ -1,6 +1,6 @@
 import { HELIUM_IOT_COLOR } from "../HotspotsMap/utils"
 
-export function HeliumIotIcon(props: { className?: string; fill?: string }) {
+export function IotIcon(props: { className?: string; fill?: string }) {
   const fill = props.fill || HELIUM_IOT_COLOR
   return (
     <svg
@@ -10,6 +10,7 @@ export function HeliumIotIcon(props: { className?: string; fill?: string }) {
       aria-hidden="true"
       {...props}
     >
+      <circle cx="256" cy="256" r="200" fill="#27EE76" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
