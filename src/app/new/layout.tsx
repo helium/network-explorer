@@ -8,7 +8,7 @@ import "focus-visible"
 import Head from "next/head"
 import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
-import { Nav } from "./Nav"
+import { Nav } from "./Nav/Nav"
 
 export const metadata = {
   manifest: "/manifest.json",
