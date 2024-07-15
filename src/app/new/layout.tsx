@@ -1,13 +1,13 @@
 import { GAScript } from "@/components/GAScript"
 import { GATracker } from "@/components/GATracker"
 import { Header } from "@/components/Header"
-import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
 import Head from "next/head"
 import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
+import { HotspotsMap } from "./HotspotsMap"
 import { Nav } from "./Nav/Nav"
 
 export const metadata = {

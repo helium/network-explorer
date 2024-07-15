@@ -4,6 +4,7 @@ import maplibregl from "maplibre-gl"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { Protocol } from "pmtiles"
 
+import { gaEvent } from "@/components/GATracker"
 import { cellToLatLng, cellsToMultiPolygon, getResolution } from "h3-js"
 import { useTheme } from "next-themes"
 import {
@@ -23,8 +24,6 @@ import Map, {
   Source,
   useMap,
 } from "react-map-gl"
-import { gaEvent } from "../GATracker"
-import { Attribution } from "./Attribution"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
 import { mapLayersDark } from "./mapLayersDark"
 import { mapLayersLight } from "./mapLayersLight"
@@ -38,6 +37,7 @@ import {
   getHexOutlineStyle,
   networkLayers,
 } from "./utils"
+import { MapZoom } from "./MapZoom"
 
 export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
@@ -164,8 +164,6 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
         )}
         {children}
 
-        {segment !== "stats" && <Attribution />}
-
         {segment !== "mobile" && (
           <NetworkCoverageLayer layer={networkLayers.iot} />
         )}
@@ -175,39 +173,8 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
             <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
           </Source>
         )}
-        <MapTest />
+        <MapZoom />
       </Map>
     </MapProvider>
-  )
-}
-
-const MapTest = () => {
-  const map = useMap()
-  const [currentZoom, setCurrentZoom] = useState(map.current?.getZoom())
-  const zoom = map.current?.getZoom()
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentZoom(map.current?.getZoom())
-    }, 250)
-    return () => clearInterval(interval)
-  }, [map, setCurrentZoom])
-  console.log(zoom)
-
-  return (
-    <div className="absolute bottom-1 left-1 bg-rose-950">
-      <p color="white">Some random text</p>
-      <button
-        disabled={zoom === MAX_MAP_ZOOM}
-        onClick={() => map.current?.zoomIn()}
-      >
-        ZOOM IN!
-      </button>
-      <button
-        disabled={zoom === MIN_MAP_ZOOM}
-        onClick={() => map.current?.zoomOut()}
-      >
-        ZOOM OUT!
-      </button>
-    </div>
   )
 }

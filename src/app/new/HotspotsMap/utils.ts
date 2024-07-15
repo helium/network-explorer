@@ -1,6 +1,6 @@
+import { HeliumIotIcon } from "@/components/icons/HeliumIotIcon"
+import { HeliumMobileIcon } from "@/components/icons/HeliumMobileIcon"
 import { CoordPair } from "h3-js"
-import { HeliumIotIcon } from "../icons/HeliumIotIcon"
-import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
 
 export const MIN_MAP_ZOOM = 2
 export const MAX_MAP_ZOOM = 14
