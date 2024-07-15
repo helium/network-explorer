@@ -15,7 +15,6 @@ export const MapZoom = () => {
     }, 250)
     return () => clearInterval(interval)
   }, [map, setCurrentZoom])
-  console.log(zoom)
 
   return (
     <div className="absolute right-6 top-24 flex flex-col gap-2">

@@ -22,9 +22,11 @@ import Map, {
   MapStyle,
   NavigationControl,
   Source,
-  useMap,
 } from "react-map-gl"
+import { ConnectionPower } from "./ConnectionPower"
+import { MapZoom } from "./MapZoom"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
+import { SettingsTrigger } from "./SettingsTrigger"
 import { mapLayersDark } from "./mapLayersDark"
 import { mapLayersLight } from "./mapLayersLight"
 import {
@@ -37,7 +39,6 @@ import {
   getHexOutlineStyle,
   networkLayers,
 } from "./utils"
-import { MapZoom } from "./MapZoom"
 
 export function HotspotsMap({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
@@ -174,6 +175,8 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
           </Source>
         )}
         <MapZoom />
+        <ConnectionPower />
+        <SettingsTrigger />
       </Map>
     </MapProvider>
   )
