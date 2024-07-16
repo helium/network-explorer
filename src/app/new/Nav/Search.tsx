@@ -97,7 +97,7 @@ export function Search() {
         className="group"
         onClick={() => setOpen(true)}
       >
-        <MagnifyingGlassIcon className="h-6 w-6 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+        <MagnifyingGlassIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
       </button>
       <Transition.Root
         show={open}

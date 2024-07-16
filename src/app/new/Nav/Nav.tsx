@@ -1,10 +1,10 @@
 "use client"
 
-import { DownCarret } from "@/components/icons/DownCarret"
 import { EnergyIcon } from "@/components/icons/EnergyIcon"
 import { HeliumIcon2 } from "@/components/icons/HeliumIcon2"
 import { IotIcon } from "@/components/icons/IotIcon"
 import { MobileIcon } from "@/components/icons/MobileIcon"
+import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
 import { ReactElement, useState } from "react"
@@ -55,17 +55,15 @@ const Selector = ({
   const [showOptions, setShowOptions] = useState(false)
 
   return (
-    <div
-      className={clsx("relative flex items-center justify-end gap-2", width)}
-    >
+    <div className={clsx("relative flex justify-end gap-2", width)}>
       <button
-        className="flex gap-2 "
+        className="flex items-center justify-end gap-2 "
         onClick={() => setShowOptions((current) => !current)}
       >
         {selected.Icon}
         <p className="text-sm text-neutral-200">{selected.name}</p>
+        <ChevronDownIcon className="h-3 w-3 stroke-neutral-200" />
       </button>
-      <DownCarret />
       <div
         className={clsx(
           "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 px-3 py-3",
