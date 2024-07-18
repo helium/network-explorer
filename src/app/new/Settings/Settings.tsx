@@ -1,4 +1,3 @@
-import { ThemeToggle } from "@/app/preferences/components/ThemeToggle"
 import { PreferencesProvider } from "@/context/usePreferences"
 import {
   ArrowTopRightOnSquareIcon,
@@ -10,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { HotspotProviders } from "./HotspotProviders"
+import { ThemeToggle } from "./ThemeToggle"
 
 const Divider = () => <div className="w-full border-t border-neutral-400" />
 

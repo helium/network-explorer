@@ -81,14 +81,14 @@ export const HotspotProviders = () => {
       </p>
       {providers.map((providerItem) => {
         const { label, Icon } = providerItem
-        const active = provider?.label === label
+        const isActive = provider?.label === label
         return (
           <button
             type="button"
             key={label}
             className={clsx(
               "flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4",
-              !active && "opacity-50"
+              !isActive && "opacity-50"
             )}
           >
             <div
@@ -112,7 +112,7 @@ export const HotspotProviders = () => {
               <div
                 className={clsx(
                   "h-3 w-3 rounded-full ",
-                  active && "bg-neutral-200"
+                  isActive && "bg-neutral-200"
                 )}
               />
             </div>
