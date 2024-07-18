@@ -1,4 +1,5 @@
 "use client"
+import { NO_PREFERENCE } from "@/app/new/Settings/HotspotProviders"
 import { PROVIDERS, Provider } from "@/app/preferences/components/ProviderList"
 import {
   PropsWithChildren,
@@ -25,7 +26,10 @@ const VERSION_KEY = "version"
 const VERSION = "3"
 
 const getProvider = (providerLabel?: string) => {
-  return PROVIDERS.find((provider) => provider.label === providerLabel)
+  return (
+    PROVIDERS.find((provider) => provider.label === providerLabel) ||
+    NO_PREFERENCE
+  )
 }
 
 const getLocalValue = (key: string) => {
@@ -43,7 +47,7 @@ export const PreferencesProvider = ({ children }: PropsWithChildren) => {
   const [provider, setProvider] = useState(
     localVersion === VERSION
       ? getProvider(getLocalValue(PROVIDER_KEY) || "")
-      : undefined
+      : NO_PREFERENCE
   )
 
   const setProviderCB = useCallback(
