@@ -220,14 +220,14 @@ export const SubDaoInfo = async ({ subDao }: { subDao: SubDao }) => {
           id: `${title} Estimated Swap`,
         }}
       />
-      <StatItem
+      {/* <StatItem
         label="Supply Staked"
         value={`${supplyStaked.toNumber() / 100}%`}
         tooltip={{
           description: `Percent of current ${title} which is staked as ve${title} on Realms.`,
           id: `${title} Supply Staked`,
         }}
-      />
+      /> */}
     </StatsList>
   )
 }
