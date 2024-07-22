@@ -16,13 +16,21 @@ let controller: AbortController | null = null
 
 const RESULTS_LIMIT = 20
 
+type SearchResponse = {
+  result: {
+    data: {
+      json: HotspotResult[]
+    }
+  }
+}
 export interface HotspotResult {
-  hotspot_id: string
-  location_res8: string
-  location_res12: string
+  address: string
+  hotspotType: string
   name: string
-  owner: string
-  cell_count: number
+  statusString: "inactive" | "active"
+  location: {
+    hex: string
+  }
 }
 
 export function Search() {
@@ -45,20 +53,24 @@ export function Search() {
     setIsLoading(true)
 
     try {
+      const queryObj = {
+        json: {
+          name: query,
+        },
+      }
+      const jsonString = JSON.stringify(queryObj)
+      const urlEncoded = encodeURIComponent(jsonString)
+      const queryString = `?input=${urlEncoded}`.replaceAll("%22", '"')
       const searchUrl = new URL(
-        `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/search`
+        `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_URL}${queryString}`
       )
-      searchUrl.searchParams.append("name", query.trim().replaceAll(" ", "-"))
 
-      const results = (await fetch(searchUrl, {
+      const response = (await fetch(searchUrl, {
         signal,
         next: { revalidate: 10 },
-        headers: {
-          Authorization: `bearer ${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_TOKEN}`,
-        },
-      }).then((res) => res.json())) as HotspotResult[]
+      }).then((res) => res.json())) as SearchResponse
 
-      setSearchResults(results)
+      setSearchResults(response.result.data.json)
       setIsLoading(false)
     } catch {
       setIsLoading(false)
@@ -83,7 +95,7 @@ export function Search() {
 
   const handleHotspotSelection = useCallback(
     (hotspot: HotspotResult) => {
-      router.push(`/hex/${hotspot.location_res8}`)
+      router.push(`/hex/${hotspot.location.hex}`)
       setOpen(false)
     },
     [router]
@@ -99,12 +111,7 @@ export function Search() {
       >
         <MagnifyingGlassIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
       </button>
-      <Transition.Root
-        show={open}
-        as={Fragment}
-        appear
-        afterLeave={clearSearchModal}
-      >
+      <Transition.Root show={open} as={Fragment} appear>
         <Dialog as="div" className="relative z-50" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
@@ -128,20 +135,20 @@ export function Search() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900 dark:bg-opacity-100">
+              <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-[#131313]/60 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900 dark:bg-opacity-100">
                 <Combobox onChange={handleHotspotSelection}>
                   <div className="relative">
                     {isLoading ? (
-                      <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-gray-900 text-opacity-40 dark:text-gray-500 dark:text-opacity-100" />
+                      <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-neutral-200 text-opacity-40 dark:text-gray-500 dark:text-opacity-100" />
                     ) : (
                       <MagnifyingGlassIcon
-                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-900 text-opacity-40 dark:text-gray-500 dark:text-opacity-100"
+                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-neutral-200 text-opacity-40 dark:text-gray-500 dark:text-opacity-100"
                         aria-hidden="true"
                       />
                     )}
 
                     <Combobox.Input
-                      className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 focus:ring-0 dark:text-white sm:text-sm"
+                      className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-neutral-200 focus:ring-0 dark:text-white sm:text-sm"
                       placeholder="Search Hotspot by name..."
                       type="search"
                       onChange={(event) => {
@@ -158,23 +165,23 @@ export function Search() {
                       className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto dark:divide-opacity-20"
                     >
                       <li className="p-2">
-                        <ul className="text-sm text-gray-700 dark:text-gray-400">
+                        <ul className="text-sm text-neutral-200 dark:text-gray-400">
                           {searchResults
                             .slice(0, RESULTS_LIMIT)
                             .map((hotspot) => {
                               const Avatar =
-                                hotspot.cell_count > 0
-                                  ? HeliumMobileIcon
-                                  : HeliumIotIcon
+                                hotspot.hotspotType === "iot"
+                                  ? HeliumIotIcon
+                                  : HeliumMobileIcon
                               return (
                                 <Combobox.Option
-                                  key={hotspot.hotspot_id}
+                                  key={hotspot.address}
                                   value={hotspot}
                                   className={({ active }) =>
                                     clsx(
                                       "flex cursor-pointer select-none items-center rounded-md px-3 py-3",
                                       active &&
-                                        "bg-gray-900 bg-opacity-5 text-gray-900 dark:bg-gray-800 dark:bg-opacity-100 dark:text-white"
+                                        "bg-gray-900 bg-opacity-5 text-neutral-200 dark:bg-gray-800 dark:bg-opacity-100 dark:text-white"
                                     )
                                   }
                                 >
@@ -205,10 +212,10 @@ export function Search() {
                   {query !== "" && searchResults.length === 0 && !isLoading && (
                     <div className="px-6 py-14 text-center sm:px-14">
                       <QuestionMarkCircleIcon
-                        className="mx-auto h-12 w-12 text-gray-900 dark:text-gray-500"
+                        className="mx-auto h-12 w-12 text-neutral-200 dark:text-gray-500"
                         aria-hidden="true"
                       />
-                      <p className="mt-4 text-sm text-gray-900 dark:text-gray-200">
+                      <p className="mt-4 text-sm text-neutral-200 dark:text-gray-200">
                         We couldn&#39;t find matching Hotspots...
                       </p>
                     </div>
