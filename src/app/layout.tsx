@@ -1,13 +1,14 @@
 import { GAScript } from "@/components/GAScript"
 import { GATracker } from "@/components/GATracker"
 import { Header } from "@/components/Header"
-import { HotspotsMap } from "@/components/HotspotsMap"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
 import Head from "next/head"
 import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
+import { HotspotsMap } from "./new/HotspotsMap"
+import { Nav } from "./new/Nav/Nav"
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -81,6 +82,7 @@ export default function RootLayout({
             <GATracker />
           </Suspense>
           <Header />
+          <Nav />
           <HotspotsMap>{children}</HotspotsMap>
         </Providers>
       </body>

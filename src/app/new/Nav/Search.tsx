@@ -95,7 +95,9 @@ export function Search() {
 
   const handleHotspotSelection = useCallback(
     (hotspot: HotspotResult) => {
-      router.push(`/hex/${hotspot.location.hex}`)
+      router.push(
+        `/new/hex/${hotspot.location.hex}/hotspots/${hotspot.address}`
+      )
       setOpen(false)
     },
     [router]
