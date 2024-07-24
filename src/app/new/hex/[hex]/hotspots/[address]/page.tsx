@@ -40,12 +40,12 @@ export default function Page({ params }: { params: Params }) {
         </div>
         <div className="flex w-full items-center justify-start gap-3">
           <HexOutlineIcon />
-          <p className="text-lg text-neutral-200">{params.hex}</p>
+          <p className="text-lg font-medium text-neutral-200">{params.hex}</p>
         </div>
         <Divider />
         <div className="flex w-full items-center justify-start gap-3">
           <Image alt="Hotspot with emissions waves" src={HotspotWaves} />
-          <p className="text-lg text-neutral-200">
+          <p className="text-lg font-medium text-neutral-200">
             {animalHash(params.address)}
           </p>
         </div>

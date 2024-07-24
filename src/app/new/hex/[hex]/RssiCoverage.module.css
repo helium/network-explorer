@@ -1,0 +1,19 @@
+.teal {
+  margin-left: -6px;
+  background-image: radial-gradient(
+    circle at 5px 6px,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 6px,
+    #00fff0 6px
+  );
+}
+
+.yellow {
+  margin-left: -6px;
+  background-image: radial-gradient(
+    circle at 5px 6px,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 6px,
+    #ffd600 6px
+  );
+}

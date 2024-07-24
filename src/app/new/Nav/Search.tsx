@@ -60,7 +60,7 @@ export function Search() {
       }
       const jsonString = JSON.stringify(queryObj)
       const urlEncoded = encodeURIComponent(jsonString)
-      const queryString = `?input=${urlEncoded}`.replaceAll("%22", '"')
+      const queryString = `?input=${urlEncoded}`
       const searchUrl = new URL(
         `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_URL}${queryString}`
       )

@@ -8,7 +8,7 @@ export const ExplorerOptions = () => {
           <ArrowTopRightOnSquareIcon className="h-5 w-5" />
         </div>
         <div>
-          <p className="text-base leading-5 text-neutral-200">
+          <p className="text-base font-medium leading-5 text-neutral-200">
             Open in Third-Party Explorer
           </p>
           <p className="text-sm leading-5 text-neutral-400">
