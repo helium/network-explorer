@@ -60,7 +60,7 @@ export default function Page({ params }: { params: Params }) {
           </div>
         </div>
         <Divider />
-        <RssiCoverage strong={1} medium={0} low={2} />
+        <RssiCoverage strong={0} medium={12} low={2} />
       </div>
     </div>
   )

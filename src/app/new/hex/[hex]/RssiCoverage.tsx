@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import styles from "./RssiCoverage.module.css"
 
 type RssiCoverageProps = {
@@ -7,24 +8,39 @@ type RssiCoverageProps = {
 }
 
 export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
+  const isMediumInset = !!strong
+  const isLowInset = !!strong || !!medium
+
   return (
     <div className="flex w-full flex-col gap-2">
       <p className="text-sm font-medium leading-5 text-neutral-200">
         RSSI area coverage (dBm)
       </p>
       <div className="display flex">
-        <div
-          className={`h-3 w-10 min-w-[24px] rounded-full bg-[#FF4D00]`}
-          style={{ flex: strong }}
-        />
-        <div
-          className={`h-3 w-6 min-w-[24px] rounded-full ${styles.yellow}`}
-          style={{ flex: medium }}
-        />
-        <div
-          className={`h-3 w-6 min-w-[24px] rounded-full ${styles.teal}`}
-          style={{ flex: low }}
-        />
+        {!!strong && (
+          <div
+            className={`h-3 w-10 min-w-[24px] rounded-full bg-[#FF4D00]`}
+            style={{ flex: strong }}
+          />
+        )}
+        {!!medium && (
+          <div
+            className={clsx(
+              "h-3 w-6 min-w-[24px] rounded-full",
+              isMediumInset ? styles.mediumInset : "bg-[#FFD600]"
+            )}
+            style={{ flex: medium }}
+          />
+        )}
+        {!!low && (
+          <div
+            className={clsx(
+              "h-3 w-6 min-w-[24px] rounded-full",
+              isLowInset ? styles.lowInset : "bg-[#00FFF0]"
+            )}
+            style={{ flex: low }}
+          />
+        )}
       </div>
       <div className="flex items-center justify-between">
         <div className="flex gap-2">
