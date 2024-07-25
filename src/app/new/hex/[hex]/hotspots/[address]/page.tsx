@@ -8,6 +8,7 @@ import { ConnectedDevices } from "./ConnectedDevices"
 import { ExplorerOptions } from "./ExplorerOptions"
 import { Insights } from "./Insights"
 import { TechInfo } from "./TechInfo"
+import styles from "./page.module.css"
 
 export const metadata = {
   title: "Helium Hotspots Map - Hotspot Details",
@@ -22,7 +23,9 @@ const Divider = () => <div className="w-full border-t border-neutral-400" />
 
 export default function Page({ params }: { params: Params }) {
   return (
-    <div className="absolute left-6 top-24 flex w-80 flex-col gap-3">
+    <div
+      className={`absolute left-6 top-24 w-80 ${styles.wrapper} overflow-auto rounded-xl`}
+    >
       <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-[#131313]/60 p-3">
         <div className="flex w-full justify-between">
           <Link

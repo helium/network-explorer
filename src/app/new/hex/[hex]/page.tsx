@@ -1,7 +1,10 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
 import { XMarkIcon } from "@heroicons/react/24/outline"
+import clsx from "clsx"
 import Link from "next/link"
 import { RssiCoverage } from "./RssiCoverage"
+import { RssiHotspot, RssiHotspotList, getRssiColor } from "./RssiHotspotList"
+import styles from "./page.module.css"
 
 export const metadata = {
   title: "Helium Hotspots Map - Hotspot Details",
@@ -11,11 +14,64 @@ type Params = {
   hex: string
 }
 
+const HOTSPOTS: RssiHotspot[] = [
+  {
+    address: "112SFacmbDiWrDfXPoZVAd3od9BbbHMFxQhDWNyrgU4KKfGK6gtG",
+    rssi: 91,
+  },
+  {
+    address: "112VZR2pe4APgF3Gb78KjaJmUhaE8PPgp1cpB1q2hWq6Mt2GdMbb",
+    rssi: 85,
+  },
+  {
+    address: "11WhQN8PLb6FFkmgSir3Kosw2pVp1vrRtxgh6aF7UYbHYSPbzVB",
+    rssi: 84,
+  },
+  {
+    address: "112LGVmE97oPdyYbdCGadwDavT7BBH8EjNpEzST8VrXqHEK6btQt",
+    rssi: 69,
+  },
+  {
+    address: "115mA2TtBNSLgw5ap94Ku19gVTnNzRupcc144f5QJ7qjFAYNVFx",
+    rssi: 52,
+  },
+  {
+    address: "115mA2TtBNSLgw5ap94Ku19gVTnNzRupcc144f5QJ7qjFAYNVFx",
+    rssi: 44,
+  },
+  {
+    address: "112c1ffCAmNcd7PxSyg9N2e1dzvdRYw7SnH1uQUBcTp54BJAtaW5",
+    rssi: 39,
+  },
+]
+
+const getHotspotsInfo = (hotspots: RssiHotspot[]) => {
+  const info = {
+    max: 0,
+    strong: 0,
+    medium: 0,
+    low: 0,
+  }
+
+  hotspots.forEach(({ rssi }) => {
+    info.max = Math.max(info.max, rssi)
+    if (rssi >= 90) info.strong++
+    else if (rssi >= 70) info.medium++
+    else info.low++
+  })
+
+  return info
+}
+
 const Divider = () => <div className="w-full border-t border-neutral-400" />
 
 export default function Page({ params }: { params: Params }) {
+  const hotspotsInfo = getHotspotsInfo(HOTSPOTS)
+
   return (
-    <div className="absolute left-6 top-24 w-80">
+    <div
+      className={`absolute left-6 top-24 w-80 ${styles.wrapper} overflow-auto rounded-xl`}
+    >
       <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-[#131313]/60 p-3">
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
@@ -51,16 +107,25 @@ export default function Page({ params }: { params: Params }) {
               Maximum Expected Signal Strength
             </p>
             <div className="flex items-center justify-between">
-              <div className="h-2 w-4 rounded-lg bg-[#FF4D00]"></div>
+              <div
+                className={clsx(
+                  "h-2 w-4 rounded-lg",
+                  getRssiColor(hotspotsInfo.max)
+                )}
+              />
               <div className="flex items-end gap-2">
-                <p className="text-3xl leading-6 text-neutral-200">-92</p>
+                <p className="text-3xl leading-6 text-neutral-200">
+                  -{hotspotsInfo.max}
+                </p>
                 <p className="text-sm leading-3 text-neutral-200">dBm</p>
               </div>
             </div>
           </div>
         </div>
         <Divider />
-        <RssiCoverage strong={0} medium={12} low={2} />
+        <RssiCoverage {...hotspotsInfo} />
+        <Divider />
+        <RssiHotspotList hotspots={HOTSPOTS} hex={params.hex} />
       </div>
     </div>
   )
