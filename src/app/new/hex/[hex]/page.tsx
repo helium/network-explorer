@@ -1,10 +1,10 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
+import { InfoWrapper } from "@/components/shared/InfoWrapper"
 import { RssiPill } from "@/components/shared/RssiPill"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { RssiCoverage } from "./RssiCoverage"
 import { RssiHotspot, RssiHotspotList } from "./RssiHotspotList"
-import styles from "./page.module.css"
 
 export const metadata = {
   title: "Helium Hotspots Map - Hotspot Details",
@@ -69,9 +69,7 @@ export default function Page({ params }: { params: Params }) {
   const hotspotsInfo = getHotspotsInfo(HOTSPOTS)
 
   return (
-    <div
-      className={`absolute left-6 top-24 w-80 ${styles.wrapper} overflow-auto rounded-xl`}
-    >
+    <InfoWrapper>
       <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-[#131313]/60 p-3">
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
@@ -122,6 +120,6 @@ export default function Page({ params }: { params: Params }) {
         <Divider />
         <RssiHotspotList hotspots={HOTSPOTS} hex={params.hex} />
       </div>
-    </div>
+    </InfoWrapper>
   )
 }
