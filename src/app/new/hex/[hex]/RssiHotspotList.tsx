@@ -27,7 +27,7 @@ export const RssiHotspotList = ({ hotspots, hex }: RssiHotspotListProps) => {
               index !== 0 && "border-t border-neutral-400 pt-2"
             )}
           >
-            <p>{index + 1}</p>
+            <p className="text-sm leading-5 text-neutral-200">{index + 1}</p>
             <div>
               <p className="text-sm leading-5 text-neutral-200">
                 {animalHash(address)}

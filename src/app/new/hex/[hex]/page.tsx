@@ -1,4 +1,5 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
+import { InfoCard } from "@/components/shared/InfoCard"
 import { InfoWrapper } from "@/components/shared/InfoWrapper"
 import { RssiPill } from "@/components/shared/RssiPill"
 import { XMarkIcon } from "@heroicons/react/24/outline"
@@ -70,7 +71,7 @@ export default function Page({ params }: { params: Params }) {
 
   return (
     <InfoWrapper>
-      <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-[#131313]/60 p-3">
+      <InfoCard>
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
             <HexOutlineIcon stroke="#fff" />
@@ -119,7 +120,7 @@ export default function Page({ params }: { params: Params }) {
         <RssiCoverage {...hotspotsInfo} />
         <Divider />
         <RssiHotspotList hotspots={HOTSPOTS} hex={params.hex} />
-      </div>
+      </InfoCard>
     </InfoWrapper>
   )
 }

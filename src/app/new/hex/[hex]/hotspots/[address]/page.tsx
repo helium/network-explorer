@@ -1,4 +1,5 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
+import { InfoCard } from "@/components/shared/InfoCard"
 import { InfoWrapper } from "@/components/shared/InfoWrapper"
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import animalHash from "angry-purple-tiger"
@@ -25,7 +26,7 @@ export default function Page({ params }: { params: Params }) {
   return (
     <InfoWrapper>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-[#131313]/60 p-3">
+        <InfoCard>
           <div className="flex w-full justify-between">
             <Link
               href={`/new/hex/${params.hex}`}
@@ -51,7 +52,7 @@ export default function Page({ params }: { params: Params }) {
               {animalHash(params.address)}
             </p>
           </div>
-        </div>
+        </InfoCard>
         <Insights />
         <ConnectedDevices />
         <TechInfo />
