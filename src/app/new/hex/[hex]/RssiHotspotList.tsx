@@ -1,12 +1,7 @@
+import { RssiPill } from "@/components/shared/RssiPill"
 import animalHash from "angry-purple-tiger"
 import clsx from "clsx"
 import Link from "next/link"
-
-export const getRssiColor = (rssi: number) => {
-  if (rssi >= 90) return "bg-[#FF4D00]"
-  if (rssi >= 70) return "bg-[#FFD600]"
-  return "bg-[#00FFF0]"
-}
 
 export type RssiHotspot = {
   address: string
@@ -38,12 +33,7 @@ export const RssiHotspotList = ({ hotspots, hex }: RssiHotspotListProps) => {
                 {animalHash(address)}
               </p>
               <div className="flex items-center gap-2">
-                <div
-                  className={clsx(
-                    "h-2 w-4 rounded-lg bg-[#FF4D00]",
-                    getRssiColor(rssi)
-                  )}
-                />
+                <RssiPill strength={rssi} />
                 <p className="text-sm leading-5 text-neutral-200">
                   RSSI: -{rssi} dBm
                 </p>

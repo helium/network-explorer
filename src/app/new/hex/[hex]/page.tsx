@@ -1,9 +1,9 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
+import { RssiPill } from "@/components/shared/RssiPill"
 import { XMarkIcon } from "@heroicons/react/24/outline"
-import clsx from "clsx"
 import Link from "next/link"
 import { RssiCoverage } from "./RssiCoverage"
-import { RssiHotspot, RssiHotspotList, getRssiColor } from "./RssiHotspotList"
+import { RssiHotspot, RssiHotspotList } from "./RssiHotspotList"
 import styles from "./page.module.css"
 
 export const metadata = {
@@ -107,12 +107,7 @@ export default function Page({ params }: { params: Params }) {
               Maximum Expected Signal Strength
             </p>
             <div className="flex items-center justify-between">
-              <div
-                className={clsx(
-                  "h-2 w-4 rounded-lg",
-                  getRssiColor(hotspotsInfo.max)
-                )}
-              />
+              <RssiPill strength={hotspotsInfo.max} />
               <div className="flex items-end gap-2">
                 <p className="text-3xl leading-6 text-neutral-200">
                   -{hotspotsInfo.max}

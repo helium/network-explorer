@@ -1,3 +1,4 @@
+import { RssiPill } from "@/components/shared/RssiPill"
 import Image from "next/image"
 import ConnectedDevicesIcon from "../../../../../../../public/connected-devices.png"
 
@@ -12,8 +13,8 @@ export const ConnectedDevices = () => {
           </p>
         </div>
         <div className="flex flex-col justify-around">
-          <div className="h-2.5 w-4 rounded-lg bg-[#0DFEE1]" />
-          <div className="h-2.5 w-4 rounded-lg bg-[#FFD600]" />
+          <RssiPill strength="low" />
+          <RssiPill strength="medium" />
         </div>
       </div>
     </div>
