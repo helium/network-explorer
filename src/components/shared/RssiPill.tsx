@@ -5,6 +5,7 @@ export type RssiStrength = "strong" | "medium" | "low" | number
 export type RssiPillProps = {
   strength: RssiStrength
   isCircle?: boolean
+  isEmpty?: boolean
 }
 
 export const getRssiColor = (strength: RssiStrength) => {
@@ -19,13 +20,17 @@ export const getRssiColor = (strength: RssiStrength) => {
   if (strength === "low") return "bg-[#01FFF0]"
 }
 
-export const RssiPill = ({ strength, isCircle = false }: RssiPillProps) => {
+export const RssiPill = ({
+  strength,
+  isCircle = false,
+  isEmpty = false,
+}: RssiPillProps) => {
   return (
     <div
       className={clsx(
         "h-2.5 w-4 rounded-lg",
         isCircle ? "w-2.5" : "w-4",
-        getRssiColor(strength)
+        !isEmpty ? getRssiColor(strength) : "border border-neutral-400"
       )}
     />
   )
