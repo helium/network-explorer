@@ -63,7 +63,11 @@ const PROVIDER_KEY = "provider"
 const DEFAULT_HOTSPOT_KEY =
   "112Y5Vn5wzsreeyCijSEiBWHJekJPJCELvvm9615GvVGWKfu99Ta"
 
-export const HotspotProviders = () => {
+type HotspotProvidersProps = {
+  address?: string
+}
+
+export const HotspotProviders = ({ address }: HotspotProvidersProps) => {
   const { provider, setProvider } = usePreferences()
   const searchParams = useSearchParams()
   const hotspotKey = searchParams.get("redirect") || DEFAULT_HOTSPOT_KEY
@@ -90,15 +94,13 @@ export const HotspotProviders = () => {
               "flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4",
               !isActive && "opacity-50"
             )}
+            onClick={() => {
+              localStorage.setItem(PROVIDER_KEY, label)
+              setProvider(providerItem)
+            }}
+            aria-label={`Select ${label}`}
           >
-            <div
-              aria-label={`Select ${label}`}
-              className={clsx("group flex w-full gap-2")}
-              onClick={() => {
-                localStorage.setItem(PROVIDER_KEY, label)
-                setProvider(providerItem)
-              }}
-            >
+            <div className={clsx("group flex w-full gap-2")}>
               {Icon}
               <p
                 className={clsx(
