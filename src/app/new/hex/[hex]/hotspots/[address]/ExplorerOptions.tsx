@@ -7,7 +7,11 @@ import { PreferencesProvider } from "@/context/usePreferences"
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 
-export const ExplorerOptions = () => {
+type ExplorerOptionsType = {
+  address: string
+}
+
+export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -31,7 +35,10 @@ export const ExplorerOptions = () => {
       <Overlay isOpen={isOpen} setIsOpen={setIsOpen}>
         <PreferencesProvider>
           <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
-            <HotspotProviders />
+            <HotspotProviders
+              address={address}
+              close={() => setIsOpen(false)}
+            />
           </div>
         </PreferencesProvider>
       </Overlay>

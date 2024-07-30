@@ -13,14 +13,19 @@ import {
 type PreferencesContext = {
   provider?: Provider
   setProvider: (provider: Provider) => void
+  savePreference: boolean
+  setSavePreference: (preference: boolean) => void
 }
 
 const PreferencesContext = createContext<PreferencesContext>({
   provider: undefined,
   setProvider: () => undefined,
+  savePreference: false,
+  setSavePreference: () => undefined,
 })
 
 const PROVIDER_KEY = "provider"
+const SAVE_PREFERENCE = "save_preference"
 const VERSION_KEY = "version"
 // change version to reset provider preference
 const VERSION = "3"
@@ -49,6 +54,17 @@ export const PreferencesProvider = ({ children }: PropsWithChildren) => {
       ? getProvider(getLocalValue(PROVIDER_KEY) || "")
       : NO_PREFERENCE
   )
+  const [savePreference, setSavePreference] = useState(
+    getLocalValue(SAVE_PREFERENCE) === "true"
+  )
+  const setSavePreferenceCB = useCallback(
+    (preference: boolean) => {
+      if (!!window)
+        localStorage?.setItem(SAVE_PREFERENCE, preference.toString())
+      setSavePreference(preference)
+    },
+    [setSavePreference]
+  )
 
   const setProviderCB = useCallback(
     (provider: Provider) => {
@@ -64,6 +80,8 @@ export const PreferencesProvider = ({ children }: PropsWithChildren) => {
       value={{
         provider,
         setProvider: setProviderCB,
+        savePreference,
+        setSavePreference: setSavePreferenceCB,
       }}
     >
       {children}

@@ -56,7 +56,7 @@ export default function Page({ params }: { params: Params }) {
         <Insights />
         <ConnectedDevices />
         <TechInfo />
-        <ExplorerOptions />
+        <ExplorerOptions address={params.address} />
       </div>
     </InfoWrapper>
   )

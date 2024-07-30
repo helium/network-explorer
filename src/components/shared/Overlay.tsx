@@ -12,7 +12,7 @@ export const Overlay = ({
   isOpen,
   setIsOpen,
 }: PropsWithChildren<OverlayProps>) => {
-  const closeSettings = useCallback(() => {
+  const closeOverlay = useCallback(() => {
     setIsOpen(false)
   }, [setIsOpen])
 
@@ -21,9 +21,9 @@ export const Overlay = ({
       show={isOpen}
       as={Fragment}
       appear
-      afterLeave={closeSettings}
+      afterLeave={closeOverlay}
     >
-      <Dialog as="div" className="relative z-50" onClose={closeSettings}>
+      <Dialog as="div" className="relative z-50" onClose={closeOverlay}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -48,7 +48,7 @@ export const Overlay = ({
           >
             <Dialog.Panel
               className={clsx(
-                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden bg-opacity-80 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900 dark:bg-opacity-100"
+                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-opacity-80 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900/70 dark:bg-opacity-100"
               )}
             >
               <p>{children}</p>

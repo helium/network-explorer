@@ -1,11 +1,8 @@
-"use client"
-
 import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
 import { MokenIcon } from "@/components/icons/MokenIcon"
 import { RelayIcon } from "@/components/icons/RelayIcon"
 import { usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
-import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
 
 export type Provider = {
@@ -59,20 +56,19 @@ const shuffle = <T,>(arr: T[]) => {
   return arr
 }
 
-const PROVIDER_KEY = "provider"
-const DEFAULT_HOTSPOT_KEY =
-  "112Y5Vn5wzsreeyCijSEiBWHJekJPJCELvvm9615GvVGWKfu99Ta"
-
 type HotspotProvidersProps = {
   address?: string
+  close?: () => void
 }
 
-export const HotspotProviders = ({ address }: HotspotProvidersProps) => {
-  const { provider, setProvider } = usePreferences()
-  const searchParams = useSearchParams()
-  const hotspotKey = searchParams.get("redirect") || DEFAULT_HOTSPOT_KEY
-
-  const providers = useMemo(() => [...shuffle(PROVIDERS), NO_PREFERENCE], [])
+export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
+  const { provider, setProvider, savePreference, setSavePreference } =
+    usePreferences()
+  const providers = useMemo(() => {
+    const shuffledProviders = [...shuffle(PROVIDERS)]
+    if (!address) shuffledProviders.push(NO_PREFERENCE)
+    return shuffledProviders
+  }, [address])
 
   return (
     <>
@@ -83,6 +79,19 @@ export const HotspotProviders = ({ address }: HotspotProvidersProps) => {
         You will be redirected to a external page to Helium if you need more
         information about the hotspot.
       </p>
+      {!!address && (
+        <label className="flex cursor-pointer items-center gap-2">
+          <input
+            className="h-[18px] w-[18px]  rounded-sm border border-neutral-200 bg-transparent checked:border checked:border-neutral-200 checked:bg-transparent"
+            type="checkbox"
+            checked={savePreference}
+            onChange={() => setSavePreference(!savePreference)}
+          />
+          <p className="text-sm text-neutral-200">
+            Set as default third-party explorer.
+          </p>
+        </label>
+      )}
       {providers.map((providerItem) => {
         const { label, Icon } = providerItem
         const isActive = provider?.label === label
@@ -91,12 +100,16 @@ export const HotspotProviders = ({ address }: HotspotProvidersProps) => {
             type="button"
             key={label}
             className={clsx(
-              "flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4",
+              "flex items-center gap-4 rounded-xl border border-neutral-200 bg-[#131313]/60 p-4",
               !isActive && "opacity-50"
             )}
             onClick={() => {
-              localStorage.setItem(PROVIDER_KEY, label)
-              setProvider(providerItem)
+              const shouldSetProvider = !address || savePreference
+              if (shouldSetProvider) setProvider(providerItem)
+              if (address) {
+                window.open(providerItem.getUrl(address))
+                if (!!close) close()
+              }
             }}
             aria-label={`Select ${label}`}
           >
@@ -110,14 +123,16 @@ export const HotspotProviders = ({ address }: HotspotProvidersProps) => {
                 {label}
               </p>
             </div>
-            <div className="flex items-center justify-center rounded-full border border-neutral-200 p-0.5">
-              <div
-                className={clsx(
-                  "h-3 w-3 rounded-full ",
-                  isActive && "bg-neutral-200"
-                )}
-              />
-            </div>
+            {!address && (
+              <div className="flex items-center justify-center rounded-full border border-neutral-200 p-0.5">
+                <div
+                  className={clsx(
+                    "h-3 w-3 rounded-full ",
+                    isActive && "bg-neutral-200"
+                  )}
+                />
+              </div>
+            )}
           </button>
         )
       })}
