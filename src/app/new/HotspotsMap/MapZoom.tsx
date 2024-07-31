@@ -17,14 +17,14 @@ export const MapZoom = () => {
   return (
     <div className="absolute right-6 top-24 flex flex-col gap-2">
       <button
-        className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60"
+        className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
         disabled={zoom === MAX_MAP_ZOOM}
         onClick={() => map.current?.zoomIn()}
       >
         <PlusIcon className="h-5 w-5 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
       </button>
       <button
-        className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60"
+        className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
         disabled={zoom === MIN_MAP_ZOOM}
         onClick={() => map.current?.zoomOut()}
       >

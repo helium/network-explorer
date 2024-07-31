@@ -48,7 +48,7 @@ export const Overlay = ({
           >
             <Dialog.Panel
               className={clsx(
-                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-opacity-80 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900/70 dark:bg-opacity-100"
+                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-opacity-80 shadow-2xl backdrop-blur transition-all dark:divide-opacity-20 dark:bg-gray-900/70 dark:bg-opacity-100"
               )}
             >
               <p>{children}</p>

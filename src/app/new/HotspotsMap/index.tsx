@@ -20,7 +20,6 @@ import Map, {
   MapProvider,
   MapRef,
   MapStyle,
-  NavigationControl,
   Source,
 } from "react-map-gl"
 import { ConnectionPower } from "./ConnectionPower"
@@ -160,11 +159,7 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
         ref={mapRef}
         attributionControl={false}
       >
-        {false && (
-          <NavigationControl position="bottom-left" showCompass={false} />
-        )}
         {children}
-
         {segment !== "mobile" && (
           <NetworkCoverageLayer layer={networkLayers.iot} />
         )}

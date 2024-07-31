@@ -10,7 +10,7 @@ export const SettingsTrigger = () => {
   }, [])
 
   return (
-    <div className="absolute bottom-6 left-6 flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60">
+    <div className="absolute bottom-6 left-6 flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur">
       <button onClick={() => setIsOpen(true)}>
         <Cog6ToothIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
       </button>

@@ -23,7 +23,7 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
         <div className="flex h-6 w-6 items-center justify-center">
           <ArrowTopRightOnSquareIcon className="h-5 w-5" />
         </div>
-        <div>
+        <div className="flex flex-col items-start">
           <p className="text-base font-medium leading-5 text-neutral-200">
             Open in Third-Party Explorer
           </p>

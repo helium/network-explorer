@@ -66,7 +66,7 @@ const Selector = ({
       </button>
       <div
         className={clsx(
-          "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 px-3 py-3",
+          "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 px-3 py-3 backdrop-blur",
           showOptions ? "flex" : "hidden"
         )}
       >
@@ -98,10 +98,10 @@ export const Nav = () => {
           <Logo />
         </div>
         <div className="flex gap-2">
-          <div className="flex items-center rounded-xl bg-[#131313]/60 px-3">
+          <div className="flex items-center rounded-xl bg-[#131313]/60 px-3 backdrop-blur">
             <Search />
           </div>
-          <div className="flex gap-4 rounded-xl bg-[#131313]/60 px-3 py-3">
+          <div className="flex gap-4 rounded-xl bg-[#131313]/60 px-3 py-3 backdrop-blur">
             <Selector
               options={[
                 { name: "Modeled Coverage" },
