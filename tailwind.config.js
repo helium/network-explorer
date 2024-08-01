@@ -18,7 +18,11 @@ module.exports = {
       "8xl": ["6rem", { lineHeight: "1" }],
       "9xl": ["8rem", { lineHeight: "1" }],
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-dm-sans)"],
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),

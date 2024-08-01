@@ -4,11 +4,18 @@ import { Header } from "@/components/Header"
 import { Providers } from "@/components/Providers"
 import "@/styles/tailwind.css"
 import "focus-visible"
+import { DM_Sans } from "next/font/google"
 import Head from "next/head"
 import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
 import { HotspotsMap } from "./new/HotspotsMap"
 import { Nav } from "./new/Nav/Nav"
+
+const dm_sans = DM_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-dm-sans",
+})
 
 export const metadata = {
   manifest: "/manifest.json",
@@ -56,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={dm_sans.variable}>
       <Head>
         <link
           rel="preconnect"
