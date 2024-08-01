@@ -21,8 +21,16 @@
       "emissionsPerEpoch": 70491803
     },
     {
-      "startTime": "2024-01-09T00:00:01Z",
-      "emissionsPerEpoch": 78688525
+      "startTime": "2024-08-01T00:00:01Z",
+      "emissionsPerEpoch": 82191780
+    },
+    {
+      "startTime": "2025-08-01T00:00:01Z",
+      "emissionsPerEpoch": 41095890
+    },
+    {
+      "startTime": "2027-08-01T00:00:01Z",
+      "emissionsPerEpoch": 20491803
     }
   ],
   "iot": [
@@ -35,8 +43,16 @@
       "emissionsPerEpoch": 82581967
     },
     {
-      "startTime": "2024-08-01T00:00:00Z",
-      "emissionsPerEpoch": 82808219
+      "startTime": "2024-08-01T00:00:01Z",
+      "emissionsPerEpoch": 89041095
+    },
+    {
+      "startTime": "2025-08-01T00:00:01Z",
+      "emissionsPerEpoch": 44520547
+    },
+    {
+      "startTime": "2027-08-01T00:00:01Z",
+      "emissionsPerEpoch": 22199453
     }
   ]
 }
