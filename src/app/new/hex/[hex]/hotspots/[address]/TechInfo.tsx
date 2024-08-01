@@ -1,11 +1,11 @@
 "use client"
 
 import { InfoCard } from "@/components/shared/InfoCard"
+import LatitudeIcon from "@public/latitude.png"
+import LongitudeIcon from "@public/longitude.png"
+import TechInfoIcon from "@public/tech-info.png"
 import Image from "next/image"
 import { PropsWithChildren, useState } from "react"
-import LatitudeIcon from "../../../../../../../public/latitude.png"
-import LongitudeIcon from "../../../../../../../public/longitude.png"
-import TechInfoIcon from "../../../../../../../public/tech-info.png"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (

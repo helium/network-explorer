@@ -4,7 +4,7 @@ import { InfoCard } from "@/components/shared/InfoCard"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import { useState } from "react"
-import Hotspot from "../../../../../../../public/hotspot.png"
+import Hotspot from "@public/hotspot.png"
 
 const Divider = () => <div className="w-full border-t border-neutral-400" />
 

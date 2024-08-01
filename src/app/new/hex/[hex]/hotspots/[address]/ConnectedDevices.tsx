@@ -2,9 +2,9 @@
 
 import { InfoCard } from "@/components/shared/InfoCard"
 import { RssiPill } from "@/components/shared/RssiPill"
+import ConnectedDevicesIcon from "@public/connected-devices.png"
 import Image from "next/image"
 import { useState } from "react"
-import ConnectedDevicesIcon from "../../../../../../../public/connected-devices.png"
 
 export const ConnectedDevices = () => {
   const [showDetails, setShowDetails] = useState(false)
