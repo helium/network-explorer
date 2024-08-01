@@ -8,6 +8,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
 import { ReactElement, useState } from "react"
+import styles from "./Nav.module.css"
 import { Search } from "./Search"
 
 const Logo = () => {
@@ -66,8 +67,9 @@ const Selector = ({
       </button>
       <div
         className={clsx(
-          "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 px-3 py-3 backdrop-blur",
-          showOptions ? "flex" : "hidden"
+          "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 p-3",
+          showOptions ? "flex" : "hidden",
+          styles.blur
         )}
       >
         {options.map((network) => (
@@ -101,7 +103,9 @@ export const Nav = () => {
           <div className="flex items-center rounded-xl bg-[#131313]/60 px-3 backdrop-blur">
             <Search />
           </div>
-          <div className="flex gap-4 rounded-xl bg-[#131313]/60 px-3 py-3 backdrop-blur">
+          <div
+            className={`relative flex gap-4 rounded-xl bg-[#131313]/60 p-3 ${styles.blur}`}
+          >
             <Selector
               options={[
                 { name: "Modeled Coverage" },
