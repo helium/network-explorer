@@ -17,20 +17,22 @@ export const ConnectedDevices = () => {
     <InfoCard>
       <div className="flex w-full justify-between">
         <button
-          className="group flex w-full items-center justify-start gap-3"
+          className="group flex w-full items-center justify-between gap-3"
           onClick={() => setShowDetails((currentVal) => !currentVal)}
         >
-          <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
-          <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
-            Connected Devices
-          </p>
+          <div className="flex items-center gap-3">
+            <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
+            <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
+              Connected Devices
+            </p>
+          </div>
+          {!showDetails && (
+            <button className="flex h-full flex-col justify-around">
+              <RssiPill strength="low" isEmpty={!mappers} />
+              <RssiPill strength="medium" isEmpty={!dimo} />
+            </button>
+          )}
         </button>
-        {!showDetails && (
-          <button className="flex flex-col justify-around">
-            <RssiPill strength="low" isEmpty={!mappers} />
-            <RssiPill strength="medium" isEmpty={!dimo} />
-          </button>
-        )}
       </div>
       {showDetails && (
         <>

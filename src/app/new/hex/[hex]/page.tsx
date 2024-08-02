@@ -95,13 +95,13 @@ export default function Page({ params }: { params: Params }) {
         </div>
         <Divider />
         <div className="flex w-full gap-2">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-1 flex-col gap-2">
             <p className="text-sm font-medium leading-5 text-neutral-200">
               Hotspots covering this area
             </p>
             <p className="text-3xl leading-6 text-neutral-200">4</p>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-1 flex-col gap-2">
             <p className="text-sm font-medium leading-5 text-neutral-200">
               Max Expected Signal Strength
             </p>
