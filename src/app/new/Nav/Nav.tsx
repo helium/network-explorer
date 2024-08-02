@@ -56,27 +56,29 @@ const Selector = ({
   const [showOptions, setShowOptions] = useState(false)
 
   return (
-    <div className={clsx("relative flex justify-end gap-2", width)}>
+    <div className={clsx("relative flex justify-between gap-2", width)}>
       <button
-        className="group flex items-center justify-end gap-2"
+        className="group flex w-full items-center justify-between gap-2"
         onClick={() => setShowOptions((current) => !current)}
       >
-        {selected.Icon}
-        <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
-          {selected.name}
-        </p>
+        <div className="flex gap-2">
+          {selected.Icon}
+          <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
+            {selected.name}
+          </p>
+        </div>
         <ChevronDownIcon className="h-3 w-3 stroke-neutral-200 group-hover:stroke-neutral-100" />
       </button>
       <div
         className={clsx(
-          "absolute -left-2 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 p-3",
+          "absolute -left-3 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 p-3",
           showOptions ? "flex" : "hidden",
           styles.blur
         )}
       >
         {options.map((network) => (
           <button
-            className="group flex justify-between gap-2"
+            className="justify-left group flex gap-2"
             key={network.name}
             onClick={() => {
               setSelected(network)
