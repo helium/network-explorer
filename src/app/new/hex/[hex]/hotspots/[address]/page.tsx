@@ -1,6 +1,7 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
 import { InfoCard } from "@/components/shared/InfoCard"
 import { InfoWrapper } from "@/components/shared/InfoWrapper"
+import { PreferencesProvider } from "@/context/usePreferences"
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import HotspotWaves from "@public/hotspot-waves.png"
 import animalHash from "angry-purple-tiger"
@@ -56,7 +57,9 @@ export default function Page({ params }: { params: Params }) {
         <Insights />
         <ConnectedDevices />
         <TechnicalInfo />
-        <ExplorerOptions address={params.address} />
+        <PreferencesProvider>
+          <ExplorerOptions address={params.address} />
+        </PreferencesProvider>
       </div>
     </InfoWrapper>
   )

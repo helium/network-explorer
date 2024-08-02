@@ -8,6 +8,7 @@ import { DM_Sans } from "next/font/google"
 import Head from "next/head"
 import { Suspense } from "react"
 import "react-tooltip/dist/react-tooltip.css"
+import styles from "./layout.module.css"
 import { HotspotsMap } from "./new/HotspotsMap"
 import { Nav } from "./new/Nav/Nav"
 
@@ -63,7 +64,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={dm_sans.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${dm_sans.variable} ${styles.overall}`}
+    >
       <Head>
         <link
           rel="preconnect"

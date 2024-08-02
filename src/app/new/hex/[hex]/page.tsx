@@ -103,7 +103,7 @@ export default function Page({ params }: { params: Params }) {
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium leading-5 text-neutral-200">
-              Maximum Expected Signal Strength
+              Max Expected Signal Strength
             </p>
             <div className="flex items-center justify-between">
               <RssiPill strength={hotspotsInfo.max} />
