@@ -56,13 +56,13 @@ export const ThemeToggle = () => {
             type="button"
             key={label}
             className={clsx(
-              "flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4",
+              "group flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4 hover:opacity-100",
               !isActive && "opacity-50"
             )}
           >
             <div
               aria-label={`Select ${label}`}
-              className={clsx("group flex w-full gap-2")}
+              className={clsx("flex w-full gap-2")}
               onClick={() => setTheme(value)}
             >
               {Icon}

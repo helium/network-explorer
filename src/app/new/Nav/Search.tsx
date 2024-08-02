@@ -127,7 +127,7 @@ export function Search() {
             <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-24">
+          <div className="fixed inset-0 overflow-y-auto p-4 backdrop-blur-sm sm:p-6 md:p-24">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

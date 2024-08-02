@@ -17,11 +17,11 @@ export const ConnectedDevices = () => {
     <InfoCard>
       <div className="flex w-full justify-between">
         <button
-          className="flex w-full items-center justify-start gap-3"
+          className="group flex w-full items-center justify-start gap-3"
           onClick={() => setShowDetails((currentVal) => !currentVal)}
         >
           <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
-          <p className="text-base font-medium text-neutral-200">
+          <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
             Connected Devices
           </p>
         </button>

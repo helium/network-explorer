@@ -28,17 +28,17 @@ const SettingsMain = ({
           <p className="text-lg font-medium text-neutral-200">Settings</p>
         </div>
         <button onClick={close}>
-          <XMarkIcon className="h-8 w-8 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+          <XMarkIcon className="h-8 w-8 stroke-neutral-200 transition hover:stroke-zinc-700 dark:stroke-zinc-400 hover:dark:stroke-zinc-100" />
         </button>
       </div>
       <Divider />
       <button
-        className="flex w-full justify-between"
+        className="group flex w-full items-center justify-between"
         onClick={() => setSetting("provider")}
       >
         <div className="flex items-center gap-2">
-          <ArrowTopRightOnSquareIcon className="h-6 w-6 stroke-neutral-200 dark:stroke-zinc-400" />
-          <p className="text-base font-medium text-neutral-200">
+          <ArrowTopRightOnSquareIcon className="h-6 w-6 stroke-neutral-200 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+          <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
             Third-Party Explorer
           </p>
         </div>
@@ -46,12 +46,14 @@ const SettingsMain = ({
       </button>
       <Divider />
       <button
-        className="flex w-full justify-between"
+        className="group flex w-full items-center justify-between"
         onClick={() => setSetting("theme")}
       >
         <div className="flex items-center gap-2">
-          <MoonIcon className="h-6 w-6 stroke-neutral-200 dark:stroke-zinc-400" />
-          <p className="text-base font-medium text-neutral-200">Mode</p>
+          <MoonIcon className="h-6 w-6 stroke-neutral-200 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+          <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
+            Mode
+          </p>
         </div>
         <ChevronRightIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
       </button>
@@ -70,7 +72,7 @@ export const Settings = ({ close }: { close: () => void }) => {
         {setting !== "main" && (
           <>
             <button onClick={() => setSetting("main")}>
-              <ChevronLeftIcon className="h-8 w-8 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+              <ChevronLeftIcon className="h-8 w-8 stroke-neutral-200 transition hover:stroke-zinc-700 dark:stroke-zinc-400 hover:dark:stroke-zinc-100" />
             </button>
             {setting === "provider" && <HotspotProviders />}
             {setting === "theme" && <ThemeToggle />}

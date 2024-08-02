@@ -35,8 +35,8 @@ export const PROVIDERS: Provider[] = [
 export const NO_PREFERENCE: Provider = {
   Icon: (
     <div className="flex flex-col justify-center gap-1">
-      <div className="h-2 w-6 rounded-sm border-2 border-neutral-200" />
-      <div className="h-2 w-6 rounded-sm border-2 border-neutral-200" />
+      <div className="h-2 w-6 rounded-sm border-2 border-neutral-200 transition group-hover:border-blue-400" />
+      <div className="h-2 w-6 rounded-sm border-2 border-neutral-200 transition group-hover:border-blue-400" />
     </div>
   ),
   label: "Ask me before opening",
@@ -80,14 +80,14 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
         information about the hotspot.
       </p>
       {!!address && (
-        <label className="flex cursor-pointer items-center gap-2">
+        <label className="group flex cursor-pointer items-center gap-2">
           <input
             className="h-[18px] w-[18px]  rounded-sm border border-neutral-200 bg-transparent checked:border checked:border-neutral-200 checked:bg-transparent"
             type="checkbox"
             checked={savePreference}
             onChange={() => setSavePreference(!savePreference)}
           />
-          <p className="text-sm text-neutral-200">
+          <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
             Set as default third-party explorer.
           </p>
         </label>
@@ -100,8 +100,9 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
             type="button"
             key={label}
             className={clsx(
-              "flex items-center gap-4 rounded-xl border border-neutral-200 bg-[#131313]/60 p-4",
-              !isActive && "opacity-50"
+              "group flex items-center gap-4 rounded-xl border border-neutral-200 bg-[#131313]/60 p-4",
+              !isActive && "opacity-50",
+              "transition hover:border-blue-400 hover:opacity-100"
             )}
             onClick={() => {
               const shouldSetProvider = !address || savePreference

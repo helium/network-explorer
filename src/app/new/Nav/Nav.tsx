@@ -58,12 +58,14 @@ const Selector = ({
   return (
     <div className={clsx("relative flex justify-end gap-2", width)}>
       <button
-        className="flex items-center justify-end gap-2 "
+        className="group flex items-center justify-end gap-2"
         onClick={() => setShowOptions((current) => !current)}
       >
         {selected.Icon}
-        <p className="text-sm text-neutral-200">{selected.name}</p>
-        <ChevronDownIcon className="h-3 w-3 stroke-neutral-200" />
+        <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
+          {selected.name}
+        </p>
+        <ChevronDownIcon className="h-3 w-3 stroke-neutral-200 group-hover:stroke-neutral-100" />
       </button>
       <div
         className={clsx(
@@ -74,7 +76,7 @@ const Selector = ({
       >
         {options.map((network) => (
           <button
-            className="flex justify-between gap-2"
+            className="group flex justify-between gap-2"
             key={network.name}
             onClick={() => {
               setSelected(network)
@@ -82,7 +84,9 @@ const Selector = ({
             }}
           >
             {network.Icon}
-            <p className="text-sm text-neutral-200">{network.name}</p>
+            <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
+              {network.name}
+            </p>
           </button>
         ))}
       </div>
@@ -115,7 +119,7 @@ export const Nav = () => {
             />
             <Divider />
             <Link href="/stats">
-              <span className="text-sm text-neutral-200 underline">
+              <span className="text-sm text-neutral-200 underline hover:text-neutral-100">
                 Network Stats
               </span>
             </Link>

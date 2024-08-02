@@ -27,17 +27,17 @@ const Body = ({ children }: PropsWithChildren) => {
   return <p className="text-sm  leading-5 text-neutral-200">{children}</p>
 }
 
-export const TechInfo = () => {
+export const TechnicalInfo = () => {
   const [showDetails, setShowDetails] = useState(false)
 
   return (
     <InfoCard>
       <button
-        className="flex w-full items-center justify-start gap-3"
+        className="group flex w-full items-center justify-start gap-3"
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />
-        <p className="text-base font-medium text-neutral-200">
+        <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
           Technical Information
         </p>
       </button>

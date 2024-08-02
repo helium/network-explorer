@@ -2,9 +2,9 @@
 
 import { InfoCard } from "@/components/shared/InfoCard"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
+import Hotspot from "@public/hotspot.png"
 import Image from "next/image"
 import { useState } from "react"
-import Hotspot from "@public/hotspot.png"
 
 const Divider = () => <div className="w-full border-t border-neutral-400" />
 
@@ -14,11 +14,11 @@ export const Insights = () => {
   return (
     <InfoCard>
       <button
-        className="button flex w-full items-center gap-3"
+        className="button group flex w-full items-center gap-3"
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
-        <p className="text-base font-medium text-neutral-200">
+        <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
           Hotspot Insights
         </p>
       </button>
