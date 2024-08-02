@@ -9,22 +9,18 @@ import { PropsWithChildren, useState } from "react"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
-    <p className="mb-0.5 text-sm font-medium leading-5 text-neutral-200">
-      {children}
-    </p>
-  )
-}
-
-const BodyBig = ({ children }: PropsWithChildren) => {
-  return (
-    <p className="text-base font-medium leading-5 text-neutral-200">
+    <p className="text-neutral-white mb-0.5 text-sm font-medium leading-5 opacity-80">
       {children}
     </p>
   )
 }
 
 const Body = ({ children }: PropsWithChildren) => {
-  return <p className="text-sm  leading-5 text-neutral-200">{children}</p>
+  return (
+    <p className="text-neutral-white text-base font-medium leading-5">
+      {children}
+    </p>
+  )
 }
 
 export const TechnicalInfo = () => {
@@ -37,7 +33,7 @@ export const TechnicalInfo = () => {
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />
-        <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
+        <p className="text-base font-medium text-white group-hover:text-neutral-200">
           Technical Information
         </p>
       </button>
@@ -45,19 +41,19 @@ export const TechnicalInfo = () => {
         <>
           <div className="w-full">
             <Header>Online Time</Header>
-            <BodyBig>3y 45m 27d 17:34:56</BodyBig>
+            <Body>3y 45m 27d 17:34:56</Body>
           </div>
           <div className="w-full">
             <Header>Hotspot manufacturer</Header>
-            <BodyBig>Cisco Systems</BodyBig>
+            <Body>Cisco Systems</Body>
           </div>
           <div className="w-full">
             <Header>Antenna gain</Header>
-            <BodyBig>250.7 mb</BodyBig>
+            <Body>250.7 mb</Body>
           </div>
           <div className="w-full">
             <Header>Antenna elevation</Header>
-            <BodyBig>+15 ft</BodyBig>
+            <Body>+15 ft</Body>
           </div>
           <div className="flex w-full gap-4">
             <div className="flex-1">

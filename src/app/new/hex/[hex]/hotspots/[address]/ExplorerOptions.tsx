@@ -23,10 +23,10 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
           <ArrowTopRightOnSquareIcon className="h-5 w-5" />
         </div>
         <div className="flex flex-col items-start">
-          <p className="text-base font-medium leading-5 text-neutral-200 group-hover:text-neutral-100">
+          <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
             Open in Third-Party Explorer
           </p>
-          <p className="text-sm leading-5 text-neutral-400 group-hover:text-neutral-300">
+          <p className="text-sm leading-5 text-[#DBE0E6] opacity-75 group-hover:opacity-100">
             You haven&apos;t set this up yet
           </p>
         </div>

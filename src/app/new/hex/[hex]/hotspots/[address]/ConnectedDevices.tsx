@@ -22,7 +22,7 @@ export const ConnectedDevices = () => {
         >
           <div className="flex items-center gap-3">
             <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
-            <p className="text-base font-medium text-neutral-200 group-hover:text-neutral-100">
+            <p className="text-base font-medium text-white group-hover:text-neutral-200">
               Connected Devices
             </p>
           </div>
@@ -37,7 +37,7 @@ export const ConnectedDevices = () => {
       {showDetails && (
         <>
           <button
-            className="flex h-12 w-full items-center justify-between rounded-xl border border-neutral-400 p-4"
+            className="group flex h-12 w-full items-center justify-between rounded-xl border border-[#7C7E81]/30 p-4 hover:border-[#7C7E81]"
             onClick={() =>
               setPreferences((preferences) => ({
                 ...preferences,
@@ -45,13 +45,13 @@ export const ConnectedDevices = () => {
               }))
             }
           >
-            <p className="text-sm font-medium leading-5 text-neutral-200">
+            <p className="text-sm font-medium leading-5 text-white group-hover:text-neutral-200">
               Mappers
             </p>
             <RssiPill strength="low" isEmpty={!mappers} />
           </button>
           <button
-            className="flex h-12 w-full items-center justify-between rounded-xl border border-neutral-400 p-4"
+            className="group flex h-12 w-full items-center justify-between rounded-xl border border-[#7C7E81]/30 p-4 hover:border-[#7C7E81]"
             onClick={() =>
               setPreferences((preferences) => ({
                 ...preferences,
@@ -59,7 +59,7 @@ export const ConnectedDevices = () => {
               }))
             }
           >
-            <p className="text-sm font-medium leading-5 text-neutral-200">
+            <p className="text-sm font-medium leading-5 text-white group-hover:text-neutral-200">
               DIMO
             </p>
             <RssiPill strength="medium" isEmpty={!dimo} />

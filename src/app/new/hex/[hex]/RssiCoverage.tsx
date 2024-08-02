@@ -14,7 +14,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <p className="text-sm font-medium leading-5 text-neutral-200">
+      <p className="text-sm font-medium leading-5 text-white opacity-80">
         RSSI area coverage (dBm)
       </p>
       <div className="display flex">
@@ -52,8 +52,8 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
             <RssiPill strength="strong" isCircle />
           </div>
           <div className="flex flex-col items-end">
-            <p className="text-sm leading-4 text-neutral-200">-90 dBm</p>
-            <p className="text-xs leading-3 text-neutral-200">
+            <p className="text-sm leading-4 text-white">-90 dBm</p>
+            <p className="text-xs leading-3 text-white opacity-80">
               {strong} Hotspots
             </p>
           </div>
@@ -63,8 +63,8 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
             <RssiPill strength="medium" isCircle />
           </div>
           <div className="flex flex-col items-end">
-            <p className="text-sm leading-4 text-neutral-200">-70 dBm</p>
-            <p className="text-xs leading-3 text-neutral-200">
+            <p className="text-sm leading-4 text-white">-70 dBm</p>
+            <p className="text-xs leading-3 text-white opacity-80">
               {medium} Hotspot
             </p>
           </div>
@@ -74,8 +74,10 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
             <RssiPill strength="low" isCircle />
           </div>
           <div className="flex flex-col items-end">
-            <p className="text-sm leading-4 text-neutral-200">-50 dBm</p>
-            <p className="text-xs leading-3 text-neutral-200">{low} Hotspot</p>
+            <p className="text-sm leading-4 text-white">-50 dBm</p>
+            <p className="text-xs leading-3 text-white opacity-80">
+              {low} Hotspot
+            </p>
           </div>
         </div>
       </div>

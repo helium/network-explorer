@@ -84,10 +84,12 @@ export default function Page({ params }: { params: Params }) {
         <Divider />
         <div className="w-full">
           <div className="flex w-full justify-between">
-            <p className="text-sm font-medium text-neutral-200">Area Info</p>
-            <p className="text-sm text-neutral-400">Powered by Kuzco</p>
+            <p className="text-sm font-medium text-white opacity-80">
+              Area Info
+            </p>
+            <p className="text-sm text-white opacity-50">Powered by Kuzco</p>
           </div>
-          <p className="text-sm leading-5 text-neutral-200">
+          <p className="pt-1 text-sm leading-5 text-white opacity-80">
             Arroyo Grande is a city in San Luis Obispo County, California,
             United States. Its population is 15,851 inhabitants according to the
             2000 census.
@@ -96,22 +98,22 @@ export default function Page({ params }: { params: Params }) {
         <Divider />
         <div className="flex w-full gap-2">
           <div className="flex flex-1 flex-col gap-2">
-            <p className="text-sm font-medium leading-5 text-neutral-200">
+            <p className="text-sm font-medium leading-5 text-white opacity-80">
               Hotspots covering this area
             </p>
-            <p className="text-3xl leading-6 text-neutral-200">4</p>
+            <p className="text-3xl leading-6 text-white">4</p>
           </div>
           <div className="flex flex-1 flex-col gap-2">
-            <p className="text-sm font-medium leading-5 text-neutral-200">
+            <p className="text-sm font-medium leading-5 text-white opacity-80">
               Max Expected Signal Strength
             </p>
             <div className="flex items-center justify-between">
               <RssiPill strength={hotspotsInfo.max} />
               <div className="flex items-end gap-2">
-                <p className="text-3xl leading-6 text-neutral-200">
+                <p className="text-3xl leading-6 text-white">
                   -{hotspotsInfo.max}
                 </p>
-                <p className="text-sm leading-3 text-neutral-200">dBm</p>
+                <p className="text-sm leading-3 text-white">dBm</p>
               </div>
             </div>
           </div>

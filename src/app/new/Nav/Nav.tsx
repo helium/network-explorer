@@ -63,11 +63,11 @@ const Selector = ({
       >
         <div className="flex gap-2">
           {selected.Icon}
-          <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
+          <p className="text-sm text-[#DBE0E6] opacity-75 group-hover:opacity-100">
             {selected.name}
           </p>
         </div>
-        <ChevronDownIcon className="h-3 w-3 stroke-neutral-200 group-hover:stroke-neutral-100" />
+        <ChevronDownIcon className="h-3 w-3 stroke-[#DBE0E6] opacity-75 group-hover:opacity-100" />
       </button>
       <div
         className={clsx(
@@ -86,7 +86,7 @@ const Selector = ({
             }}
           >
             {network.Icon}
-            <p className="text-sm text-neutral-200 group-hover:text-neutral-100">
+            <p className="text-sm text-[#DBE0E6] opacity-75 group-hover:opacity-100">
               {network.name}
             </p>
           </button>
@@ -121,7 +121,7 @@ export const Nav = () => {
             />
             <Divider />
             <Link href="/stats">
-              <span className="text-sm text-neutral-200 hover:text-neutral-100">
+              <span className="text-sm text-[#DBE0E6] opacity-75 hover:opacity-100">
                 Network Stats
               </span>
             </Link>
