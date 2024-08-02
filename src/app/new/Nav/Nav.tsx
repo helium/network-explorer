@@ -119,7 +119,7 @@ export const Nav = () => {
             />
             <Divider />
             <Link href="/stats">
-              <span className="text-sm text-neutral-200 underline hover:text-neutral-100">
+              <span className="text-sm text-neutral-200 hover:text-neutral-100">
                 Network Stats
               </span>
             </Link>

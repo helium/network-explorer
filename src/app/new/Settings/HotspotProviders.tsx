@@ -77,7 +77,7 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
       </p>
       <p className="text-sm text-neutral-200">
         You will be redirected to a external page to Helium if you need more
-        information about the hotspot.
+        information about the Hotspot.
       </p>
       {!!address && (
         <label className="group flex cursor-pointer items-center gap-2">

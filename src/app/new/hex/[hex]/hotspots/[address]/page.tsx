@@ -35,7 +35,7 @@ export default function Page({ params }: { params: Params }) {
             >
               <ArrowLeftIcon className="h-4 w-4 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-neutral-200 group-hover:dark:stroke-neutral-100" />
               <p className="text-sm text-neutral-200 underline group-hover:text-neutral-100">
-                Back to hotspots list
+                Back to Hotspots list
               </p>
             </Link>
             <Link href="/new" className="flex items-center">

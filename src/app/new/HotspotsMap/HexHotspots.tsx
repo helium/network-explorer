@@ -23,9 +23,9 @@ const RECENT = "recently rewarded"
 const NOT_RECENT = "not recently rewarded"
 
 const TOOLTIP_DESCRIPTIONS = {
-  [RECENT]: "A hotspot that has received rewards in the past 30 days.",
+  [RECENT]: "A Hotspot that has received rewards in the past 30 days.",
   [NOT_RECENT]:
-    "A hotspot that has not received rewards in the past 30 days. Such a hotstop is most likely offline. It is also possible for it to be online but not rewarded if it is not transmitting data, not participating in PoC, or only recently online.",
+    "A Hotspot that has not received rewards in the past 30 days. Such a hotstop is most likely offline. It is also possible for it to be online but not rewarded if it is not transmitting data, not participating in PoC, or only recently online.",
 }
 
 function getGroupedHotspots(hotspots: Hotspot[]) {

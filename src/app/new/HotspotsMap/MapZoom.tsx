@@ -1,4 +1,5 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline"
+import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { useMap } from "react-map-gl"
 import { MAX_MAP_ZOOM, MIN_MAP_ZOOM } from "./utils"
@@ -14,21 +15,41 @@ export const MapZoom = () => {
     return () => clearInterval(interval)
   }, [map, setCurrentZoom])
 
+  const isZoomInDisabled = zoom === MAX_MAP_ZOOM
+  const isZoomOutDisabled = zoom === MIN_MAP_ZOOM
+  console.log({ zoom, isZoomInDisabled, isZoomOutDisabled, MAX_MAP_ZOOM })
+
   return (
     <div className="absolute right-6 top-24 flex flex-col gap-2">
       <button
-        className="group flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
-        disabled={zoom === MAX_MAP_ZOOM}
+        className={clsx(
+          "group flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
+        )}
+        disabled={isZoomInDisabled}
         onClick={() => map.current?.zoomIn()}
       >
-        <PlusIcon className="h-5 w-5 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+        <PlusIcon
+          className={clsx(
+            "h-5 w-5 stroke-neutral-200 transition dark:stroke-zinc-400 ",
+            !isZoomInDisabled &&
+              "group-hover:stroke-zinc-700 group-hover:dark:stroke-zinc-100"
+          )}
+        />
       </button>
       <button
-        className="group flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
-        disabled={zoom === MIN_MAP_ZOOM}
+        className={clsx(
+          "group flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
+        )}
+        disabled={isZoomOutDisabled}
         onClick={() => map.current?.zoomOut()}
       >
-        <MinusIcon className="h-5 w-5 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+        <MinusIcon
+          className={clsx(
+            "h-5 w-5 stroke-neutral-200 transition dark:stroke-zinc-400 ",
+            !isZoomOutDisabled &&
+              "group-hover:stroke-zinc-700 group-hover:dark:stroke-zinc-100"
+          )}
+        />
       </button>
     </div>
   )

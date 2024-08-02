@@ -33,7 +33,7 @@ export const Insights = () => {
               <CheckCircleIcon className="h-6 w-6 stroke-[#4CED00]" />
             </div>
             <p className="text-sm leading-5 text-neutral-200">
-              This hotspot has transferred data in the last 30 days.
+              This Hotspot has transferred data in the last 30 days.
             </p>
           </div>
           <Divider />
