@@ -10,7 +10,10 @@ import { usePreferences } from "@/context/usePreferences"
 import {
   ArrowTopRightOnSquareIcon,
   Cog6ToothIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline"
+import ConnectedDots from "@public/connected-dots.png"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -62,10 +65,18 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
       )}
       <Overlay isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
-          <HotspotProviders
-            address={hasNoPreference ? address : ""}
-            close={() => setIsOpen(false)}
-          />
+          <div>
+            <div className="mb-2 flex items-center justify-between">
+              <Image src={ConnectedDots} alt="Connected Dots" />
+              <button aria-label="Close" onClick={() => setIsOpen(false)}>
+                <XMarkIcon className="h-8 w-8 stroke-white opacity-80 transition hover:opacity-100" />
+              </button>
+            </div>
+            <HotspotProviders
+              address={hasNoPreference ? address : ""}
+              close={() => setIsOpen(false)}
+            />
+          </div>
         </div>
       </Overlay>
     </InfoCard>

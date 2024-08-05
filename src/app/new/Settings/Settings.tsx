@@ -28,7 +28,7 @@ const SettingsMain = ({
           <Cog6ToothIcon className="h-8 w-8 stroke-white dark:stroke-[#DBE0E6]" />
           <p className="text-lg font-medium text-white">Settings</p>
         </div>
-        <button onClick={close}>
+        <button aria-label="Close" onClick={close}>
           <XMarkIcon className="h-8 w-8 stroke-white transition hover:stroke-zinc-700 dark:stroke-[#DBE0E6] hover:dark:stroke-zinc-100" />
         </button>
       </div>
