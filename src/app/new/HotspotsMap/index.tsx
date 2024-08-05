@@ -5,6 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css"
 import { Protocol } from "pmtiles"
 
 import { gaEvent } from "@/components/GATracker"
+import { PreferencesProvider } from "@/context/usePreferences"
 import { cellToLatLng, cellsToMultiPolygon, getResolution } from "h3-js"
 import { useTheme } from "next-themes"
 import {
@@ -141,38 +142,40 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
 
   return (
     <MapProvider>
-      <Map
-        initialViewState={INITIAL_MAP_VIEW_STATE}
-        minZoom={MIN_MAP_ZOOM}
-        maxZoom={MAX_MAP_ZOOM}
-        style={MAP_CONTAINER_STYLE}
-        mapStyle={mapStyle}
-        localFontFamily="NotoSans-Regular"
-        // @ts-ignore
-        mapLib={maplibregl}
-        interactiveLayerIds={["hexes_layer"]}
-        onLoad={selectHexByPathname}
-        onClick={onClick}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        cursor={cursor}
-        ref={mapRef}
-        attributionControl={false}
-      >
-        {children}
-        {segment !== "mobile" && (
-          <NetworkCoverageLayer layer={networkLayers.iot} />
-        )}
+      <PreferencesProvider>
+        <Map
+          initialViewState={INITIAL_MAP_VIEW_STATE}
+          minZoom={MIN_MAP_ZOOM}
+          maxZoom={MAX_MAP_ZOOM}
+          style={MAP_CONTAINER_STYLE}
+          mapStyle={mapStyle}
+          localFontFamily="NotoSans-Regular"
+          // @ts-ignore
+          mapLib={maplibregl}
+          interactiveLayerIds={["hexes_layer"]}
+          onLoad={selectHexByPathname}
+          onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          cursor={cursor}
+          ref={mapRef}
+          attributionControl={false}
+        >
+          {children}
+          {segment !== "mobile" && (
+            <NetworkCoverageLayer layer={networkLayers.iot} />
+          )}
 
-        {selectedHex && (
-          <Source type="geojson" data={selectedHex.geojson}>
-            <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
-          </Source>
-        )}
-        <MapZoom />
-        <ConnectionPower />
-        <SettingsTrigger />
-      </Map>
+          {selectedHex && (
+            <Source type="geojson" data={selectedHex.geojson}>
+              <Layer type="line" paint={getHexOutlineStyle(resolvedTheme)} />
+            </Source>
+          )}
+          <MapZoom />
+          <ConnectionPower />
+          <SettingsTrigger isAbsolute />
+        </Map>
+      </PreferencesProvider>
     </MapProvider>
   )
 }

@@ -17,7 +17,6 @@ export const MapZoom = () => {
 
   const isZoomInDisabled = zoom === MAX_MAP_ZOOM
   const isZoomOutDisabled = zoom === MIN_MAP_ZOOM
-  console.log({ zoom, isZoomInDisabled, isZoomOutDisabled, MAX_MAP_ZOOM })
 
   return (
     <div className="absolute right-6 top-24 flex flex-col gap-2">

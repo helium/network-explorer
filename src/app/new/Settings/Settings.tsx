@@ -1,4 +1,3 @@
-import { PreferencesProvider } from "@/context/usePreferences"
 import {
   ArrowTopRightOnSquareIcon,
   ChevronLeftIcon,
@@ -66,21 +65,19 @@ const SettingsMain = ({
 export const Settings = ({ close }: { close: () => void }) => {
   const [setting, setSetting] = useState("main")
   return (
-    <PreferencesProvider>
-      <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
-        {setting === "main" && (
-          <SettingsMain close={close} setSetting={setSetting} />
-        )}
-        {setting !== "main" && (
-          <>
-            <button onClick={() => setSetting("main")}>
-              <ChevronLeftIcon className="h-8 w-8 stroke-white transition hover:stroke-zinc-700 dark:stroke-[#F2F2F2] hover:dark:stroke-zinc-100" />
-            </button>
-            {setting === "provider" && <HotspotProviders />}
-            {setting === "theme" && <ThemeToggle />}
-          </>
-        )}
-      </div>
-    </PreferencesProvider>
+    <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
+      {setting === "main" && (
+        <SettingsMain close={close} setSetting={setSetting} />
+      )}
+      {setting !== "main" && (
+        <>
+          <button onClick={() => setSetting("main")}>
+            <ChevronLeftIcon className="h-8 w-8 stroke-white transition hover:stroke-zinc-700 dark:stroke-[#F2F2F2] hover:dark:stroke-zinc-100" />
+          </button>
+          {setting === "provider" && <HotspotProviders />}
+          {setting === "theme" && <ThemeToggle />}
+        </>
+      )}
+    </div>
   )
 }

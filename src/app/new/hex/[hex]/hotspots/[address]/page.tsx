@@ -1,7 +1,6 @@
 import { HexOutlineIcon } from "@/components/icons/HexOutlineIcon"
 import { InfoCard } from "@/components/shared/InfoCard"
 import { InfoWrapper } from "@/components/shared/InfoWrapper"
-import { PreferencesProvider } from "@/context/usePreferences"
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import HotspotWaves from "@public/hotspot-waves.png"
 import animalHash from "angry-purple-tiger"
@@ -20,10 +19,6 @@ type Params = {
   hex: string
   address: string
 }
-
-const Divider = () => (
-  <div className="w-full border-t border-[#898C8F] opacity-50" />
-)
 
 export default function Page({ params }: { params: Params }) {
   return (
@@ -61,9 +56,7 @@ export default function Page({ params }: { params: Params }) {
         <Insights />
         <ConnectedDevices />
         <TechnicalInfo />
-        <PreferencesProvider>
-          <ExplorerOptions address={params.address} />
-        </PreferencesProvider>
+        <ExplorerOptions address={params.address} />
       </div>
     </InfoWrapper>
   )
