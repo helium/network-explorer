@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-export type RssiStrength = "strong" | "medium" | "low" | number
+export type RssiStrength = "strong" | "medium" | "low" | "coverage" | number
 
 export type RssiPillProps = {
   strength: RssiStrength
@@ -18,6 +18,8 @@ export const getRssiColor = (strength: RssiStrength) => {
   if (strength === "strong") return "bg-[#FF4D00]"
   if (strength === "medium") return "bg-[#FFD600]"
   if (strength === "low") return "bg-[#01FFF0]"
+  if (strength === "coverage")
+    return "bg-gradient-to-r from-[#01FFF0] via-[#FFD600] to-[#FF4D00]"
 }
 
 export const RssiPill = ({

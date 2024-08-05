@@ -4,6 +4,7 @@ import { EnergyIcon } from "@/components/icons/EnergyIcon"
 import { HeliumIcon2 } from "@/components/icons/HeliumIcon2"
 import { IotIcon } from "@/components/icons/IotIcon"
 import { MobileIcon } from "@/components/icons/MobileIcon"
+import { RssiPill } from "@/components/shared/RssiPill"
 import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
@@ -40,6 +41,11 @@ const NETWORKS = [
   },
 ]
 
+const MAP_SETTINGS = [
+  { name: "Modeled Coverage", Icon: <RssiPill strength="coverage" /> },
+  { name: "Hotspot Location", Icon: <RssiPill strength="low" /> },
+]
+
 type Option = {
   Icon?: ReactElement
   name: string
@@ -61,7 +67,7 @@ const Selector = ({
         className="group flex w-full items-center justify-between gap-2"
         onClick={() => setShowOptions((current) => !current)}
       >
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           {selected.Icon}
           <p className="text-sm text-[#DBE0E6] opacity-75 group-hover:opacity-100">
             {selected.name}
@@ -78,7 +84,7 @@ const Selector = ({
       >
         {options.map((network) => (
           <button
-            className="justify-left group flex gap-2"
+            className="justify-left group flex items-center gap-2"
             key={network.name}
             onClick={() => {
               setSelected(network)
@@ -112,13 +118,7 @@ export const Nav = () => {
           <div
             className={`relative flex gap-4 rounded-xl bg-[#131313]/60 p-3 ${styles.blur}`}
           >
-            <Selector
-              options={[
-                { name: "Modeled Coverage" },
-                { name: "Hotspot Location" },
-              ]}
-              width="w-36"
-            />
+            <Selector options={MAP_SETTINGS} width="w-44" />
             <Divider />
             <Link href="/stats">
               <span className="text-sm text-[#DBE0E6] opacity-75 hover:opacity-100">
