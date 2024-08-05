@@ -1,6 +1,5 @@
 "use client"
 
-import { SettingsTrigger } from "@/app/new/HotspotsMap/SettingsTrigger"
 import {
   HotspotProviders,
   NO_PREFERENCE,
@@ -8,7 +7,10 @@ import {
 import { InfoCard } from "@/components/shared/InfoCard"
 import { Overlay } from "@/components/shared/Overlay"
 import { usePreferences } from "@/context/usePreferences"
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline"
+import {
+  ArrowTopRightOnSquareIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -53,12 +55,17 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
               Open with {provider?.label}
             </p>
           </Link>
-          <SettingsTrigger />
+          <button onClick={() => setIsOpen(() => true)}>
+            <Cog6ToothIcon className="h-6 w-6 stroke-neutral-200 transition hover:stroke-zinc-700 dark:stroke-zinc-400 hover:dark:stroke-zinc-100" />
+          </button>
         </div>
       )}
       <Overlay isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
-          <HotspotProviders address={address} close={() => setIsOpen(false)} />
+          <HotspotProviders
+            address={hasNoPreference ? address : ""}
+            close={() => setIsOpen(false)}
+          />
         </div>
       </Overlay>
     </InfoCard>

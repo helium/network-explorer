@@ -1,6 +1,10 @@
 "use client"
+
 import { NO_PREFERENCE } from "@/app/new/Settings/HotspotProviders"
-import { PROVIDERS, Provider } from "@/app/preferences/components/ProviderList"
+import { Provider } from "@/app/preferences/components/ProviderList"
+import { HotspottyIcon } from "@/components/icons/HotspottyIcon"
+import { MokenIcon } from "@/components/icons/MokenIcon"
+import { RelayIcon } from "@/components/icons/RelayIcon"
 import {
   PropsWithChildren,
   createContext,
@@ -9,6 +13,40 @@ import {
   useEffect,
   useState,
 } from "react"
+
+const shuffle = <T,>(arr: T[]) => {
+  let i = arr.length,
+    j,
+    temp
+  while (--i > 0) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+  }
+  return arr
+}
+
+export const PROVIDERS: Provider[] = shuffle([
+  {
+    Icon: <HotspottyIcon className="h-6 w-6 text-[#9546ea]" />,
+    label: "Hotspotty",
+    getUrl: (hotspotId: string) =>
+      `https://app.hotspotty.net/hotspots/${hotspotId}/rewards`,
+  },
+  {
+    Icon: <MokenIcon />,
+    label: "Moken",
+    getUrl: (hotspotId: string) =>
+      `https://explorer.moken.io/hotspots/${hotspotId}`,
+  },
+  {
+    Icon: <RelayIcon />,
+    label: "Relay",
+    getUrl: (hotspotId: string) =>
+      `https://explorer.relaywireless.com/hotspots/${hotspotId}`,
+  },
+])
 
 type PreferencesContext = {
   provider?: Provider
