@@ -1,3 +1,9 @@
 .wrapper {
   max-height: calc(100vh - 24 * 4px - 24px);
+  scrollbar-gutter: stable;
+  scrollbar-color: #404040b3 transparent; /*firefox*/
+}
+.wrapper::-webkit-scrollbar {
+  border: none;
+  background-color: transparent;
 }
