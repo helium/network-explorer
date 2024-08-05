@@ -3,6 +3,8 @@ import { InfoCard } from "@/components/shared/InfoCard"
 import { InfoWrapper } from "@/components/shared/InfoWrapper"
 import { RssiPill } from "@/components/shared/RssiPill"
 import { XMarkIcon } from "@heroicons/react/24/outline"
+import KuzcoLogo from "@public/kuzco-logo.png"
+import Image from "next/image"
 import Link from "next/link"
 import { RssiCoverage } from "./RssiCoverage"
 import { RssiHotspot, RssiHotspotList } from "./RssiHotspotList"
@@ -87,7 +89,10 @@ export default function Page({ params }: { params: Params }) {
             <p className="text-sm font-medium text-white opacity-80">
               Area Info
             </p>
-            <p className="text-sm text-white opacity-50">Powered by Kuzco</p>
+            <div className="flex items-center gap-0.5 opacity-50">
+              <Image src={KuzcoLogo} alt="Kuzco Logo" />
+              <p className="text-sm text-white ">Powered by Kuzco</p>
+            </div>
           </div>
           <p className="pt-1 text-sm leading-5 text-white opacity-80">
             Arroyo Grande is a city in San Luis Obispo County, California,
