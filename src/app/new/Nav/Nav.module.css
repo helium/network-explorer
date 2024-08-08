@@ -15,3 +15,12 @@
 .text {
   text-rendering: geometricPrecision;
 }
+
+.wrapper {
+  scrollbar-gutter: stable;
+  scrollbar-color: #404040b3 transparent; /*firefox*/
+}
+.wrapper::-webkit-scrollbar {
+  border: none;
+  background-color: transparent;
+}

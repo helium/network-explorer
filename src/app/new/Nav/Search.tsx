@@ -167,7 +167,10 @@ export function Search() {
                     {searchResults.length > 0 && (
                       <Combobox.Options
                         static
-                        className="max-h-80 scroll-py-2 divide-gray-500 divide-opacity-10 overflow-y-auto rounded-xl bg-[#131313]/60 dark:divide-opacity-20"
+                        className={clsx(
+                          "max-h-80 scroll-py-2 divide-gray-500 divide-opacity-10 overflow-y-auto rounded-xl bg-[#131313]/60 dark:divide-opacity-20",
+                          styles.wrapper
+                        )}
                       >
                         <li className="p-1">
                           <ul className="text-sm text-neutral-200 dark:text-gray-400">
