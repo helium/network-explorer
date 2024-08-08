@@ -29,9 +29,10 @@ export const MapZoom = () => {
       >
         <PlusIcon
           className={clsx(
-            "h-5 w-5 stroke-neutral-200 transition dark:stroke-zinc-400 ",
+            "h-8 w-8 rounded-lg stroke-[#DBE0E6] p-1.5 opacity-75 transition group-disabled:stroke-[#64686D]",
             !isZoomInDisabled &&
-              "group-hover:stroke-zinc-700 group-hover:dark:stroke-zinc-100"
+              "group-hover:bg-[#8A8A8A]/20 group-hover:stroke-white group-hover:opacity-100",
+            isZoomOutDisabled && "cursor-not-allowed"
           )}
         />
       </button>
@@ -44,9 +45,10 @@ export const MapZoom = () => {
       >
         <MinusIcon
           className={clsx(
-            "h-5 w-5 stroke-neutral-200 transition dark:stroke-zinc-400 ",
+            "h-8 w-8 rounded-lg stroke-[#DBE0E6] p-1.5 opacity-75 transition group-disabled:stroke-[#64686D]",
             !isZoomOutDisabled &&
-              "group-hover:stroke-zinc-700 group-hover:dark:stroke-zinc-100"
+              "group-hover:bg-[#8A8A8A]/20 group-hover:stroke-white group-hover:opacity-100",
+            isZoomOutDisabled && "cursor-not-allowed"
           )}
         />
       </button>

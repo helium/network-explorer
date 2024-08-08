@@ -11,3 +11,7 @@
   border-radius: 12px;
   z-index: -1;
 }
+
+.text {
+  text-rendering: geometricPrecision;
+}

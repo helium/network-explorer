@@ -1,24 +1,33 @@
 "use client"
 
+import { Coverage } from "@/components/icons/Coverage"
 import { EnergyIcon } from "@/components/icons/EnergyIcon"
 import { HeliumIcon2 } from "@/components/icons/HeliumIcon2"
 import { IotIcon } from "@/components/icons/IotIcon"
 import { MobileIcon } from "@/components/icons/MobileIcon"
 import { RssiPill } from "@/components/shared/RssiPill"
-import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
-import { ReactElement, useState } from "react"
 import styles from "./Nav.module.css"
 import { Search } from "./Search"
+import { Selector } from "./Selector"
 
 const Logo = () => {
   return (
-    <Link href="/" aria-label="Home" className={clsx("pointer-events-auto")}>
-      <div className="group flex items-center gap-2">
-        <HeliumIcon2 className="h-7 w-7 fill-zinc-600 transition group-hover:fill-zinc-800 dark:fill-zinc-200 dark:group-hover:fill-zinc-100" />
-      </div>
-    </Link>
+    <div className="rounded-xl bg-[#131313]/30 p-1 backdrop-blur">
+      <Link
+        href="/"
+        aria-label="Home"
+        className={clsx(
+          "group pointer-events-auto flex items-center gap-2 rounded-lg p-1 transition hover:bg-[#8A8A8A]/20"
+        )}
+      >
+        <div className="flex items-center gap-2">
+          <HeliumIcon2 className="h-7 w-7 fill-zinc-600 transition group-hover:fill-zinc-800 dark:fill-zinc-200 dark:group-hover:fill-zinc-100" />
+        </div>
+        <Coverage />
+      </Link>
+    </div>
   )
 }
 
@@ -46,63 +55,7 @@ const MAP_SETTINGS = [
   { name: "Hotspot Location", Icon: <RssiPill strength="low" /> },
 ]
 
-type Option = {
-  Icon?: ReactElement
-  name: string
-}
-
-const Selector = ({
-  options,
-  width,
-}: {
-  options: Option[]
-  width?: string
-}) => {
-  const [selected, setSelected] = useState(options[0])
-  const [showOptions, setShowOptions] = useState(false)
-
-  return (
-    <div className={clsx("relative flex justify-between gap-2", width)}>
-      <button
-        className="group flex w-full items-center justify-between gap-2"
-        onClick={() => setShowOptions((current) => !current)}
-      >
-        <div className="flex items-center gap-2">
-          {selected.Icon}
-          <p className="text-sm text-[#DBE0E6] opacity-75 group-hover:opacity-100">
-            {selected.name}
-          </p>
-        </div>
-        <ChevronDownIcon className="h-3 w-3 stroke-[#DBE0E6] opacity-75 group-hover:opacity-100" />
-      </button>
-      <div
-        className={clsx(
-          "absolute -left-3 top-12 flex flex-col gap-2 rounded-xl bg-[#131313]/60 p-3",
-          showOptions ? "flex" : "hidden",
-          styles.blur
-        )}
-      >
-        {options.map((network) => (
-          <button
-            className="justify-left group flex items-center gap-2"
-            key={network.name}
-            onClick={() => {
-              setSelected(network)
-              setShowOptions(false)
-            }}
-          >
-            {network.Icon}
-            <p className="text-sm text-[#DBE0E6] opacity-75 group-hover:opacity-100">
-              {network.name}
-            </p>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const Divider = () => <div className="border-l border-neutral-700" />
+const Divider = () => <div className="h-2/3 w-[1px] bg-[#FFFFFF]/20" />
 
 export const Nav = () => {
   return (
@@ -112,15 +65,18 @@ export const Nav = () => {
           <Logo />
         </div>
         <div className="flex gap-2">
-          <div className="flex items-center rounded-xl bg-[#131313]/60 px-3 backdrop-blur">
+          <div className="flex items-center rounded-xl bg-[#131313]/60 px-1 backdrop-blur">
             <Search />
           </div>
           <div
-            className={`relative flex gap-4 rounded-xl bg-[#131313]/60 p-3 ${styles.blur}`}
+            className={`relative flex gap-1 rounded-xl bg-[#131313]/60 p-1 ${styles.blur} items-center`}
           >
-            <Selector options={MAP_SETTINGS} width="w-44" />
+            <Selector options={MAP_SETTINGS} width="w-48" />
             <Divider />
-            <Link href="/stats">
+            <Link
+              href="/stats"
+              className="rounded-lg px-3 py-2 hover:bg-[#8A8A8A]/30"
+            >
               <span className="text-sm text-[#DBE0E6] opacity-75 hover:opacity-100">
                 Network Stats
               </span>

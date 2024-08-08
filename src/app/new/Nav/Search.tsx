@@ -108,10 +108,10 @@ export function Search() {
       <button
         type="button"
         aria-label="Open Hotspot search"
-        className="group"
+        className="group rounded-lg p-2 transition hover:bg-[#8A8A8A]/20"
         onClick={() => setOpen(true)}
       >
-        <MagnifyingGlassIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+        <MagnifyingGlassIcon className="h-6 w-6 stroke-[#DBE0E6] opacity-75 transition group-hover:opacity-100" />
       </button>
       <Transition.Root show={open} as={Fragment} appear>
         <Dialog as="div" className="relative z-50" onClose={setOpen}>
