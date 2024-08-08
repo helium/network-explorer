@@ -11,6 +11,7 @@ import { isValidCell } from "h3-js"
 import { useRouter } from "next/navigation"
 import { Fragment, useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
+import styles from "./Nav.module.css"
 
 let controller: AbortController | null = null
 
@@ -127,7 +128,9 @@ export function Search() {
             <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto p-4 backdrop-blur-sm sm:p-6 md:p-24">
+          <div
+            className={`fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-24 ${styles.blur}`}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -137,91 +140,101 @@ export function Search() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-[#131313]/60 shadow-2xl transition-all dark:divide-opacity-20 dark:bg-gray-900 dark:bg-opacity-100">
+              <Dialog.Panel className="mx-auto flex max-w-2xl flex-col gap-2 overflow-hidden transition-all">
                 <Combobox onChange={handleHotspotSelection}>
-                  <div className="relative">
-                    {isLoading ? (
-                      <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-neutral-200 text-opacity-40 dark:text-gray-500 dark:text-opacity-100" />
-                    ) : (
-                      <MagnifyingGlassIcon
-                        className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-neutral-200 text-opacity-40 dark:text-gray-500 dark:text-opacity-100"
-                        aria-hidden="true"
+                  <div className="flex flex-col gap-2">
+                    <div className="relative">
+                      {isLoading ? (
+                        <LoadingIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 animate-spin text-neutral-200 text-opacity-40 dark:text-gray-500 dark:text-opacity-100" />
+                      ) : (
+                        <MagnifyingGlassIcon
+                          className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 stroke-[#DBE0E6] opacity-75"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <Combobox.Input
+                        className="h-12 w-full rounded-xl border-0 bg-[#131313]/60 pl-11 pr-4 text-neutral-200 focus:ring-0 dark:text-white sm:text-sm"
+                        placeholder="Search Hotspot by name..."
+                        type="search"
+                        onChange={(event) => {
+                          const value = event.target.value
+                          setQuery(value)
+                          onChangeSearch.call(null, value)
+                        }}
                       />
+                    </div>
+
+                    {searchResults.length > 0 && (
+                      <Combobox.Options
+                        static
+                        className="max-h-80 scroll-py-2 divide-gray-500 divide-opacity-10 overflow-y-auto rounded-xl bg-[#131313]/60 dark:divide-opacity-20"
+                      >
+                        <li className="p-1">
+                          <ul className="text-sm text-neutral-200 dark:text-gray-400">
+                            {searchResults
+                              .slice(0, RESULTS_LIMIT)
+                              .map((hotspot) => {
+                                const Avatar =
+                                  hotspot.hotspotType === "iot"
+                                    ? HeliumIotIcon
+                                    : HeliumMobileIcon
+                                return (
+                                  <Combobox.Option
+                                    key={hotspot.address}
+                                    value={hotspot}
+                                    className={({ active }) =>
+                                      clsx(
+                                        "flex cursor-pointer select-none items-center rounded-md px-4 py-3",
+                                        active &&
+                                          "bg-[#8A8A8A]/20 dark:text-white"
+                                      )
+                                    }
+                                  >
+                                    {({ active }) => (
+                                      <>
+                                        <Avatar
+                                          className="h-6 w-6 flex-none"
+                                          aria-hidden="true"
+                                        />
+                                        <span
+                                          className={clsx(
+                                            "ml-3 flex-auto truncate capitalize text-[#DBE0E6]",
+                                            active
+                                              ? "opacity-100"
+                                              : "opacity-75"
+                                          )}
+                                        >
+                                          {hotspot.name.replaceAll("-", " ")}
+                                        </span>
+                                        {active && (
+                                          <span className="ml-3 flex-none text-[#DBE0E6]">
+                                            Go to Hotspot
+                                          </span>
+                                        )}
+                                      </>
+                                    )}
+                                  </Combobox.Option>
+                                )
+                              })}
+                          </ul>
+                        </li>
+                      </Combobox.Options>
                     )}
 
-                    <Combobox.Input
-                      className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-neutral-200 focus:ring-0 dark:text-white sm:text-sm"
-                      placeholder="Search Hotspot by name..."
-                      type="search"
-                      onChange={(event) => {
-                        const value = event.target.value
-                        setQuery(value)
-                        onChangeSearch.call(null, value)
-                      }}
-                    />
+                    {query !== "" &&
+                      searchResults.length === 0 &&
+                      !isLoading && (
+                        <div className="rounded-xl bg-[#131313]/60 px-6 py-14 text-center sm:px-14">
+                          <QuestionMarkCircleIcon
+                            className="mx-auto h-12 w-12 text-neutral-200 dark:text-gray-500"
+                            aria-hidden="true"
+                          />
+                          <p className="mt-4 text-sm text-neutral-200 dark:text-gray-200">
+                            We couldn&#39;t find matching Hotspots...
+                          </p>
+                        </div>
+                      )}
                   </div>
-
-                  {searchResults.length > 0 && (
-                    <Combobox.Options
-                      static
-                      className="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto dark:divide-opacity-20"
-                    >
-                      <li className="p-2">
-                        <ul className="text-sm text-neutral-200 dark:text-gray-400">
-                          {searchResults
-                            .slice(0, RESULTS_LIMIT)
-                            .map((hotspot) => {
-                              const Avatar =
-                                hotspot.hotspotType === "iot"
-                                  ? HeliumIotIcon
-                                  : HeliumMobileIcon
-                              return (
-                                <Combobox.Option
-                                  key={hotspot.address}
-                                  value={hotspot}
-                                  className={({ active }) =>
-                                    clsx(
-                                      "flex cursor-pointer select-none items-center rounded-md px-3 py-3",
-                                      active &&
-                                        "bg-gray-900 bg-opacity-5 text-neutral-200 dark:bg-gray-800 dark:bg-opacity-100 dark:text-white"
-                                    )
-                                  }
-                                >
-                                  {({ active }) => (
-                                    <>
-                                      <Avatar
-                                        className="h-6 w-6 flex-none"
-                                        aria-hidden="true"
-                                      />
-                                      <span className="ml-3 flex-auto truncate capitalize">
-                                        {hotspot.name.replaceAll("-", " ")}
-                                      </span>
-                                      {active && (
-                                        <span className="ml-3 flex-none text-gray-500 dark:text-gray-400">
-                                          Go to Hotspot
-                                        </span>
-                                      )}
-                                    </>
-                                  )}
-                                </Combobox.Option>
-                              )
-                            })}
-                        </ul>
-                      </li>
-                    </Combobox.Options>
-                  )}
-
-                  {query !== "" && searchResults.length === 0 && !isLoading && (
-                    <div className="px-6 py-14 text-center sm:px-14">
-                      <QuestionMarkCircleIcon
-                        className="mx-auto h-12 w-12 text-neutral-200 dark:text-gray-500"
-                        aria-hidden="true"
-                      />
-                      <p className="mt-4 text-sm text-neutral-200 dark:text-gray-200">
-                        We couldn&#39;t find matching Hotspots...
-                      </p>
-                    </div>
-                  )}
                 </Combobox>
               </Dialog.Panel>
             </Transition.Child>
