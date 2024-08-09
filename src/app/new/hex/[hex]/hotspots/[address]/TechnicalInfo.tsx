@@ -6,7 +6,6 @@ import LongitudeIcon from "@public/longitude.png"
 import TechInfoIcon from "@public/tech-info.png"
 import Image from "next/image"
 import { PropsWithChildren, useState } from "react"
-import styles from "./page.module.css"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
@@ -28,7 +27,7 @@ export const TechnicalInfo = () => {
   return (
     <InfoCard active={showDetails} reducedPadding>
       <button
-        className={`group flex w-full items-center justify-start gap-2 ${styles.button} w-full rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+        className={`group flex w-full items-center justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />

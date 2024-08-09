@@ -6,7 +6,6 @@ import ConnectedDevicesIcon from "@public/connected-devices.png"
 import clsx from "clsx"
 import Image from "next/image"
 import { useState } from "react"
-import styles from "./page.module.css"
 
 export const ConnectedDevices = () => {
   const [showDetails, setShowDetails] = useState(false)
@@ -19,7 +18,7 @@ export const ConnectedDevices = () => {
     <InfoCard reducedPadding active={showDetails}>
       <div className="flex w-full justify-between">
         <button
-          className={`group flex w-full items-center justify-between gap-2 ${styles.button} w-full rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+          className={`group flex w-full items-center justify-between gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
           onClick={() => setShowDetails((currentVal) => !currentVal)}
         >
           <div className="flex items-center gap-2">

@@ -12,10 +12,6 @@
   z-index: -1;
 }
 
-.text {
-  text-rendering: geometricPrecision;
-}
-
 .wrapper {
   scrollbar-gutter: stable;
   scrollbar-color: #404040b3 transparent; /*firefox*/

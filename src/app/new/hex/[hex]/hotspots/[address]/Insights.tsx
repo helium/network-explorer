@@ -5,7 +5,6 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import Hotspot from "@public/hotspot.png"
 import Image from "next/image"
 import { useState } from "react"
-import styles from "./page.module.css"
 
 export const Insights = () => {
   const [showDetails, setShowDetails] = useState(false)
@@ -13,7 +12,7 @@ export const Insights = () => {
   return (
     <InfoCard reducedPadding active={showDetails}>
       <button
-        className={`group flex items-center gap-2 ${styles.button} w-full rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+        className={`group flex w-full items-center gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />

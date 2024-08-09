@@ -16,7 +16,6 @@ import ConnectedDots from "@public/connected-dots.png"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import styles from "./page.module.css"
 
 type ExplorerOptionsType = {
   address: string
@@ -31,7 +30,7 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
     <InfoCard reducedPadding>
       {hasNoPreference && (
         <button
-          className={`group flex w-full justify-start gap-2 ${styles.button} rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+          className={`group flex w-full justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
           onClick={() => setIsOpen(() => true)}
         >
           <div className="flex h-6 w-6 items-center justify-center">
@@ -52,7 +51,7 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
           <Link
             href={provider!.getUrl(address)}
             target="_blank"
-            className={`group flex w-full items-center justify-start gap-2 ${styles.button} rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+            className={`group flex w-full items-center justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
           >
             {provider?.Icon}
             <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">

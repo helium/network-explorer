@@ -27,7 +27,7 @@ export const Selector = ({
         <div className="flex items-center gap-2">
           {selected.Icon}
           <p
-            className={`text-sm text-[#DBE0E6] opacity-75 transition group-hover:opacity-100 ${styles.text}`}
+            className={`text-sm text-[#DBE0E6] opacity-75 transition group-hover:opacity-100`}
           >
             {selected.name}
           </p>
