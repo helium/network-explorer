@@ -1,3 +1,4 @@
+import { RadioCircles } from "@/components/shared/RadioCircles"
 import { PROVIDERS, usePreferences } from "@/context/usePreferences"
 import clsx from "clsx"
 import { useMemo } from "react"
@@ -67,8 +68,8 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
                 type="button"
                 key={label}
                 className={clsx(
-                  "group rounded-xl border border-[#7C7E81]/30 p-1 transition hover:border-[#7C7E81]",
-                  isActive && "bg-[#131313]/75"
+                  "group rounded-xl border border-[#7C7E81]/30 p-1 transition hover:border-[#7C7E81] hover:opacity-100",
+                  isActive ? "bg-[#131313]/75" : "opacity-80"
                 )}
                 onClick={() => {
                   const shouldSetProvider = !address || savePreference
@@ -76,6 +77,10 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
                   if (address) {
                     window.open(providerItem.getUrl(address))
                     if (!!close) close()
+                  } else {
+                    if (providerItem.label === NO_PREFERENCE.label && !!close) {
+                      close()
+                    }
                   }
                 }}
                 aria-label={`Select ${label}`}
@@ -87,16 +92,7 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
                       {label}
                     </p>
                   </div>
-                  {!address && (
-                    <div className="flex items-center justify-center rounded-full border border-[#DBE0E6] p-0.5">
-                      <div
-                        className={clsx(
-                          "h-3 w-3 rounded-full ",
-                          isActive && "bg-[#DBE0E6]"
-                        )}
-                      />
-                    </div>
-                  )}
+                  <RadioCircles isActive={isActive} />
                 </div>
               </button>
             )

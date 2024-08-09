@@ -1,5 +1,6 @@
 "use client"
 
+import { RadioCircles } from "@/components/shared/RadioCircles"
 import {
   ComputerDesktopIcon,
   MoonIcon,
@@ -74,14 +75,7 @@ export const ThemeToggle = () => {
                 {label}
               </p>
             </div>
-            <div className="flex items-center justify-center rounded-full border border-white p-0.5">
-              <div
-                className={clsx(
-                  "h-3 w-3 rounded-full ",
-                  isActive && "bg-white"
-                )}
-              />
-            </div>
+            <RadioCircles isActive={isActive} />
           </button>
         )
       })}
