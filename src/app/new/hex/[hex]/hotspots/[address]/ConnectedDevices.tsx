@@ -41,7 +41,7 @@ export const ConnectedDevices = () => {
           <button
             className={clsx(
               "group flex h-12 w-full items-center justify-between rounded-xl border border-[#7C7E81]/30 hover:border-[#7C7E81]",
-              mappers ? "bg-[#131313]/30" : "inactive"
+              mappers && "bg-[#131313]/30"
             )}
             onClick={() =>
               setPreferences((preferences) => ({
@@ -60,7 +60,7 @@ export const ConnectedDevices = () => {
           <button
             className={clsx(
               "group flex h-12 w-full items-center justify-between rounded-xl border border-[#7C7E81]/30 hover:border-[#7C7E81]",
-              dimo ? "bg-[#131313]/30" : "inactive"
+              dimo && "bg-[#131313]/30"
             )}
             onClick={() =>
               setPreferences((preferences) => ({

@@ -68,9 +68,9 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
         </div>
       )}
       <Overlay isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/60 px-8 py-6">
+        <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/50 px-8 py-6">
           <div>
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <Image src={ConnectedDots} alt="Connected Dots" />
               <button aria-label="Close" onClick={() => setIsOpen(false)}>
                 <XMarkIcon className="h-8 w-8 stroke-white opacity-80 transition hover:opacity-100" />
