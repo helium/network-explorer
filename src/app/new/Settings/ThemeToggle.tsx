@@ -13,35 +13,17 @@ const THEMES = [
   {
     label: "Toggle dark mode",
     value: "dark",
-    Icon: (
-      <MoonIcon
-        className={clsx(
-          "h-6 w-6 stroke-neutral-200 transition group-hover:stroke-blue-500 dark:group-hover:stroke-blue-400"
-        )}
-      />
-    ),
+    Icon: <MoonIcon className={clsx("h-6 w-6 stroke-[#DBE0E6]")} />,
   },
   {
     label: "Toggle light mode",
     value: "light",
-    Icon: (
-      <SunIcon
-        className={clsx(
-          "h-6 w-6 stroke-neutral-200 transition group-hover:stroke-blue-500 dark:group-hover:stroke-blue-400"
-        )}
-      />
-    ),
+    Icon: <SunIcon className={clsx("h-6 w-6 stroke-[#DBE0E6]")} />,
   },
   {
     label: "Toggle browser settings",
     value: "system",
-    Icon: (
-      <ComputerDesktopIcon
-        className={clsx(
-          "h-6 w-6 stroke-neutral-200 transition group-hover:stroke-blue-500 dark:group-hover:stroke-blue-400"
-        )}
-      />
-    ),
+    Icon: <ComputerDesktopIcon className={clsx("h-6 w-6 stroke-[#DBE0E6]")} />,
   },
 ]
 
@@ -57,25 +39,21 @@ export const ThemeToggle = () => {
             type="button"
             key={label}
             className={clsx(
-              "group flex items-center gap-4 rounded-xl bg-[#131313]/60 p-4 hover:opacity-100",
-              !isActive && "opacity-50"
+              "group flex items-center gap-4 rounded-xl border border-[#7C7E81]/30 p-1 hover:opacity-100",
+              isActive ? "bg-[#131313]/75" : "opacity-80"
             )}
           >
-            <div
-              aria-label={`Select ${label}`}
-              className={clsx("flex w-full gap-2")}
-              onClick={() => setTheme(value)}
-            >
-              {Icon}
-              <p
-                className={clsx(
-                  "text-white transition group-hover:text-blue-500 dark:group-hover:text-blue-400"
-                )}
+            <div className="flex w-full items-center gap-4 rounded-xl p-3 group-hover:bg-[#8A8A8A]/20">
+              <div
+                aria-label={`Select ${label}`}
+                className={clsx("flex w-full gap-2")}
+                onClick={() => setTheme(value)}
               >
-                {label}
-              </p>
+                {Icon}
+                <p className={clsx("text-[#DBE0E6]/80")}>{label}</p>
+              </div>
+              <RadioCircles isActive={isActive} />
             </div>
-            <RadioCircles isActive={isActive} />
           </button>
         )
       })}

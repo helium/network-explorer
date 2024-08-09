@@ -36,7 +36,12 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
 
   return (
     <div className="flex flex-col">
-      <p className="text-2xl font-medium leading-8 text-white">
+      <p
+        className={clsx(
+          "text-2xl font-medium leading-8 text-white",
+          !address && "mb-4"
+        )}
+      >
         Select a Third-Party Explorer
       </p>
       <div className="mt-1.5 flex flex-col gap-6">
