@@ -36,7 +36,7 @@ export const Selector = ({
       </button>
       <div
         className={clsx(
-          "absolute -left-3 top-12 flex flex-col gap-0.5 rounded-xl bg-[#131313]/60 p-0.5",
+          "absolute -left-1 top-12 flex flex-col gap-0.5 rounded-xl bg-[#131313]/60 p-0.5",
           showOptions ? "flex" : "hidden",
           styles.blur
         )}
