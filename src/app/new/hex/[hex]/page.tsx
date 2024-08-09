@@ -66,7 +66,9 @@ const getHotspotsInfo = (hotspots: RssiHotspot[]) => {
   return info
 }
 
-const Divider = () => <div className="w-full border-t border-neutral-400" />
+const Divider = () => (
+  <div className="w-full border-t border-[#898C8F] opacity-50" />
+)
 
 export default function Page({ params }: { params: Params }) {
   const hotspotsInfo = getHotspotsInfo(HOTSPOTS)
@@ -76,8 +78,8 @@ export default function Page({ params }: { params: Params }) {
       <InfoCard>
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
-            <HexOutlineIcon stroke="#fff" />
-            <p className="text-lg text-neutral-200">{params.hex}</p>
+            <HexOutlineIcon />
+            <p className="text-lg text-white opacity-80">{params.hex}</p>
           </div>
           <Link href="/new" className="flex items-center">
             <XMarkIcon className="h-4 w-4 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
@@ -85,8 +87,8 @@ export default function Page({ params }: { params: Params }) {
         </div>
         <Divider />
         <div className="w-full">
-          <div className="flex w-full justify-between">
-            <p className="text-sm font-medium text-white opacity-80">
+          <div className="flex w-full items-center justify-between">
+            <p className="text-base font-medium leading-5 text-white">
               Area Info
             </p>
             <div className="flex items-center gap-0.5 opacity-50">
@@ -103,13 +105,13 @@ export default function Page({ params }: { params: Params }) {
         <Divider />
         <div className="flex w-full gap-2">
           <div className="flex flex-1 flex-col gap-2">
-            <p className="text-sm font-medium leading-5 text-white opacity-80">
-              Hotspots covering this area
+            <p className="text-base font-medium  leading-5 text-white">
+              Hotspots in this area
             </p>
             <p className="text-3xl leading-6 text-white">4</p>
           </div>
           <div className="flex flex-1 flex-col gap-2">
-            <p className="text-sm font-medium leading-5 text-white opacity-80">
+            <p className="text-base font-medium  leading-5 text-white">
               Max Expected Signal Strength
             </p>
             <div className="flex items-center justify-between">

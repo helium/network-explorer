@@ -39,14 +39,14 @@ export default function Page({ params }: { params: Params }) {
               <XMarkIcon className="h-5 w-5 stroke-white opacity-80 transition hover:opacity-100 dark:stroke-white" />
             </Link>
           </div>
-          <div className="flex w-full items-center justify-start gap-3">
+          <div className="flex w-full items-center justify-start gap-2">
             <HexOutlineIcon />
             <p className="text-xl font-medium leading-5 text-white opacity-80">
               {params.hex}
             </p>
           </div>
           <div className="my-2 h-[1px] w-full bg-[#898C8F] opacity-50" />
-          <div className="flex w-full items-center justify-start gap-3">
+          <div className="flex w-full items-center justify-start gap-2">
             <Image alt="Hotspot with emissions waves" src={HotspotWaves} />
             <p className="text-xl font-medium leading-5 text-white">
               {animalHash(params.address)}

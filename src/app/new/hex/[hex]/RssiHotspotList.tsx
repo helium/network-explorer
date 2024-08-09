@@ -1,6 +1,5 @@
 import { RssiPill } from "@/components/shared/RssiPill"
 import animalHash from "angry-purple-tiger"
-import clsx from "clsx"
 import Link from "next/link"
 
 export type RssiHotspot = {
@@ -15,37 +14,31 @@ type RssiHotspotListProps = {
 
 export const RssiHotspotList = ({ hotspots, hex }: RssiHotspotListProps) => {
   return (
-    <div className="flex w-full flex-col justify-start gap-2">
-      <p className="text-sm font-medium leading-5 text-white opacity-80">
-        Hotspots
-      </p>
-      {hotspots.map(({ address, rssi }, index) => {
-        return (
-          <Link
-            href={`/new/hex/${hex}/hotspots/${address}`}
-            key={address}
-            className={clsx(
-              "group flex gap-2",
-              index !== 0 && "border-t border-neutral-400 pt-2"
-            )}
-          >
-            <p className="text-sm leading-5 text-white group-hover:text-neutral-100">
-              {index + 1}
-            </p>
-            <div>
-              <p className="text-sm leading-5 text-white group-hover:text-neutral-100">
-                {animalHash(address)}
-              </p>
-              <div className="flex items-center gap-2">
-                <RssiPill strength={rssi} />
-                <p className="text-sm leading-5 text-white opacity-80 group-hover:text-neutral-100">
-                  RSSI: -{rssi} dBm
+    <div className="relative w-full">
+      <p className="text-base font-medium leading-5 text-white">Hotspots</p>
+      <div className="relative -left-4 mt-2 flex w-[297px] flex-col gap-0.5">
+        {hotspots.map(({ address, rssi }) => {
+          return (
+            <Link
+              href={`/new/hex/${hex}/hotspots/${address}`}
+              key={address}
+              className="group flex gap-2 rounded-lg px-4 py-2 hover:bg-[#8A8A8A]/20"
+            >
+              <div>
+                <p className="text-sm leading-5 text-white group-hover:text-neutral-100">
+                  {animalHash(address)}
                 </p>
+                <div className="flex items-center gap-2">
+                  <RssiPill strength={rssi} />
+                  <p className="text-sm leading-5 text-white opacity-80 group-hover:text-neutral-100">
+                    RSSI: -{rssi} dBm
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-        )
-      })}
+            </Link>
+          )
+        })}
+      </div>
     </div>
   )
 }

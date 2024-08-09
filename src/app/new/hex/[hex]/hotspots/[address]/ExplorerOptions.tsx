@@ -16,6 +16,7 @@ import ConnectedDots from "@public/connected-dots.png"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import styles from "./page.module.css"
 
 type ExplorerOptionsType = {
   address: string
@@ -30,17 +31,17 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
     <InfoCard>
       {hasNoPreference && (
         <button
-          className="group flex w-full justify-start gap-3"
+          className={`group flex w-full justify-start gap-2 ${styles.button}`}
           onClick={() => setIsOpen(() => true)}
         >
           <div className="flex h-6 w-6 items-center justify-center">
-            <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+            <ArrowTopRightOnSquareIcon className="h-[18px] w-[18px]" />
           </div>
           <div className="flex flex-col items-start">
-            <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
+            <p className="text-base font-medium leading-6 text-white group-hover:text-neutral-200">
               Open in Third-Party Explorer
             </p>
-            <p className="text-sm leading-5 text-[#DBE0E6] opacity-75 group-hover:opacity-100">
+            <p className="text-sm leading-4 text-[#DBE0E6] opacity-75 group-hover:opacity-100">
               You haven&apos;t set this up yet
             </p>
           </div>

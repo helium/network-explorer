@@ -5,6 +5,7 @@ import { RssiPill } from "@/components/shared/RssiPill"
 import ConnectedDevicesIcon from "@public/connected-devices.png"
 import Image from "next/image"
 import { useState } from "react"
+import styles from "./page.module.css"
 
 export const ConnectedDevices = () => {
   const [showDetails, setShowDetails] = useState(false)
@@ -17,17 +18,17 @@ export const ConnectedDevices = () => {
     <InfoCard>
       <div className="flex w-full justify-between">
         <button
-          className="group flex w-full items-center justify-between gap-3"
+          className={`group flex w-full items-center justify-between gap-2 ${styles.button}`}
           onClick={() => setShowDetails((currentVal) => !currentVal)}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
-            <p className="text-base font-medium text-white group-hover:text-neutral-200">
+            <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
               Connected Devices
             </p>
           </div>
           {!showDetails && (
-            <button className="flex h-full flex-col justify-around">
+            <button className="flex h-full flex-col justify-between">
               <RssiPill strength="low" isEmpty={!mappers} />
               <RssiPill strength="medium" isEmpty={!dimo} />
             </button>

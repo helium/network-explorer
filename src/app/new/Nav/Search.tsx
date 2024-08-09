@@ -187,7 +187,7 @@ export function Search() {
                                     value={hotspot}
                                     className={({ active }) =>
                                       clsx(
-                                        "flex cursor-pointer select-none items-center rounded-md px-4 py-3",
+                                        "my-1 flex cursor-pointer select-none items-center rounded-md p-2",
                                         active &&
                                           "bg-[#8A8A8A]/20 dark:text-white"
                                       )

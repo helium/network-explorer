@@ -14,7 +14,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <p className="text-sm font-medium leading-5 text-white opacity-80">
+      <p className="text-base font-medium leading-5 text-white">
         RSSI area coverage (dBm)
       </p>
       <div className="display flex">
