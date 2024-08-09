@@ -28,39 +28,42 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
   const hasNoPreference = provider?.label === NO_PREFERENCE.label
 
   return (
-    <InfoCard>
+    <InfoCard reducedPadding>
       {hasNoPreference && (
         <button
-          className={`group flex w-full justify-start gap-2 ${styles.button}`}
+          className={`group flex w-full justify-start gap-2 ${styles.button} rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
           onClick={() => setIsOpen(() => true)}
         >
           <div className="flex h-6 w-6 items-center justify-center">
             <ArrowTopRightOnSquareIcon className="h-[18px] w-[18px]" />
           </div>
           <div className="flex flex-col items-start">
-            <p className="text-base font-medium leading-6 text-white group-hover:text-neutral-200">
+            <p className="text-base font-medium leading-6 text-white">
               Open in Third-Party Explorer
             </p>
-            <p className="text-sm leading-4 text-[#DBE0E6] opacity-75 group-hover:opacity-100">
+            <p className="text-sm leading-4 text-[#DBE0E6] opacity-75 ">
               You haven&apos;t set this up yet
             </p>
           </div>
         </button>
       )}
       {!hasNoPreference && (
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-2">
           <Link
             href={provider!.getUrl(address)}
             target="_blank"
-            className="flex items-center gap-2"
+            className={`group flex w-full items-center justify-start gap-2 ${styles.button} rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
           >
             {provider?.Icon}
             <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
               Open with {provider?.label}
             </p>
           </Link>
-          <button onClick={() => setIsOpen(() => true)}>
-            <Cog6ToothIcon className="h-6 w-6 stroke-neutral-200 transition hover:stroke-zinc-700 dark:stroke-zinc-400 hover:dark:stroke-zinc-100" />
+          <button
+            className="group mr-2 rounded-lg p-1 transition hover:bg-[#8A8A8A]/20"
+            onClick={() => setIsOpen(() => true)}
+          >
+            <Cog6ToothIcon className="h-6 w-6 stroke-white transition" />
           </button>
         </div>
       )}
