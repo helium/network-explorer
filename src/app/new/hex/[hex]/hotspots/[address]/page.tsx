@@ -45,7 +45,7 @@ export default function Page({ params }: { params: Params }) {
               {params.hex}
             </p>
           </div>
-          <div className="my-2 h-[1px] w-full bg-[#898C8F] opacity-50" />
+          <div className="h-[1px] w-full bg-[#898C8F] opacity-50" />
           <div className="flex w-full items-center justify-start gap-2">
             <Image alt="Hotspot with emissions waves" src={HotspotWaves} />
             <p className="text-xl font-medium leading-5 text-white">

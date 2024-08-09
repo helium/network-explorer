@@ -31,7 +31,7 @@ export const RssiPill = ({
     <div
       className={clsx(
         "h-2.5 rounded-lg",
-        !isEmpty ? getRssiColor(strength) : "border border-neutral-400",
+        !isEmpty ? getRssiColor(strength) : "border border-[#DBE0E6]/60",
         isCircle ? "w-2.5" : "w-4"
       )}
     />

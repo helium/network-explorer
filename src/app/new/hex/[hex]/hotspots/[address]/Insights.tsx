@@ -1,23 +1,19 @@
 "use client"
 
-import { InfoCard } from "@/components/shared/InfoCard"
+import { InfoCard, InfoCardBody } from "@/components/shared/InfoCard"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import Hotspot from "@public/hotspot.png"
 import Image from "next/image"
 import { useState } from "react"
 import styles from "./page.module.css"
 
-const Divider = () => (
-  <div className="w-full border-t border-white opacity-50" />
-)
-
 export const Insights = () => {
   const [showDetails, setShowDetails] = useState(false)
 
   return (
-    <InfoCard>
+    <InfoCard reducedPadding active={showDetails}>
       <button
-        className={`group flex w-full items-center gap-2 ${styles.button}`}
+        className={`group flex items-center gap-2 ${styles.button} w-full rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
@@ -26,22 +22,20 @@ export const Insights = () => {
         </p>
       </button>
       {showDetails && (
-        <>
-          <p className="text-sm leading-5 text-white opacity-80">
+        <InfoCardBody>
+          <p className="text-base leading-5 text-[#DBE0E6] opacity-80">
             Your device coverage is strong due to the area you are in.
           </p>
-          <Divider />
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2 rounded-lg border border-[#566C4C]/50 bg-[#4A892D]/25 p-2">
             <div className="w-6">
               <CheckCircleIcon className="h-6 w-6 stroke-[#4CED00]" />
             </div>
-            <p className="text-sm leading-5 text-white opacity-80">
+            <p className="text-base leading-5 text-[#DBE0E6] opacity-80">
               This Hotspot has transferred data in the last 30 days.
             </p>
           </div>
-          <Divider />
           <div className="w-full">
-            <p className="text-sm font-medium leading-5 text-white opacity-80">
+            <p className="text-base font-medium leading-5 text-white">
               Area covered
             </p>
             <div className="mt-2 flex items-end">
@@ -49,7 +43,7 @@ export const Insights = () => {
               <p className="text-sm leading-5 text-white">mi²</p>
             </div>
           </div>
-        </>
+        </InfoCardBody>
       )}
     </InfoCard>
   )

@@ -79,10 +79,12 @@ export default function Page({ params }: { params: Params }) {
         <div className="flex w-full justify-between">
           <div className="flex items-center gap-2">
             <HexOutlineIcon />
-            <p className="text-lg text-white opacity-80">{params.hex}</p>
+            <p className="text-xl font-medium leading-5 text-white">
+              {params.hex}
+            </p>
           </div>
           <Link href="/new" className="flex items-center">
-            <XMarkIcon className="h-4 w-4 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
+            <XMarkIcon className="h-6 w-6 stroke-neutral-200 transition group-hover:stroke-zinc-700 dark:stroke-zinc-400 group-hover:dark:stroke-zinc-100" />
           </Link>
         </div>
         <Divider />

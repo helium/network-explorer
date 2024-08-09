@@ -1,6 +1,6 @@
 "use client"
 
-import { InfoCard } from "@/components/shared/InfoCard"
+import { InfoCard, InfoCardBody } from "@/components/shared/InfoCard"
 import LatitudeIcon from "@public/latitude.png"
 import LongitudeIcon from "@public/longitude.png"
 import TechInfoIcon from "@public/tech-info.png"
@@ -10,7 +10,7 @@ import styles from "./page.module.css"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
-    <p className="text-neutral-white mb-0.5 text-sm font-medium leading-5 opacity-80">
+    <p className="text-neutral-white mb-1 text-base font-medium leading-5 opacity-60">
       {children}
     </p>
   )
@@ -18,9 +18,7 @@ const Header = ({ children }: PropsWithChildren) => {
 
 const Body = ({ children }: PropsWithChildren) => {
   return (
-    <p className="text-neutral-white text-base font-medium leading-5">
-      {children}
-    </p>
+    <p className="text-base font-medium leading-5 text-[#DBE0E6]">{children}</p>
   )
 }
 
@@ -28,9 +26,9 @@ export const TechnicalInfo = () => {
   const [showDetails, setShowDetails] = useState(false)
 
   return (
-    <InfoCard>
+    <InfoCard active={showDetails} reducedPadding>
       <button
-        className={`group flex w-full items-center justify-start gap-2 ${styles.button}`}
+        className={`group flex w-full items-center justify-start gap-2 ${styles.button} w-full rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
         onClick={() => setShowDetails((currentVal) => !currentVal)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />
@@ -39,7 +37,7 @@ export const TechnicalInfo = () => {
         </p>
       </button>
       {showDetails && (
-        <>
+        <InfoCardBody>
           <div className="w-full">
             <Header>Online Time</Header>
             <Body>3y 45m 27d 17:34:56</Body>
@@ -90,7 +88,7 @@ export const TechnicalInfo = () => {
             <Header>Country</Header>
             <Body>United States</Body>
           </div>
-        </>
+        </InfoCardBody>
       )}
     </InfoCard>
   )
