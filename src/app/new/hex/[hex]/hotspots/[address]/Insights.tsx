@@ -4,23 +4,26 @@ import { InfoCard, InfoCardBody } from "@/components/shared/InfoCard"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import Hotspot from "@public/hotspot.png"
 import Image from "next/image"
-import { useState } from "react"
+import { useOpenCard } from "./useOpenCard"
+
+const CARD_LABEL = "INSIGHTS"
 
 export const Insights = () => {
-  const [showDetails, setShowDetails] = useState(false)
+  const { openCard, setOpenCard } = useOpenCard()
+  const isActive = openCard === CARD_LABEL
 
   return (
-    <InfoCard reducedPadding active={showDetails}>
+    <InfoCard reducedPadding active={isActive}>
       <button
         className={`group flex w-full items-center gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
-        onClick={() => setShowDetails((currentVal) => !currentVal)}
+        onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
         <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
           Hotspot Insights
         </p>
       </button>
-      {showDetails && (
+      {isActive && (
         <InfoCardBody>
           <p className="text-base leading-5 text-[#DBE0E6] opacity-80">
             Your device coverage is strong due to the area you are in.

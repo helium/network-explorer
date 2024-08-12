@@ -6,20 +6,24 @@ import ConnectedDevicesIcon from "@public/connected-devices.png"
 import clsx from "clsx"
 import Image from "next/image"
 import { useState } from "react"
+import { useOpenCard } from "./useOpenCard"
+
+const CARD_LABEL = "CONNECTED_DEVICES"
 
 export const ConnectedDevices = () => {
-  const [showDetails, setShowDetails] = useState(false)
+  const { openCard, setOpenCard } = useOpenCard()
+  const isActive = openCard === CARD_LABEL
   const [{ mappers, dimo }, setPreferences] = useState({
     mappers: true,
     dimo: true,
   })
 
   return (
-    <InfoCard reducedPadding active={showDetails}>
+    <InfoCard reducedPadding active={isActive}>
       <div className="flex w-full justify-between">
         <button
           className={`group flex w-full items-center justify-between gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
-          onClick={() => setShowDetails((currentVal) => !currentVal)}
+          onClick={() => setOpenCard(CARD_LABEL)}
         >
           <div className="flex items-center gap-2">
             <Image alt="Connected Devices Icon" src={ConnectedDevicesIcon} />
@@ -27,7 +31,7 @@ export const ConnectedDevices = () => {
               Connected Devices
             </p>
           </div>
-          {!showDetails && (
+          {!isActive && (
             <button className="flex h-full flex-col justify-between">
               <RssiPill strength="low" isEmpty={!mappers} />
               <RssiPill strength="medium" isEmpty={!dimo} />
@@ -35,7 +39,7 @@ export const ConnectedDevices = () => {
           )}
         </button>
       </div>
-      {showDetails && (
+      {isActive && (
         <InfoCardBody>
           <button
             className={clsx(

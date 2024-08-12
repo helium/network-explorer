@@ -5,7 +5,8 @@ import LatitudeIcon from "@public/latitude.png"
 import LongitudeIcon from "@public/longitude.png"
 import TechInfoIcon from "@public/tech-info.png"
 import Image from "next/image"
-import { PropsWithChildren, useState } from "react"
+import { PropsWithChildren } from "react"
+import { useOpenCard } from "./useOpenCard"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
@@ -21,21 +22,24 @@ const Body = ({ children }: PropsWithChildren) => {
   )
 }
 
+const CARD_LABEL = "TECHNICAL_INFO"
+
 export const TechnicalInfo = () => {
-  const [showDetails, setShowDetails] = useState(false)
+  const { openCard, setOpenCard } = useOpenCard()
+  const isActive = openCard === CARD_LABEL
 
   return (
-    <InfoCard active={showDetails} reducedPadding>
+    <InfoCard active={isActive} reducedPadding>
       <button
         className={`group flex w-full items-center justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
-        onClick={() => setShowDetails((currentVal) => !currentVal)}
+        onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />
         <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
           Technical Information
         </p>
       </button>
-      {showDetails && (
+      {isActive && (
         <InfoCardBody>
           <div className="w-full">
             <Header>Online Time</Header>
