@@ -11,18 +11,21 @@ type Option = {
 export const Selector = ({
   options,
   width,
+  isOpen,
+  toggle,
 }: {
   options: Option[]
   width: string
+  isOpen: boolean
+  toggle: () => void
 }) => {
   const [selected, setSelected] = useState(options[0])
-  const [showOptions, setShowOptions] = useState(false)
 
   return (
     <div className={clsx("relative flex justify-between gap-2", width)}>
       <button
         className="group flex w-full items-center justify-between gap-2 rounded-lg p-2 transition hover:bg-[#8A8A8A]/30"
-        onClick={() => setShowOptions((current) => !current)}
+        onClick={toggle}
       >
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">{selected.Icon}</div>
@@ -37,7 +40,7 @@ export const Selector = ({
       <div
         className={clsx(
           "absolute -left-1 top-12 flex flex-col gap-0.5 rounded-xl bg-[#131313]/60 p-0.5",
-          showOptions ? "flex" : "hidden",
+          isOpen ? "flex" : "hidden",
           styles.blur
         )}
       >
@@ -47,7 +50,7 @@ export const Selector = ({
             key={option.name}
             onClick={() => {
               setSelected(option)
-              setShowOptions(false)
+              toggle()
             }}
           >
             <div className="hidden sm:block">{option.Icon}</div>

@@ -8,6 +8,7 @@ import { MobileIcon } from "@/components/icons/MobileIcon"
 import { RssiPill } from "@/components/shared/RssiPill"
 import clsx from "clsx"
 import Link from "next/link"
+import { useCallback, useState } from "react"
 import styles from "./Nav.module.css"
 import { Search } from "./Search"
 import { Selector } from "./Selector"
@@ -58,8 +59,18 @@ const MAP_SETTINGS = [
 ]
 
 const Divider = () => <div className={clsx("h-2/3 w-[1px] bg-[#FFFFFF]/20")} />
+type Selectors = "" | "map_settings" | "networks"
 
 export const Nav = () => {
+  const [openSelector, setOpenSelector] = useState<Selectors>("")
+  const toggleSelector = useCallback((selectorLabel: Selectors) => {
+    return () =>
+      setOpenSelector((currentOpenSelector) => {
+        if (currentOpenSelector === selectorLabel) return ""
+        else return selectorLabel
+      })
+  }, [])
+
   return (
     <nav className="fixed z-20 w-full p-3">
       <div className="flex justify-between">
@@ -74,7 +85,12 @@ export const Nav = () => {
             <div
               className={`relative flex gap-1 rounded-xl bg-[#131313]/60 p-1 ${styles.blur} items-center `}
             >
-              <Selector options={MAP_SETTINGS} width="w-48" />
+              <Selector
+                options={MAP_SETTINGS}
+                width="w-48"
+                isOpen={openSelector === "map_settings"}
+                toggle={toggleSelector("map_settings")}
+              />
               <Divider />
               <Link
                 href="/stats"
@@ -85,7 +101,12 @@ export const Nav = () => {
                 </span>
               </Link>
               <Divider />
-              <Selector options={NETWORKS} width="w-28" />
+              <Selector
+                options={NETWORKS}
+                width="w-28"
+                isOpen={openSelector === "networks"}
+                toggle={toggleSelector("networks")}
+              />
             </div>
           </div>
         </div>
@@ -101,9 +122,16 @@ export const Nav = () => {
                 { name: "Network Stats", Icon: undefined },
               ]}
               width="w-40"
+              isOpen={openSelector === "map_settings"}
+              toggle={toggleSelector("map_settings")}
             />
             <Divider />
-            <Selector options={NETWORKS} width="w-[86px]" />
+            <Selector
+              options={NETWORKS}
+              width="w-[86px]"
+              isOpen={openSelector === "networks"}
+              toggle={toggleSelector("networks")}
+            />
           </div>
         </div>
       </div>
