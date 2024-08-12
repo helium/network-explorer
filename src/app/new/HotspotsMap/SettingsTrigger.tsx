@@ -18,10 +18,15 @@ export const SettingsTrigger = ({
 
   return (
     <div
-      className={clsx(
-        isAbsolute &&
-          "absolute right-6 top-[200px] flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"
-      )}
+      className={
+        isAbsolute
+          ? clsx(
+              "absolute flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur",
+              "bottom-[72px] left-4",
+              "sm:bottom-auto sm:left-auto sm:right-6 sm:top-[200px]"
+            )
+          : ""
+      }
     >
       <button
         onClick={() => setIsOpen(true)}

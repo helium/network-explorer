@@ -13,7 +13,7 @@ export const Selector = ({
   width,
 }: {
   options: Option[]
-  width?: string
+  width: string
 }) => {
   const [selected, setSelected] = useState(options[0])
   const [showOptions, setShowOptions] = useState(false)
@@ -25,7 +25,7 @@ export const Selector = ({
         onClick={() => setShowOptions((current) => !current)}
       >
         <div className="flex items-center gap-2">
-          {selected.Icon}
+          <div className="hidden sm:block">{selected.Icon}</div>
           <p
             className={`text-sm text-[#DBE0E6] opacity-75 transition group-hover:opacity-100`}
           >
@@ -41,18 +41,18 @@ export const Selector = ({
           styles.blur
         )}
       >
-        {options.map((network) => (
+        {options.map((option) => (
           <button
             className="justify-left group flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition hover:bg-[#8A8A8A]/30"
-            key={network.name}
+            key={option.name}
             onClick={() => {
-              setSelected(network)
+              setSelected(option)
               setShowOptions(false)
             }}
           >
-            {network.Icon}
+            <div className="hidden sm:block">{option.Icon}</div>
             <p className="text-sm text-[#DBE0E6] transition group-hover:text-white">
-              {network.name}
+              {option.name}
             </p>
           </button>
         ))}

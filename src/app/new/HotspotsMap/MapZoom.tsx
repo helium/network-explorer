@@ -19,7 +19,13 @@ export const MapZoom = () => {
   const isZoomOutDisabled = zoom === MIN_MAP_ZOOM
 
   return (
-    <div className="absolute right-6 top-24 flex flex-col gap-2">
+    <div
+      className={clsx(
+        "absolute flex gap-2",
+        "bottom-[72px] right-4",
+        "sm:right-6 sm:top-24 sm:flex-col"
+      )}
+    >
       <button
         className={clsx(
           "group flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur"

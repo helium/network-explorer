@@ -14,18 +14,20 @@ import { Selector } from "./Selector"
 
 const Logo = () => {
   return (
-    <div className="rounded-xl bg-[#131313]/30 p-1 backdrop-blur">
+    <div className="rounded-xl bg-[#131313]/30 backdrop-blur sm:p-1">
       <Link
         href="/"
         aria-label="Home"
         className={clsx(
-          "group pointer-events-auto flex items-center gap-2 rounded-lg p-1 transition hover:bg-[#8A8A8A]/20"
+          "group pointer-events-auto flex items-center gap-2 rounded-lg transition hover:bg-[#8A8A8A]/20 sm:p-1"
         )}
       >
         <div className="flex items-center gap-2">
           <HeliumIcon2 className="h-7 w-7 fill-zinc-600 transition group-hover:fill-zinc-800 dark:fill-zinc-200 dark:group-hover:fill-zinc-100" />
         </div>
-        <Coverage />
+        <div className="hidden sm:block">
+          <Coverage />
+        </div>
       </Link>
     </div>
   )
@@ -55,34 +57,53 @@ const MAP_SETTINGS = [
   { name: "Hotspot Location", Icon: <RssiPill strength="low" /> },
 ]
 
-const Divider = () => <div className="h-2/3 w-[1px] bg-[#FFFFFF]/20" />
+const Divider = () => <div className={clsx("h-2/3 w-[1px] bg-[#FFFFFF]/20")} />
 
 export const Nav = () => {
   return (
-    <nav className="fixed z-20 w-full p-6">
+    <nav className="fixed z-20 w-full p-3">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Logo />
         </div>
-        <div className="flex gap-2">
-          <div className="flex items-center rounded-xl bg-[#131313]/60 px-1 backdrop-blur">
-            <Search />
-          </div>
-          <div
-            className={`relative flex gap-1 rounded-xl bg-[#131313]/60 p-1 ${styles.blur} items-center`}
-          >
-            <Selector options={MAP_SETTINGS} width="w-48" />
-            <Divider />
-            <Link
-              href="/stats"
-              className="rounded-lg px-3 py-2 hover:bg-[#8A8A8A]/30"
+        <div className="hidden sm:block">
+          <div className="flex gap-2">
+            <div className="flex items-center rounded-xl bg-[#131313]/60 px-1 backdrop-blur">
+              <Search />
+            </div>
+            <div
+              className={`relative flex gap-1 rounded-xl bg-[#131313]/60 p-1 ${styles.blur} items-center `}
             >
-              <span className="text-sm text-[#DBE0E6] opacity-75 hover:opacity-100">
-                Network Stats
-              </span>
-            </Link>
+              <Selector options={MAP_SETTINGS} width="w-48" />
+              <Divider />
+              <Link
+                href="/stats"
+                className={clsx("rounded-lg px-3 py-2 hover:bg-[#8A8A8A]/30")}
+              >
+                <span className="text-sm text-[#DBE0E6] opacity-75 hover:opacity-100">
+                  Network Stats
+                </span>
+              </Link>
+              <Divider />
+              <Selector options={NETWORKS} width="w-28" />
+            </div>
+          </div>
+        </div>
+        <div className="flex sm:hidden">
+          <div
+            className={`relative flex gap-0.5 rounded-xl bg-[#131313]/60 p-1 ${styles.blur} items-center `}
+          >
+            <Search />
             <Divider />
-            <Selector options={NETWORKS} width="w-28" />
+            <Selector
+              options={[
+                ...MAP_SETTINGS,
+                { name: "Network Stats", Icon: undefined },
+              ]}
+              width="w-40"
+            />
+            <Divider />
+            <Selector options={NETWORKS} width="w-[86px]" />
           </div>
         </div>
       </div>
