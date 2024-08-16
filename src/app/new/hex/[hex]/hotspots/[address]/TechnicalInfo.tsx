@@ -30,7 +30,7 @@ export const TechnicalInfo = () => {
   const isActive = openCard === CARD_LABEL
 
   return (
-    <InfoCard active={isActive} reducedPadding>
+    <InfoCard reducedPadding label={CARD_LABEL}>
       <button
         className={clsx(
           `group flex w-full items-center justify-start gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,

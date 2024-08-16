@@ -28,7 +28,7 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
   const hasNoPreference = provider?.label === NO_PREFERENCE.label
 
   return (
-    <InfoCard reducedPadding isLast>
+    <InfoCard reducedPadding isLast label={"Explorer Option"}>
       {hasNoPreference && (
         <button
           className={clsx(

@@ -19,7 +19,7 @@ export const ConnectedDevices = () => {
   })
 
   return (
-    <InfoCard reducedPadding active={isActive}>
+    <InfoCard reducedPadding label={CARD_LABEL}>
       <div className="flex w-full justify-between">
         <button
           className={clsx(
