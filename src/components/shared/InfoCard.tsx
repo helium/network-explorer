@@ -24,9 +24,9 @@ export const InfoCard = ({
     <div className={clsx(hide && "hidden sm:block")}>
       <div
         className={clsx(
-          "flex flex-col items-center justify-center rounded-xl font-sans sm:bg-[#131313]/30 sm:backdrop-blur",
+          "flex flex-col items-center justify-center rounded-xl font-sans sm:backdrop-blur",
           reducedPadding ? "p-1" : "gap-4 p-[20px]",
-          isActive ? "sm:bg-[#131313]/50" : "sm:bg-[#131313]/25"
+          isActive ? "sm:bg-[#131313]/75" : "sm:bg-[#131313]/50"
         )}
       >
         {children}

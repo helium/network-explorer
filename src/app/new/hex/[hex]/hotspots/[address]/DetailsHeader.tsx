@@ -8,6 +8,7 @@ import animalHash from "angry-purple-tiger"
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useOpenCard } from "./useOpenCard"
 
 export const metadata = {
@@ -20,21 +21,29 @@ type DetailsHeaderProps = {
 }
 
 export const DetailsHeaderProps = ({ hex, address }: DetailsHeaderProps) => {
-  const { openCard } = useOpenCard()
+  const { openCard, setOpenCard } = useOpenCard()
+  const router = useRouter()
   const isActiveCard = !!openCard
 
   return (
     <InfoCard>
       <div className="flex w-full justify-between">
-        <Link
-          href={`/new/hex/${hex}`}
+        <button
+          aria-label={
+            openCard ? "Back to Hotspot details" : "Back to hospots list"
+          }
           className="group flex items-center gap-2"
+          onClick={
+            openCard
+              ? () => setOpenCard("")
+              : () => router.push(`/new/hex/${hex}`)
+          }
         >
           <ArrowLeftIcon className="h-4 w-4 stroke-white opacity-80 transition group-hover:opacity-100 dark:stroke-white" />
           <p className="text-sm text-white underline opacity-80 transition group-hover:opacity-100">
-            Back to Hotspots list
+            Back to {openCard ? "Hotspot details" : "Hotspots list"}
           </p>
-        </Link>
+        </button>
         <Link href="/new" className="flex items-center">
           <XMarkIcon className="h-5 w-5 stroke-white opacity-80 transition hover:opacity-100 dark:stroke-white" />
         </Link>

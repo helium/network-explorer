@@ -13,7 +13,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
   const isLowInset = !!strong || !!medium
 
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className={clsx("flex w-full flex-col gap-2")}>
       <p className="text-base font-medium leading-5 text-white">
         RSSI area coverage (dBm)
       </p>

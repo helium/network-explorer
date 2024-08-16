@@ -24,7 +24,7 @@ export const Settings = ({ close }: { close: () => void }) => {
               onClick={() => setSetting("main")}
               className="rounded-lg p-1 hover:bg-[#8A8A8A]/20"
             >
-              <ChevronLeftIcon className="h-10 w-10 stroke-[#F2F2F2]" />
+              <ChevronLeftIcon className="h-8 w-8 stroke-[#F2F2F2]" />
             </button>
           </div>
           {setting === "provider" && <HotspotProviders />}
