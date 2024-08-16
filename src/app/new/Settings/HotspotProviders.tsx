@@ -35,7 +35,7 @@ export const HotspotProviders = ({ address, close }: HotspotProvidersProps) => {
   }, [address])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col justify-center">
       <p
         className={clsx(
           "text-2xl font-medium leading-8 text-white",

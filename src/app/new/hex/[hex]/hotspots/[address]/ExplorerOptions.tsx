@@ -77,7 +77,12 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
         </div>
       )}
       <Overlay isOpen={isOpen} setIsOpen={setIsOpen}>
-        <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/50 px-8 py-6">
+        <div
+          className={clsx(
+            "flex flex-col gap-3 bg-[#131313]/50 px-8 py-6",
+            "h-full w-full sm:h-auto sm:w-[428px] sm:rounded-xl"
+          )}
+        >
           <div>
             <div className="mb-4 flex items-center justify-between">
               <Image src={ConnectedDots} alt="Connected Dots" />

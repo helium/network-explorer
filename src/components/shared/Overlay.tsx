@@ -36,7 +36,12 @@ export const Overlay = ({
           <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4 backdrop-blur sm:p-6 md:p-24">
+        <div
+          className={clsx(
+            "fixed inset-0 flex items-center justify-center overflow-y-auto backdrop-blur sm:p-6 md:p-24",
+            ""
+          )}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -48,10 +53,11 @@ export const Overlay = ({
           >
             <Dialog.Panel
               className={clsx(
-                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-opacity-80 shadow-2xl backdrop-blur transition-all dark:divide-opacity-20 dark:bg-gray-900/70 dark:bg-opacity-100"
+                "transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden  bg-opacity-80 shadow-2xl backdrop-blur transition-all dark:divide-opacity-20 dark:bg-gray-900/70 dark:bg-opacity-100",
+                "h-full w-full sm:h-auto sm:w-auto sm:rounded-xl"
               )}
             >
-              <p>{children}</p>
+              {children}
             </Dialog.Panel>
           </Transition.Child>
         </div>

@@ -1,4 +1,5 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
+import clsx from "clsx"
 import { useState } from "react"
 import { HotspotProviders } from "./HotspotProviders"
 import { SettingsMain } from "./SettingsMain"
@@ -7,7 +8,12 @@ import { ThemeToggle } from "./ThemeToggle"
 export const Settings = ({ close }: { close: () => void }) => {
   const [setting, setSetting] = useState("main")
   return (
-    <div className="flex w-[428px] flex-col gap-3 rounded-xl bg-[#131313]/50 p-6">
+    <div
+      className={clsx(
+        "flex flex-col gap-3 bg-[#131313]/50 p-6",
+        "h-full w-full sm:h-auto sm:w-[428px] sm:rounded-xl"
+      )}
+    >
       {setting === "main" && (
         <SettingsMain close={close} setSetting={setSetting} />
       )}

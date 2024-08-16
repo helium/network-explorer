@@ -13,7 +13,7 @@ export const SettingsMain = ({
   setSetting: (settingValue: string) => void
 }) => {
   return (
-    <div>
+    <div className="flex h-full flex-col justify-center">
       <div className="mb-11 flex justify-between pl-2">
         <div className="flex items-center gap-2">
           <p className="text-xl font-medium leading-8 text-white">Settings</p>
