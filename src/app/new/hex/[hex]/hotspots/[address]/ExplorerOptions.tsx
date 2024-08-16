@@ -13,6 +13,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import ConnectedDots from "@public/connected-dots.png"
+import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -27,10 +28,13 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
   const hasNoPreference = provider?.label === NO_PREFERENCE.label
 
   return (
-    <InfoCard reducedPadding>
+    <InfoCard reducedPadding isLast>
       {hasNoPreference && (
         <button
-          className={`group flex w-full justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+          className={clsx(
+            `group flex w-full justify-start gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,
+            "py-2 sm:py-4"
+          )}
           onClick={() => setIsOpen(() => true)}
         >
           <div className="flex h-6 w-6 items-center justify-center">
@@ -51,7 +55,10 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
           <Link
             href={provider!.getUrl(address)}
             target="_blank"
-            className={`group flex w-full items-center justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+            className={clsx(
+              `group flex w-full items-center justify-start gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,
+              "py-2 sm:py-4"
+            )}
           >
             {provider?.Icon}
             <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
@@ -59,7 +66,10 @@ export const ExplorerOptions = ({ address }: ExplorerOptionsType) => {
             </p>
           </Link>
           <button
-            className="group mr-2 rounded-lg p-1 transition hover:bg-[#8A8A8A]/20"
+            className={clsx(
+              "group rounded-lg p-1 transition hover:bg-[#8A8A8A]/20",
+              "mr-5 sm:mr-2"
+            )}
             onClick={() => setIsOpen(() => true)}
           >
             <Cog6ToothIcon className="h-6 w-6 stroke-white transition" />

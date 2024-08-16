@@ -23,7 +23,8 @@ export const SettingsTrigger = ({
           ? clsx(
               "absolute flex h-10 w-10 items-center justify-center rounded-xl bg-[#131313]/60 backdrop-blur",
               "bottom-[72px] left-4",
-              "sm:bottom-auto sm:left-auto sm:right-6 sm:top-[200px]"
+              "sm:bottom-auto sm:left-auto sm:right-6 sm:top-[200px]",
+              "hidden sm:flex"
             )
           : ""
       }

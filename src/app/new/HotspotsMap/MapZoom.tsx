@@ -23,7 +23,8 @@ export const MapZoom = () => {
       className={clsx(
         "absolute flex gap-2",
         "bottom-[72px] right-4",
-        "sm:right-6 sm:top-24 sm:flex-col"
+        "sm:right-6 sm:top-24 sm:flex-col",
+        "hidden sm:flex"
       )}
     >
       <button

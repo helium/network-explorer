@@ -4,6 +4,7 @@ import { InfoWrapper } from "@/components/shared/InfoWrapper"
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import HotspotWaves from "@public/hotspot-waves.png"
 import animalHash from "angry-purple-tiger"
+import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import { ConnectedDevices } from "./ConnectedDevices"
@@ -25,7 +26,7 @@ export default function Page({ params }: { params: Params }) {
   return (
     <InfoWrapper>
       <OpenCardProvider>
-        <div className="flex flex-col gap-4">
+        <div className={clsx("flex flex-col", "sm:gap-4")}>
           <InfoCard>
             <div className="flex w-full justify-between">
               <Link
@@ -47,8 +48,18 @@ export default function Page({ params }: { params: Params }) {
                 {params.hex}
               </p>
             </div>
-            <div className="h-[1px] w-full bg-[#898C8F] opacity-50" />
-            <div className="flex w-full items-center justify-start gap-2">
+            <div
+              className={clsx(
+                "h-[1px] w-full bg-[#898C8F] opacity-50",
+                "hidden sm:block"
+              )}
+            />
+            <div
+              className={clsx(
+                "flex w-full items-center justify-start gap-2",
+                "mt-1 sm:mt-0"
+              )}
+            >
               <Image alt="Hotspot with emissions waves" src={HotspotWaves} />
               <p className="text-xl font-medium leading-5 text-white">
                 {animalHash(params.address)}

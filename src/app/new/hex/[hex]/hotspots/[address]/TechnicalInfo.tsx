@@ -4,6 +4,7 @@ import { InfoCard, InfoCardBody } from "@/components/shared/InfoCard"
 import LatitudeIcon from "@public/latitude.png"
 import LongitudeIcon from "@public/longitude.png"
 import TechInfoIcon from "@public/tech-info.png"
+import clsx from "clsx"
 import Image from "next/image"
 import { PropsWithChildren } from "react"
 import { useOpenCard } from "./useOpenCard"
@@ -31,7 +32,10 @@ export const TechnicalInfo = () => {
   return (
     <InfoCard active={isActive} reducedPadding>
       <button
-        className={`group flex w-full items-center justify-start gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+        className={clsx(
+          `group flex w-full items-center justify-start gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,
+          "py-2 sm:py-4"
+        )}
         onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Technical Information icon" src={TechInfoIcon} />

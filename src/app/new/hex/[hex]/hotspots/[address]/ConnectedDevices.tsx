@@ -22,7 +22,10 @@ export const ConnectedDevices = () => {
     <InfoCard reducedPadding active={isActive}>
       <div className="flex w-full justify-between">
         <button
-          className={`group flex w-full items-center justify-between gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+          className={clsx(
+            `group flex w-full items-center justify-between gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,
+            "py-2 sm:py-4"
+          )}
           onClick={() => setOpenCard(CARD_LABEL)}
         >
           <div className="flex items-center gap-2">
@@ -32,7 +35,12 @@ export const ConnectedDevices = () => {
             </p>
           </div>
           {!isActive && (
-            <button className="flex h-full flex-col justify-between">
+            <button
+              className={clsx(
+                "flex h-full flex-col justify-between",
+                "mr-3 sm:mr-0"
+              )}
+            >
               <RssiPill strength="low" isEmpty={!mappers} />
               <RssiPill strength="medium" isEmpty={!dimo} />
             </button>

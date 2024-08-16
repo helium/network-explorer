@@ -3,6 +3,7 @@
 import { InfoCard, InfoCardBody } from "@/components/shared/InfoCard"
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import Hotspot from "@public/hotspot.png"
+import clsx from "clsx"
 import Image from "next/image"
 import { useOpenCard } from "./useOpenCard"
 
@@ -15,7 +16,10 @@ export const Insights = () => {
   return (
     <InfoCard reducedPadding active={isActive}>
       <button
-        className={`group flex w-full items-center gap-2 rounded-lg p-4 hover:bg-[#8A8A8A]/20`}
+        className={clsx(
+          `group flex w-full items-center gap-2 rounded-lg px-4 hover:bg-[#8A8A8A]/20`,
+          "py-2 sm:py-4"
+        )}
         onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
