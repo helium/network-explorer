@@ -63,7 +63,7 @@ const getHotspotsInfo = (hotspots: RssiHotspot[]) => {
 }
 
 const Divider = () => (
-  <div className="w-full border-t border-[#898C8F] opacity-50" />
+  <div className="hidden w-full border-t border-[#898C8F] opacity-50 sm:block" />
 )
 
 type Params = {
