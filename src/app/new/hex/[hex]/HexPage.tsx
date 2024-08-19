@@ -76,7 +76,9 @@ const HEX_INFO_TAB = "hex info"
 export const HexPage = ({ params }: { params: Params }) => {
   const hotspotsInfo = getHotspotsInfo(HOTSPOTS)
   const { isOpen } = useInfoWrapper()
-  const [activeTab, setActiveTab] = useState(HOTSPOTS_TAB)
+  const [activeTab, setActiveTab] = useState<"hotspots" | "hex info">(
+    HOTSPOTS_TAB
+  )
 
   return (
     <InfoCard>
@@ -103,7 +105,7 @@ export const HexPage = ({ params }: { params: Params }) => {
         </div>
       )}
       {isOpen && (
-        <div className="flex w-full gap-2 rounded-xl bg-[#030303]/30 p-1">
+        <div className="flex w-full gap-2 rounded-xl bg-[#030303]/30 p-1 sm:hidden">
           <button
             onClick={() => setActiveTab(HOTSPOTS_TAB)}
             className={clsx(
@@ -124,7 +126,12 @@ export const HexPage = ({ params }: { params: Params }) => {
           </button>
         </div>
       )}
-      <div className="w-full">
+      <div
+        className={clsx(
+          "w-full",
+          activeTab === HEX_INFO_TAB ? "sm:hidden" : "hidden sm:block"
+        )}
+      >
         <div className="flex w-full items-center justify-between">
           <p className="text-base font-medium leading-5 text-white">
             Area Info
