@@ -81,7 +81,7 @@ export const HexPage = ({ params }: { params: Params }) => {
   )
 
   return (
-    <InfoCard>
+    <InfoCard isFirst>
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-2">
           <HexOutlineIcon />

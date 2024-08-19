@@ -11,7 +11,7 @@ import { useOpenCard } from "./useOpenCard"
 
 const Header = ({ children }: PropsWithChildren) => {
   return (
-    <p className="text-neutral-white mb-1 text-base font-medium leading-5 opacity-60">
+    <p className="text-neutral-white mb-1 text-sm font-medium leading-4 opacity-60 sm:text-base sm:leading-5">
       {children}
     </p>
   )

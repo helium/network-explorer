@@ -26,7 +26,7 @@ export const DetailsHeaderProps = ({ hex, address }: DetailsHeaderProps) => {
   const isActiveCard = !!openCard
 
   return (
-    <InfoCard>
+    <InfoCard isFirst>
       <div className="flex w-full justify-between">
         <button
           aria-label={

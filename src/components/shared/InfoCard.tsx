@@ -7,6 +7,7 @@ import { PropsWithChildren } from "react"
 type InfoCardProps = {
   reducedPadding?: boolean
   isLast?: boolean
+  isFirst?: boolean
   label?: string
 }
 
@@ -14,18 +15,23 @@ export const InfoCard = ({
   children,
   reducedPadding,
   isLast = false,
+  isFirst = false,
   label,
 }: PropsWithChildren<InfoCardProps>) => {
   const { openCard } = useOpenCard()
   const isActive = openCard === label
   const hide = !!openCard && label && !isActive
 
+  let padding = "gap-4 p-[20px]"
+  if (isFirst) padding += " pt-0"
+  if (reducedPadding) padding = "p-1"
+
   return (
     <div className={clsx(hide && "hidden sm:block")}>
       <div
         className={clsx(
           "flex flex-col items-center justify-center rounded-xl font-sans sm:backdrop-blur",
-          reducedPadding ? "p-1" : "gap-4 p-[20px]",
+          padding,
           isActive ? "sm:bg-[#131313]/75" : "sm:bg-[#131313]/50"
         )}
       >

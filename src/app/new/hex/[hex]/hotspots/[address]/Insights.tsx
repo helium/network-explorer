@@ -23,25 +23,25 @@ export const Insights = () => {
         onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
-        <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200">
+        <p className="text-sm font-medium leading-4 text-white group-hover:text-neutral-200 sm:text-base sm:leading-5">
           Hotspot Insights
         </p>
       </button>
       {isActive && (
         <InfoCardBody>
-          <p className="text-base leading-5 text-[#DBE0E6] opacity-80">
+          <p className="text-sm leading-4 text-[#DBE0E6] opacity-80 sm:text-base sm:leading-5">
             Your device coverage is strong due to the area you are in.
           </p>
           <div className="flex items-center gap-2 rounded-lg border border-[#566C4C]/50 bg-[#4A892D]/25 p-2">
             <div className="w-6">
               <CheckCircleIcon className="h-6 w-6 stroke-[#4CED00]" />
             </div>
-            <p className="text-base leading-5 text-[#DBE0E6] opacity-80">
+            <p className="text-sm leading-4 text-[#DBE0E6] opacity-80 sm:text-base sm:leading-5">
               This Hotspot has transferred data in the last 30 days.
             </p>
           </div>
           <div className="w-full">
-            <p className="text-base font-medium leading-5 text-white">
+            <p className="text-sm font-medium leading-4 text-white sm:text-base sm:leading-5">
               Area covered
             </p>
             <div className="mt-2 flex items-end">
