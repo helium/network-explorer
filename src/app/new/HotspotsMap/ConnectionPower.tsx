@@ -5,9 +5,8 @@ export const ConnectionPower = () => {
   return (
     <div
       className={clsx(
-        "absolute bottom-4 w-full justify-center sm:flex",
-        "sm:bottom-6 sm:right-6 sm:w-auto sm:justify-end",
-        "hidden"
+        "absolute bottom-4 right-3 justify-center sm:flex",
+        "sm:bottom-6 sm:right-6 sm:w-auto sm:justify-end"
       )}
     >
       <div className="flex gap-4 rounded-xl bg-[#131313]/60 px-3 py-3 font-sans backdrop-blur">
