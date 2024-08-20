@@ -16,13 +16,18 @@ let controller: AbortController | null = null
 
 const RESULTS_LIMIT = 20
 
-export interface HotspotResult {
-  hotspot_id: string
-  location_res8: string
-  location_res12: string
+interface HotspotResult {
+  address: string
+  location: {
+    hex: string
+  }
   name: string
-  owner: string
-  cell_count: number
+  capabilities: {
+    mobile: boolean
+    iot: boolean
+    cbrs: boolean
+    wifi: boolean
+  }
 }
 
 export function HotspotSearch() {
@@ -46,15 +51,17 @@ export function HotspotSearch() {
 
     try {
       const searchUrl = new URL(
-        `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/search`
+        `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL}`
       )
-      searchUrl.searchParams.append("name", query.trim().replaceAll(" ", "-"))
+      searchUrl.searchParams.append("name", query.trim())
+      console.log("key", process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN)
 
       const results = (await fetch(searchUrl, {
         signal,
         next: { revalidate: 10 },
         headers: {
-          Authorization: `bearer ${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_TOKEN}`,
+          "x-api-key": `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN}`,
+          "Content-Type": "application/json",
         },
       }).then((res) => res.json())) as HotspotResult[]
 
@@ -83,7 +90,7 @@ export function HotspotSearch() {
 
   const handleHotspotSelection = useCallback(
     (hotspot: HotspotResult) => {
-      router.push(`/hex/${hotspot.location_res8}`)
+      router.push(`/hex/${hotspot.location.hex}`)
       setOpen(false)
     },
     [router]
@@ -163,13 +170,15 @@ export function HotspotSearch() {
                           {searchResults
                             .slice(0, RESULTS_LIMIT)
                             .map((hotspot) => {
-                              const Avatar =
-                                hotspot.cell_count > 0
-                                  ? HeliumMobileIcon
-                                  : HeliumIotIcon
+                              const { cbrs, wifi, mobile } =
+                                hotspot.capabilities
+                              const isMobile = cbrs || wifi || mobile
+                              const Avatar = isMobile
+                                ? HeliumMobileIcon
+                                : HeliumIotIcon
                               return (
                                 <Combobox.Option
-                                  key={hotspot.hotspot_id}
+                                  key={hotspot.address}
                                   value={hotspot}
                                   className={({ active }) =>
                                     clsx(
