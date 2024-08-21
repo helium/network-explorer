@@ -54,7 +54,6 @@ export function HotspotSearch() {
         `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL}`
       )
       searchUrl.searchParams.append("name", query.trim())
-      console.log("key", process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN)
 
       const results = (await fetch(searchUrl, {
         signal,

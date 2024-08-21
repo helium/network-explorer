@@ -1,22 +1,21 @@
+"use client"
+
 import { Tooltip } from "@/app/stats/components/Tooltip"
 import { PreferencesProvider } from "@/context/usePreferences"
 import clsx from "clsx"
 import { HexHotSpotItem } from "./HexHotspotItem"
 
-interface SmallCell {
-  cell_id: string
-}
-
-export interface Hotspot {
-  hotspot_id: string
-  active: boolean
-  cells: SmallCell[]
-}
-
-interface HexData {
-  hex: string
-  resolution: number
-  hotspots: Hotspot[]
+export type Hotspot = {
+  address: string
+  name: string
+  status: number
+  statusString: "active" | "inactive"
+  capabilities: {
+    mobile: boolean
+    iot: boolean
+    cbrs: boolean
+    wifi: boolean
+  }
 }
 
 const RECENT = "recently rewarded"
@@ -38,7 +37,7 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
   }
 
   hotspots.forEach((hotspot) => {
-    const group = hotspot.active ? RECENT : NOT_RECENT
+    const group = hotspot.status === 0 ? RECENT : NOT_RECENT
     groupedHotspots[group].push(hotspot)
   })
 
@@ -46,14 +45,17 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
 }
 
 export async function HexHotspots({ hexId }: { hexId: string }) {
-  const { hotspots } = (await fetch(
-    `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/hex/${hexId}`,
+  console.log(process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL)
+  console.log(process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN)
+  const hotspots = (await fetch(
+    `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL}/hex/${hexId}`,
     {
       headers: {
-        Authorization: `bearer ${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_TOKEN}`,
+        "x-api-key": `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN}`,
+        "Content-Type": "application/json",
       },
     }
-  ).then((res) => res.json())) as HexData
+  ).then((res) => res.json())) as Hotspot[]
 
   const groupedList = getGroupedHotspots(hotspots)
 
@@ -97,10 +99,7 @@ export async function HexHotspots({ hexId }: { hexId: string }) {
                   className="z-0 flex-1 divide-y divide-gray-200 overflow-y-auto dark:divide-white/10"
                 >
                   {groupedList[group].map((hotspot) => (
-                    <HexHotSpotItem
-                      key={hotspot.hotspot_id}
-                      hotspot={hotspot}
-                    />
+                    <HexHotSpotItem key={hotspot.address} hotspot={hotspot} />
                   ))}
                 </ul>
               </PreferencesProvider>
