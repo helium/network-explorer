@@ -29,9 +29,7 @@ export const DetailsHeaderProps = ({ hex, address }: DetailsHeaderProps) => {
     <InfoCard isFirst>
       <div className="flex w-full justify-between">
         <button
-          aria-label={
-            openCard ? "Back to Hotspot details" : "Back to hospots list"
-          }
+          aria-label={openCard ? "Back to Hotspot details" : "Hex Hospots list"}
           className="group flex items-center gap-2"
           onClick={
             openCard
@@ -41,7 +39,7 @@ export const DetailsHeaderProps = ({ hex, address }: DetailsHeaderProps) => {
         >
           <ArrowLeftIcon className="h-4 w-4 stroke-white opacity-80 transition group-hover:opacity-100 dark:stroke-white" />
           <p className="text-sm text-white underline opacity-80 transition group-hover:opacity-100">
-            Back to {openCard ? "Hotspot details" : "Hotspots list"}
+            {openCard ? "Back to Hotspot details" : "Hex Hotspots list"}
           </p>
         </button>
         <Link href="/new" className="flex items-center">

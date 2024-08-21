@@ -31,7 +31,7 @@ export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme()
   return (
     <div className="flex h-full flex-col justify-center gap-3">
-      <p className="text-lg font-medium text-[#DBE0E6]">Select a mode</p>
+      <p className="text-2xl font-medium leading-8 text-white">Select a mode</p>
       {THEMES.map(({ label, Icon, value }) => {
         const isActive = value === theme
         return (

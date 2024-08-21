@@ -5,10 +5,8 @@ import { InfoCard } from "@/components/shared/InfoCard"
 import { useInfoWrapper } from "@/components/shared/InfoWrapper"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import KuzcoLogo from "@public/kuzco-logo.png"
-import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
 import { RssiCoverage } from "./RssiCoverage"
 import { RssiHotspot, RssiHotspotList } from "./RssiHotspotList"
 import { RssiOverview } from "./RssiOverview"
@@ -70,15 +68,9 @@ type Params = {
   hex: string
 }
 
-const HOTSPOTS_TAB = "hotspots"
-const HEX_INFO_TAB = "hex info"
-
 export const HexPage = ({ params }: { params: Params }) => {
   const hotspotsInfo = getHotspotsInfo(HOTSPOTS)
   const { isOpen } = useInfoWrapper()
-  const [activeTab, setActiveTab] = useState<"hotspots" | "hex info">(
-    HOTSPOTS_TAB
-  )
 
   return (
     <InfoCard isFirst>
@@ -104,34 +96,7 @@ export const HexPage = ({ params }: { params: Params }) => {
           <RssiOverview max={hotspotsInfo.max} isSmall />
         </div>
       )}
-      {isOpen && (
-        <div className="flex w-full gap-2 rounded-xl bg-[#030303]/30 p-1 sm:hidden">
-          <button
-            onClick={() => setActiveTab(HOTSPOTS_TAB)}
-            className={clsx(
-              "flex-1 rounded-lg py-3",
-              activeTab === HOTSPOTS_TAB && "bg-[#686868]/50"
-            )}
-          >
-            <p className="text-base leading-4 text-[#DBE0E6]">Hotspots List</p>
-          </button>
-          <button
-            onClick={() => setActiveTab(HEX_INFO_TAB)}
-            className={clsx(
-              "flex-1 rounded-lg py-3",
-              activeTab === HEX_INFO_TAB && "bg-[#686868]/50"
-            )}
-          >
-            <p className="text-base leading-4 text-[#DBE0E6]">Hex Info</p>
-          </button>
-        </div>
-      )}
-      <div
-        className={clsx(
-          "w-full",
-          activeTab === HEX_INFO_TAB ? "sm:hidden" : "hidden sm:block"
-        )}
-      >
+      <div className="w-full">
         <div className="flex w-full items-center justify-between">
           <p className="text-base font-medium leading-5 text-white">
             Area Info

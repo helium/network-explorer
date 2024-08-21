@@ -23,7 +23,7 @@ export const InfoCard = ({
   const hide = !!openCard && label && !isActive
 
   let padding = "gap-4 p-[20px]"
-  if (isFirst) padding += " pt-0"
+  if (isFirst) padding += " pt-0 sm:pt-[20px]"
   if (reducedPadding) padding = "p-1"
 
   return (

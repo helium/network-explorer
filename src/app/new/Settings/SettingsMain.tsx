@@ -18,7 +18,7 @@ export const SettingsMain = ({
       <div className="mb-11 flex justify-between pl-2">
         <div className="flex items-center gap-2">
           <Cog6ToothIcon className="h-6 w-6 stroke-white transition sm:hidden" />
-          <p className="text-xl font-medium leading-8 text-white">Settings</p>
+          <p className="text-2xl font-medium leading-8 text-white">Settings</p>
         </div>
         <button
           aria-label="Close"

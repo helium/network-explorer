@@ -16,10 +16,13 @@
   .blur::before {
     content: none;
   }
+  .wrapper {
+    max-height: calc(100vh - 24 * 4px - 24px);
+  }
 }
 
 .wrapper {
-  max-height: calc(100vh - 24 * 4px - 24px);
+  max-height: calc(100vh * 2 / 3);
   scrollbar-gutter: stable;
   scrollbar-color: #404040b3 transparent; /*firefox*/
   z-index: 1;

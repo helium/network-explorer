@@ -23,7 +23,7 @@ export const Insights = () => {
         onClick={() => setOpenCard(CARD_LABEL)}
       >
         <Image alt="Hotspot icon" src={Hotspot} />
-        <p className="text-sm font-medium leading-4 text-white group-hover:text-neutral-200 sm:text-base sm:leading-5">
+        <p className="text-base font-medium leading-5 text-white group-hover:text-neutral-200 sm:text-base sm:leading-5">
           Hotspot Insights
         </p>
       </button>
