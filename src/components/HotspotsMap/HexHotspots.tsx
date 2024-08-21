@@ -16,6 +16,9 @@ export type Hotspot = {
     cbrs: boolean
     wifi: boolean
   }
+  location: {
+    hex: string
+  }
 }
 
 const RECENT = "recently rewarded"
