@@ -22,7 +22,6 @@ import Map, {
   Source,
 } from "react-map-gl"
 import { gaEvent } from "../GATracker"
-import { Attribution } from "./Attribution"
 import { NetworkCoverageLayer } from "./NetworkCoverageLayer"
 import { mapLayersDark } from "./mapLayersDark"
 import { mapLayersLight } from "./mapLayersLight"
@@ -158,8 +157,6 @@ export function HotspotsMap({ children }: { children: React.ReactNode }) {
     >
       <NavigationControl position="bottom-left" showCompass={false} />
       {children}
-
-      {segment !== "stats" && <Attribution />}
 
       {segment !== "mobile" && (
         <NetworkCoverageLayer layer={networkLayers.iot} />
