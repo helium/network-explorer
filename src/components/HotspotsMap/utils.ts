@@ -125,14 +125,14 @@ export const networkLayers: { [network: string]: NetworkCoverageLayerOption } =
       name: "IOT",
       icon: HeliumIotIcon,
       color: HELIUM_IOT_COLOR,
-      sourceDomain: process.env.NEXT_PUBLIC_HOTSPOTTY_TILESERVER_URL!,
+      sourceDomain: process.env.NEXT_PUBLIC_HELIUMGEEK_TILESERVER_URL!,
       points: {
-        sourcePath: "public.helium_iot_points.json",
-        sourceLayer: "public.helium_iot_points",
+        sourcePath: "hg.gateways-rewarded-r8.points.json",
+        sourceLayer: "hg.gateways-rewarded-r8.points",
       },
       hexes: {
-        sourcePath: "public.helium_iot_hexes.json",
-        sourceLayer: "public.helium_iot_hexes",
+        sourcePath: "hg.gateways-rewarded-r8.hexes.json",
+        sourceLayer: "hg.gateways-rewarded-r8.hexes",
       },
     },
   }
