@@ -73,7 +73,7 @@ export const HexPage = ({ params }: { params: Params }) => {
   const { isOpen } = useInfoWrapper()
 
   return (
-    <InfoCard isFirst>
+    <InfoCard isFirst isLast>
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-2">
           <HexOutlineIcon />
