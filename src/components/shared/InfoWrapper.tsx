@@ -39,7 +39,7 @@ export const InfoWrapperComponent = ({ children }: PropsWithChildren) => {
   return (
     <div
       className={clsx(
-        `absolute w-full ${styles.wrapper} ${styles.blur} overflow-hidden scroll-auto hover:overflow-auto`,
+        `absolute w-full ${styles.wrapper} overflow-hidden scroll-auto hover:overflow-auto`,
         "sm-rounded-xl sm:left-6 sm:top-24 sm:h-auto sm:w-80 sm:bg-inherit",
         "bottom-0 w-full rounded-t-xl bg-[#131313]/75 pb-2 transition-all sm:pb-0",
         isOpen ? "h-auto" : "h-1/3"
