@@ -48,10 +48,8 @@ function getGroupedHotspots(hotspots: Hotspot[]) {
 }
 
 export async function HexHotspots({ hexId }: { hexId: string }) {
-  console.log(process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL)
-  console.log(process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN)
   const hotspots = (await fetch(
-    `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL}/hex/${hexId}`,
+    `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_URL}/hex/${hexId}`,
     {
       headers: {
         "x-api-key": `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN}`,

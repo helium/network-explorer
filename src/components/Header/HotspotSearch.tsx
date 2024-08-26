@@ -38,7 +38,7 @@ export function HotspotSearch() {
 
     try {
       const searchUrl = new URL(
-        `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API2_URL}`
+        `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_URL}`
       )
       searchUrl.searchParams.append("name", query.trim())
 
