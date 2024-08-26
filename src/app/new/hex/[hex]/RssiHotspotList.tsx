@@ -16,7 +16,7 @@ export const RssiHotspotList = ({ hotspots, hex }: RssiHotspotListProps) => {
   return (
     <div className="relative w-full">
       <p className="text-base font-medium leading-5 text-white">Hotspots</p>
-      <div className="relative -left-4 mt-2 flex w-[297px] flex-col gap-0.5">
+      <div className="relative -left-4 flex w-[297px] flex-col gap-0.5 sm:mt-2">
         {hotspots.map(({ address, rssi }) => {
           return (
             <Link

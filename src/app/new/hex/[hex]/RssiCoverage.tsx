@@ -15,7 +15,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
   return (
     <div className={clsx("flex w-full flex-col gap-2")}>
       <p className="text-base font-medium leading-5 text-white">
-        RSSI area coverage (dBm)
+        Signal Strength Distribution
       </p>
       <div className="display flex">
         {!!strong && (
@@ -54,7 +54,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
           <div className="flex flex-col items-end">
             <p className="text-sm leading-4 text-white">-90 dBm</p>
             <p className="text-xs leading-3 text-white opacity-80">
-              {strong} Hotspots
+              {strong} Hotspot
             </p>
           </div>
         </div>
@@ -65,7 +65,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
           <div className="flex flex-col items-end">
             <p className="text-sm leading-4 text-white">-70 dBm</p>
             <p className="text-xs leading-3 text-white opacity-80">
-              {medium} Hotspot
+              {medium} Hotspots
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@ export const RssiCoverage = ({ strong, medium, low }: RssiCoverageProps) => {
           <div className="flex flex-col items-end">
             <p className="text-sm leading-4 text-white">-50 dBm</p>
             <p className="text-xs leading-3 text-white opacity-80">
-              {low} Hotspot
+              {low} Hotspots
             </p>
           </div>
         </div>

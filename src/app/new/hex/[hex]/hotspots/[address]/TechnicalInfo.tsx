@@ -46,19 +46,20 @@ export const TechnicalInfo = () => {
       {isActive && (
         <InfoCardBody>
           <div className="w-full">
+            {/* When we have real data, we'll want to only show hours and seconds if less than a day */}
             <Header>Online Time</Header>
             <Body>3y 45m 27d 17:34:56</Body>
           </div>
           <div className="w-full">
-            <Header>Hotspot manufacturer</Header>
+            <Header>Hotspot Manufacturer</Header>
             <Body>Cisco Systems</Body>
           </div>
           <div className="w-full">
-            <Header>Antenna gain</Header>
+            <Header>Antenna Gain</Header>
             <Body>250.7 mb</Body>
           </div>
           <div className="w-full">
-            <Header>Antenna elevation</Header>
+            <Header>Antenna Elevation</Header>
             <Body>+15 ft</Body>
           </div>
           <div className="flex w-full gap-4">

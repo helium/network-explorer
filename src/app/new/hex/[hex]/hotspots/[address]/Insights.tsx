@@ -42,7 +42,7 @@ export const Insights = () => {
           </div>
           <div className="w-full">
             <p className="text-sm font-medium leading-4 text-white sm:text-base sm:leading-5">
-              Area covered
+              Area Covered
             </p>
             <div className="mt-2 flex items-end">
               <p className="text-3xl leading-8 text-white">0.497</p>

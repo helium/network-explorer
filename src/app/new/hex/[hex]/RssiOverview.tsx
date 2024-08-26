@@ -8,11 +8,11 @@ type RssiOverviewProps = {
 
 export const RssiOverview = ({ max, isSmall }: RssiOverviewProps) => {
   return (
-    <div className="flex w-full gap-2">
+    <div className="flex w-full gap-4">
       {!isSmall && (
         <div className="flex flex-1 flex-col gap-2">
-          <p className="text-base font-medium  leading-5 text-white">
-            Hotspots in this area
+          <p className="text-base font-medium leading-5 text-white">
+            Hotspots in This&nbsp;Area
           </p>
           <p className="text-3xl leading-6 text-white">4</p>
         </div>
@@ -24,7 +24,7 @@ export const RssiOverview = ({ max, isSmall }: RssiOverviewProps) => {
             isSmall ? "text-sm leading-4" : "text-base leading-5"
           )}
         >
-          Max Expected Signal Strength
+          Max Expected Signal&nbsp;Strength
         </p>
         <div
           className={clsx(

@@ -22,7 +22,7 @@ export const InfoCard = ({
   const isActive = openCard === label
   const hide = !!openCard && label && !isActive
 
-  let padding = "gap-4 p-[20px]"
+  let padding = "gap-5 p-[20px]"
   if (isFirst) padding += " pt-0 sm:pt-[20px]"
   if (reducedPadding) padding = "p-1"
 
@@ -48,7 +48,7 @@ export const InfoCard = ({
 export const InfoCardBody = ({ children }: PropsWithChildren) => {
   return (
     <div
-      className={clsx("flex w-full flex-col gap-4 px-5 pb-5 pt-1", "sm:px-5")}
+      className={clsx("flex w-full flex-col gap-4 px-5 pb-5 pt-1", "sm:px-4")}
     >
       {children}
     </div>

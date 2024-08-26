@@ -98,9 +98,7 @@ export const HexPage = ({ params }: { params: Params }) => {
       )}
       <div className="w-full">
         <div className="flex w-full items-center justify-between">
-          <p className="text-base font-medium leading-5 text-white">
-            Area Info
-          </p>
+          <p className="text-base font-medium leading-5">Area Info</p>
           <div className="flex items-center gap-0.5 opacity-50">
             <Image src={KuzcoLogo} alt="Kuzco Logo" />
             <p className="text-sm text-white ">Powered by Kuzco</p>
