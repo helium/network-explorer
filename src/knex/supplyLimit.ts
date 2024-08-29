@@ -56,6 +56,9 @@ export class SupplyLimit {
     const hasBurnIncrease =
       record.hnt_burned > (latestBurn?.hnt_burned || BigInt(0))
 
+    // HEROKU_PR_NUMBER injected to env vars when review app.
+    if (!!process.env.HEROKU_PR_NUMBER) return latest || latestBurn || record
+
     if (
       // first time app is run
       (!latest && !latestBurn) ||
