@@ -1,7 +1,6 @@
 "use client"
 
 import { usePreferences } from "@/context/usePreferences"
-import animalHash from "angry-purple-tiger"
 import Link from "next/link"
 import { gaEvent } from "../GATracker"
 import { HeliumIotIcon } from "../icons/HeliumIotIcon"
@@ -15,23 +14,19 @@ type HexHotSpotItemProps = {
 export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
   const { provider } = usePreferences()
 
-  const hotspotName = animalHash(hotspot.hotspot_id)
-  const hasSmallCells = hotspot.cells.length > 0
-  const Avatar = hasSmallCells ? HeliumMobileIcon : HeliumIotIcon
-  const subtitle = hasSmallCells
-    ? `${hotspot.cells.length} small cell${
-        hotspot.cells.length === 1 ? "" : "s"
-      }`
-    : "IoT Hotspot"
+  const { cbrs, wifi, mobile } = hotspot.capabilities
+  const isMobile = cbrs || wifi || mobile
+  const Avatar = isMobile ? HeliumMobileIcon : HeliumIotIcon
+  const subtitle = isMobile ? `Mobile Hotspot` : "IoT Hotspot"
 
   return (
-    <li key={hotspot.hotspot_id}>
+    <li key={hotspot.address}>
       <div className="group relative flex items-center px-2 py-3">
         <Link
           href={
             !provider
-              ? `/preferences?redirect=${hotspot.hotspot_id}`
-              : provider.getUrl(hotspot.hotspot_id)
+              ? `/preferences?redirect=${hotspot.address}`
+              : provider.getUrl(hotspot.address)
           }
           className="-m-1 block flex-1 p-1"
           target={!!provider ? "_" : "_self"}
@@ -54,7 +49,7 @@ export const HexHotSpotItem = ({ hotspot }: HexHotSpotItemProps) => {
             <Avatar className="inline-block h-8 w-8 flex-shrink-0" />
             <div className="truncate">
               <p className="truncate text-sm font-medium leading-5 text-gray-900 dark:text-zinc-100">
-                {hotspotName}
+                {hotspot.name}
               </p>
               <p className="truncate text-xs text-gray-600 dark:text-zinc-300">
                 {subtitle}

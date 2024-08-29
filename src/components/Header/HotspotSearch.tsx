@@ -8,6 +8,7 @@ import { isValidCell } from "h3-js"
 import { useRouter } from "next/navigation"
 import { Fragment, useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
+import { Hotspot } from "../HotspotsMap/HexHotspots"
 import { HeliumIotIcon } from "../icons/HeliumIotIcon"
 import { HeliumMobileIcon } from "../icons/HeliumMobileIcon"
 import { LoadingIcon } from "../icons/LoadingIcon"
@@ -16,20 +17,11 @@ let controller: AbortController | null = null
 
 const RESULTS_LIMIT = 20
 
-export interface HotspotResult {
-  hotspot_id: string
-  location_res8: string
-  location_res12: string
-  name: string
-  owner: string
-  cell_count: number
-}
-
 export function HotspotSearch() {
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [open, setOpen] = useState(false)
-  const [searchResults, setSearchResults] = useState<HotspotResult[]>([])
+  const [searchResults, setSearchResults] = useState<Hotspot[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const searchItemByQuery = useCallback(async (query: string) => {
@@ -46,17 +38,18 @@ export function HotspotSearch() {
 
     try {
       const searchUrl = new URL(
-        `${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_URL}/search`
+        `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_URL}`
       )
-      searchUrl.searchParams.append("name", query.trim().replaceAll(" ", "-"))
+      searchUrl.searchParams.append("name", query.trim())
 
       const results = (await fetch(searchUrl, {
         signal,
         next: { revalidate: 10 },
         headers: {
-          Authorization: `bearer ${process.env.NEXT_PUBLIC_HOTSPOTTY_EXPLORER_API_TOKEN}`,
+          "x-api-key": `${process.env.NEXT_PUBLIC_HELIUMGEEK_EXPLORER_API_TOKEN}`,
+          "Content-Type": "application/json",
         },
-      }).then((res) => res.json())) as HotspotResult[]
+      }).then((res) => res.json())) as Hotspot[]
 
       setSearchResults(results)
       setIsLoading(false)
@@ -82,8 +75,8 @@ export function HotspotSearch() {
   }, [])
 
   const handleHotspotSelection = useCallback(
-    (hotspot: HotspotResult) => {
-      router.push(`/hex/${hotspot.location_res8}`)
+    (hotspot: Hotspot) => {
+      router.push(`/hex/${hotspot.location.hex}`)
       setOpen(false)
     },
     [router]
@@ -163,13 +156,15 @@ export function HotspotSearch() {
                           {searchResults
                             .slice(0, RESULTS_LIMIT)
                             .map((hotspot) => {
-                              const Avatar =
-                                hotspot.cell_count > 0
-                                  ? HeliumMobileIcon
-                                  : HeliumIotIcon
+                              const { cbrs, wifi, mobile } =
+                                hotspot.capabilities
+                              const isMobile = cbrs || wifi || mobile
+                              const Avatar = isMobile
+                                ? HeliumMobileIcon
+                                : HeliumIotIcon
                               return (
                                 <Combobox.Option
-                                  key={hotspot.hotspot_id}
+                                  key={hotspot.address}
                                   value={hotspot}
                                   className={({ active }) =>
                                     clsx(
