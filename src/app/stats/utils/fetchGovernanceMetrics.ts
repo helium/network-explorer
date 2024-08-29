@@ -74,9 +74,7 @@ const DEV_STATS: PositionMetricsByGroup = {
   },
 }
 const getHntGovernanceMetrics = async () => {
-  if (process.env.NODE_ENV === "development") {
-    return DEV_STATS
-  }
+  if (process.env.NODE_ENV === "development") return DEV_STATS
 
   const [positions, delegatedPositions] = await Promise.all([
     fetchPositions("hnt"),
@@ -93,9 +91,7 @@ const getHntGovernanceMetrics = async () => {
 export const fetchHntGovernanceStats = cache(getHntGovernanceMetrics)
 
 const getSubDaoGovernanceMetrics = async (subDao: SubDao) => {
-  if (process.env.NODE_ENV === "development") {
-    return DEV_STATS[subDao]
-  }
+  if (process.env.NODE_ENV === "development") return DEV_STATS[subDao]
 
   const positions = await fetchPositions(subDao)
   const positionsWithMeta = await addPositionsMeta({
