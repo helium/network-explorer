@@ -73,13 +73,8 @@ const DEV_STATS: PositionMetricsByGroup = {
     },
   },
 }
-
-// HEROKU_PR_NUMBER injected to env vars when review app.
-const SHOW_DEV_STATS =
-  process.env.NODE_ENV === "development" || !!process.env.HEROKU_PR_NUMBER
-
 const getHntGovernanceMetrics = async () => {
-  if (SHOW_DEV_STATS) {
+  if (process.env.NODE_ENV === "development") {
     return DEV_STATS
   }
 
@@ -98,7 +93,7 @@ const getHntGovernanceMetrics = async () => {
 export const fetchHntGovernanceStats = cache(getHntGovernanceMetrics)
 
 const getSubDaoGovernanceMetrics = async (subDao: SubDao) => {
-  if (SHOW_DEV_STATS) {
+  if (process.env.NODE_ENV === "development") {
     return DEV_STATS[subDao]
   }
 
