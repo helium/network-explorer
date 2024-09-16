@@ -56,13 +56,21 @@ export const fetchHntEmissions = cache(async () => {
     }
   })
 
-  const totalEmissions = Object.keys(totalEmissionsCombined).map((date) => {
-    const { block_date, hnt_minted } = totalEmissionsCombined[date]
-    return {
-      block_date,
-      hnt_minted: Math.floor(hnt_minted),
-    }
-  })
+  const currentDate = new Date()
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(currentDate.getDate() - 30)
+
+  const totalEmissions = Object.keys(totalEmissionsCombined)
+    .map((date) => {
+      const { block_date, hnt_minted } = totalEmissionsCombined[date]
+      return {
+        block_date,
+        hnt_minted: Math.floor(hnt_minted),
+      }
+    })
+    .filter(({ block_date }) => {
+      return new Date(block_date) > thirtyDaysAgo
+    })
 
   return {
     totalEmissions,
