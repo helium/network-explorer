@@ -40,7 +40,7 @@ type TotalHntEmission = {
 export const fetchHntEmissions = cache(async () => {
   const [subDaoEmissions, hstEmissions] = await Promise.all([
     duneQuery<TreasuryHntEmission[]>(2566814),
-    duneQuery<HstEmission[]>(3439959),
+    duneQuery<HstEmission[]>(2571254),
   ])
 
   const totalEmissionsCombined: { [date: string]: TotalHntEmission } = {}
