@@ -1,0 +1,22 @@
+@media (max-width: 640px) {
+  .wrapper {
+    backdrop-filter: blur(8px);
+    max-height: calc(100vh * 2 / 3);
+  }
+}
+
+@media (min-width: 640px) {
+  .wrapper {
+    max-height: calc(100vh - 24 * 4px - 24px);
+  }
+}
+
+.wrapper {
+  scrollbar-gutter: stable;
+  scrollbar-color: #404040b3 transparent; /*firefox*/
+  z-index: 1;
+}
+.wrapper::-webkit-scrollbar {
+  border: none;
+  background-color: transparent;
+}
