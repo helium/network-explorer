@@ -4,7 +4,7 @@ import { Combobox, Dialog, Transition } from "@headlessui/react"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid"
 import clsx from "clsx"
-import { isValidCell } from "h3-js"
+import { cellToParent, isValidCell } from "h3-js"
 import { useRouter } from "next/navigation"
 import { Fragment, useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
@@ -76,7 +76,7 @@ export function HotspotSearch() {
 
   const handleHotspotSelection = useCallback(
     (hotspot: Hotspot) => {
-      router.push(`/hex/${hotspot.location.hex}`)
+      router.push(`/hex/${cellToParent(hotspot.location.hex, 8)}`)
       setOpen(false)
     },
     [router]
