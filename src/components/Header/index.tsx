@@ -27,6 +27,7 @@ function Logo({ className, ...props }: { className?: string }) {
 }
 
 export function Header() {
+  if (true) return null
   return (
     <header className="fixed bottom-auto z-50 h-24 pt-6">
       <Container className="fixed w-full">

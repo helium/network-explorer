@@ -1,0 +1,22 @@
+/* Required for the nested blurs we get when using the selector. See https://stackoverflow.com/questions/60997948/backdrop-filter-not-working-for-nested-elements-in-chrome */
+.blur::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  top: 0px;
+  left: 0px;
+  border-radius: 12px;
+  z-index: -1;
+}
+
+.wrapper {
+  scrollbar-gutter: stable;
+  scrollbar-color: #404040b3 transparent; /*firefox*/
+}
+.wrapper::-webkit-scrollbar {
+  border: none;
+  background-color: transparent;
+}
