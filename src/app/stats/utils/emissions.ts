@@ -1,3 +1,0 @@
-export const HNT_MAX_SUPPLY = 223_000_000
-export const IOT_MAX_SUPPLY = 200_000_000_000
-export const MOBILE_MAX_SUPPLY = 230_000_000_000
