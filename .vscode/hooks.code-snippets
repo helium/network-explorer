@@ -1,8 +1,0 @@
-{
-  "Log variable with useEffect": {
-    "scope": "javascript,typescript,javascriptreact,typescriptreact",
-    "prefix": "lue",
-    "body": ["useEffect(() => {", "  console.log({$0})", "}, [$0]);"],
-    "description": "Log variable with useEffect hook"
-  }
-}
