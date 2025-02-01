@@ -9,12 +9,7 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/((?!api).*)/:slug",
-        destination: "https://world.helium.com",
-        permanent: true,
-      },
-      {
-        source: "/:slug",
+        source: "/((?!api(?:$|/)).*)",
         destination: "https://world.helium.com",
         permanent: true,
       },
