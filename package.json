@@ -2,10 +2,8 @@
   "name": "network-explorer",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@8.6.0",
-  "node": ">=18.0.0",
   "engines": {
-    "npm": ">=8.0.0 <9.0.0",
+    "pnpm": "8.6.0",
     "node": ">=18.0.0"
   },
   "scripts": {
