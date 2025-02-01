@@ -4,6 +4,10 @@
   "private": true,
   "packageManager": "pnpm@8.6.0",
   "node": ">=18.0.0",
+  "engines": {
+    "npm": ">=8.0.0 <9.0.0",
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run db:migrate",
