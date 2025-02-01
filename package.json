@@ -2,10 +2,8 @@
   "name": "network-explorer",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "pnpm": "8.6.0",
-    "node": "^18.0.0"
-  },
+  "packageManager": "pnpm@8.6.0",
+  "node": "20.17.0",
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run db:migrate",
@@ -54,7 +52,7 @@
     "knex": "^2.5.1",
     "mapbox-gl": "^2.15.0",
     "maplibre-gl": "^3.3.1",
-    "next": "13.4.12",
+    "next": "14.2.4",
     "next-themes": "0.2.1",
     "pg": "^8.11.1",
     "pmtiles": "^2.10.0",
