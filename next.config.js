@@ -1,17 +1,11 @@
-/** @type {import("next").NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  pageExtensions: ["js", "jsx", "ts", "tsx"],
-  experimental: {
-    scrollRestoration: true,
-    serverComponentsExternalPackages: ["knex"],
-  },
   async redirects() {
     return [
       {
-        source: "/((?!api(?:$|/)).*)",
-        destination: "https://world.helium.com",
-        permanent: true,
+        source: '/(.*)',           // Matches every route
+        destination: 'https://world.helium.com',
+        permanent: true,            // Use a 301 permanent redirect
       },
     ]
   },
