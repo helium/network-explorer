@@ -3,12 +3,13 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/(.*)',           // Matches every route
+        // Redirect all routes that don't start with /api
+        source: '/((?!api).*)',
         destination: 'https://world.helium.com',
-        permanent: true,            // Use a 301 permanent redirect
+        permanent: true,
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
